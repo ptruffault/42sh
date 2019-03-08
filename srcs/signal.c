@@ -48,7 +48,10 @@ void		sig_handler(int sig)
 		tmp->status = DONE;
 	}
 	if (sig == SIGKILL)
+	{
+		ft_printf("SIGKILL");
 		ft_exit("9");
+	}
 }
 
 void		set_signals(void)

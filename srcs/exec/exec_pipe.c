@@ -14,12 +14,10 @@
 
 void	ft_wait_pipe(t_process *p)
 {
-	if (p && p->pid)
+	if (p && p->pid > 0)
 	{
 		waitpid(p->pid, &p->ret, WUNTRACED);
-		if (WIFSTOPPED(p->ret))
-			p->status = SUSPENDED;
-		else if (p->status != KILLED)
+		if (p->status != KILLED && p->status != SUSPENDED)
 			p->status = DONE;
 	}
 }
@@ -30,14 +28,8 @@ static t_tree	*ft_end(t_tree *t, t_process *p1, t_process *p2, int pip[2])
 {
 	ft_close(pip[0]);
 	ft_close(pip[1]);
-	if (p1 && p2 && p1->pid > 0 && p2->pid > 0)
-	{
-		
-
-		p1->status = DONE;
-		waitpid(p2->pid, &p2->ret, WUNTRACED);
-		p2->status = DONE;
-	}
+	ft_wait_pipe(p1);
+	ft_wait_pipe(p2);
 	while (t->o_type == O_PIPE)
 		t = t->next;
 	return (t);

@@ -37,7 +37,7 @@ static void ft_print_fast(t_edit *e)
 {
 	uintmax_t pos;
 	uintmax_t size;
-	uintmax_t i;
+	int i;
 
 	ft_delete_line(e);
 	pos = 0;
@@ -53,7 +53,8 @@ static void ft_print_fast(t_edit *e)
 	}
 	write(1, e->hist->s, pos);
 	print_background(e, pos, size);
-	write(1, e->hist->s + pos + size, i - pos - size);
+	if (e->curr != i && e->select != i)
+		write(1, e->hist->s + pos + size, i - pos - size);
 	e->pos = i;
 }
 

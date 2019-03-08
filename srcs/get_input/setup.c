@@ -25,7 +25,7 @@ t_edit	init_tedit(t_shell *sh)
 	{
 		tmp->next = sh->hist;
 		sh->e.hist = tmp;
-		tmp->s = ft_strnew(1);
+		tmp->s = ft_strnew(2);
 	}
 	return (sh->e);
 }

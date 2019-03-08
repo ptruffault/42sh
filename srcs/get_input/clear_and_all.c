@@ -29,7 +29,7 @@ void	entry_key(t_edit *e)
 	char	*error[7];
 
 	setup_key(error);
-	eval = lexer(e->input);
+	eval = lexer(e->hist->s);
 	ft_strdel(&eval.eval);
 	ft_strdel(&eval.s);
 	if (eval.err > 1)
@@ -42,10 +42,10 @@ void	entry_key(t_edit *e)
 		else
 		{
 			ft_printf("\n\033[00;31m%s\033[00m >\n", error[eval.err - 2]);
-			ft_putstr(e->input);
-			e->pos = ft_strlen(e->input);
+			ft_putstr(e->hist->s);
+			e->pos = ft_strlen(e->hist->s);
 		}
-		e->curr = ft_strlen(e->input);
+		e->curr = ft_strlen(e->hist->s);
 	}
 	else
 		e->edited = TRUE;
@@ -55,12 +55,13 @@ void	clear_term(t_edit *e)
 {
 	term_actions(HOME_POS);
 	term_actions(CLEAR);
-	ft_putstr(e->input);
+	e->pos = 0;
 }
 
 void	reset_get_input(t_edit *e)
 {
-	ft_strdel(&e->input);
+	(void)e;
+	//ft_strdel(&e->hist->s);
 }
 
 void	just_exit(t_edit *e)
@@ -73,7 +74,7 @@ void	just_exit(t_edit *e)
 		sh->heredoc = 0;
 		sh->e.edited = TRUE;
 	}
-	else if (!e->input[0])
+	else if (!e->hist->s[0])
 	{
 		ft_set_old_term(sh);
 		ft_free_tshell(sh);

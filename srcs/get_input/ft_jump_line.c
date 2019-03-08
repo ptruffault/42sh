@@ -20,6 +20,6 @@ void	ft_jump_line_up(t_edit *e)
 
 void	ft_jump_line_down(t_edit *e)
 {
-	if (ft_strlen(e->input) - (size_t)e->curr >= (size_t)e->width)
+	if ((int)ft_strlen(e->hist->s) - e->curr >= e->width)
 		e->curr += e->width;
 }

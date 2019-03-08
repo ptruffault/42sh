@@ -24,16 +24,16 @@ void		ft_add_char(char buf, t_edit *e)
 	}
 	if (!ft_isprint(buf))
 		return ;
-	i = ft_strlen(e->input);
-	size = ft_strlen(e->input) + 1;
+	i = ft_strlen(e->hist->s);
+	size = ft_strlen(e->hist->s) + 1;
 	while (i > 1 && i > e->curr)
 	{
-		e->input[i] = e->input[i - 1];
+		e->hist->s[i] = e->hist->s[i - 1];
 		i--;
 	}
-	e->input[e->curr] = buf;
-	e->input = ft_realloc(e->input, size, size + 1);
-	e->input[size] = '\0';
+	e->hist->s[e->curr] = buf;
+	e->hist->s = ft_realloc(e->hist->s, size, size + 1);
+	e->hist->s[size] = '\0';
 	e->curr++;
 	if (e->select != -1)
 		e->select = -1;
@@ -49,16 +49,16 @@ static void	delete_simple_left(t_edit *e)
 		return ;
 	i = 0;
 	j = 0;
-	tmp = ft_strnew(ft_strlen(e->input));
-	while (e->input[j])
+	tmp = ft_strnew(ft_strlen(e->hist->s));
+	while (e->hist->s[j])
 	{
 		if (j != e->curr - 1)
-			tmp[i++] = e->input[j];
+			tmp[i++] = e->hist->s[j];
 		j++;
 	}
 	tmp[i] = '\0';
-	ft_strdel(&e->input);
-	e->input = tmp;
+	ft_strdel(&e->hist->s);
+	e->hist->s = tmp;
 	curr_move_left(e);
 }
 
@@ -70,20 +70,20 @@ static void	delete_multiple_left(t_edit *e, int stop)
 
 	x = 0;
 	i = 0;
-	tmp = ft_strnew(ft_strlen(e->input));
-	while (e->input[i] && i < stop)
-		tmp[x++] = e->input[i++];
+	tmp = ft_strnew(ft_strlen(e->hist->s));
+	while (e->hist->s[i] && i < stop)
+		tmp[x++] = e->hist->s[i++];
 	i = (e->curr > e->select ? e->curr : e->select);
-	if (e->input[i])
+	if (e->hist->s[i])
 		++i;
-	while (e->input[i])
-		tmp[x++] = e->input[i++];
+	while (e->hist->s[i])
+		tmp[x++] = e->hist->s[i++];
 	tmp[x] = '\0';
-	ft_strdel(&e->input);
-	e->input = tmp;
+	ft_strdel(&e->hist->s);
+	e->hist->s = tmp;
 	e->curr = e->curr > e->select ? e->select : e->curr;
-	if ((size_t)e->curr > ft_strlen(e->input))
-		e->curr = ft_strlen(e->input);
+	if (e->curr > (int)ft_strlen(e->hist->s))
+		e->curr = ft_strlen(e->hist->s);
 }
 
 void		delete_left(t_edit *e)
@@ -106,18 +106,18 @@ void		delete_on(t_edit *e)
 	int		j;
 	char	*tmp;
 
-	if ((size_t)e->curr == (size_t)ft_strlen(e->input))
+	if ((size_t)e->curr == (size_t)ft_strlen(e->hist->s))
 		return ;
 	i = 0;
 	j = 0;
-	tmp = ft_strnew(ft_strlen(e->input));
-	while (e->input[j])
+	tmp = ft_strnew(ft_strlen(e->hist->s));
+	while (e->hist->s[j])
 	{
 		if (j != e->curr)
-			tmp[i++] = e->input[j];
+			tmp[i++] = e->hist->s[j];
 		j++;
 	}
 	tmp[i] = '\0';
-	ft_strdel(&e->input);
-	e->input = tmp;
+	ft_strdel(&e->hist->s);
+	e->hist->s = tmp;
 }

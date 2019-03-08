@@ -16,73 +16,58 @@ void	update_input(t_edit *e, char *s)
 {
 	if (s == NULL)
 		ft_delete_line(e);
-	ft_strdel(&e->input);
+	ft_strdel(&e->hist->s);
 	if (s != NULL)
-		e->input = s;
+		e->hist->s = s;
 	else if (s == NULL)
-		e->input = ft_strnew(3);
+		e->hist->s = ft_strnew(3);
 	e->curr = ft_strlen(s);
 }
 
-char	**ft_tab_realloc(char **buff, size_t size)
+/*static char *bottom_start_hist(t_hist *hist, char *input)
 {
-	char	**ret;
-	int		x;
+	int x;
 
-	if (!(ret = malloc(size)))
-		return (NULL);
-	if (!buff)
-		return (buff);
-	x = -1;
-	while (buff[++x])
+	while (hist)
 	{
-		ret[x] = ft_strdup(buff[x]);
-		free(buff[x]);
+		if ((x = ft_strstr(hist->s, input) != 0))
+			break ;
+		hist = hist->next;
 	}
-	ret[x] = NULL;
-	free(buff);
-	return (ret);
-}
+	if (x != 0)
+	{
+		ft_strdel(&input);
+		input = ft_strdup(hist->s);
+	}
+	return (input);
+}*/
 
 void	hist_move_up(t_edit *e)
 {
-	int		x;
-	t_hist	*hist;
+	//t_hist *hist;
 
-	hist = e->hist;
 	ft_delete_line(e);
-	if (!hist || !hist->s)
+	if (!e->hist->next)
 		return ;
-	x = -1;
-	e->pos_hist++;
-	while (hist->s && hist->next && ++x < e->pos_hist)
-		hist = hist->next;
-	if (hist->s)
-		update_input(e, ft_strdup(hist->s));
-	else
-		e->pos_hist--;
+	//if (!e->hist->prev && e->hist->s[0] != '0' && e->hist->next)
+	//	{
+	//		hist = e->hist->next;
+	//		e->hist->s = bottom_start_hist(hist, e->hist->s);
+	//	}
+	//else
+		e->hist = e->hist->next;
+	e->curr = ft_strlen(e->hist->s);
+	e->select = -1;
+	ft_print_line(e);
 }
 
 void	hist_move_do(t_edit *e)
 {
-	t_hist	*hist;
-	int		x;
-
-	x = 0;
-	hist = e->hist;
 	ft_delete_line(e);
-	if (e->pos_hist > -1)
-		e->pos_hist--;
-	if (e->pos_hist > -1)
-	{
-		while (hist->s && hist->next && x < e->pos_hist)
-		{
-			hist = hist->next;
-			++x;
-		}
-		if (hist->s)
-			update_input(e, ft_strdup(hist->s));
-	}
-	else if (e->pos_hist == -1)
-		update_input(e, NULL);
+	if (!e->hist->prev)
+		return ;
+	e->hist = e->hist->prev;
+	e->curr = ft_strlen(e->hist->s);
+	e->select = -1;
+	ft_print_line(e);
 }

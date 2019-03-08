@@ -36,7 +36,7 @@ void	ft_copy(t_edit *e)
 	if (sh->clipboard)
 		ft_strdel(&sh->clipboard);
 	if ((sh->clipboard = ft_strnew(size + 1)))
-		sh->clipboard = ft_strncpy(sh->clipboard, e->input + pos, size + 1);
+		sh->clipboard = ft_strncpy(sh->clipboard, e->hist->s + pos, size + 1);
 }
 
 void	ft_paste(t_edit *e)
@@ -49,19 +49,19 @@ void	ft_paste(t_edit *e)
 
 	sh = ft_get_set_shell(NULL);
 	if (sh->clipboard
-	&& (tmp = ft_strnew(ft_strlen(e->input) + ft_strlen(sh->clipboard) + 1)))
+	&& (tmp = ft_strnew(ft_strlen(e->hist->s) + ft_strlen(sh->clipboard) + 1)))
 	{
 		b = 0;
 		x = 0;
 		c = 0;
 		while (x < e->curr)
-			tmp[b++] = e->input[x++];
+			tmp[b++] = e->hist->s[x++];
 		while (sh->clipboard[c])
 			tmp[b++] = sh->clipboard[c++];
-		while (e->input[x])
-			tmp[b++] = e->input[x++];
-		ft_strdel(&e->input);
-		e->input = tmp;
+		while (e->hist->s[x])
+			tmp[b++] = e->hist->s[x++];
+		ft_strdel(&e->hist->s);
+		e->hist->s = tmp;
 	}
 	e->select = -1;
 }

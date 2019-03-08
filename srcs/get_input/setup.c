@@ -14,19 +14,18 @@
 
 t_edit	init_tedit(t_shell *sh)
 {
+	t_hist *tmp;
+
 	ft_update_windows(&sh->e);
 	sh->e.edited = FALSE;
 	sh->e.curr = 0;
 	sh->e.pos = 0;
-	sh->e.input = ft_strnew(1);
-	sh->e.pos_hist = -1;
-	sh->e.hist = sh->hist;
 	sh->e.select = -1;
+	if ((tmp = new_hist()))
+	{
+		tmp->next = sh->hist;
+		sh->e.hist = tmp;
+		tmp->s = ft_strnew(1);
+	}
 	return (sh->e);
-}
-
-void	free_tedit(t_edit *e)
-{
-	ft_strdel(&e->input);
-	e = NULL;
 }

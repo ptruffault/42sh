@@ -67,17 +67,17 @@ typedef struct	s_hist
 {
 	char			*s;
 	struct s_hist	*next;
+	struct s_hist *prev;
 }				t_hist;
 
 typedef struct	s_edit
 {
 	t_bool		edited;
-	char		*input;
 	int			curr;
 	int			pos;
 	int			width;
-	int			pos_hist;
 	int			select;
+	unsigned short		mode;
 	t_hist		*hist;
 }				t_edit;
 

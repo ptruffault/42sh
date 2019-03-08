@@ -16,7 +16,7 @@ void	ft_select_right(t_edit *e)
 {
 	if (e->select == -1)
 		e->select = e->curr;
-	if ((size_t)e->curr + 1 < ft_strlen(e->input))
+	if (e->curr + 1 < (int)ft_strlen(e->hist->s))
 		e->curr++;
 }
 

@@ -17,17 +17,25 @@ char		*ft_update_hist(t_shell *sh)
 	char	*ret;
 	char	*hi_path;
 
-	if (sh->e.input[0] != '\0'
+	ret = ft_strdup(sh->e.hist->s);
+	if (sh->e.hist->s[0] != '\0'
 	&& (hi_path = get_tenvv_val(sh->env, "HISTORY")))
 	{
-		ft_write_in_file(hi_path, sh->e.input);
-		sh->hist = add_hist(sh->hist, sh->e.input);
+		ft_write_in_file(hi_path, sh->e.hist->s);
+		if (!sh->e.hist->prev)
+			sh->hist = sh->e.hist;
+		else
+		{
+			while (sh->e.hist->prev)
+				sh->e.hist = sh->e.hist->prev;
+			ft_strdel(&sh->e.hist->s);
+			sh->e.hist->s = ft_strdup(ret);
+		}
 	}
-	sh->e.curr = ft_strlen(sh->e.input);
+	sh->e.curr = ft_strlen(sh->e.hist->s);
 	ft_print_line(&sh->e);
-	ret = ft_strdup(sh->e.input);
+	ret = ft_strdup(sh->e.hist->s);
 	ft_set_old_term(sh);
-	free_tedit(&sh->e);
 	term_actions("ve");
 	ft_putchar('\n');
 	return (ret);

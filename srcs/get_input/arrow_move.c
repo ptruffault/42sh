@@ -14,7 +14,7 @@
 
 void	curr_move_right(t_edit *e)
 {
-	if ((size_t)e->curr < ft_strlen(e->input))
+	if ((size_t)e->curr < ft_strlen(e->hist->s))
 	{
 		e->curr++;
 	}
@@ -30,7 +30,7 @@ void	curr_move_left(t_edit *e)
 
 void	curr_go_last(t_edit *e)
 {
-	e->curr = ft_strlen(e->input);
+	e->curr = ft_strlen(e->hist->s);
 }
 
 void	ft_home_key(t_edit *e)

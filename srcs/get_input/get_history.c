@@ -29,6 +29,7 @@ t_hist	*new_hist(void)
 		return (NULL);
 	n->s = NULL;
 	n->next = NULL;
+	n->prev = NULL;
 	return (n);
 }
 
@@ -54,8 +55,12 @@ t_hist	*ft_read_hist(int i, char **arr)
 	{
 		tmp->s = ft_strdup(arr[i--]);
 		tmp->next = new_hist();
+		tmp->next->prev = tmp;
 		tmp = tmp->next;
 	}
+	tmp = tmp->prev;
+	free(tmp->next);
+	tmp->next = NULL;
 	return (new);
 }
 

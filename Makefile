@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=		21sh
+NAME		=		42sh
 GIT 		=		https://github.com/ptruffault/21sh.git
 FLAG		=		-Wall -Werror -Wextra -g
 OBJ_FOLDER 	= 		./bin/

@@ -31,8 +31,6 @@ static int	change_envv(char **argv, t_shell *sh)
 		sh->env = ft_unsetenv(sh->env, &argv[1]);
 	else if (ft_strequ(*argv, "setenv") && argv[1])
 		sh->env = ft_setenv(sh->env, &argv[1]);
-	else if (ft_strequ(*argv, "jobs"))
-		ft_jobs(sh);
 	else if (ft_isequal(*argv))
 		set_var(argv, sh);
 	else if (ft_strequ(*argv, "unset") && argv[1])
@@ -60,5 +58,7 @@ int			run_builtin(t_tree *t, char **argv, t_shell *sh)
 		return (ft_echo(&argv[1]));
 	else if (ft_strequ(*argv, "type"))
 		return (ft_type(t->cmd->next));
+	else if (ft_strequ(*argv, "jobs"))
+		return (ft_jobs(sh));
 	return (change_envv(argv, sh));
 }

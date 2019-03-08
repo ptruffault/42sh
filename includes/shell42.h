@@ -95,7 +95,7 @@ void		ft_exit(char *nbr);
 int			ft_env(t_envv *envv, char **argv);
 t_envv		*ft_export(t_shell *sh, char **argv);
 void		ft_alias(t_shell *sh, char **argv);
-void		ft_jobs(t_shell *sh);
+int			ft_jobs(t_shell *sh);
 int			ft_type(t_word *w);
 int			putword(t_word *w, int t);
 int			putfile(t_word *w, t_envv *env, int t);

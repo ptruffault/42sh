@@ -12,7 +12,7 @@
 
 #include "../../includes/shell42.h"
 
-void		ft_jobs(t_shell *sh)
+int		ft_jobs(t_shell *sh)
 {
 	t_process	*tmp;
 	char		*stat[5];
@@ -27,8 +27,10 @@ void		ft_jobs(t_shell *sh)
 	tmp = sh->process;
 	while (tmp)
 	{
-		ft_printf("[%i]\t%s -> %3i\t%s {%i}\n",
+		if (tmp->cmd)
+			ft_printf("[%i]\t%s -> %3i\t%s {%i}\n",
 		i++, stat[tmp->status], tmp->ret, tmp->cmd, tmp->pid);
 		tmp = tmp->next;
 	}
+	return (0);
 }

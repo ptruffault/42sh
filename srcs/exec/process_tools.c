@@ -37,15 +37,13 @@ int			kill_running_fg_process(t_process *p, int sig)
 {
 	t_process *tmp;
 
-	if (p && (tmp = ft_get_running_process(p)))
+	while (p && (tmp = ft_get_running_process(p)))
 	{
 		if (sig == SIGINT)
-			p->status = KILLED;
-		if (sig == SIGTSTP)
-			p->status = SUSPENDED;
-		kill(p->pid, sig);
-		p->ret = sig;
-		return (1);
+			tmp->status = KILLED;
+		else if (sig == SIGTSTP)
+			tmp->status = SUSPENDED;
+		kill(tmp->pid, sig);
 	}
 	return (0);
 }

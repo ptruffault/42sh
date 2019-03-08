@@ -4,12 +4,6 @@ alias cl /usr/bin/clear
 alias la "ls -aG" ll "ls -lG" ls "ls -G"
 #alias la "ls -a --color=tty" ll "ls -l --color=tty" ls "ls --color=tty"
 alias gitall "git add -A && git commit -m 'gitall' && git push"
-/usr/bin/clear
-echo '        :::      ::::::::          ::::::::  :::    :::'
-echo '      :+:      :+:    :+:        :+:    :+: :+:    :+:'
-echo '    +:+ +:+         +:+         +:+        +:+    +:+'
-echo '  +#+  +:+       +#+           +#++:++#++ +#++:++#++'
-echo '+#+#+#+#+#+   +#+                   +#+ +#+    +#+'
-echo '     #+#    #+#             #+#    #+# #+#    #+#'
-echo '    ###   ########          ########  ###    ###'
+/usr/bin/clear  
+cat $SHELL_FOLD/sys/header
 cat $SHELL_FOLD/auteur

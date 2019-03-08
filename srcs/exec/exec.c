@@ -49,13 +49,13 @@ t_tree			*exec_instruction(t_tree *t)
 	&& (t->ret = ft_execve(p, sh, t))
 	&& (t->ret == -2 && p->status == RUNNING_FG))
 	{
-		waitpid(p->pid, &p->ret, 0);
+		waitpid(p->pid, &p->ret, WUNTRACED); 
 		t->ret = p->ret;
 	}
 	if (p)
 	{
 		ft_reset_fd(p);
-		if (p->status != KILLED)
+		if (p->status != KILLED && p->status != SUSPENDED)
 			p->status = DONE;
 	}
 	return (t);

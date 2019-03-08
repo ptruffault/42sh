@@ -24,37 +24,36 @@ void	update_input(t_edit *e, char *s)
 	e->curr = ft_strlen(s);
 }
 
-/*static char *bottom_start_hist(t_hist *hist, char *input)
+static void bottom_start_hist(t_edit *e, char *input)
 {
+	t_hist *hist;
 	int x;
 
+	hist = e->hist->next;
 	while (hist)
 	{
-		if ((x = ft_strstr(hist->s, input) != 0))
-			break ;
+		if ((x = ft_str_startwith(hist->s, input) != 0))
+			{
+				e->hist = hist;
+				return ;
+			}
 		hist = hist->next;
 	}
-	if (x != 0)
-	{
-		ft_strdel(&input);
-		input = ft_strdup(hist->s);
-	}
-	return (input);
-}*/
+}
 
 void	hist_move_up(t_edit *e)
 {
-	//t_hist *hist;
+	t_hist *hist;
 
 	ft_delete_line(e);
 	if (!e->hist->next)
 		return ;
-	//if (!e->hist->prev && e->hist->s[0] != '0' && e->hist->next)
-	//	{
-	//		hist = e->hist->next;
-	//		e->hist->s = bottom_start_hist(hist, e->hist->s);
-	//	}
-	//else
+	if (e->hist->s[0] != '\0' && e->hist->next)
+		{
+			hist = e->hist->next;
+			bottom_start_hist(e, e->hist->s);
+		}
+	else
 		e->hist = e->hist->next;
 	e->curr = ft_strlen(e->hist->s);
 	e->select = -1;

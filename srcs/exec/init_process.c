@@ -74,6 +74,7 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 		head->next = sh->process;
 		sh->process = head;
 		tmp = head;
+		ft_printf("new pipe %i %i\n", tmp->pipe[0], tmp->pipe[1]);
 		while (t->o_type == O_PIPE)
 		{	
 			t = t->next;
@@ -82,6 +83,7 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 				tmp = tmp->grp;
 				if (t->o_type == O_PIPE && t->next && pipe(tmp->pipe))
 					ft_abort(head);
+				ft_printf("new pipe %i %i\n", tmp->pipe[0], tmp->pipe[1]);
 			}
 		}
 	}

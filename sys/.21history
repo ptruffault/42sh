@@ -844,3 +844,57 @@ ls
 env
 cat
 jobs
+ls|rev
+ls|rev|rev
+ls|cat -e | cat -e
+ls|rev|rev
+ls|rev|rev
+ls|rev|rev
+ls|rev|rev
+ls|rev|rev
+ls|rev|rev| cat -e
+ls|rev
+ls|rev|cat -e
+ls
+ls|rev
+jobs
+ls|rev|cat -e
+ls|rev|cat -e
+ls|rev|cat -e
+ls
+clear
+env
+ls|rev
+ls|rev|cat-e
+ls|rev|cat-e
+ls|rev|cat -e
+ls|rev|cat -e
+ls
+ls|rev|cat -e
+ls|rev|cat -e
+ls|rev|cat -e
+ls|rev|cat -e
+ls|rev|cat -e
+ls
+clar
+clear
+ls|rev
+ls|rev|cat -e
+ls|rev|cat -e
+ls|rev|cat -e
+echo ls | ./42sh
+ll
+clear
+ls
+jobs
+echo lol
+jobs
+echo \&
+jobs
+echo lol | rev 
+echo lol | rev | cat -e
+ls
+echo ls| rev
+echo ls| rev | ./42sh
+echo sl ./42sh
+echo sl | ./42sh

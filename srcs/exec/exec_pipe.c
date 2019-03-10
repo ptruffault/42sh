@@ -27,7 +27,7 @@ void	ft_wait_pipe(t_process *p)
 		if (p && p->pid > 0
 		&& (waitpid(p->pid, &p->ret, WUNTRACED) >= 0))
 		{
-			ft_printf("PROCESS END %s\n", p->cmd);
+			ft_printf("~>%s done\n",p->cmd );
 			if (p->status != KILLED && p->status != SUSPENDED)
 					p->status = DONE;
 			if (p->grp)
@@ -60,14 +60,12 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 	tmp = p;
 	while (tmp && tmp->cmd)
 	{
-		ft_printf("IN LOOP -> %s", t->cmd->word);
 		if ((tmp->pid = fork()) == 0)
 		{
 			if (prev)
 				ft_link_stdin(prev->pipe);
 			if (tmp->grp)
 				ft_link_stdout(tmp->pipe);
-			ft_printf("before exec ->%s\n ", tmp->cmd);
 			ft_exec_son(tmp, t, sh);
 			exit(-1);
 		}

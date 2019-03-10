@@ -614,3 +614,28 @@ ll
 ls
 ls|rev
 make save
+ls
+ls|rev
+ls|rev
+ls|rev
+ls|rec
+ls|rev
+ls|rev
+ls|rev|rev
+clear
+ls|rev
+ls|rev|cat -e
+ls|rev|cat -e
+ls
+ls|rev|cat -e
+ls|rev|cat -e
+ls|rev|cat -e > file
+ls|rev > file |cat -e
+ls> file |rev  |cat -e
+ls
+ls|rev
+ls|rev|rev
+ls|rev
+ls|rev|cat -e
+ls|rev|cat -e
+ls|rev|cat -e

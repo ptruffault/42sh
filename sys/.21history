@@ -600,3 +600,17 @@ jobs
 clear
 ls
 make save
+ls
+ls|rev
+ls|rev
+ls
+ls
+./42
+ls|rev
+ls|clear
+ls
+env
+ll
+ls
+ls|rev
+make save

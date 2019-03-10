@@ -81,7 +81,7 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 			{
 				if (t->o_type == O_PIPE && t->next && pipe(tmp->pipe))
 					ft_abort(head);
-				tmp = tmp->next;
+				tmp = tmp->grp;
 			}
 		}
 	}

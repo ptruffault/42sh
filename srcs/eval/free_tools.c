@@ -80,6 +80,8 @@ void	ft_free_tprocess(t_process *p)
 		ft_strdel(&p->cmd);
 		ft_freestrarr(p->argv);
 		ft_freestrarr(p->env);
+		if (p->grp)
+			ft_free_tprocess(p->grp);
 		free(p);
 		p = tmp;
 	}

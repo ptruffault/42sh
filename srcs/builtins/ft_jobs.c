@@ -15,6 +15,7 @@
 int		ft_jobs(t_shell *sh)
 {
 	t_process	*tmp;
+	t_process	*grp;
 	char		*stat[5];
 	int			i;
 
@@ -30,6 +31,17 @@ int		ft_jobs(t_shell *sh)
 		if (tmp->cmd)
 			ft_printf("[%i]\t%s -> %3i\t%s {%i}\n",
 		i++, stat[tmp->status], tmp->ret, tmp->cmd, tmp->pid);
+		if (tmp->grp)
+		{
+			grp = tmp->grp;
+			while (grp)
+			{
+				if (grp->cmd)
+					ft_printf("|->\t %s -> %3i\t%s {%i}\n",
+					stat[grp->status], grp->ret, grp->cmd, grp->pid);
+				grp = grp->grp;
+			}
+		}
 		tmp = tmp->next;
 	}
 	return (0);

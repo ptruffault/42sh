@@ -65,7 +65,7 @@ void		reset_term(void);
 void		init_shell(t_shell *sh, char **envv, char **argv);
 void		set_signals(void);
 int			ft_execve(t_process *p, t_shell *sh, t_tree *t);
-t_tree		*exec_pipe(t_tree *t);
+t_tree		*exec_pipe(t_tree *t, t_process *p, t_shell *sh);
 void		ft_exec_son(t_process *p, t_tree *t, t_shell *sh);
 t_tree		*exec_instruction(t_tree *t);
 int			run_builtin(t_tree *t, char **argv, t_shell *sh);
@@ -127,6 +127,7 @@ char		*q_get_input(char c);
 char		*p_get_input(char c);
 char		*backslash_get_input(void);
 t_process	*init_process(t_tree *t, t_shell *sh);
+t_process	*init_pipe_process(t_tree *t, t_shell *sh);
 void		ft_delete_process(int pid);
 
 #endif

@@ -12,21 +12,23 @@
 
 #include "../../includes/shell42.h"
 
-t_process	*ft_get_process(t_process *s, int pid)
+t_process	*ft_get_process(t_process *p, int stat)
 {
-	t_process *ret;
+	t_process *tmp;
 
-	ret = s;
-	while (ret && ret->pid != pid)
-		ret = ret->next;
-	return (ret);
-}
-
-t_process	*ft_get_running_process(t_process *p)
-{
 	while (p)
 	{
-		if (p->status == RUNNING_FG)
+		if (p->grp)
+		{
+			tmp = p->grp;
+			while (tmp)
+			{
+				if (tmp->status == stat)
+					return (tmp);
+				tmp = tmp->grp;
+			}
+		}
+		if (p->status == stat)
 			return (p);
 		p = p->next;
 	}
@@ -36,14 +38,17 @@ t_process	*ft_get_running_process(t_process *p)
 int			kill_running_fg_process(t_process *p, int sig)
 {
 	t_process *tmp;
+	int i;
 
-	while (p && (tmp = ft_get_running_process(p)))
+	i = 0;
+	while (p && (tmp = ft_get_process(p, RUNNING_FG)))
 	{
+		i++;
 		if (sig == SIGINT)
 			tmp->status = KILLED;
 		else if (sig == SIGTSTP)
 			tmp->status = SUSPENDED;
 		kill(tmp->pid, sig);
 	}
-	return (0);
+	return (i);
 }

@@ -14,73 +14,67 @@
 
 void	ft_wait_pipe(t_process *p)
 {
-	if (p && p->pid > 0)
+	while (p)
 	{
-		waitpid(p->pid, &p->ret, WUNTRACED);
-		if (p->status != KILLED && p->status != SUSPENDED)
-			p->status = DONE;
+		if (p && p->pid > 0)
+		{
+			waitpid(p->pid, &p->ret, WUNTRACED);
+			if (p->status != KILLED && p->status != SUSPENDED)
+				p->status = DONE;
+			if (p->grp)
+			{	
+				ft_close(p->pipe[0]);
+				ft_close(p->pipe[1]);
+			}
+		}
+		p = p->grp;
 	}
 }
 
-
-
-static t_tree	*ft_end(t_tree *t, t_process *p1, t_process *p2, int pip[2])
+static void		ft_link_stdin(int pipe[2])
 {
-	ft_close(pip[0]);
-	ft_close(pip[1]);
-	ft_wait_pipe(p1);
-	ft_wait_pipe(p2);
-	while (t->o_type == O_PIPE)
-		t = t->next;
+	dup2(pipe[0], STDIN_FILENO);
+	ft_close(pipe[1]);
+}
+
+static void		ft_link_stdout(int pipe[2])
+{
+	dup2(pipe[1], STDOUT_FILENO);
+	ft_close(pipe[0]);
+}
+
+static void		ft_link_both(int prev[2],int tmp[2])
+{
+	dup2(prev[0], STDIN_FILENO);
+	dup2(tmp[1], STDOUT_FILENO);
+}
+
+t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
+{
+	t_process	*prev;
+	t_process	*tmp;
+
+	prev = NULL;
+	tmp = p;
+	while (tmp && tmp->cmd)
+	{
+		if ((tmp->pid = fork()) == 0)
+		{
+			if (prev && tmp->grp)
+				ft_link_both(prev->pipe, tmp->pipe);
+			else if (prev)
+				ft_link_stdin(prev->pipe);
+			else if (tmp->grp)
+				ft_link_stdout(tmp->pipe);
+			ft_exec_son(tmp, t, sh);
+			exit(-1);
+		}
+		prev = tmp;
+		tmp = tmp->grp;
+		if (t->next)
+			t = t->next;
+	}
+	ft_wait_pipe(p);
 	return (t);
 }
 
-static void		ft_exec_right(t_tree *t, int pip[2], t_shell *sh, t_process *p)
-{
-	dup2(pip[0], STDIN_FILENO);
-	ft_close(pip[1]);
-	if (t->next->o_type == O_PIPE && t->next->next)
-		exec_pipe(t->next);
-	else
-		ft_exec_son(p, t->next, sh);
-	ft_free_tshell(sh);
-	ft_free_tree(ft_get_set_tree(NULL));
-	ft_close(pip[0]);
-	exit(-1);
-}
-
-static void		ft_exec_left(t_tree *t, t_process *p, int pip[2], t_shell *sh)
-{
-	dup2(pip[1], STDOUT_FILENO);
-	ft_close(pip[0]);
-	ft_exec_son(p, t, sh);
-	ft_free_tshell(sh);
-	ft_free_tree(ft_get_set_tree(NULL));
-	ft_close(pip[1]);
-	exit(-1);
-}
-
-t_tree			*exec_pipe(t_tree *t)
-{
-	int			pipes[2];
-	t_process	*p1;
-	t_process	*p2;
-	t_shell		*sh;
-
-	sh = ft_get_set_shell(NULL);
-	if (pipe(pipes) != 0)
-		return (t);
-	p1 = NULL;
-	p2 = NULL;
-	if (!(p1 = init_process(t, sh))
-	|| (p1->pid = fork()) < 0)
-		return (ft_end(t, p1, p2, pipes));
-	else if (p1->pid == 0)
-		ft_exec_left(t, p1, pipes, sh);
-	if (!(p2 = init_process(t->next, sh))
-	|| (p2->pid = fork()) < 0)
-		return (ft_end(t, p1, p2, pipes));
-	else if (p2->pid == 0)
-		ft_exec_right(t, pipes, sh, p2);
-	return (ft_end(t, p1, p2, pipes));
-}

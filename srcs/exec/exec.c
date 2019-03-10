@@ -43,17 +43,16 @@ t_tree			*exec_instruction(t_tree *t)
 	t_shell		*sh;
 
 	sh = ft_get_set_shell(NULL);
-	if (t->o_type == O_PIPE && t->next)
-		return (exec_pipe(t));
-	else if ((p = init_process(t, sh))
-	&& (t->ret = ft_execve(p, sh, t))
-	&& (t->ret == -2 && p->status == RUNNING_FG))
+	if (t->o_type == O_PIPE && t->next
+	&& (p = init_pipe_process(t, sh)))
+		return (exec_pipe(t, p, sh));
+	else if ((p = init_process(t, sh)))
 	{
-		waitpid(p->pid, &p->ret, WUNTRACED); 
+		p->next = sh->process;
+		sh->process = p;
+		if ((t->ret = ft_execve(p, sh, t)) && t->ret == -2 && p->status == RUNNING_FG)
+			waitpid(p->pid, &p->ret, WUNTRACED); 
 		t->ret = p->ret;
-	}
-	if (p)
-	{
 		ft_reset_fd(p);
 		if (p->status != KILLED && p->status != SUSPENDED)
 			p->status = DONE;

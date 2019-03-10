@@ -20,9 +20,13 @@ static void			ft_init_fd(t_process *new)
 	new->fd[0] = 0;
 	new->fd[1] = 1;
 	new->fd[2] = 2;
+	new->pipe[0] = -1;
+	new->pipe[1] = -1;
 	new->status = RUNNING_FG;
 	new->ret = -1;
 	new->argv = NULL;
+	new->grp = NULL;
+	new->next = NULL;
 	new->pid = 0;
 	new->env = NULL;
 	new->builtins = FALSE;
@@ -30,11 +34,8 @@ static void			ft_init_fd(t_process *new)
 
 static t_process	*ft_abort(t_process *p)
 {
-	ft_reset_fd(p);
-	if (p->argv)
-		ft_freestrarr(p->argv);
-	ft_freestrarr(p->env);
-	free(p);
+	warning("can't setup process", p->cmd);
+	ft_free_tprocess(p);
 	return (NULL);
 }
 
@@ -47,15 +48,44 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 	{
 		ft_init_fd(new);
 		ft_update_pwd(sh);
-		new->env = tenvv_to_tab(sh->env);
 		if (!(new->argv = ft_twordto_arr(t->cmd)))
-			return (ft_abort(new));
+		{
+			free(new);
+			return (NULL);
+		}
 		if (check_builtin(*new->argv) && (new->cmd = ft_strdup(*new->argv)))
 			new->builtins = TRUE;
 		else
+		{
+			new->env = tenvv_to_tab(sh->env);
 			new->cmd = get_bin_path(*new->argv, sh->env);
-		new->next = sh->process;
-		sh->process = new;
+		}
 	}
 	return (new);
+}
+
+t_process *init_pipe_process(t_tree *t, t_shell *sh)
+{
+	t_process *head;
+	t_process *tmp;
+
+	if ((head = init_process(t, sh)) && !pipe(head->pipe))
+	{
+		head->next = sh->process;
+		sh->process = head;
+		tmp = head->grp;
+		while (t->o_type == O_PIPE)
+		{	
+			t = t->next;
+			if ((tmp = init_process(t, sh)) && tmp->cmd)
+			{
+				if (t->o_type == O_PIPE && t->next && pipe(tmp->pipe))
+					ft_abort(head);
+				tmp = tmp->next;
+			}
+		}
+	}
+	else
+		ft_abort(head);
+	return (head);
 }

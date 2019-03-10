@@ -80,8 +80,8 @@ t_tree			*exec_tree(t_tree *t)
 		}
 		else
 		{
-			tmp = exec_instruction(tmp);
-			tmp = next_instruction(tmp);
+			if ((tmp = exec_instruction(tmp)))
+				tmp = next_instruction(tmp);
 		}
 	}
 	return (t);

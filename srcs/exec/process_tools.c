@@ -12,7 +12,7 @@
 
 #include "../../includes/shell42.h"
 
-t_process	*ft_get_process(t_process *p, int stat)
+t_process	*ft_get_process(t_process *p, unsigned int stat)
 {
 	t_process *tmp;
 

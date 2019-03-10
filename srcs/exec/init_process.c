@@ -77,7 +77,7 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 		while (t->o_type == O_PIPE)
 		{	
 			t = t->next;
-			if ((tmp->grp = init_process(t, sh)) && tmp->cmd)
+			if ((tmp->grp = init_process(t, sh)) && tmp->grp->cmd)
 			{
 				tmp = tmp->grp;
 				if (t->o_type == O_PIPE && t->next && pipe(tmp->pipe))

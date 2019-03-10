@@ -26,6 +26,7 @@ void	ft_exec_son(t_process *p, t_tree *t, t_shell *sh)
 		else
 			error("command not found", *p->argv);
 	}
+	ft_free_tprocess(p);
 	ft_free_tshell(sh);
 	ft_free_tree(t);
 }

@@ -639,3 +639,208 @@ ls|rev
 ls|rev|cat -e
 ls|rev|cat -e
 ls|rev|cat -e
+ls
+clear
+ls|rev
+ls|rev|cat -e
+cat | rev
+jobs
+clear
+cat | rev| rev
+jobs
+ls
+ls
+ls|rev
+clear|rev
+clear|rev|cat
+jobs
+ll
+ls
+clear
+jobs
+jobs
+ls
+jobs
+clear
+env
+jbs
+jobs
+ls|rev
+jobs
+jobs
+ls|rev
+jobs
+echo $PWD
+clear
+jobs
+ls|rev
+jobs
+clear
+ls|rev
+jobs
+cat| rev
+jobs
+cat | rev 
+jobs
+jobs
+cat | rev | rev
+cat | rev | rev
+ls
+jobs
+ls
+ls|rev
+ls|rev|cat
+clear
+ls|rev|cat -e
+jobs
+ll
+ls
+clezar
+clear
+ls|rev &
+jobs
+clear
+env
+ll
+ls
+ls|rev
+ls|rev
+ls|rev|cat
+ls|cat | rev
+ls|cat | rev
+ls|cat | rev
+ls|cat | rev
+ls|cat | rev|rev
+ls|cat | cat -e
+jobs
+clear
+jobs
+ls|rev|rev
+jobs
+ls|cat|cat -e
+ls|cat|cat -e
+ls|cat|cat -e| cat -e
+ls|cat|cat -e| cat -e | cat -e
+ls|rev
+ls | cat -e |  cat -e
+jobs
+ls
+jobs
+clear
+ll
+clear
+ls|cat -e | cat -e
+ls
+ls
+echo ls | ./42sh
+echo ls | ./42sh | cat -e
+cat | rev | ls
+echo ls | ./42sh | cat -e
+clar
+clear
+ls|rev|cat -e
+ls|rev|cat -e
+ls -z 2>&1 | rev
+ls -z 2>&1 | rev| cat
+./42sh
+ls
+ls|rev
+ls|rev|cat
+ls
+ls|rev
+ls|rev|cat
+ls|rev|cat
+ls | cat 
+ls | cat -e | cat -e
+ls | cat -e | cat -e| cat -e
+ls | cat -e | cat -e| cat -e| rev
+ls | cat -e | cat -e| cat -e| rev | cat -e
+ls | cat -e | cat -e| cat -e| rev 
+ls | cat -e | cat -e| cat -e| rev | cat -e
+ls | cat -e | cat -e| cat -e| rev | cat -e| cat -e
+ls | cat -e | cat -e| cat -e| rev 
+ls | cat -e | cat -e| cat -e| rev 
+ls|rev
+ls|rev| rev
+ls|rev| cat -e
+ls|cat -e
+ls|cat -e|cat -e
+ls|cat -e|cat -e|cat -e
+ls|cat -e|cat -e|cat -e|cat -e
+ls|cat -e|cat -e|cat -e|cat -e | cat -e
+ls|cat -e|cat -e|cat -e|cat -e | cat -e| cat -e
+ls|cat -e|cat -e|cat -e|cat -e | cat -e| cat -e| cat
+ls|cat -e|cat -e|cat -e|cat -e | cat -e| cat -e| cat| cat
+ls | cat -e | cat -e| cat -e| rev | cat -e| cat -e | cat
+ls|cat -e|cat -e|cat -e|cat -e | cat -e| cat -e| cat -e
+ls|cat -e|cat -e|cat -e|cat -e | cat -e| cat -e| cat -e | cat -e
+ls|cat -e|cat -e|cat -e|cat -e | cat -e| cat -e| cat -e | cat -e| cat -e
+ls|cat -e|cat -e|cat -e|cat -e | cat -e| cat -e| cat -e | cat -e| cat -e | cat -e
+ls|cat -e|cat -e|cat -e|cat -e | cat -e| cat -e| cat -e | cat -e| cat -e | cat -e| cat -e
+ls|cat -e|cat -e|cat -e|cat -e | cat -e| cat -e| cat -e | cat -e| cat -e | cat -e| cat -e | cat -e
+ls | cat | cat
+ls | cat | cat
+ls | cat | cat
+ls | rev | cat
+ls | rev | cat
+ls | rev | cat
+ls |  cat
+ls |  cat| cat
+ls |  cat| cat -e
+ls |  cat -e | cat -e
+ls |  cat -e | cat -e
+ls
+ls|rev
+ls|rev | cat -e
+ls| cat -e
+ls| cat -e|cat- e
+ls| cat -e|cat- e
+ls| cat -e|cat- e
+ls|cat -e | cat -e
+ls
+clear
+ls
+ls|rev
+ls
+ll
+ls|rev
+ls| cat -e | cat -e
+ls| cat -e | cat -e | cat -e
+ls| cat -e | cat -e | cat -e
+ls| cat -e | cat -e | cat -e
+clear
+ls|rev
+ls|rev
+ls|rev
+ls
+clezar
+clear| rev
+ls| rev
+ls| rev| cat -e
+ls| rev| cat -e
+ls|rev
+ls|rev|cat
+ls|rev|cat
+ls
+ls|rev
+ls|rev| cat -e
+jobs
+ls|rev| cat -e
+jobs
+ls|rev
+clear
+ls
+env
+ls
+./ls
+clear
+env
+ls
+rm -rf file in
+ls
+ls
+clear
+ls
+env
+cat
+jobs

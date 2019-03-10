@@ -43,14 +43,12 @@ static void bottom_start_hist(t_edit *e, char *input)
 
 void	hist_move_up(t_edit *e)
 {
-	t_hist *hist;
-
 	ft_delete_line(e);
 	if (!e->hist->next)
 		return ;
 	if (e->hist->s[0] != '\0' && e->hist->next)
 		{
-			hist = e->hist->next;
+			e->hist = e->hist->next;
 			bottom_start_hist(e, e->hist->s);
 		}
 	else

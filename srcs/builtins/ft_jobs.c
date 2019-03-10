@@ -12,32 +12,44 @@
 
 #include "../../includes/shell42.h"
 
-int		ft_jobs(t_shell *sh)
+static void ft_init_status(char *stat[5])
 {
-	t_process	*tmp;
-	t_process	*grp;
-	char		*stat[5];
-	int			i;
-
-	i = 0;
 	stat[0] = "running foreground";
 	stat[1] = "running background";
 	stat[2] = "done";
 	stat[3] = "suspended";
 	stat[4] = "killed";
+}
+
+static void ft_job_prompt(t_process *tmp, char *stat[5], int id)
+{
+	ft_printf("[%i] %s\t%3i %s {%i}\n",
+	id, stat[tmp->status], tmp->ret, tmp->cmd, tmp->pid);
+}
+
+
+
+int		ft_jobs(t_shell *sh)
+{
+	t_process	*tmp;
+	t_process	*grp;
+	char 		*stat[5];
+	int			id;
+
+	id = 0;
 	tmp = sh->process;
+	ft_init_status(stat);
 	while (tmp)
 	{
 		if (tmp->cmd)
-			ft_printf("[%i]\t%s -> %3i\t%s {%i}\n",
-		i++, stat[tmp->status], tmp->ret, tmp->cmd, tmp->pid);
+			ft_job_prompt(tmp, stat, id++);
 		if (tmp->grp)
 		{
 			grp = tmp->grp;
 			while (grp)
 			{
 				if (grp->cmd)
-					ft_printf("|->\t %s -> %3i\t%s {%i}\n",
+					ft_printf(" |  %s\t%3i %s {%i}\n",
 					stat[grp->status], grp->ret, grp->cmd, grp->pid);
 				grp = grp->grp;
 			}

@@ -1184,3 +1184,416 @@ ls|rev|cat -e| rev| grep Ma
 ls|eag
 ls|rev
 clear |rezga
+ls
+cd | rev
+cd | rev
+ls
+cat
+cat | rev
+ls
+setenv lol $PWD | rev
+setenv lol $PWD | rev
+ls
+ls|rev
+ls|cat -e
+ls|cat -e| rev
+ls|cat -e| rev| cat -e
+ls|cat -e| rev| cat -e | ls
+ls|cat -e| rev| cat -e | ls | echo lol
+ls|cat -e| rev| cat -e | ls 
+ls|cat -e| rev| cat -e
+jobs
+cat | rev|cat
+jobs
+cat 
+jobs
+ls
+clear
+env
+ls|rev
+ls|rev
+jobs
+ls
+clear
+ls
+env
+ls
+ll
+ls
+ls|rev
+ls|rev
+ls|rev|cat -e
+ls|rev|cat -e|cat -e | rev
+ls|rev|cat -e|cat -e | rev | cat -e
+ls|rev|cat -e|cat -e | rev | cat -e | earg
+ls
+ls
+clear
+env
+ls|rev |aergf
+ls| rev|cat -e
+ls| rev|cat -e|ezf
+ls| rev|cat -e|ezf
+ls
+clear
+ls|erf
+ls|rev
+ls|rev|cat -e
+ls|rev|cat -e|rev |cat -e
+ls|rev|cat -e|rev |cat -e
+ls|rev|cat -e|rev |cat -e
+ls|rev|cat -e|rev |cat -e
+jobs
+cat |rrev|cat -e|rev |cat -e
+cat |rrev|cat -e|rev |cat -e
+jobs
+ezfz|rev
+ls|eaf
+ls|eaf
+ezfz|rev
+ls|rev|cat -e|cat -e | rev | cat -e | earg
+ls|rev|cat -e|cat -e | rev | cat -e 
+ls|rev|cat -e|cat -e | rev | cat -e | zae
+ls|rev|cat -e|cat -e | rev | cat -e | zae
+ls|rev|cat -e|cat -e | rev | ezf
+ls|rev|fez
+ls|efz
+/bin/ls
+/bin/ls -l
+ll
+la
+clzaer
+clear
+ls
+ls|eaf
+ls|eaf
+ls
+ls|rev
+ls
+ls|rev
+ls|eagf
+ls|rev|erzg
+ls|rev|erzg
+ls|rev|erzg
+ls|rev|erzg|ear
+ls|rev|erzg|ear
+ls|rev|erzg|ear|rev
+ls
+ls|rev|cat -e
+ls|rev|cat -e|zae
+ls|rev|cat -e|zae|zea
+ls|rev|cat -e|zae|zea|reg
+env
+echo $PWD $EDF
+ls $FZE
+ls ${zef}
+ls
+ls -z |rev
+ls -z 2>&1 |rev
+ls -z2>&1|rev
+ls\-z2>&1|rev
+ls -z2>&1|rev
+ls|rev
+ls -z2>&1|rev
+ls -z2>&1|rev
+ls -z2>&1|rev
+ls -z2>&1|rev
+ls -z2>&1|rev
+clear
+e,v
+env
+clear
+ls
+ll
+alias
+cl
+alias
+ls
+echo $FZE
+echo ${ZEF} | cat -e
+echo $ezffze | cat -e
+ls ${zef}
+ls ${zef}
+ll
+clear
+jobs
+jobs
+ls
+echo ls| ./42sh
+ls
+clear
+env
+ll
+jobs
+cat
+jobs
+hi
+hi
+jobs
+cat
+jobs
+cat|rev|cat
+jobs
+hi
+jobs
+cat &
+jobs
+cat
+jobs
+hi
+!!
+clear
+ls
+cat|rev|rev|rev|rev
+cat|rev|rev|rev|rev
+cat|rev|rev|rev|rev
+cat|rev|rev|rev|rev
+cat|rev|rev|rev|rev
+hi
+clear
+e,v
+env
+ll
+alias
+vl
+cl
+env $zae
+\$LOL
+echo \$lol
+echo \$lol
+ls
+ls|rev
+ls -z 2>&1|rev
+ls
+ll
+alias
+echo \&
+ls
+ls|rev
+echo laul
+echo laul >&-
+echo laul | rev
+echo laul | rev | cat -e
+echo laul | rev | cat -e |rev
+echo laul | rev | cat -e 
+echo laul 
+hi
+jobs
+cat
+jobs
+hi
+jobs
+cat &
+jobs
+clear
+ls
+cat|rev|cat -e
+jobs
+kill 10626 9
+jobs
+jobs
+clear
+jobs
+kill SGICONT  10626 
+kill SIGCONT  10626 
+kill -SIGCONT  10626 
+jobs
+man kill
+kill -SIGONT 10626
+kill -SIGONT 10626
+kill -s SIGONT 10626
+kill -s SIGCONT 10626
+kill -s SIGCONT 10626
+jobs
+kill -s SIGCONT 10626
+kill -s SIGCONT cat
+kill -s SIGCONT 10626 10627 10628
+ll
+cl
+ll
+hi
+jobs
+jobs
+man kill
+kill -L
+kill 18 
+kill -s 18 
+clear
+jobs
+cat
+jobs
+jobs
+kill -L
+kill -s 18 10702
+jobs
+clear
+ll
+cl
+env
+cle
+cl
+cat
+jobs
+hi
+jobs
+jobs
+hi
+hi
+ls-rev
+ls|ev
+ls|rev
+jobs
+hi
+hi
+hi
+hi
+jobs
+cat 
+jobs
+hi
+cat
+jobs
+hi
+hi
+clear
+hi
+cat
+jobs
+hi
+hi
+jobs
+cat 
+jobs
+hi
+hi
+hi
+hi
+hi
+cat
+hi
+hi
+hi
+jobs
+hi
+hi
+hi
+hi
+ls
+cat
+cat
+hi
+hi
+hi
+hi
+hicat 
+cat
+cat
+hi
+exit
+ls
+hi
+jobs
+cat
+jobs
+cat
+jobs
+jobs
+cat
+jobs
+hi
+vcat| rev
+cat| rev
+hi
+jobs
+cat 
+jobs
+cat|rev
+cat|rev
+cat|rev
+jobs
+jobs
+hi
+jobs
+cat
+jobs
+cat|rev
+jobs
+jobs
+hi
+ll
+alias
+env
+ll
+hi
+ls-rev
+ls|rev
+hi
+ls
+echo lol
+hi
+jobs
+cat
+jobs
+clear|rev
+ls
+ll
+ll>file
+rm file
+ll
+la
+ll
+clear
+ls
+ls|rev
+ls
+ll
+a,v
+env
+env|rev
+clear
+ls|rev
+ll
+jobs
+echo $PEZADF
+cqt|rev|rev|rev|rev
+cat|rev|rev|rev|rev
+cat | rev
+cat | rev|rev
+cat | rev|rev|rev
+cat | rev|rev|rev|rev
+cat | rev|rev|rev|rev|rev
+cat | rev|rev|rev|rev|rev|rev
+cat | rev|rev|rev|rev|rev|rev
+cat | rev|rev|rev|rev|rev|rev
+jobs
+hi
+ll
+env
+jobs
+set
+ls-rev
+ls|rev
+clear
+ls|rev
+ls|rev|cat -e
+ls|rev|cat -e|reg
+ls|rev|cat -e|reg | erfe
+ls|rev|cat -e|reg | erfe|erger
+ls&&ls
+ll
+ll&&ll
+ll&&ll
+ll&&ls
+ll&& ll
+ls
+ls&ll
+clear
+env
+echo $PWD
+ls
+ell
+\ls
+clear
+\l
+\&
+echo \&

@@ -14,14 +14,14 @@
 
 void	ft_lex_backslash(t_eval *e)
 {
-	ft_delete_char(e);
+	e->eval[e->curr++] = '\\';
 	if (!(e->s[e->curr]))
 	{
 		e->err = B_MISS;
 		e->c = '\\';
 	}
 	else
-		e->eval[e->curr++] = 'e';
+		e->eval[e->curr] = 'e';
 }
 
 void	ft_lex_parenth(t_eval *e)
@@ -75,12 +75,6 @@ void	ft_lex_dquote(t_eval *e)
 			ft_delete_char(e);
 			if (e->s[e->curr])
 				e->s[e->curr] = ft_parse_back(e->s[e->curr]);
-			{
-				if (e->s[e->curr] == 'n')
-					e->s[e->curr] = '\n';
-				if (e->s[e->curr] == 't')
-					e->s[e->curr] = '\t';
-			}
 		}
 		e->eval[e->curr++] = 'q';
 	}

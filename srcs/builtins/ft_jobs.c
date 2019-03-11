@@ -14,26 +14,38 @@
 
 static void ft_init_status(char *stat[6])
 {
-	stat[0] = "initialised";
-	stat[1] = "running foreground";
-	stat[2] = "running background";
-	stat[3] = "done";
-	stat[4] = "suspended";
-	stat[5] = "killed";
+	stat[0] = "\033[00;31minitialised\033[00m";
+	stat[1] = "\033[01;34mrun fg\033[00m";
+	stat[2] = "\033[00;34mrun bg\033[00m";
+	stat[3] = "\033[1;32mdone\033[00m";
+	stat[4] = "\033[1;36msuspended\033[00m";
+	stat[5] = "\033[00;31mkilled\033[00m";
 }
 
 static void ft_job_prompt(t_process *tmp, char *stat[6], int id)
 {
-	ft_printf("[%i] %s\t%3i %s {%i}\n",
+	t_process *grp;
+
+	ft_printf("% -5i%-25s%i %-20s%i\033[00m\n",
 	id, stat[tmp->status], tmp->ret, tmp->cmd, tmp->pid);
+	if (tmp->grp)
+	{
+		grp = tmp->grp;
+		while (grp)
+		{
+			if (grp->cmd)
+				ft_printf("   |  %-25s%i %-20s%i\033[00m\n",
+				stat[grp->status], grp->ret, grp->cmd, grp->pid);
+			grp = grp->grp;
+		}
+	}
 }
 
 
 
-int		ft_jobs(t_shell *sh)
+int		ft_hi(t_shell *sh)
 {
 	t_process	*tmp;
-	t_process	*grp;
 	char 		*stat[6];
 	int			id;
 
@@ -44,17 +56,24 @@ int		ft_jobs(t_shell *sh)
 	{
 		if (tmp->cmd)
 			ft_job_prompt(tmp, stat, id++);
-		if (tmp->grp)
-		{
-			grp = tmp->grp;
-			while (grp)
-			{
-				if (grp->cmd)
-					ft_printf(" |  %s\t%3i %s {%i}\n",
-					stat[grp->status], grp->ret, grp->cmd, grp->pid);
-				grp = grp->grp;
-			}
-		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+int 	ft_jobs(t_shell *sh)
+{
+	t_process	*tmp;
+	char 		*stat[6];
+	int			id;
+
+	id = 0;
+	ft_init_status(stat);
+	tmp = sh->process;
+	while (tmp)
+	{
+		if (tmp->status == RUNNING_BG || tmp->status == SUSPENDED)
+			ft_job_prompt(tmp, stat, id++);
 		tmp = tmp->next;
 	}
 	return (0);

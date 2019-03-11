@@ -34,21 +34,19 @@ static void			ft_init_fd(t_process *new)
 
 static t_process	*ft_abort(t_process *p)
 {
-	t_process *tmp;
+	t_process *head;
 
+	head = p;
 	while (p)
 	{
-		if (p->cmd && p->grp)
-		{
-			tmp = p->grp;
-			p->grp = NULL;
-			ft_close_pipe(p->pipe);
-		}
-		else if (!p->cmd)
+		ft_printf("->|%s|\n", p->cmd);
+		if (!p->cmd)
 			error("command not found", *p->argv);
-		ft_free_tprocess(p);
-		p = tmp;
+		else if (p->grp)
+			ft_close(p->pipe[0]);
+		p = p->grp;
 	}
+	ft_free_tprocess(head);
 	return (NULL);
 }
 
@@ -67,7 +65,10 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 			return (NULL);
 		}
 		if (check_builtin(*new->argv) && (new->cmd = ft_strdup(*new->argv)))
+		{
+			new->pid = sh->pid;
 			new->builtins = TRUE;
+		}
 		else
 		{
 			new->env = tenvv_to_tab(sh->env);
@@ -88,14 +89,21 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 		while (t->o_type == O_PIPE)
 		{	
 			t = t->next;
-			if ((tmp->grp = init_process(t, sh)) && tmp->grp->cmd)
-			{
+			if ((tmp->grp = init_process(t, sh)))
+		 	{
+		 		if (tmp->grp->cmd)
+		 		{
+		 			if (t->o_type == O_PIPE && t->next 
+		 			&& (pipe(tmp->grp->pipe) < 0))
+		 			{
+		 				error("broken pipe", NULL);
+						ft_abort(head);
+		 			}
+				}
+				else
+					error("command not found", *tmp->grp->argv);
 				tmp = tmp->grp;
-				if (t->o_type == O_PIPE && t->next && pipe(tmp->pipe))
-					ft_abort(head);
 			}
-			else
-				ft_abort(head);
 		}
 	}
 	else

@@ -26,6 +26,7 @@
 # include "structures.h"
 # include <pwd.h>
 
+int			ft_close_pipe(int pipe[2]);
 char		ft_parse_back(char c);
 void		ft_execve_pip(t_process *p, t_shell *sh, t_tree *t, int mode);
 void		ft_delete_char(t_eval *e);

@@ -898,3 +898,289 @@ echo ls| rev
 echo ls| rev | ./42sh
 echo sl ./42sh
 echo sl | ./42sh
+ls
+clear
+ls
+echo ls
+echo ls >&-
+ls
+ls|rev
+ls|rev|cat -e
+ls
+clear
+lls|rev
+ls|rev
+ls|rev
+ls|rev| cat -e
+ls|rev| cat -e
+ls
+ls|rev
+ls|cat -e | cat-e
+ls|cat -e | cat -e
+ls|cat -e | cat -e | cat -e
+ls|rev
+ls|cat -e
+ls
+ls|rev
+ls|rev
+ls|cat -e
+jobs
+ls
+clear
+env
+ls|rev
+ls|rev
+ls|rev
+ls|rev
+ls|rev
+clear
+ls|rev
+ls|rev
+ls|rev
+ls
+ls
+ls|rev
+lol
+ls|rev
+ls|rev
+ls|rev
+ls|rev|cat -e
+ls|rev
+clear
+ls
+ls|rev
+ls|cat -e | cat -e
+ls|cat -e 
+ls|cat -e 
+ls|cat -e |cat
+ls | rev
+ls | rev| cat -e
+cat
+ls-rev
+ls | cat -e
+ls|cat -e
+ls|cat -e|cat -e
+ls|cat -e|cat -e
+ls|cat -e|cat -e
+ls|cat -e|cat -e
+ls| rev
+ls| rev
+ls| rev
+ls| rev
+ls|rev
+ls|rev
+ls|rev
+ls|rev
+ls|rev
+ls|rev|rev
+ls|rev
+ls
+ls|rev
+ls|rev
+ls|rev
+ls|rev
+./42
+ls
+ls|rev
+echo ls | ./42sh
+ls
+celar
+clear
+env
+ls
+clear
+env
+ls
+ls
+ls|rev
+jobs
+ls|rev
+jobs
+echo lo
+echo $$
+ls
+clear
+env
+ls|rev
+rev
+rev
+jobs
+clear
+ps
+jobs
+clearjobs
+clear
+env
+ll
+ls
+ls|rev
+ls|cat -e
+ls|cat -e
+ls|cat -e
+ls
+ls|rev
+ls|rev|cat -e
+ls|rev
+ls-rev
+ls|rev
+ls|rev|cat -e
+ls|rev
+ls|rev|cat
+ls|rev
+ls|rev|cat
+ls|rev|cat
+ls|rev
+ls|rev
+ls|rev-cat
+ls|rev|cat
+ls|rev
+ls|rev
+ls|rev
+ls|rev |cat
+ls|rev
+ls|rev|rev
+ls - R | rev
+ls -R | rev
+ls -R / | rev
+ls|rev
+ls|rev|rev
+jobs
+ls|rev
+clear
+ls
+ls|rev|rev|rev
+jobs
+ls|cat -e | cat -e | cat -e
+ls| cat | cat
+ls| cat | cat | cat
+ls| cat | cat | cat | cat
+ls| cat | cat | cat | cat | cat -e
+ls| cat | cat | cat | cat | cat -e
+ls|rev
+ls|rev|rev
+ls
+clear
+ls|rev
+ls|rev
+ls|rev
+ls|cat -e
+ls|cat -e
+ls|rev
+ls| cat -e
+ls| rev
+ls| cat -e - cat -e
+ls| cat -e |  cat -e
+ls| cat -e |  cat -e | cat -e
+ls| cat -e |  cat -e | cat -e
+ls| cat -e |  cat -e | cat -e
+echo ' \n  lol \n'
+echo "\n\nlol"
+echo "\n\n\n\nlols"
+echo "\n\n\n\nls\nclear\n"
+clear "\n\n\n'\n\n\n"
+clear
+env
+cleare
+clear
+ls-rev
+ls|rev
+ls|rev
+ls|rev|rev
+ls|rev|rev|cat -e
+ls|rev|rev|cat -e
+ls|rev|rev|cat -e
+ls|rev|rev|cat -e| cat -e
+ls|rev|rev|cat -e| cat -e| cat -e
+ls|rev|rev|cat -e| cat -e| cat -e | grep MA
+ls|rev|rev|cat -e| cat -e| cat -e | grep Ma
+ls
+ls|rev
+ls|rev|cat -e
+ls|rev|cat-e
+ls|rev|cat 
+ls|rev|cat 
+ls|rev|cat-e
+ls|rev|cat -e
+ls|rev|cat -e| rev
+ls|rev|cat -e| rev | grep 42
+ls|rev|cat -e| rev | grep 42 | rev
+cat | rev | cat | cat | cat
+cat| cat
+jobs
+cat| cat
+jobs
+cat | rev | cat | cat | cat
+cat | rev | cat | cat | cat
+jobs
+ls|rev
+jobs
+ls
+jobs
+ls|rev
+jobs
+ls|rev
+jobs
+cat | rev
+jobs
+ls| rev
+jobs|cat -e
+clear
+jobs | cat -e
+jobs
+jobs
+ls|rev
+ls|rev
+ls|rev| rev
+clear
+ls|rev
+ls|rev|rev
+ls|rev|rev| cat -e
+ls|rev|rev| cat -e | cat -e
+ls|rev|rev| cat -e | cat -e| cat -e
+ls|rev|rev| cat -e | cat -e| cat -e | rev
+ls|rev|rev| cat -e | cat -e| cat -e | rev
+cat rrev|rev| cat -e | cat -e| cat -e | rev
+cat | rev|rev| cat -e | cat -e| cat -e | rev
+jobs
+ls
+jobs
+cat | rev
+jobs
+ls| rev
+cat << eoi | rev
+LAUL
+cat << eoi | rev > file ; cat file ; rm -rf file
+LAUmL
+ls
+cat << eoi | rev > file ; cat file 
+LAUL
+cat << eoi | rev > file ; cat file 
+LAUL
+ls;ls
+ls|rev;ls
+ls| rev ; echo END
+ls
+jobs
+ls
+ls|refv
+ls|rev
+ls|revze
+ls
+ls|reage
+ls|reage
+ls|reage|zfa
+ls|rev
+zefd|rev
+le|ev
+ls|revz
+clear
+ls
+ls|rev
+ls|rev
+ls|rev|cat -e
+ls|rev|cat -e| rev
+ls|rev|cat -e| rev| grep MA
+ls|rev|cat -e| rev| grep Ma
+ls|eag
+ls|rev
+clear |rezga

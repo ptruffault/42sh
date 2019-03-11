@@ -22,7 +22,7 @@ static void			ft_init_fd(t_process *new)
 	new->fd[2] = 2;
 	new->pipe[0] = -1;
 	new->pipe[1] = -1;
-	new->status = RUNNING_FG;
+	new->status = INIT;
 	new->ret = -1;
 	new->argv = NULL;
 	new->grp = NULL;
@@ -34,8 +34,21 @@ static void			ft_init_fd(t_process *new)
 
 static t_process	*ft_abort(t_process *p)
 {
-	warning("can't setup process", p->cmd);
-	ft_free_tprocess(p);
+	t_process *tmp;
+
+	while (p)
+	{
+		if (p->cmd && p->grp)
+		{
+			tmp = p->grp;
+			p->grp = NULL;
+			ft_close_pipe(p->pipe);
+		}
+		else if (!p->cmd)
+			error("command not found", *p->argv);
+		ft_free_tprocess(p);
+		p = tmp;
+	}
 	return (NULL);
 }
 
@@ -69,12 +82,9 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 	t_process *head;
 	t_process *tmp;
 
-	if ((head = init_process(t, sh)) && !pipe(head->pipe))
+	if ((head = init_process(t, sh)) && head->cmd && !pipe(head->pipe))
 	{
-		head->next = sh->process;
-		sh->process = head;
 		tmp = head;
-		ft_printf("new pipe %i %i\n", tmp->pipe[0], tmp->pipe[1]);
 		while (t->o_type == O_PIPE)
 		{	
 			t = t->next;
@@ -83,8 +93,9 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 				tmp = tmp->grp;
 				if (t->o_type == O_PIPE && t->next && pipe(tmp->pipe))
 					ft_abort(head);
-				ft_printf("new pipe %i %i\n", tmp->pipe[0], tmp->pipe[1]);
 			}
+			else
+				ft_abort(head);
 		}
 	}
 	else

@@ -12,16 +12,17 @@
 
 #include "../../includes/shell42.h"
 
-static void ft_init_status(char *stat[5])
+static void ft_init_status(char *stat[6])
 {
-	stat[0] = "running foreground";
-	stat[1] = "running background";
-	stat[2] = "done";
-	stat[3] = "suspended";
-	stat[4] = "killed";
+	stat[0] = "initialised";
+	stat[1] = "running foreground";
+	stat[2] = "running background";
+	stat[3] = "done";
+	stat[4] = "suspended";
+	stat[5] = "killed";
 }
 
-static void ft_job_prompt(t_process *tmp, char *stat[5], int id)
+static void ft_job_prompt(t_process *tmp, char *stat[6], int id)
 {
 	ft_printf("[%i] %s\t%3i %s {%i}\n",
 	id, stat[tmp->status], tmp->ret, tmp->cmd, tmp->pid);
@@ -33,7 +34,7 @@ int		ft_jobs(t_shell *sh)
 {
 	t_process	*tmp;
 	t_process	*grp;
-	char 		*stat[5];
+	char 		*stat[6];
 	int			id;
 
 	id = 0;

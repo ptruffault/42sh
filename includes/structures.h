@@ -15,6 +15,7 @@
 # define IS_STD(x) (0 <= x && x <= 2)
 # define IS_CMD(x) (1 <= x && x <= 5)
 # define IS_EXP(x) (1 <= x && x <= 4)
+# define IS_RUNNING(x) (x == RUNNING_FG || x == RUNNING_BG)
 
 enum	e_rtype{
 	UNDEF = 0,
@@ -43,11 +44,12 @@ enum	e_wtype{
 };
 
 enum	e_pstatus{
-	RUNNING_FG = 0,
-	RUNNING_BG = 1,
-	DONE = 2,
-	SUSPENDED = 3,
-	KILLED = 4
+	INIT = 0,
+	RUNNING_FG = 1,
+	RUNNING_BG = 0,
+	DONE = 3,
+	SUSPENDED = 4,
+	KILLED = 5
 };
 
 enum	e_error

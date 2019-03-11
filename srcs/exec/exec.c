@@ -43,9 +43,22 @@ t_tree			*exec_instruction(t_tree *t)
 	t_shell		*sh;
 
 	sh = ft_get_set_shell(NULL);
-	if (t->o_type == O_PIPE && t->next
-	&& (p = init_pipe_process(t, sh)))
-		return (exec_pipe(t, p, sh));
+	if (t->o_type == O_PIPE)
+	{
+		if (t->next
+		&& (p = init_pipe_process(t, sh)))
+		{
+			p->next = sh->process;
+			sh->process = p;
+			return (exec_pipe(t, p, sh));
+		}
+		else
+		{
+			while (t->o_type == O_PIPE)
+				t = t->next;
+			return (t);
+		}
+	}
 	else if ((p = init_process(t, sh)))
 	{
 		p->next = sh->process;
@@ -53,9 +66,9 @@ t_tree			*exec_instruction(t_tree *t)
 		if ((t->ret = ft_execve(p, sh, t)) && t->ret == -2 && p->status == RUNNING_FG)
 			waitpid(p->pid, &p->ret, WUNTRACED); 
 		t->ret = p->ret;
-		ft_reset_fd(p);
 		if (p->status != KILLED && p->status != SUSPENDED)
 			p->status = DONE;
+		ft_reset_fd(p);
 	}
 	return (t);
 }

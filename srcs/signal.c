@@ -21,7 +21,7 @@ t_process	*ft_wait_background(t_process *p)
 	while (tmp)
 	{
 		if (tmp->status == RUNNING_BG
-		&& waitpid(tmp->pid, &tmp->ret, WNOHANG) != -1)
+		&& waitpid(tmp->pid, &tmp->ret, WUNTRACED | WNOHANG) != -1)
 			return (tmp);
 		tmp = tmp->next;
 	}

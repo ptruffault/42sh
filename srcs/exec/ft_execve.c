@@ -27,6 +27,7 @@ int			ft_execve(t_process *p, t_shell *sh, t_tree *t)
 	{
 		if (p->cmd && !ft_isempty(p->cmd))
 		{
+			p->status = RUNNING_FG;
 			if (p->builtins == TRUE)
 			{
 				t->ret = run_builtin(t, p->argv, sh);

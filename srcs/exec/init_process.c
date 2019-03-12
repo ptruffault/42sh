@@ -37,12 +37,9 @@ static t_process	*ft_abort(t_process *p)
 	t_process *head;
 
 	head = p;
-	while (p)
+	while (p && p->cmd)
 	{
-		ft_printf("->|%s|\n", p->cmd);
-		if (!p->cmd)
-			error("command not found", *p->argv);
-		else if (p->grp)
+		if (p->grp)
 			ft_close(p->pipe[0]);
 		p = p->grp;
 	}
@@ -65,10 +62,7 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 			return (NULL);
 		}
 		if (check_builtin(*new->argv) && (new->cmd = ft_strdup(*new->argv)))
-		{
-			new->pid = sh->pid;
 			new->builtins = TRUE;
-		}
 		else
 		{
 			new->env = tenvv_to_tab(sh->env);
@@ -96,12 +90,15 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 		 			if (t->o_type == O_PIPE && t->next 
 		 			&& (pipe(tmp->grp->pipe) < 0))
 		 			{
-		 				error("broken pipe", NULL);
-						ft_abort(head);
+		 				error("broken pipe", tmp->grp->cmd);
+						return (ft_abort(head));
 		 			}
 				}
 				else
+				{
 					error("command not found", *tmp->grp->argv);
+					return (ft_abort(head));
+				}
 				tmp = tmp->grp;
 			}
 		}

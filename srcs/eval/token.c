@@ -20,7 +20,7 @@ static t_word	*find_type(t_word *w, char c, int *pos)
 		w->type = REDIRECT;
 	else if (c == 'q')
 		w->type = DQUOTE;
-	else if (c == 's')
+	else if (c == 's' || c == 'B')
 		w->type = QUOTE;
 	else if (c == 'v')
 		w->type = VAR;
@@ -100,8 +100,8 @@ t_word			*eval_line(char *input)
 	if (!input || !*input || ft_isempty(input))
 		return (NULL);
 	e = lexer(input);
-	head = ft_get_words(&e);
-	ft_check_alias(head, sh);
+	if ((head = ft_get_words(&e)))
+		ft_check_alias(head, sh);
 	ft_strdel(&e.eval);
 	ft_strdel(&e.s);
 	if (head->type == OPERATEUR)

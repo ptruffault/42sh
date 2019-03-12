@@ -46,6 +46,7 @@ EVAL		=		eval_tools.c \
 					t_word_tools.c \
 
 BUILTINS	=		ft_echo.c \
+					fg_bg.c \
 					ft_cd.c \
 					run_builtin.c \
 					ft_env.c \

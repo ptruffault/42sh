@@ -26,7 +26,7 @@ static void ft_job_prompt(t_process *tmp, char *stat[6], int id)
 {
 	t_process *grp;
 
-	ft_printf("% -5i%-25s%i %-20s%i\033[00m\n",
+	ft_printf("ID % -5i%-25s%i %-20s%i\033[00m\n",
 	id, stat[tmp->status], tmp->ret, tmp->cmd, tmp->pid);
 	if (tmp->grp)
 	{
@@ -34,14 +34,12 @@ static void ft_job_prompt(t_process *tmp, char *stat[6], int id)
 		while (grp)
 		{
 			if (grp->cmd)
-				ft_printf("   |  %-25s%i %-20s%i\033[00m\n",
+				ft_printf(" |       %-25s%i %-20s%i\033[00m\n",
 				stat[grp->status], grp->ret, grp->cmd, grp->pid);
 			grp = grp->grp;
 		}
 	}
 }
-
-
 
 int		ft_hi(t_shell *sh)
 {

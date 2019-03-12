@@ -25,6 +25,7 @@ void	ft_exec_son(t_process *p, t_tree *t, t_shell *sh)
 {
 	int exit_code;
 
+	exit_code = -1;
 	if (!t->r || (t->r && ft_redirect_builtin(t, p)))
 	{
 		if (p->builtins == TRUE)

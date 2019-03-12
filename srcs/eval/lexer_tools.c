@@ -14,14 +14,14 @@
 
 void	ft_lex_backslash(t_eval *e)
 {
-	e->eval[e->curr++] = '\\';
-	if (!(e->s[e->curr]))
+	ft_delete_char(e);
+	if (e->s[e->curr])
+		e->eval[e->curr++] = 'B';
+	else
 	{
 		e->err = B_MISS;
 		e->c = '\\';
 	}
-	else
-		e->eval[e->curr] = 'e';
 }
 
 void	ft_lex_parenth(t_eval *e)

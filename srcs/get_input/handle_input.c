@@ -12,7 +12,7 @@
 
 #include "../../includes/get_input.h"
 
-void	ft_init_inputs_kval(unsigned long kval[])
+/*void	ft_init_inputs_kval(unsigned long kval[])
 {
 	kval[0] = TOUCHE_CTRL_C;
 	kval[1] = ARROW_LEFT;
@@ -63,29 +63,26 @@ void	ft_init_inputs_tab(unsigned long kval[], void (*ft_tab[])(t_edit *e))
 	ft_tab[19] = ft_jump_line_up;
 	ft_tab[20] = ft_jump_line_down;
 	ft_tab[21] = entry_key;
-}
+}*/
 
 int		handle_input(unsigned long buf, t_edit *e)
 {
 	int				x;
-	unsigned long	kval[22];
-	void			(*ft_tab[22])(t_edit *e);
 
-	ft_init_inputs_tab(kval, ft_tab);
 	x = -1;
-	while (++x < 22)
+	while (++x < NUMBER_OF_KEYS)
 	{
-		if (kval[x] == buf)
+		if (e->kval[x] == buf)
 		{
 			if (x != 7 && x < 12)
 				e->select = -1;
-			ft_tab[x](e);
+			e->ft_tab[x](e);
 			if (x == 0)
 				return (0);
 			break ;
 		}
 	}
-	if (x == 22 && ft_isascii(buf))
+	if (x == NUMBER_OF_KEYS && ft_isascii(buf))
 		ft_add_char((char)buf, e);
 	return (x);
 }

@@ -16,7 +16,7 @@
 # define IS_CMD(x) (1 <= x && x <= 5)
 # define IS_EXP(x) (1 <= x && x <= 4)
 # define IS_RUNNING(x) (x == RUNNING_FG || x == RUNNING_BG)
-
+# define NUMBER_OF_KEYS 22
 enum	e_rtype{
 	UNDEF = 0,
 	R_LEFT = 1,
@@ -80,6 +80,8 @@ typedef struct	s_edit
 	int			width;
 	int			select;
 	unsigned short		mode;
+	unsigned long kval[NUMBER_OF_KEYS];
+	void (*ft_tab[NUMBER_OF_KEYS])(struct s_edit *e);
 	t_hist		*hist;
 }				t_edit;
 

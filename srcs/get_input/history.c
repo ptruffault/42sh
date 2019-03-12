@@ -27,12 +27,11 @@ void	update_input(t_edit *e, char *s)
 static void bottom_start_hist(t_edit *e, char *input)
 {
 	t_hist *hist;
-	int x;
 
 	hist = e->hist->next;
 	while (hist)
 	{
-		if ((x = ft_str_startwith(hist->s, input) != 0))
+		if (ft_str_startwith(hist->s, input) != 0)
 			{
 				e->hist = hist;
 				return ;
@@ -46,9 +45,8 @@ void	hist_move_up(t_edit *e)
 	ft_delete_line(e);
 	if (!e->hist->next)
 		return ;
-	if (e->hist->s[0] != '\0' && e->hist->next)
+	if (!e->hist->prev && e->hist->s[0] != '\0' && e->hist->next)
 		{
-			e->hist = e->hist->next;
 			bottom_start_hist(e, e->hist->s);
 		}
 	else

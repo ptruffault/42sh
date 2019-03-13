@@ -566,3 +566,268 @@ ls
 ls
 ll
 la sys
+ll
+ceae
+clear
+ks
+ls
+ll
+ll|ll
+ll|rev
+l
+ll
+clear
+type ll
+type lR
+clear
+ll
+sublim
+type vim
+ll
+cat
+f
+fg
+cat
+bg
+ld
+ll
+ll
+clear
+ll
+ll
+ll
+ll
+clear
+env
+env
+echo $_
+echo $_
+echo $$
+echo $?
+echo $!
+echo 
+ls ${WEF}
+ls $$
+ls ${WEF}
+ls $WEF
+ls
+ll
+cleqr
+cl
+ll
+ll
+ll;ll
+\ll
+\'
+echo "\n\n\ne\n\n\n'\n\n"
+clear
+ls
+ls|rev
+ll
+l
+\ll
+clear
+\n
+\\
+\~
+\$$
+\$
+\$#
+\$@
+ls|rev
+cl
+l
+ll
+ll
+ll
+ll
+ll
+clear
+ll
+ll
+clear
+ll
+clear
+ll
+env
+ll
+ls &
+lR
+bg
+hi
+lR
+bg
+bg
+sleep 10
+bg
+ls
+hi
+sleep 10
+bg
+ls
+slepp 10
+sleep 10
+bg
+ks
+ls
+clear
+ls
+sleep 10
+bg
+ls
+sleep 20
+bg
+ls
+hi
+lR
+bg
+ls
+lR
+lR
+lR
+bg
+ls
+ls
+lR
+bg
+ll
+lR
+bg
+ls
+lR
+bg
+ls
+lR|rev 
+bg
+lR
+bg
+clear
+ls -R / >&-
+bg
+ls
+clear
+env
+ls
+clear
+env
+ll
+ll
+ls -R
+ls -R /
+bg
+fg
+fg
+fg
+fg
+fg
+ls -R / >&- 2>&- &
+bg
+ls
+ls -R / >file 2>&- &
+bg
+ls
+rm -rf file
+ls -R / 
+fg
+hi
+ll
+cat
+bg
+lsl
+sss
+ll
+cat 
+g
+bg
+l
+cat 
+bg
+l
+cat 
+b
+bg
+l
+l
+ll
+ls
+ll
+ll
+lR
+bg
+ls
+clear
+ls
+clear
+lR
+ls -R /
+fg
+bg
+ls
+ls
+clear
+ll
+ls -R /
+bg
+ls
+ls &
+slepp 12 &
+sleep 12 &
+hi
+make
+ll
+sleep 12 &
+sleep 12 &
+ls
+sleep 12 &
+ll
+env
+ll|rev
+ls &
+ls &
+hi &
+hi
+hi
+jobs
+ls -R /
+jobs
+cat
+bg cat
+ls
+jobs
+ls
+ll
+ll|rev
+hi
+ls -R / | rev | cat -e 
+jobs
+bg
+ld
+ls
+ll
+ls|rev
+ll
+ll
+env
+hi
+ls -R ~
+bg ls
+ls
+hi
+ls -R ~
+fg
+ls -R ~
+bg
+ls
+ls -R ~
+bg
+ls
+make
+ls
+ll
+ls -R ~
+bg
+ls
+hi
+jobs
+ls -R ~
+bg

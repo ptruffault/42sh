@@ -13,18 +13,6 @@
 #include "../includes/shell42.h"
 #include "../includes/get_input.h"
 
-void ft_set_background(int sig)
-{
-	(void)sig;
-	int fd;
-
-	if ((fd = open("/dev/null", O_RDWR | O_TRUNC | O_CREAT, S_IRWXU)) >= 0)
-	{
-		dup2(fd, STDIN_FILENO );
-		ft_close(fd);
-	}
-}
-
 t_process	*ft_wait_background(t_process *p)
 {
 	t_process *tmp;
@@ -50,18 +38,20 @@ void		sig_handler(int sig)
 
 	sh = ft_get_set_shell(NULL);
 	if (sig == SIGINT && !(sh && sh->process
-	&& kill_running_fg_process(sh->process, SIGINT)))
+	&& kill_running_process(sh->process, SIGINT, RUNNING_FG)))
 		ft_disp(sh);
 	if (sig == SIGWINCH && sh)
 		ft_update_windows(&sh->e);
 	if (sig == SIGTSTP && sh && sh->process)
-		kill_running_fg_process(sh->process, SIGTSTP);
+		kill_running_process(sh->process, SIGTSTP, RUNNING_FG);
 	if (sig == SIGCHLD && sh && sh->process
-	&& (tmp = ft_wait_background(sh->process)))
+	&& (tmp = ft_wait_background(sh->process))
+	&& tmp->status != SUSPENDED && tmp->status != KILLED)
+		tmp->status = DONE;
+	if ((sig == SIGTTIN || sig == SIGTTOU)
+	&& (kill_running_process(sh->process, SIGKILL, RUNNING_BG)))
 	{
-		ft_reset_fd(tmp);
-		if (tmp->status != SUSPENDED && tmp->status != KILLED)
-			tmp->status = DONE;
+		ft_printf("SIGttIN");
 	}
 	if (sig == SIGKILL)
 		ft_exit("9");
@@ -74,4 +64,6 @@ void		set_signals(void)
 	signal(SIGCHLD, sig_handler);
 	signal(SIGWINCH, sig_handler);
 	signal(SIGKILL, sig_handler);
+	signal(SIGTTIN, sig_handler);
+	signal(SIGTTOU, sig_handler);
 }

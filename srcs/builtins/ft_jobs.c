@@ -15,8 +15,8 @@
 static void ft_init_status(char *stat[6])
 {
 	stat[0] = "initialised";
-	stat[1] = "run fg";
-	stat[2] = "\033[00;34mrun bg\033[00m";
+	stat[1] = "running";
+	stat[2] = "\033[00;34mrunning\033[00m";
 	stat[3] = "\033[1;32mdone\033[00m";
 	stat[4] = "\033[1;36msuspended\033[00m";
 	stat[5] = "\033[00;31mkilled\033[00m";

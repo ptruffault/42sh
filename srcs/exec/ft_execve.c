@@ -14,7 +14,6 @@
 
 static void	ft_son(t_tree *t, t_process *p, t_shell *sh)
 {
-	signal(SIGUSR1, ft_set_background);
 	execve(p->cmd, p->argv, p->env);
 	warning("execve fucked up", p->cmd);
 	ft_free_tshell(sh);
@@ -37,6 +36,8 @@ int			ft_execve(t_process *p, t_shell *sh, t_tree *t)
 			}
 			else if ((p->pid = fork()) == 0)
 				ft_son(t, p, sh);
+			if (t->o_type == O_BACK)
+				ft_set_background(p);
 			return (-2);
 		}
 		else

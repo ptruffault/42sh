@@ -62,5 +62,9 @@ int			run_builtin(t_tree *t, char **argv, t_shell *sh)
 		return (ft_jobs(sh));
 	else if (ft_strequ(*argv, "hi"))
 		return (ft_hi(sh));
+	else if (ft_strequ(*argv, "fg"))
+		return (ft_fg(sh, argv));
+	else if (ft_strequ(*argv, "bg"))
+		return (ft_bg(sh, argv));
 	return (change_envv(argv, sh));
 }

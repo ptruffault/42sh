@@ -13,6 +13,18 @@
 #include "../includes/shell42.h"
 #include "../includes/get_input.h"
 
+void ft_set_background(int sig)
+{
+	(void)sig;
+	int fd;
+
+	if ((fd = open("/dev/null", O_RDWR | O_TRUNC | O_CREAT, S_IRWXU)) >= 0)
+	{
+		dup2(fd, STDIN_FILENO );
+		ft_close(fd);
+	}
+}
+
 t_process	*ft_wait_background(t_process *p)
 {
 	t_process *tmp;
@@ -22,7 +34,10 @@ t_process	*ft_wait_background(t_process *p)
 	{
 		if (tmp->status == RUNNING_BG
 		&& waitpid(tmp->pid, &tmp->ret, WUNTRACED | WNOHANG) != -1)
+		{
+			ft_printf("{%i} %s \033[1;32mdone\033[00m\n", tmp->pid, tmp->cmd);
 			return (tmp);
+		}
 		tmp = tmp->next;
 	}
 	return (NULL);
@@ -45,13 +60,11 @@ void		sig_handler(int sig)
 	&& (tmp = ft_wait_background(sh->process)))
 	{
 		ft_reset_fd(tmp);
-		tmp->status = DONE;
+		if (tmp->status != SUSPENDED && tmp->status != KILLED)
+			tmp->status = DONE;
 	}
 	if (sig == SIGKILL)
-	{
-		ft_printf("SIGKILL");
 		ft_exit("9");
-	}
 }
 
 void		set_signals(void)

@@ -14,6 +14,7 @@
 
 static void	ft_son(t_tree *t, t_process *p, t_shell *sh)
 {
+	signal(SIGUSR1, ft_set_background);
 	execve(p->cmd, p->argv, p->env);
 	warning("execve fucked up", p->cmd);
 	ft_free_tshell(sh);

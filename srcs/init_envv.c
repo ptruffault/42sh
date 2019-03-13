@@ -42,14 +42,14 @@ static void	ft_setup_env(t_shell *sh, char *shell_fold)
 	char *rc_path;
 
 	sh->env = ft_new_envv(sh->env, "SHELL_FOLD", shell_fold);
-	if ((hi_path = ft_strjoin(shell_fold, "/sys/.21history"))
+	if ((hi_path = ft_strjoin(shell_fold, "/sys/.42history"))
 	&& (sh->env = ft_new_envv(sh->env, "HISTORY", hi_path)))
 	{
 		sh->hist = init_hist(hi_path);
 		ft_strdel(&hi_path);
 	}
 	ft_update_shelvl(sh);
-	if ((rc_path = ft_strjoin(shell_fold, "/sys/.21shrc")))
+	if ((rc_path = ft_strjoin(shell_fold, "/sys/.42shrc")))
 	{
 		exec_file(rc_path, sh);
 		ft_strdel(&rc_path);

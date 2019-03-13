@@ -26,6 +26,10 @@
 # include "structures.h"
 # include <pwd.h>
 
+void		ft_set_background(int sig);
+t_process	*ft_get_process_id(t_process *p, int id);
+int 		ft_bg(t_shell *sh, char **argv);
+int 		ft_fg(t_shell *sh, char **argv);
 int			ft_hi(t_shell *sh);
 int			ft_close_pipe(int pipe[2]);
 char		ft_parse_back(char c);
@@ -78,8 +82,6 @@ t_tree		*ft_get_set_tree(t_tree *new_t);
 int			new_process(t_process *new, t_tree *t, t_shell *sh);
 void		ft_add_process(t_shell *sh, t_process *new);
 int			kill_running_fg_process(t_process *p, int sig);
-t_process	*ft_get_process(t_process *p, unsigned int stat);
-t_process	*ft_get_running_process(t_process *p);
 char		*search_in_envv(char *input, t_envv *envv);
 char		*absolute_path(char *input, t_envv *envv);
 char		*get_bin_path(char *input, t_envv *envv);

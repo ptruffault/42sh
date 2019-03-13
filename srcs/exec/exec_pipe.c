@@ -20,7 +20,7 @@ void	ft_wait_pipe(t_process *p)
 		&& (waitpid(p->pid, &p->ret, WUNTRACED) > 0))
 		{
 			if (p->status != KILLED && p->status != SUSPENDED)
-					p->status = DONE;
+				p->status = DONE;
 			ft_reset_fd(p);
 		}
 		p = p->grp;

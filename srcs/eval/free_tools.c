@@ -70,21 +70,6 @@ void	ft_free_thist(t_hist *h)
 	}
 }
 
-void	ft_free_tprocess_grp(t_process *p)
-{
-	t_process *tmp;
-
-	while (p)
-	{
-		tmp = p->grp;
-		ft_strdel(&p->cmd);
-		ft_freestrarr(p->argv);
-		ft_freestrarr(p->env);
-		free(p);
-		p = tmp;
-	}
-}
-
 void	ft_free_tprocess(t_process *p)
 {
 	t_process *tmp;
@@ -96,7 +81,7 @@ void	ft_free_tprocess(t_process *p)
 		ft_freestrarr(p->argv);
 		ft_freestrarr(p->env);
 		if (p->grp)
-			ft_free_tprocess_grp(p->grp);
+			ft_free_tprocess(p->grp);
 		free(p);
 		p = tmp;
 	}

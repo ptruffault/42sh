@@ -871,3 +871,17 @@ lR >&- 2>&- &
 ls
 ls
 ls
+ll
+ll&&ll
+alias
+alias rm 'rm -rf'
+ls
+touch file
+rm file
+type rm
+alias
+ls
+ll
+ll
+ll|rev
+clear

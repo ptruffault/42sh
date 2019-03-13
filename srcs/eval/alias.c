@@ -55,7 +55,7 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 		{
 			save = tmp_w->next;
 			tmp_w = ft_alias_to_tword(tmp_w, val);
-			tmp_w = tmp_w->next;
+			tmp_w = save;
 		}
 		else
 			tmp_w = tmp_w->next;

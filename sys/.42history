@@ -831,3 +831,43 @@ hi
 jobs
 ls -R ~
 bg
+ls
+ls|rev
+lR
+fg
+lR
+fg
+fg
+sleep 60 &
+ls
+hi
+sleep 60 &
+jobs
+make
+sleep 60 &
+ls
+hi
+make
+sleep 60 &
+ls
+sleep 60 &
+ls
+hi
+sleep 60 &
+ls
+sleep 60 &
+ls
+hi
+ll
+ls &
+ls &
+ls
+ll
+lR &
+lR &
+l
+lR & >&- 2>&-
+lR >&- 2>&- &
+ls
+ls
+ls

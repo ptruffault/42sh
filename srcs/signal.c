@@ -20,9 +20,10 @@ t_process	*ft_wait_background(t_process *p)
 	tmp = p;
 	while (tmp)
 	{
-		if (tmp->status == RUNNING_BG
-		&& waitpid(tmp->pid, &tmp->ret, WUNTRACED | WNOHANG) != -1)
+		if (tmp->status == RUNNING_BG && tmp->pid > 0
+		&& waitpid(tmp->pid, &tmp->ret, WUNTRACED | WNOHANG) >= 0)
 		{
+			tmp->status = DONE;
 			ft_printf("{%i} %s \033[1;32mdone\033[00m\n", tmp->pid, tmp->cmd);
 			return (tmp);
 		}
@@ -34,7 +35,6 @@ t_process	*ft_wait_background(t_process *p)
 void		sig_handler(int sig)
 {
 	t_shell		*sh;
-	t_process	*tmp;
 
 	sh = ft_get_set_shell(NULL);
 	if (sig == SIGINT && !(sh && sh->process
@@ -44,10 +44,8 @@ void		sig_handler(int sig)
 		ft_update_windows(&sh->e);
 	if (sig == SIGTSTP && sh && sh->process)
 		kill_running_process(sh->process, SIGTSTP, RUNNING_FG);
-	if (sig == SIGCHLD && sh && sh->process
-	&& (tmp = ft_wait_background(sh->process))
-	&& tmp->status != SUSPENDED && tmp->status != KILLED)
-		tmp->status = DONE;
+	if (sig == SIGCHLD && sh && sh->process)
+		ft_wait_background(sh->process);
 	if ((sig == SIGTTIN || sig == SIGTTOU)
 	&& (kill_running_process(sh->process, SIGKILL, RUNNING_BG)))
 	{

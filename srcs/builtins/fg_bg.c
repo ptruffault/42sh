@@ -65,14 +65,15 @@ void 	ft_wait_fg(t_process *p)
 	}
 }
 
-void ft_set_background(t_process *p)
+void ft_set_background(t_process *p, int cont)
 {
 	int pgid;
 
 	ft_printf("{%i} running background %s\n", p->pid, p->cmd);
 	pgid = getpgid(p->pid);
 	p->status = RUNNING_BG;
-	ft_sigcont(p, RUNNING_BG);
+	if (cont)
+		ft_sigcont(p, RUNNING_BG);
 	tcsetpgrp(STDIN_FILENO, pgid);
 	tcsetpgrp(STDOUT_FILENO, pgid);
 	tcsetpgrp(STDERR_FILENO, pgid);
@@ -86,13 +87,13 @@ int ft_bg(t_shell *sh, char **argv)
 
 	i = 0;
 	if ((!argv[1] && (tmp = ft_get_process_id(sh->process, 1))))
-		ft_set_background(tmp);
+		ft_set_background(tmp, 1);
 	while (argv[++i])
 	{
 		if ((argv[1] && *argv[i] == '%' && ft_isdigit(argv[i][1])
 		&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
 		|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
-			ft_set_background(tmp);
+			ft_set_background(tmp, 1);
 		else
 		{
 			error("job not found", argv[1]);

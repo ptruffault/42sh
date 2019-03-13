@@ -64,7 +64,7 @@ t_tree			*exec_instruction(t_tree *t)
 		p->next = sh->process;
 		sh->process = p;
 		if ((t->ret = ft_execve(p, sh, t)) == -2 && p->status == RUNNING_FG)
-			waitpid(p->pid, &p->ret, WUNTRACED | WCONTINUED); 
+			waitpid(p->pid, &p->ret, WUNTRACED); 
 		t->ret = p->ret;
 		if (p->status != RUNNING_BG && p->status != KILLED && p->status != SUSPENDED)
 		{

@@ -106,6 +106,7 @@ void		delete_on(t_edit *e)
 	int		j;
 	char	*tmp;
 
+	e->select = -1;
 	if ((size_t)e->curr == (size_t)ft_strlen(e->hist->s))
 		return ;
 	i = 0;

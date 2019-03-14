@@ -16,6 +16,7 @@ char		*ft_update_hist(t_shell *sh)
 {
 	char	*ret;
 	char	*hi_path;
+	t_hist *hist;
 
 	ret = ft_strdup(sh->e.hist->s);
 	if (sh->e.hist->s[0] != '\0'
@@ -26,10 +27,13 @@ char		*ft_update_hist(t_shell *sh)
 			sh->hist = sh->e.hist;
 		else
 		{
-			while (sh->e.hist->prev)
-				sh->e.hist = sh->e.hist->prev;
-			ft_strdel(&sh->e.hist->s);
-			sh->e.hist->s = ft_strdup(ret);
+			hist = sh->e.hist;
+			while (hist->prev)
+				hist = hist->prev;
+			ft_strdel(&hist->s);
+			hist->s = ft_strdup(sh->e.hist->s);
+			sh->e.hist = hist;
+			sh->hist = sh->e.hist;
 		}
 	}
 	sh->e.curr = ft_strlen(sh->e.hist->s);

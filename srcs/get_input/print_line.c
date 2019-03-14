@@ -28,12 +28,18 @@ static void	print_background(t_edit *e, int pos, int size)
 	term_actions("me");
 }
 
-/*void ft_print_mode(t_edit *e, print_modes)
+void ft_print_edited(t_edit *e)
 {
-	print_modes[e->mode](e);
-}*/
+	ft_delete_line(e);
+	e->curr = ft_strlen(e->hist->s);
+	ft_putstr(tparm(tgetstr("AF", NULL), COLOR_YELLOW));
+	write(1, e->hist->s, ft_strlen(e->hist->s));
+	ft_putstr(NORMAL);
+	term_actions("ve");
+	ft_putchar('\n');
+}
 
-static void ft_print_fast(t_edit *e)
+void ft_print_fast(t_edit *e)
 {
 	uintmax_t pos;
 	uintmax_t size;
@@ -60,5 +66,5 @@ static void ft_print_fast(t_edit *e)
 
 void		ft_print_line(t_edit *e)
 {
-	ft_print_fast(e);
+	e->print_modes[e->mode](e);
 }

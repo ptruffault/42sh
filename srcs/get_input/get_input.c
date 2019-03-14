@@ -36,11 +36,9 @@ char		*ft_update_hist(t_shell *sh)
 			sh->hist = sh->e.hist;
 		}
 	}
-	sh->e.curr = ft_strlen(sh->e.hist->s);
+	sh->e.mode = 1;
 	ft_print_line(&sh->e);
 	ft_set_old_term(sh);
-	term_actions("ve");
-	ft_putchar('\n');
 	return (ret);
 }
 

@@ -101,6 +101,11 @@ void			ft_jp_word_left(t_edit *e);
 int				term_actions(char *cmd);
 int				term_goto(char *cmd, int row, int col);
 
+void ft_print_fast(t_edit *e);
+void ft_print_edited(t_edit *e);
+void			ft_print_line(t_edit *e);
+void			ft_delete_line(t_edit *e);
+
 void			ft_delete_line(t_edit *e);
 void			curr_go_last(t_edit *e);
 void			hist_move_do(t_edit *e);
@@ -114,9 +119,7 @@ void			curs_move_to(t_edit *e, int pos);
 void			curs_reset(t_edit *e);
 void			curs_gotoend(t_edit *e);
 void			curs_reset(t_edit *e);
-void			ft_print_line(t_edit *e);
 void			ft_clear(t_edit *e);
-void			ft_delete_line(t_edit *e);
 void			add_to_file(char *path, char *s);
 int				handle_input(unsigned long buf, t_edit *e);
 t_edit			*get_set_edit(t_edit *new_ed);

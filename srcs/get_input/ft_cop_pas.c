@@ -48,6 +48,8 @@ void	ft_paste(t_edit *e)
 	char	*tmp;
 
 	sh = ft_get_set_shell(NULL);
+	if (e->select != -1)
+			delete_left(e);
 	if (sh->clipboard
 	&& (tmp = ft_strnew(ft_strlen(e->hist->s) + ft_strlen(sh->clipboard) + 1)))
 	{
@@ -58,6 +60,7 @@ void	ft_paste(t_edit *e)
 			tmp[b++] = e->hist->s[x++];
 		while (sh->clipboard[c])
 			tmp[b++] = sh->clipboard[c++];
+		e->curr = b;
 		while (e->hist->s[x])
 			tmp[b++] = e->hist->s[x++];
 		ft_strdel(&e->hist->s);

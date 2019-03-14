@@ -16,7 +16,7 @@
 # define IS_CMD(x) (1 <= x && x <= 5)
 # define IS_EXP(x) (1 <= x && x <= 4)
 # define IS_RUNNING(x) (x == RUNNING_FG || x == RUNNING_BG)
-# define NUMBER_OF_KEYS 22
+# define NUMBER_OF_KEYS 23
 enum	e_rtype{
 	UNDEF = 0,
 	R_LEFT = 1,

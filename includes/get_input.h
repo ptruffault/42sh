@@ -27,29 +27,37 @@
 # define FAILURE 0
 # define SUCCESS 1
 # define KEY_ENTER 0xA
-# define ARROW_UP 4283163
-# define ARROW_DOWN 4348699
-# define ARROW_LEFT 4479771
-# define ARROW_RIGHT 4414235
-# define TOUCHE_DELETE 2117294875
-# define TOUCHE_CTRL_C 3
-# define TOUCHE_CTRL_D 4
-# define TOUCHE_CTRL_L 12
-# define TOUCHE_CTRL_R 18
-# define TOUCHE_SUPPR 127
-# define TOUCHE_HOME 4741915
-# define TOUCHE_END 4610843
-# define TOUCHE_TAB 9
-# define TOUCHE_OPT_RIGHT 1130044187
-# define TOUCHE_OPT_LEFT 1146821403
-# define TOUCHE_OPT_UP 1096489755
-# define TOUCHE_OPT_DOWN 1113266971
-# define TOUCHE_OPT_V 10127586
-# define TOUCHE_OPT_C 42947
-# define TOUCHE_OPT_X 8948194
-# define TOUCHE_F5 542058306331
-# define TOUCHE_F6 542091860763
-# define TOUCHE_DEL 2117294875
+
+# define KEY_ARROW_UP 4283163
+# define KEY_ARROW_DOWN 4348699
+# define KEY_ARROW_LEFT 4479771
+# define KEY_ARROW_RIGHT 4414235
+
+# define KEY_OPTION_ARROW_UP 1096489755
+# define KEY_OPTION_ARROW_DOWN 1113266971
+# define KEY_OPTION_ARROW_LEFT 1146821403
+# define KEY_OPTION_ARROW_RIGHT 1130044187
+
+# define KEY_SHIFT_ARROW_UP 71683997260571
+# define KEY_SHIFT_ARROW_DOWN 72783508888347
+# define KEY_SHIFT_ARROW_LEFT 74982532143899
+# define KEY_SHIFT_ARROW_RIGHT 73883020516123
+
+# define KEY_CTRL_C 3
+# define KEY_CTRL_D 4
+
+# define KEY_HOME 4741915
+# define KEY_END 4610843
+
+# define KEY_SHIFT_HOME 79380578655003
+# define KEY_SHIFT_END 77181555399451
+
+# define KEY_BACKSPACE 127
+# define KEY_DELETE 2117294875
+
+# define KEY_OPTION_C 42947
+# define KEY_OPTION_V 10127586
+
 # define CURSEUR_MOVE "cm"
 # define CURSOR_UP "up"
 # define CURSOR_DO "do"
@@ -63,14 +71,6 @@
 # define UNDERLINE_CURS "uc"
 # define DELETE_LINE "dl"
 # define HOME_POS "ho"
-# define TOUCHE_SELECT_LEFT 74982532143899
-# define TOUCHE_SELECT_RIGHT 73883020516123
-# define TOUCHE_MAJ_END 77181555399451
-# define TOUCHE_MAJ_HOME 79380578655003
-# define TOUCHE_MAJ_ARROW_UP 71683997260571
-# define TOUCHE_MAJ_ARROW_DOWN 72783508888347
-# define TOUCHE_CMD_C 1
-# define TOUCHE_CMD_V 5
 
 void			curr_move_right(t_edit *e);
 void			curr_move_left(t_edit *e);
@@ -81,6 +81,8 @@ void			ft_select_left(t_edit *e);
 void			ft_select_end(t_edit *e);
 void			ft_select_home(t_edit *e);
 void			ft_home_key(t_edit *e);
+void	ft_select_line_down(t_edit *e);
+void ft_select_line_up(t_edit *e);
 
 void			ft_jump_line_down(t_edit *e);
 void			ft_jump_line_up(t_edit *e);

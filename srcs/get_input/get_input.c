@@ -34,7 +34,6 @@ char		*ft_update_hist(t_shell *sh)
 	}
 	sh->e.curr = ft_strlen(sh->e.hist->s);
 	ft_print_line(&sh->e);
-	ret = ft_strdup(sh->e.hist->s);
 	ft_set_old_term(sh);
 	term_actions("ve");
 	ft_putchar('\n');
@@ -56,7 +55,7 @@ char		*get_input(void)
 		buf = 0;
 		read(0, &buf, 8);
 		buf = handle_input(buf, &sh->e);
-		if (buf == 0)
+		if (buf == 9)
 		{
 			return (NULL);
 		}

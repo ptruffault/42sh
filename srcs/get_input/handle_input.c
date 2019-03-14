@@ -21,11 +21,11 @@ int		handle_input(unsigned long buf, t_edit *e)
 	{
 		if (e->kval[x] == buf)
 		{
-			if (x != 7 && x < 12)
+			if (x < 13)
 				e->select = -1;
 			e->ft_tab[x](e);
-			if (x == 0)
-				return (0);
+			if (x == 9)
+				return (9);
 			break ;
 		}
 	}

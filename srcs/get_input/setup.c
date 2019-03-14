@@ -93,10 +93,12 @@ t_edit	init_tedit(t_shell *sh)
 	sh->e.mode = 0;
 	if ((tmp = new_hist()))
 	{
-		tmp->next = sh->hist;
 		sh->e.hist = tmp;
-		if (tmp->next)
-			tmp->next->prev = tmp;
+		if (sh->hist)
+		{
+				tmp->next = sh->hist;
+				tmp->next->prev = tmp;
+		}
 		tmp->s = ft_strnew(2);
 	}
 	return (sh->e);

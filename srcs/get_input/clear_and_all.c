@@ -60,8 +60,12 @@ void	clear_term(t_edit *e)
 
 void	reset_get_input(t_edit *e)
 {
-	(void)e;
-	//ft_strdel(&e->hist->s);
+	while (e->hist->prev)
+		e->hist = e->hist->prev;
+	ft_strdel(&e->hist->s);
+	if (e->hist->next)
+		e->hist->next->prev = NULL;
+	free(e->hist);
 }
 
 void	just_exit(t_edit *e)

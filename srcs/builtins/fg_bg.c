@@ -50,6 +50,7 @@ void	ft_sigcont(t_process *tmp, unsigned int status)
 			tmp->status = status;
 			kill(tmp->pid, SIGCONT);
 		}
+
 		tmp = tmp->grp;
 	}
 }
@@ -67,16 +68,10 @@ void 	ft_wait_fg(t_process *p)
 
 void ft_set_background(t_process *p, int cont)
 {
-	int pgid;
-
 	ft_printf("{%i} running background %s\n", p->pid, p->cmd);
-	pgid = getpgid(p->pid);
-	p->status = RUNNING_BG;
-	if (cont)
+	if (cont && p->status == SUSPENDED)
 		ft_sigcont(p, RUNNING_BG);
-	tcsetpgrp(STDIN_FILENO, pgid);
-	tcsetpgrp(STDOUT_FILENO, pgid);
-	tcsetpgrp(STDERR_FILENO, pgid);
+	p->status = RUNNING_BG;
 }
 
 
@@ -103,6 +98,18 @@ int ft_bg(t_shell *sh, char **argv)
 	return (0);
 }
 
+void 	ft_set_foreground(t_process *p)
+{
+	ft_printf("{%i} running fg %s\n", p->pid, p->cmd);
+	if (p->status == SUSPENDED)
+		ft_sigcont(p, RUNNING_FG);
+	else if (p->status == RUNNING_BG)
+	{
+
+	}
+
+}
+
 int ft_fg(t_shell *sh, char **argv)
 {
 	t_process *tmp;
@@ -120,7 +127,7 @@ int ft_fg(t_shell *sh, char **argv)
 		&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
 		|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 		{
-			ft_sigcont(tmp, RUNNING_FG);
+			ft_set_foreground(tmp);
 			ft_wait_fg(tmp);
 		}
 		else

@@ -24,6 +24,7 @@ enum	e_rtype{
 	R_DLEFT = 3,
 	R_DRIGHT = 4
 };
+
 enum	e_otype{
 	UN = 0,
 	O_AND = 1,
@@ -46,7 +47,7 @@ enum	e_wtype{
 enum	e_pstatus{
 	INIT = 0,
 	RUNNING_FG = 1,
-	RUNNING_BG = 0,
+	RUNNING_BG = 2,
 	DONE = 3,
 	SUSPENDED = 4,
 	KILLED = 5
@@ -138,7 +139,6 @@ typedef struct	s_process
 
 typedef struct	s_shell
 {
-	int				pipes[2];
 	int				pid;
 	char			**txt;
 	int				heredoc;

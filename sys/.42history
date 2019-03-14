@@ -885,3 +885,158 @@ ll
 ll
 ll|rev
 clear
+ls
+ll
+alias
+ls
+lR
+jobs
+fg jobs
+fg /bin/ls
+bg ls >&-
+ls
+env
+ll
+jobs
+hi
+clear
+sleep 60 &
+hi
+jobs
+ls
+ll
+jobs
+hi
+ls|rev
+hi
+hi
+ls &
+ls
+sleep 60 &
+ls
+sleep 60 &
+echo lol
+hi
+jobs
+ll
+sleep &
+sleep 60 &
+ls
+hi
+exit | ls
+exit
+ls
+sleep 10&
+echo lol
+sleep 10&
+sleep 10&
+ls|rev
+sleep 10&
+ls
+ls
+ls|rev
+ll
+lR >&- 2>1- 
+LS
+ls
+clear
+env
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+env
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+sleep 60&
+jobs
+ls
+hi
+jobs
+ls
+ls
+ll
+ll -z
+ll
+ll . zerfz >&-2>&1
+ll . zerfz 2>&1>&-
+ll . zerfz >&- 2>&1
+ll . zerfz >&-2>&1
+ls
+rls
+ll
+alias
+z
+sleep 11 & sleep 10 & sleep 9 & sleep 8 & sleep 7
+sleep 11 & sleep 10 & sleep 9 & sleep 8 & sleep 7
+bg
+hi
+sleep 11 & sleep 10 & sleep 9 & sleep 8 & sleep 7
+bg sleep
+exit
+ls
+ll
+clear
+sleep 12 &
+ls
+ls
+lR
+lR
+ls
+clear
+ls
+ll
+lR
+bg >&-
+ls
+hi
+fg ls
+ls
+sleep 15
+hi
+bg
+ls&
+sleep 12 &
+hi
+jobs
+fg sleep
+sleep 12 &
+fg sleep
+hi
+ll
+cat lol
+ls
+ls
+ll
+ls
+cat &
+ll
+sleep 10 &
+ls$
+ls
+sleep 10 &
+sleep
+sleep 10
+bg sleep
+fg sleep
+sleep 20 &
+fg sleep
+ll

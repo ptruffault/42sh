@@ -21,10 +21,10 @@ t_process	*ft_wait_background(t_process *p)
 	while (tmp)
 	{
 		if (tmp->status == RUNNING_BG && tmp->pid > 0
-		&& waitpid(tmp->pid, &tmp->ret, WUNTRACED | WNOHANG) >= 0)
+		&& waitpid(tmp->pid, &tmp->ret, WUNTRACED | WNOHANG) > 0)
 		{
 			tmp->status = DONE;
-			ft_printf("{%i} %s \033[1;32mdone\033[00m\n", tmp->pid, tmp->cmd);
+			ft_printf("{%i} \033[1;32mdone\033[00m  %s ~> %i\n", tmp->pid, tmp->cmd, tmp->ret);
 			return (tmp);
 		}
 		tmp = tmp->next;

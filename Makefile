@@ -178,6 +178,7 @@ val: all
 	@valgrind --leak-check=full -v ./$(NAME)
 
 save: fclean clear
+	@echo > sys/.42history
 	@git add -A && git commit -m "make save" && git push \
 	&& printf "$(COLOR)save$(NO_COLOR) : $(DONE)\n" || printf"$(OP_COLOR)save : KO\n$(NO_COLOR)"
 

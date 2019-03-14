@@ -78,7 +78,7 @@ t_hist	*init_hist(char *hist)
 		{
 			if ((i = ft_strarrlen(arr) - 1) > 0)
 				new = ft_read_hist(i, arr);
-			ft_freestrarr(arr);
+			arr = ft_freestrarr(arr);
 		}
 		ft_close(fd);
 	}

@@ -104,6 +104,10 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 		}
 	}
 	else
-		ft_abort(head);
+	{
+		if (!head->cmd)
+			error("command not found", *head->argv);
+		return (ft_abort(head));
+	}
 	return (head);
 }

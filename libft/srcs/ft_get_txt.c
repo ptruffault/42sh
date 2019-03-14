@@ -19,24 +19,24 @@ char	**ft_get_txt(int fd)
 	int		i;
 
 	i = 0;
-	if (fd < 0 || !(ret = (char **)malloc(sizeof(char *))))
-		return (NULL);
-	tmp = NULL;
-	while (get_next_line(fd, &tmp))
+	ret = NULL;
+	if (fd >= 0 && (ret = (char **)malloc(sizeof(char *))))
 	{
-		ret = ft_realloc(ret, (i + 1) * sizeof(char *),
-		(i + 2) * sizeof(char *));
-		if (!tmp)
-			ret[i++] = ft_strdup(" ");
-		else
-			ret[i++] = ft_strdup(tmp);
-		ft_strdel(&tmp);
+		tmp = NULL;
+		while (get_next_line(fd, &tmp))
+		{
+			ret = ft_realloc(ret, (i + 1) * sizeof(char *),
+			(i + 2) * sizeof(char *));
+			if (tmp)
+				ret[i++] = ft_strdup(tmp);
+			ft_strdel(&tmp);
+		}
+		if (i == 0)
+		{
+			free(ret);
+			return (NULL);
+		}
+		ret[i] = tmp;
 	}
-	if (i == 0)
-	{
-		free(ret);
-		return (NULL);
-	}
-	ret[i] = NULL;
 	return (ret);
 }

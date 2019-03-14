@@ -68,7 +68,6 @@ void 	ft_wait_fg(t_process *p)
 
 void ft_set_background(t_process *p, int cont)
 {
-	ft_printf("{%i} running background %s\n", p->pid, p->cmd);
 	if (cont && p->status == SUSPENDED)
 		ft_sigcont(p, RUNNING_BG);
 	p->status = RUNNING_BG;

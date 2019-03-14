@@ -18,7 +18,7 @@ static int	ft_check_eol(char **text, char **line)
 
 	if (!*text)
 		*text = ft_strnew(0);
-	if ((eol = ft_strchr(*text, '\n')))
+	else if ((eol = ft_strchr(*text, '\n')))
 	{
 		*line = ft_strsub(*text, 0, eol - *text);
 		ft_strcpy(*text, eol + 1);

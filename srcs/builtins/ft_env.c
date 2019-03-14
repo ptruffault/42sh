@@ -29,7 +29,7 @@ static void		ft_env_exec(char **arr, t_envv *tmp, t_envv *envv)
 		warning("{env} execve fucked up", *arr);
 	}
 	ft_strdel(&path);
-	ft_freestrarr(e);
+	e = ft_freestrarr(e);
 	wait(&pid);
 }
 

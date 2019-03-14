@@ -31,12 +31,12 @@ char	*ft_search_line_in_file(char *path, char *src)
 		{
 			ret = ft_strdup(arr[i]);
 			ft_strdel(&tmp);
-			ft_freestrarr(arr);
+			arr = ft_freestrarr(arr);
 			close(fd);
 			return (ret);
 		}
 	}
-	ft_freestrarr(arr);
+	arr = ft_freestrarr(arr);
 	ft_strdel(&tmp);
 	return (NULL);
 }

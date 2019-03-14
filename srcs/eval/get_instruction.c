@@ -62,7 +62,8 @@ int				ft_check_grammar(t_word *w)
 	cmd = 0;
 	while (w)
 	{
-		if (w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
+		if ((w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
+		|| (w->type == REDIRECT && ft_strchr(w->word, '<') && ft_strchr(w->word, '>')))
 		{
 			error("syntax error near", w->word);
 			return (0);

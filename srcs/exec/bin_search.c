@@ -66,12 +66,12 @@ char		*search_in_envv(char *input, t_envv *envv)
 			ft_strdel(&bin_path);
 		else
 		{
-			ft_freestrarr(path);
+			path = ft_freestrarr(path);
 			return (check_exe(bin_path, inf));
 		}
 		i++;
 	}
-	ft_freestrarr(path);
+	path = ft_freestrarr(path);
 	return (NULL);
 }
 

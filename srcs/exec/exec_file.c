@@ -20,6 +20,7 @@ int		exec_fd(t_shell *sh, int fd)
 	i = 0;
 	if ((sh->txt = ft_get_txt(fd)))
 	{
+				ft_putstrarr(sh->txt);
 		while (sh->txt[i])
 		{
 			if (*sh->txt[i] && *sh->txt[i] != '#'
@@ -27,7 +28,7 @@ int		exec_fd(t_shell *sh, int fd)
 				ft_free_tree(exec_tree(t));
 			i++;
 		}
-		ft_freestrarr(sh->txt);
+		sh->txt = ft_freestrarr(sh->txt);
 	}
 	return (i);
 }

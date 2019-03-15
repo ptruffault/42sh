@@ -46,9 +46,10 @@ static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 	c = e->eval[*i];
 	if (e->eval[*i] == 'o' || e->eval[*i] == 'r')
 	{
+		if (e->eval[*i] == 'o')
+			*pos = 0;
 		while (e->eval[*i] && e->eval[*i] == c)
 			*i = *i + 1;
-		*pos = 0;
 	}
 	else
 	{

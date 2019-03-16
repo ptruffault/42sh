@@ -105,7 +105,7 @@ t_word			*eval_line(char *input)
 		ft_check_alias(head, sh);
 	ft_strdel(&e.eval);
 	ft_strdel(&e.s);
-	if (head->type == OPERATEUR)
+	if (head && head->type == OPERATEUR)
 	{
 		error("syntax error near", head->word);
 		ft_free_tword(head);

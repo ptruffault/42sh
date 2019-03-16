@@ -123,7 +123,7 @@ void			ft_clear(t_edit *e);
 void			add_to_file(char *path, char *s);
 int				handle_input(unsigned long buf, t_edit *e);
 t_edit			*get_set_edit(t_edit *new_ed);
-t_edit			init_tedit(t_shell *sh);
+int				init_tedit(t_shell *sh);
 void			free_tedit(t_edit *e);
 void			get_hist_path(t_edit *e);
 char			**get_hist(int fd);

@@ -29,7 +29,7 @@ int		handle_input(unsigned long buf, t_edit *e)
 			break ;
 		}
 	}
-	if (x == NUMBER_OF_KEYS && ft_isascii(buf))
+	if (x == NUMBER_OF_KEYS && ft_isascii(buf) && e->hist)
 		ft_add_char((char)buf, e);
 	return (x);
 }

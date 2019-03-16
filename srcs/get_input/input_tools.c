@@ -22,7 +22,7 @@ void		ft_add_char(char buf, t_edit *e)
 		delete_left(e);
 		e->select = -1;
 	}
-	if (!ft_isprint(buf))
+	if (!ft_isprint(buf) || !e->hist->s)
 		return ;
 	i = ft_strlen(e->hist->s);
 	size = ft_strlen(e->hist->s) + 1;

@@ -25,6 +25,8 @@ void ft_wait_background(t_shell *sh)
 		{
 			tmp->status = DONE;
 			ft_delete_line(&sh->e);
+			term_actions(CURSOR_UP);
+			term_actions(DELETE_LINE);
 			ft_printf("{%i} \033[1;32mdone\033[00m  %s ~> %i\n", tmp->pid, tmp->cmd, tmp->ret);
 			ft_disp(ft_get_set_shell(NULL));
 			ft_putstr(sh->e.hist->s);

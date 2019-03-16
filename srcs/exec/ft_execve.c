@@ -28,7 +28,10 @@ int			ft_execve(t_process *p, t_shell *sh, t_tree *t)
 	{
 		if (p->cmd && !ft_isempty(p->cmd))
 		{
-			p->status = RUNNING_FG;
+			if (t->o_type == O_BACK)
+				ft_set_background(p, 0);
+			else
+				p->status = RUNNING_FG;
 			if (p->builtins == TRUE)
 			{
 				t->ret = run_builtin(t, p->argv, sh);
@@ -38,8 +41,6 @@ int			ft_execve(t_process *p, t_shell *sh, t_tree *t)
 			}
 			else if ((p->pid = fork()) == 0)
 				ft_son(t, p, sh);
-			if (t->o_type == O_BACK)
-				ft_set_background(p, 0);
 			return (-2);
 		}
 		else

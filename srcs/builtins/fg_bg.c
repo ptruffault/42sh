@@ -70,7 +70,7 @@ void ft_set_background(t_process *p, int cont)
 {
 	if (cont && p->status == SUSPENDED)
 		ft_sigcont(p, RUNNING_BG);
-	if (p->status == SUSPENDED || p->status == RUNNING_FG)
+	if (p->status == INIT || p->status == SUSPENDED || p->status == RUNNING_FG)
 	{
 		ft_printf("{%i} running background %s\n", p->pid, p->cmd);
 		p->status = RUNNING_BG;

@@ -76,7 +76,7 @@ void	just_exit(t_edit *e)
 		sh->heredoc = 0;
 		sh->e.edited = TRUE;
 	}
-	else if (!e->hist->s[0])
+	else if (!e->hist || !e->hist->s || !*e->hist->s)
 	{
 		ft_set_old_term(sh);
 		ft_free_tshell(sh);

@@ -80,7 +80,7 @@ static void	ft_init_inputs_tab(t_edit *e, int x)
 	e->ft_tab[x++] = ft_select_end;
 }
 
-t_edit	init_tedit(t_shell *sh)
+int 	init_tedit(t_shell *sh)
 {
 	t_hist *tmp;
 
@@ -96,10 +96,16 @@ t_edit	init_tedit(t_shell *sh)
 		sh->e.hist = tmp;
 		if (sh->hist)
 		{
-				tmp->next = sh->hist;
-				tmp->next->prev = tmp;
+			tmp->next = sh->hist;
+			tmp->next->prev = tmp;
 		}
-		tmp->s = ft_strnew(2);
+		if (!(tmp->s = ft_strnew(2)))
+		{
+			free(tmp);
+			return (0);
+		}
 	}
-	return (sh->e);
+	else
+		return (0);
+	return (1);
 }

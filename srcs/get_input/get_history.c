@@ -49,14 +49,18 @@ t_hist	*ft_read_hist(int i, char **arr)
 	t_hist *new;
 	t_hist *tmp;
 
-	new = new_hist();
+	if (!(new = new_hist()))
+		return (NULL);
 	tmp = new;
 	while (i >= 0)
 	{
-		tmp->s = ft_strdup(arr[i--]);
-		tmp->next = new_hist();
-		tmp->next->prev = tmp;
-		tmp = tmp->next;
+		if ((tmp->s = ft_strdup(arr[i--])))
+		{
+			if (!(tmp->next = new_hist()))
+				return (ft_free_thist(new));
+			tmp->next->prev = tmp;
+			tmp = tmp->next;
+		}
 	}
 	tmp = tmp->prev;
 	free(tmp->next);

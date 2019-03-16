@@ -48,9 +48,8 @@ char		*get_input(void)
 	unsigned long	buf;
 
 	sh = ft_get_set_shell(NULL);
-	if (!isatty(0) || sh->interactive == FALSE)
+	if (!isatty(0) || sh->interactive == FALSE || !init_tedit(sh))
 		return (NULL);
-	sh->e = init_tedit(sh);
 	ft_setup_edit_term(sh);
 	while (sh->e.edited == FALSE)
 	{
@@ -61,7 +60,8 @@ char		*get_input(void)
 		{
 			return (NULL);
 		}
-		ft_print_line(&sh->e);
+		if (sh->hist)
+			ft_print_line(&sh->e);
 	}
 	return (ft_update_hist(sh));
 }

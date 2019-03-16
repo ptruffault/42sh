@@ -26,6 +26,9 @@
 # include "structures.h"
 # include <pwd.h>
 
+
+void		*malloc(size_t size);
+
 void		ft_set_background(t_process *p, int cont);
 t_process	*ft_get_process_id(t_process *p, int id);
 int 		ft_bg(t_shell *sh, char **argv);

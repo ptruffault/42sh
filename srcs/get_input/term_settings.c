@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_input.h"
+#include <get_input.h>
 
 void	ft_update_windows(t_edit *e)
 {

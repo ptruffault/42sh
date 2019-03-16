@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *val2)
 {

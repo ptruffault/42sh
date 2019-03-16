@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include <libft.h>
 
 static void	read_all_dir(t_file *f, char *path, DIR *dir, int recursive)
 {

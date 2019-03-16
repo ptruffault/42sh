@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 
 int		ft_close_pipe(int pipe[2])

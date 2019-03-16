@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 void	ft_lex_backslash(t_eval *e)
 {

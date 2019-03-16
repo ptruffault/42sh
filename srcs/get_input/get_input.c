@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_input.h"
+#include <get_input.h>
 
 char		*ft_update_hist(t_shell *sh)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 void	ft_alias(t_shell *sh, char **argv)
 {

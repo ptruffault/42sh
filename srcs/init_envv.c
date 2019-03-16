@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell42.h"
+#include <shell42.h>
 
 static char	*get_shell_path(char *path, char *pwd)
 {
@@ -63,8 +63,12 @@ char		*ft_update_pwd(t_shell *sh)
 
 	if ((pwd = getcwd(buff, 4096)))
 	{
-		sh->env = ft_new_envv(sh->env, "PWD", pwd);
-		return (get_tenvv_val(sh->env, "PWD"));
+		if (sh)
+		{
+			sh->env = ft_new_envv(sh->env, "PWD", pwd);
+			return (get_tenvv_val(sh->env, "PWD"));
+		}
+		return (pwd);
 	}
 	return (NULL);
 }

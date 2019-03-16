@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell42.h"
+#include <shell42.h>
 
 
 //getpgid
@@ -36,7 +36,7 @@ int		main(int argc, char **argv, char **envv)
 
 	(void)argc;
 	init_shell(&sh, envv, argv);
-	while (42)
+	while (42 && isatty(0))
 	{
 		ft_disp(&sh);
 		in = get_input();
@@ -44,5 +44,7 @@ int		main(int argc, char **argv, char **envv)
 			ft_free_tree(exec_tree(t, &sh));
 		ft_strdel(&in);
 	}
+	ft_free_tshell(&sh);
+	ft_printf("stdin no longer tty\n");
 	return (0);
 }

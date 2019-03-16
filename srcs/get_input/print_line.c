@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_input.h"
+#include <get_input.h>
 #include <curses.h>
 
 void		ft_delete_line(t_edit *e)

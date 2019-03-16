@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_input.h"
+#include <get_input.h>
 
 static void ft_init_print_modes(t_edit *e, int x)
 {

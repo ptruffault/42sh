@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 static void		ft_env_exec(char **arr, t_envv *tmp, t_envv *envv)
 {

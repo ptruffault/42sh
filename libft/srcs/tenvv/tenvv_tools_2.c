@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/tenvv.h"
+#include <tenvv.h>
 
 t_envv	*ft_tenvv_cpy(t_envv *src)
 {

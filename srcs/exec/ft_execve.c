@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 static void	ft_son(t_tree *t, t_process *p, t_shell *sh)
 {
 	execve(p->cmd, p->argv, p->env);
 	warning("execve fucked up", p->cmd);
+	ft_reset_fd(p);
 	ft_free_tshell(sh);
 	ft_free_tree(t);
 	exit(-1);
@@ -32,6 +33,7 @@ int			ft_execve(t_process *p, t_shell *sh, t_tree *t)
 			{
 				t->ret = run_builtin(t, p->argv, sh);
 				p->ret = t->ret;
+				ft_reset_fd(p);
 				return (p->ret);
 			}
 			else if ((p->pid = fork()) == 0)
@@ -43,5 +45,6 @@ int			ft_execve(t_process *p, t_shell *sh, t_tree *t)
 		else
 			error("command not found", *p->argv);
 	}
+	ft_reset_fd(p);
 	return (-1);
 }

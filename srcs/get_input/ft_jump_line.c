@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_input.h"
+#include <get_input.h>
 
 void	ft_jump_line_up(t_edit *e)
 {

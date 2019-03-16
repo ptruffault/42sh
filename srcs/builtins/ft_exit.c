@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 void	ft_kill_all_running_process(t_process *p, int sig)
 {
@@ -23,20 +23,22 @@ void	ft_kill_all_running_process(t_process *p, int sig)
 	}
 }
 
-void	ft_exit(char *nbr)
+void	ft_exit(char *nbr, t_shell *sh)
 {
-	t_shell	*sh;
 	int		exit_code;
 
 	if (nbr)
 		exit_code = ft_atoi(nbr);
 	else
 		exit_code = 0;
-	sh = ft_get_set_shell(NULL);
-	ft_kill_all_running_process(sh->process, SIGKILL);
+	kill_process(sh->process, SIGINT, RUNNING_FG);
+	kill_process(sh->process, SIGINT, RUNNING_BG);
+	kill_process(sh->process, SIGINT, SUSPENDED);
 	if (sh->interactive == TRUE)
-	{
 		ft_set_old_term(sh);
+	else
+	{
+		ft_strdel(&sh->txt);
 		get_next_line(-1, NULL);
 	}
 	ft_free_tshell(sh);

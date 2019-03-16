@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 static void	set_var(char **argv, t_shell *sh)
 {
@@ -51,7 +51,7 @@ static int	change_envv(char **argv, t_shell *sh)
 int			run_builtin(t_tree *t, char **argv, t_shell *sh)
 {
 	if (ft_strequ(*argv, "exit"))
-		ft_exit(argv[1]);
+		ft_exit(argv[1], sh);
 	else if (ft_strequ(*argv, "env"))
 		return (ft_env(sh->env, argv));
 	else if (ft_strequ(*argv, "echo"))

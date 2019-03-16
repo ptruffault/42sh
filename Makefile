@@ -13,6 +13,7 @@
 NAME		=		42sh
 GIT 		=		https://github.com/ptruffault/21sh.git
 FLAG		=		-Wall -Werror -Wextra -g
+INCLUDES	=		includes/shell42.h includes/get_input.h includes/structures.h
 OBJ_FOLDER 	= 		./bin/
 
 FILES		=		main.c \
@@ -30,7 +31,6 @@ EXEC 		=		ft_execve.c \
 					redirection.c \
 					redirect_builtins.c \
 					bin_search.c \
-					process_tools.c \
 					init_process.c
 
 EVAL		=		eval_tools.c \
@@ -83,6 +83,8 @@ EXPANSION	=		exp_var.c \
 					cut_string.c\
 					parenth_tools.c
 
+PROCESS		=		kill_process.c \
+
 
 
 SRC			= 		$(addprefix "./srcs/", $(FILES)) \
@@ -90,14 +92,16 @@ SRC			= 		$(addprefix "./srcs/", $(FILES)) \
 					$(addprefix ./srcs/builtins/, $(BUILTINS))  	\
 					$(addprefix "./srcs/exec/", $(EXEC)) \
 					$(addprefix "./srcs/expansion/", $(EXPANSION))	\
-					$(addprefix "./srcs/get_input/", $(GET_INPUT))
+					$(addprefix "./srcs/get_input/", $(GET_INPUT)) \
+					$(addprefix "./srcs/process/", $(PROCESS))	
 
-OBJ			= 		$(addprefix $(OBJ_FOLDER), $(FILES:.c=.o)) \
-					$(addprefix $(OBJ_FOLDER), $(EVAL:.c=.o)) \
-					$(addprefix $(OBJ_FOLDER), $(BUILTINS:.c=.o)) \
-					$(addprefix $(OBJ_FOLDER), $(EXEC:.c=.o)) \
+OBJ			= 		$(addprefix $(OBJ_FOLDER), $(FILES:.c=.o)) 		\
+					$(addprefix $(OBJ_FOLDER), $(EVAL:.c=.o)) 		\
+					$(addprefix $(OBJ_FOLDER), $(BUILTINS:.c=.o)) 	\
+					$(addprefix $(OBJ_FOLDER), $(EXEC:.c=.o)) 		\
 					$(addprefix $(OBJ_FOLDER), $(GET_INPUT:.c=.o))	\
-					$(addprefix $(OBJ_FOLDER), $(EXPANSION:.c=.o))
+					$(addprefix $(OBJ_FOLDER), $(EXPANSION:.c=.o))	\
+					$(addprefix $(OBJ_FOLDER), $(PROCESS:.c=.o))
 
 COLOR		= 		\033[01;34m
 NO_COLOR	= 		\033[00m
@@ -110,7 +114,7 @@ all: $(NAME)
 bin:
 	@mkdir $@
 
-$(NAME): bin $(OBJ) Makefile
+$(NAME): bin $(OBJ) $(INCLUDES) Makefile
 	@make -C libft all
 	@echo "$(OP_COLOR) building $(NAME)$(NO_COLOR)"
 	@gcc  $(FLAG) $(OBJ) -I includes -Llibft -lft -ltermcap -o $(NAME)
@@ -149,6 +153,11 @@ bin/%.o: srcs/expansion/%.c
 	@gcc $(FLAG) -I includes -c $< -o $@ && printf "$(DONE)\n" || printf "$(KO)\n"
 
 bin/%.o: srcs/get_input/%.c
+	@printf "$(COLOR)$<$(NO_COLOR) -> "
+	@touch $<
+	@gcc $(FLAG) -I includes -c $< -o $@ && printf "$(DONE)\n" || printf "$(KO)\n"
+
+bin/%.o: srcs/process/%.c
 	@printf "$(COLOR)$<$(NO_COLOR) -> "
 	@touch $<
 	@gcc $(FLAG) -I includes -c $< -o $@ && printf "$(DONE)\n" || printf "$(KO)\n"

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 void	ft_wait_pipe(t_process *p)
 {
@@ -44,6 +44,7 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 {
 	t_process	*prev;
 	t_process	*tmp;
+	//pid_t		pgpid;
 
 	prev = NULL;
 	tmp = p;
@@ -58,6 +59,9 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 				ft_link_stdout(tmp->pipe);
 			ft_exec_son(tmp, t, sh);
 		}
+		//setpgid(tmp->pid, tmp->pg)
+
+
 		if (prev)
 			ft_close_pipe(prev->pipe);
 		prev = tmp;

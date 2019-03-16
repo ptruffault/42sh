@@ -11,11 +11,8 @@
 /* ************************************************************************** */
 
 #ifndef TENVV_H
-
 # define TENVV_H
 # include "libft.h"
-# define USER "ptruffau"
-# define HOME "/Users/ptruffau/"
 
 typedef struct s_envv	t_envv;
 

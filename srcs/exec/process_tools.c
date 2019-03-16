@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 
 static t_process	*ft_get_process(t_process *p, unsigned int status)
@@ -54,6 +54,7 @@ int			kill_process(t_process *p, int sig, unsigned int status)
 			tmp->status = SUSPENDED;
 		}
 		kill(tmp->pid, sig);
+		tmp->ret = sig;
 	}
 	return (i);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 char	*ft_exp_end(char *ret, char *ptr, char *value, char *parenth)
 {

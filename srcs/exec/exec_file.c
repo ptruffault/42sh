@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 int		exec_fd(t_shell *sh, int fd)
 {
@@ -18,7 +18,7 @@ int		exec_fd(t_shell *sh, int fd)
 	t_tree	*t;
 
 	i = 0;
-	while (get_next_line(fd, &sh->txt) == 1 && sh->txt)
+	while (get_next_line(fd, &sh->txt) == 1 && sh->txt && *sh->txt && !ft_isempty(sh->txt))
 	{
 		i++;
 		if (*sh->txt != '#'
@@ -26,7 +26,7 @@ int		exec_fd(t_shell *sh, int fd)
 			ft_free_tree(exec_tree(t, sh));
 		ft_strdel(&sh->txt);
 	}
-	get_next_line(-1, &sh->txt);
+	get_next_line(-1, NULL);
 	return (i);
 }
 

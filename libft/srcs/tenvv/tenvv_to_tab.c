@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/tenvv.h"
+#include <tenvv.h>
 
 static char	*get_equal(char *name, char *value)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell42.h"
+#include <shell42.h>
 
 static t_tree	*next_instruction(t_tree *t)
 {
@@ -61,14 +61,14 @@ t_tree			*exec_instruction(t_tree *t, t_shell *sh)
 	{
 		p->next = sh->process;
 		sh->process = p;
-		if ((t->ret = ft_execve(p, sh, t)) == -2 && p->status == RUNNING_FG)
-			waitpid(p->pid, &p->ret, WUNTRACED);
-		t->ret = p->ret;
-		if (p->status == RUNNING_FG)
+		p->ret = ft_execve(p, sh, t);
+		if (p->ret >= 0 || (p->ret == -2 && p->status == RUNNING_FG
+		&& (waitpid(p->pid, &p->ret, WUNTRACED) > 0)))
 		{
-			p->status = DONE;
 			ft_reset_fd(p);
+			p->status = DONE;
 		}
+		t->ret = p->ret;
 	}
 	return (t);
 }

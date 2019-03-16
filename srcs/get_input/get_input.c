@@ -47,9 +47,9 @@ char		*get_input(void)
 	t_shell			*sh;
 	unsigned long	buf;
 
-	if (!isatty(0))
-		return (NULL);
 	sh = ft_get_set_shell(NULL);
+	if (!isatty(0) || sh->interactive == FALSE)
+		return (NULL);
 	sh->e = init_tedit(sh);
 	ft_setup_edit_term(sh);
 	while (sh->e.edited == FALSE)

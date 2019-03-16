@@ -22,8 +22,8 @@ t_envv	*ft_tenvv_cpy(t_envv *src)
 	tmp = ret;
 	while (src && src->name)
 	{
-		if (!(tmp->name = ft_strdup(src->name)) ||
-		!(tmp->value = ft_strdup(src->value)))
+		if (!(tmp->name = ft_strdup(src->name)) 
+		|| !(tmp->value = ft_strdup(src->value)))
 			return (ret);
 		src = src->next;
 		if (src)
@@ -35,17 +35,19 @@ t_envv	*ft_tenvv_cpy(t_envv *src)
 	return (ret);
 }
 
-void	del_tenvv(t_envv *envv)
+t_envv	*del_tenvv(t_envv *envv)
 {
-	if (!envv)
-		return ;
-	ft_strdel(&envv->name);
-	ft_strdel(&envv->value);
-	envv->next = NULL;
-	free(envv);
+	if (envv)
+	{
+		ft_strdel(&envv->name);
+		ft_strdel(&envv->value);
+		envv->next = NULL;
+		free(envv);
+	}
+	return (NULL);
 }
 
-void	ft_free_tenvv(t_envv *envv)
+t_envv	*ft_free_tenvv(t_envv *envv)
 {
 	t_envv *tmp;
 
@@ -53,6 +55,7 @@ void	ft_free_tenvv(t_envv *envv)
 	{
 		tmp = envv;
 		envv = envv->next;
-		del_tenvv(tmp);
+		tmp = del_tenvv(tmp);
 	}
+	return (NULL);
 }

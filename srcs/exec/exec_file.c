@@ -18,18 +18,15 @@ int		exec_fd(t_shell *sh, int fd)
 	t_tree	*t;
 
 	i = 0;
-	if ((sh->txt = ft_get_txt(fd)))
+	while (get_next_line(fd, &sh->txt) == 1 && sh->txt)
 	{
-				ft_putstrarr(sh->txt);
-		while (sh->txt[i])
-		{
-			if (*sh->txt[i] && *sh->txt[i] != '#'
-			&& (t = get_tree(sh->txt[i])))
-				ft_free_tree(exec_tree(t));
-			i++;
-		}
-		sh->txt = ft_freestrarr(sh->txt);
+		i++;
+		if (*sh->txt != '#'
+		&& (t = get_tree(sh->txt)))
+			ft_free_tree(exec_tree(t, sh));
+		ft_strdel(&sh->txt);
 	}
+	get_next_line(-1, &sh->txt);
 	return (i);
 }
 

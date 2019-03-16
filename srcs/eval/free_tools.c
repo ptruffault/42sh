@@ -12,7 +12,7 @@
 
 #include "../../includes/shell42.h"
 
-void	ft_free_tword(t_word *w)
+t_word	*ft_free_tword(t_word *w)
 {
 	t_word	*tmp;
 
@@ -25,9 +25,10 @@ void	ft_free_tword(t_word *w)
 		w = NULL;
 		w = tmp;
 	}
+	return (NULL);
 }
 
-void	ft_free_redirection(t_redirect *r)
+t_redirect	*ft_free_redirection(t_redirect *r)
 {
 	t_redirect	*tmp;
 
@@ -40,9 +41,10 @@ void	ft_free_redirection(t_redirect *r)
 		r = NULL;
 		r = tmp;
 	}
+	return (NULL);
 }
 
-void	ft_free_tree(t_tree *t)
+t_tree	*ft_free_tree(t_tree *t)
 {
 	t_tree	*tmp;
 
@@ -55,9 +57,10 @@ void	ft_free_tree(t_tree *t)
 		free(t);
 		t = tmp;
 	}
+	return (NULL);
 }
 
-void	ft_free_thist(t_hist *h)
+t_hist	*ft_free_thist(t_hist *h)
 {
 	t_hist *tmp;
 
@@ -68,9 +71,10 @@ void	ft_free_thist(t_hist *h)
 		free(h);
 		h = tmp;
 	}
+	return (NULL);
 }
 
-void	ft_free_tprocess(t_process *p)
+t_process	*ft_free_tprocess(t_process *p)
 {
 	t_process *tmp;
 
@@ -81,8 +85,9 @@ void	ft_free_tprocess(t_process *p)
 		p->argv = ft_freestrarr(p->argv);
 		p->env = ft_freestrarr(p->env);
 		if (p->grp)
-			ft_free_tprocess(p->grp);
+			p->grp = ft_free_tprocess(p->grp);
 		free(p);
 		p = tmp;
 	}
+	return (NULL);
 }

@@ -36,7 +36,7 @@ static t_process	*ft_get_process(t_process *p, unsigned int status)
 	return (NULL);
 }
 
-int			kill_running_process(t_process *p, int sig, unsigned int status)
+int			kill_process(t_process *p, int sig, unsigned int status)
 {
 	t_process *tmp;
 	int i;
@@ -50,7 +50,7 @@ int			kill_running_process(t_process *p, int sig, unsigned int status)
 			tmp->status = KILLED;
 		else if (sig == SIGTSTP)
 		{
-			ft_printf("{%i} \033[00;31msuspended\033[00m %s\n", tmp->pid, tmp->cmd);
+			ft_printf("{%i} suspended %s\n", tmp->pid, tmp->cmd);
 			tmp->status = SUSPENDED;
 		}
 		kill(tmp->pid, sig);

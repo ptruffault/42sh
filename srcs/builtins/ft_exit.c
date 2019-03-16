@@ -16,8 +16,8 @@ void	ft_kill_all_running_process(t_process *p, int sig)
 {
 	while (p)
 	{
-		if ((p->status == RUNNING_FG
-		|| p->status == RUNNING_BG) && p->pid != 0)
+		if ((IS_RUNNING(p->status) || p->status == SUSPENDED)
+		&& p->pid != 0)
 			kill(p->pid, sig);
 		p = p->next;
 	}
@@ -34,11 +34,11 @@ void	ft_exit(char *nbr)
 		exit_code = 0;
 	sh = ft_get_set_shell(NULL);
 	ft_kill_all_running_process(sh->process, SIGKILL);
-	ft_set_old_term(sh);
+	if (sh->interactive == TRUE)
+	{
+		ft_set_old_term(sh);
+		get_next_line(-1, NULL);
+	}
 	ft_free_tshell(sh);
-	ft_free_tree(ft_get_set_tree(NULL));
-	ft_putstr_fd("\033[00;31m21sh get killed\033[00m\n-> ", 2);
-	ft_putnbr_fd(exit_code, 2);
-	ft_putchar_fd('\n', 2);
 	exit(exit_code);
 }

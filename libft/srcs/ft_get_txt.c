@@ -15,25 +15,31 @@
 char	**ft_get_txt(int fd)
 {
 	char	**ret;
-	char	*tmp;
+	char 	*tmp;
+	int		gnl;
 	int		i;
 
 	i = 0;
 	ret = NULL;
 	if (fd >= 0 && (ret = (char **)malloc(sizeof(char *))))
 	{
-		tmp = NULL;
-		while (get_next_line(fd, &tmp))
+		while ((gnl = get_next_line(fd, &tmp)) == 1)
 		{
-			ret = ft_realloc(ret, (i + 1) * sizeof(char *),
-			(i + 2) * sizeof(char *));
-			if (tmp)
-				ret[i++] = ft_strdup(tmp);
+			if (tmp && (!(ret = ft_realloc(ret, (i + 1) * sizeof(char *),
+			(i + 2) * sizeof(char *)))
+			|| !(ret[i++] = ft_strdup(tmp))))
+				return (NULL);
+			ret[i] = NULL;
 			ft_strdel(&tmp);
 		}
-	if (i == 0)
-		return (ft_freestrarr(ret));
-		ret[i] = tmp;
+		get_next_line(-1, &tmp);
+		if  (i == 0)
+		{
+			free(ret);
+			return (NULL);
+		}
+		if (gnl == -1)
+			return (ft_freestrarr(ret));
 	}
 	return (ret);
 }

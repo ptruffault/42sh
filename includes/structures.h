@@ -142,7 +142,8 @@ typedef struct	s_process
 typedef struct	s_shell
 {
 	int				pid;
-	char			**txt;
+	t_bool			interactive;
+	char			*txt;
 	int				heredoc;
 	t_envv			*env;
 	t_envv			*intern;
@@ -152,6 +153,6 @@ typedef struct	s_shell
 	t_edit			e;
 	char			*clipboard;
 	struct termios	term;
-	struct termios	*saved_term;
+	struct termios	saved_term;
 }				t_shell;
 #endif

@@ -43,8 +43,6 @@ void	entry_key(t_edit *e)
 		{
 			ft_printf("\n\033[00;31m%s\033[00m >\n", error[eval.err - 2]);
 			ft_putstr(e->hist->s);
-			e->pos = ft_strlen(e->hist->s);
-			e->curr = ft_strlen(e->hist->s);
 		}
 	}
 	else

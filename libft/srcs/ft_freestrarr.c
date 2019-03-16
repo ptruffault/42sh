@@ -17,7 +17,7 @@ char 	**ft_freestrarr(char **arr)
 	int i;
 
 	i = 0;
-	if (arr)
+	if (arr && *arr)
 	{
 		while (arr[i])
 			ft_strdel(&arr[i++]);

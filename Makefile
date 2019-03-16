@@ -175,7 +175,7 @@ exe: fre
 	./$(NAME)
 
 val: all
-	@valgrind --leak-check=full -v ./$(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all -v ./$(NAME)
 
 save: fclean clear
 	@echo > sys/.42history

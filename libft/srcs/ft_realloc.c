@@ -12,11 +12,11 @@
 
 #include "../includes/libft.h"
 
-void	*ft_realloc(void *ptr, size_t prev_size, size_t new_size)
+void	*ft_realloc(void *ptr, int prev_size, int new_size)
 {
 	void	*new;
 
-	if (!ptr)
+	if (!ptr || prev_size < 0 || new_size < 0)
 		return (NULL);
 	if (!(new = ft_memalloc(new_size)))
 	{

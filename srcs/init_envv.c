@@ -61,9 +61,12 @@ char		*ft_update_pwd(t_shell *sh)
 	char buff[4097];
 	char *pwd;
 
-	pwd = getcwd(buff, 4096);
-	sh->env = ft_new_envv(sh->env, "PWD", pwd);
-	return (get_tenvv_val(sh->env, "PWD"));
+	if ((pwd = getcwd(buff, 4096)))
+	{
+		sh->env = ft_new_envv(sh->env, "PWD", pwd);
+		return (get_tenvv_val(sh->env, "PWD"));
+	}
+	return (NULL);
 }
 
 void		init_env(t_shell *sh, char **argv)

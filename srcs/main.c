@@ -16,10 +16,16 @@
 //getpgid
 //tcsetpgrp()
 
+// PROBLEME DE FORGROUND pour 'cat &'
+
 void	ft_disp(t_shell *sh)
 {
-	ft_printf("\033[1;32m42sh\033[00m:[\033[01;34m\033[04m%s\033[00m]\n",
-	get_tenvv_val(sh->env, "PWD"));
+	char *pwd;
+
+	pwd = ft_update_pwd(sh);
+	ft_putstr("\033[1;32m42sh\033[00m:[\033[01;34m\033[04m");
+	ft_putstr(pwd);
+	ft_putstr("\033[00m]\n");
 }
 
 int		main(int argc, char **argv, char **envv)
@@ -35,7 +41,7 @@ int		main(int argc, char **argv, char **envv)
 		ft_disp(&sh);
 		in = get_input();
 		if ((t = get_tree(in)))
-			ft_free_tree(exec_tree(ft_get_set_tree(t)));
+			ft_free_tree(exec_tree(t, &sh));
 		ft_strdel(&in);
 	}
 	return (0);

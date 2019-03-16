@@ -38,15 +38,19 @@ t_envv		*change_dir(char *path, t_envv *envv)
 t_envv		*ft_cd(char **input, t_envv *envv)
 {
 	if (!(input[1]))
+	{
 		if (get_tenvv_val(envv, "HOME"))
 			return (change_dir(get_tenvv_val(envv, "HOME"), envv));
 		else
 			error("UNSET VAR", "HOME");
+	}
 	else if (input[1][0] == '-' && input[1][1] == '\0')
+	{
 		if (get_tenvv_val(envv, "HOME"))
 			return (change_dir(get_tenvv_val(envv, "OLDPWD"), envv));
 		else
 			error("UNSET VAR", "OLDPWD");
+	}
 	else if (input[1])
 		return (change_dir(input[1], envv));
 	return (envv);

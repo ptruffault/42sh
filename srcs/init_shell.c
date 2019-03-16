@@ -17,12 +17,11 @@ static void	ft_null(t_shell *sh, char **envv)
 	ft_get_set_shell(sh);
 	sh->pid = getpid();
 	sh->heredoc = 0;
+	sh->interactive = FALSE;
 	sh->intern = NULL;
-	sh->saved_term = NULL;
 	sh->clipboard = NULL;
 	sh->alias = NULL;
 	sh->txt = NULL;
-	sh->saved_term = NULL;
 	sh->process = NULL;
 	sh->env = init_tenvv(envv);
 }
@@ -45,5 +44,6 @@ void		init_shell(t_shell *sh, char **envv, char **argv)
 		ft_free_tshell(sh);
 		exit(0);
 	}
+	sh->interactive = TRUE;
 	init_termcaps(sh);
 }

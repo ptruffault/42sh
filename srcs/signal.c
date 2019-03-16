@@ -36,23 +36,17 @@ void		sig_handler(int sig)
 {
 	t_shell		*sh;
 
-	sh = ft_get_set_shell(NULL);
-	if (sig == SIGINT && !(sh && sh->process
-	&& kill_running_process(sh->process, SIGINT, RUNNING_FG)))
-		ft_disp(sh);
-	if (sig == SIGWINCH && sh)
-		ft_update_windows(&sh->e);
-	if (sig == SIGTSTP && sh && sh->process)
-		kill_running_process(sh->process, SIGTSTP, RUNNING_FG);
-	if (sig == SIGCHLD && sh && sh->process)
-		ft_wait_background(sh->process);
-	if ((sig == SIGTTIN || sig == SIGTTOU)
-	&& (kill_running_process(sh->process, SIGKILL, RUNNING_BG)))
+	if ((sh = ft_get_set_shell(NULL)))
 	{
-		ft_printf("SIGttIN");
+		if (sig == SIGINT && !kill_running_process(sh->process, SIGINT, RUNNING_FG))
+				ft_disp(sh);
+		else if (sig == SIGWINCH && sh)
+			ft_update_windows(&sh->e);
+		else if (sig == SIGTSTP && sh && sh->process)
+			kill_process(sh->process, SIGTSTP, RUNNING_FG);
+		else if (sig == SIGCHLD && sh && sh->process)
+			ft_wait_background(sh->process);
 	}
-	if (sig == SIGKILL)
-		ft_exit("9");
 }
 
 void		set_signals(void)
@@ -61,7 +55,6 @@ void		set_signals(void)
 	signal(SIGTSTP, sig_handler);
 	signal(SIGCHLD, sig_handler);
 	signal(SIGWINCH, sig_handler);
-	signal(SIGKILL, sig_handler);
 	signal(SIGTTIN, sig_handler);
 	signal(SIGTTOU, sig_handler);
 }

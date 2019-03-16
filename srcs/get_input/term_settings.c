@@ -27,8 +27,7 @@ void	init_termcaps(t_shell *sh)
 	term = NULL;
 	if (((term = get_tenvv_val(sh->env, "TERM")) && !tgetent(NULL, term)))
 		tgetent(NULL, "xterm-256color");
-	if ((sh->saved_term = (struct termios *)malloc(sizeof(struct termios)))
-	&& (tcgetattr(0, sh->saved_term) == -1))
+	if (tcgetattr(0, &sh->saved_term) == -1)
 	{
 		error("can't save termios", NULL);
 		ft_free_tshell(sh);
@@ -43,11 +42,9 @@ int		ft_setup_edit_term(t_shell *sh)
 	char *term;
 
 	term = NULL;
-	if (!sh->saved_term)
-		return (0);
 	if (((term = get_tenvv_val(sh->env, "TERM")) && !tgetent(NULL, term)))
 		tgetent(NULL, "xterm-256color");
-	ft_memcpy(&sh->term, sh->saved_term, sizeof(struct termios));
+	ft_memcpy(&sh->term, &sh->saved_term, sizeof(struct termios));
 	sh->term.c_lflag &= ~(ICANON | ECHO | ECHOK | ECHOKE
 			| ECHONL | ECHOCTL | ISIG);
 	sh->term.c_cc[VMIN] = 1;
@@ -61,6 +58,6 @@ int		ft_setup_edit_term(t_shell *sh)
 
 void	ft_set_old_term(t_shell *sh)
 {
-	if (sh->saved_term && (tcsetattr(0, TCSADRAIN, sh->saved_term)) == -1)
+	if ((tcsetattr(0, TCSADRAIN, &sh->saved_term)) == -1)
 		warning("can't load old term setting", NULL);
 }

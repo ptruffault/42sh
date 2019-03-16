@@ -49,8 +49,9 @@ t_envv	*init_tenvv(char **tab_envv)
 	len = ft_strarrlen(tab_envv);
 	while (i < len)
 	{
-		if (!(tmp->name = get_name(tab_envv[i]))
-		|| !(tmp->value = get_value(tab_envv[i])))
+		if ((tmp->name = get_name(tab_envv[i])))
+			tmp->value = get_value(tab_envv[i]);
+		else
 			return (envv);
 		i++;
 		if (!(tmp->next = new_tenvv()))

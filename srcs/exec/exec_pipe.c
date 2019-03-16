@@ -16,7 +16,7 @@ void	ft_wait_pipe(t_process *p)
 {
 	while (p)
 	{
-		if (p && p->cmd && p->pid > 0 && IS_RUNNING(p->status)
+		if (p && p->cmd && p->pid > 0 && p->status == RUNNING_FG
 		&& (waitpid(p->pid, &p->ret, WUNTRACED) > 0))
 		{
 			if (p->status != KILLED && p->status != SUSPENDED)

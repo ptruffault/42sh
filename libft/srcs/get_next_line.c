@@ -12,12 +12,17 @@
 
 #include <libft.h>
 
-static int	ft_check_eol(char **text, char **line)
+static int	ft_check_eol(int fd, char **text, char **line)
 {
 	char	*eol;
 
 	if (!*text)
 		*text = ft_strnew(0);
+	if (fd == -1)
+	{
+		ft_strdel(text);
+		return (1);
+	}
 	else if ((eol = ft_strchr(*text, '\n')))
 	{
 		*line = ft_strsub(*text, 0, eol - *text);
@@ -34,7 +39,7 @@ int			get_next_line(const int fd, char **line)
 	static char	*text;
 	char		*tmp;
 
-	if (ft_check_eol(&text, line))
+	if (ft_check_eol(fd, &text, line))
 		return (1);
 	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
@@ -42,7 +47,7 @@ int			get_next_line(const int fd, char **line)
 		tmp = text;
 		text = ft_strjoin(text, buff);
 		ft_strdel(&tmp);
-		if (ft_check_eol(&text, line))
+		if (ft_check_eol(fd, &text, line))
 			return (1);
 	}
 	if (ret < 0)

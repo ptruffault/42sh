@@ -43,8 +43,7 @@ static t_process	*ft_abort(t_process *p)
 			ft_close(p->pipe[0]);
 		p = p->grp;
 	}
-	ft_free_tprocess(head);
-	return (NULL);
+	return (ft_free_tprocess(head));
 }
 
 t_process			*init_process(t_tree *t, t_shell *sh)

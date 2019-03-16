@@ -14,11 +14,11 @@
 
 void	ft_free_tshell(t_shell *sh)
 {
-	ft_free_tenvv(sh->env);
-	ft_free_tenvv(sh->intern);
-	ft_free_tenvv(sh->alias);
-	ft_free_tprocess(sh->process);
-	ft_free_thist(sh->hist);
+	sh->env = ft_free_tenvv(sh->env);
+	sh->intern = ft_free_tenvv(sh->intern);
+	sh->alias = ft_free_tenvv(sh->alias);
+	sh->process = ft_free_tprocess(sh->process);
+	sh->hist = ft_free_thist(sh->hist);
 	ft_strdel(&sh->clipboard);
-	free(sh->saved_term);
+	ft_strdel(&sh->txt);
 }

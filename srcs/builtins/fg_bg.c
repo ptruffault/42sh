@@ -46,7 +46,7 @@ void	ft_sigcont(t_process *tmp, unsigned int status)
 	{
 		if (tmp->status == SUSPENDED)
 		{
-			ft_printf("{%i}  \033[1;32mcontinued\033[00m %s\n", tmp->pid, tmp->cmd);
+			ft_printf("{%i} continued %s\n", tmp->pid, tmp->cmd);
 			tmp->status = status;
 			kill(tmp->pid, SIGCONT);
 		}
@@ -70,7 +70,11 @@ void ft_set_background(t_process *p, int cont)
 {
 	if (cont && p->status == SUSPENDED)
 		ft_sigcont(p, RUNNING_BG);
-	p->status = RUNNING_BG;
+	if (p->status == SUSPENDED || p->status == RUNNING_FG)
+	{
+		ft_printf("{%i} running background %s\n", p->pid, p->cmd);
+		p->status = RUNNING_BG;
+	}
 }
 
 
@@ -99,14 +103,14 @@ int ft_bg(t_shell *sh, char **argv)
 
 void 	ft_set_foreground(t_process *p)
 {
-	ft_printf("{%i} running fg %s\n", p->pid, p->cmd);
 	if (p->status == SUSPENDED)
 		ft_sigcont(p, RUNNING_FG);
-	else if (p->status == RUNNING_BG)
+	if (p->status == RUNNING_BG || p->status == SUSPENDED)
 	{
-
+		p->status = RUNNING_FG;
+		ft_printf("{%i} running foreground %s\n", p->pid, p->cmd);
 	}
-
+	
 }
 
 int ft_fg(t_shell *sh, char **argv)
@@ -117,7 +121,7 @@ int ft_fg(t_shell *sh, char **argv)
 	i = 0;
 	if ((!argv[1] && (tmp = ft_get_process_id(sh->process, 1))))
 	{
-		ft_sigcont(tmp, RUNNING_FG);
+		ft_set_foreground(tmp);
 		ft_wait_fg(tmp);
 	}
 	while (argv[++i])

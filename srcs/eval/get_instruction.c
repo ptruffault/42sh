@@ -92,6 +92,6 @@ t_tree			*get_tree(char *input)
 		return (NULL);
 	if (ft_check_grammar(w) && (head = built_tree(head, w)))
 		ft_get_set_tree(head);
-	ft_free_tword(w);
+	w = ft_free_tword(w);
 	return (head);
 }

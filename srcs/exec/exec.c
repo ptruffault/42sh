@@ -37,12 +37,10 @@ static t_tree	*next_instruction(t_tree *t)
 	return (NULL);
 }
 
-t_tree			*exec_instruction(t_tree *t)
+t_tree			*exec_instruction(t_tree *t, t_shell *sh)
 {
 	t_process	*p;
-	t_shell		*sh;
 
-	sh = ft_get_set_shell(NULL);
 	if (t->o_type == O_PIPE)
 	{
 		if (t->next
@@ -75,7 +73,7 @@ t_tree			*exec_instruction(t_tree *t)
 	return (t);
 }
 
-t_tree			*exec_tree(t_tree *t)
+t_tree			*exec_tree(t_tree *t, t_shell *sh)
 {
 	t_tree *tmp;
 
@@ -95,7 +93,7 @@ t_tree			*exec_tree(t_tree *t)
 		}
 		else
 		{
-			if ((tmp = exec_instruction(tmp)))
+			if ((tmp = exec_instruction(tmp, sh)))
 				tmp = next_instruction(tmp);
 		}
 	}

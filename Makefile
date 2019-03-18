@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME		=		42sh
-GIT 		=		https://github.com/ptruffault/21sh.git
+GIT 		=		https://github.com/ptruffault/$(NAME).git
 FLAG		=		-Wall -Werror -Wextra -g
 INCLUDES	=		includes/shell42.h includes/get_input.h includes/structures.h
 OBJ_FOLDER 	= 		./bin/
@@ -26,7 +26,6 @@ FILES		=		main.c \
 EXEC 		=		ft_execve.c \
 					exec.c \
 					exec_pipe.c\
-					execve_pipe.c \
 					exec_file.c \
 					redirection.c \
 					redirect_builtins.c \
@@ -84,6 +83,8 @@ EXPANSION	=		exp_var.c \
 					parenth_tools.c
 
 PROCESS		=		kill_process.c \
+					ft_wait.c \
+					process_tools.c \
 
 
 

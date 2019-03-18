@@ -125,7 +125,6 @@ typedef struct	s_tree
 
 typedef struct	s_process
 {
-	int					save[3];
 	char				**env;
 	int					fd[3];
 	t_bool				builtins;
@@ -143,6 +142,7 @@ typedef struct	s_process
 typedef struct	s_shell
 {
 	int				pid;
+	int				std[3];
 	t_bool			interactive;
 	char			*txt;
 	int				heredoc;

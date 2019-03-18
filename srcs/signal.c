@@ -13,28 +13,6 @@
 #include <shell42.h>
 #include "../includes/get_input.h"
 
-void ft_wait_background(t_shell *sh)
-{
-	t_process *tmp;
-
-	tmp = sh->process;
-	while (tmp)
-	{
-		if (tmp->status == RUNNING_BG && tmp->pid > 0
-		&& waitpid(tmp->pid, &tmp->ret, WUNTRACED | WNOHANG) > 0)
-		{
-			tmp->status = DONE;
-			ft_delete_line(&sh->e);
-			term_actions(CURSOR_UP);
-			term_actions(DELETE_LINE);
-			ft_printf("{%i} \033[1;32mdone\033[00m  %s ~> %i\n", tmp->pid, tmp->cmd, tmp->ret);
-			ft_disp(ft_get_set_shell(NULL));
-			ft_putstr(sh->e.hist->s);
-		}
-		tmp = tmp->next;
-	}
-}
-
 void		sig_handler(int sig)
 {
 	t_shell		*sh;

@@ -44,7 +44,7 @@ int		main(int argc, char **argv, char **envv)
 			ft_free_tree(exec_tree(t, &sh));
 		ft_strdel(&in);
 	}
-	ft_free_tshell(&sh);
 	ft_printf("stdin no longer tty\n");
+	ft_exit("42", &sh);
 	return (0);
 }

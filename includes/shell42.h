@@ -26,15 +26,16 @@
 # include "structures.h"
 # include <pwd.h>
 
-
-void		*malloc(size_t size);
-
-void		ft_set_background(t_process *p, int cont);
-t_process	*ft_get_process_id(t_process *p, int id);
+void		ft_sigcont(t_process *tmp);
+void 		ft_wait_background(t_shell *sh);
+void		ft_wait(t_process *p, t_shell *sh);
+void		ft_set_background(t_process *p);
 int 		ft_bg(t_shell *sh, char **argv);
 int 		ft_fg(t_shell *sh, char **argv);
 int			ft_hi(t_shell *sh);
-int			ft_close_pipe(int pipe[2]);
+void 		ft_process_tab_status(char *stat[6]);
+void		ft_put_process(t_process *p, t_shell *sh);
+
 char		ft_parse_back(char c);
 void		ft_execve_pip(t_process *p, t_shell *sh, t_tree *t, int mode);
 void		ft_delete_char(t_eval *e);
@@ -43,7 +44,7 @@ t_redirect	*parse_heredoc(t_redirect *new, t_word *w);
 void		init_env(t_shell *sh, char **argv);
 t_word		*ft_deltword(t_word *prev, t_word *src);
 t_hist		*ft_free_thist(t_hist *h);
-t_redirect		*ft_free_redirection(t_redirect *r);
+t_redirect	*ft_free_redirection(t_redirect *r);
 t_word		*ft_free_tword(t_word *w);
 t_process	*ft_free_tprocess(t_process *p);
 void		ft_free_tshell(t_shell *sh);
@@ -65,18 +66,17 @@ char		*ft_cut_string(char *parenth, char *val, int *curr);
 t_tree		*get_tree(char *input);
 t_tree		*ft_free_tree(t_tree *t);
 int			ft_redirect(t_tree *t);
-int			ft_redirect_builtin(t_tree *t, t_process *p);
+int			ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh);
 int			get_destination_fd(t_redirect *r);
-void		ft_reset_fd(t_process *p);
+void		ft_reset_fd(t_shell *sh);
 int			fd_dup(int fd1, int fd2, t_process *p, int close);
 t_shell		*ft_get_set_shell(t_shell *sh);
 void		reset_term(void);
 void		init_shell(t_shell *sh, char **envv, char **argv);
 void		set_signals(void);
 void		set_signals_ni(void);
-int			ft_execve(t_process *p, t_shell *sh, t_tree *t);
+void		ft_execve(t_process *p, t_shell *sh, t_tree *t, int fork);
 t_tree		*exec_pipe(t_tree *t, t_process *p, t_shell *sh);
-void		ft_exec_son(t_process *p, t_tree *t, t_shell *sh);
 t_tree		*exec_instruction(t_tree *t, t_shell *sh);
 int			run_builtin(t_tree *t, char **argv, t_shell *sh);
 t_tree		*exec_tree(t_tree *t, t_shell *sh);

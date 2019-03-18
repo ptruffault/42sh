@@ -12,40 +12,40 @@
 
 #include <shell42.h>
 
-static void	ft_son(t_tree *t, t_process *p, t_shell *sh)
+static void	ft_free_all_and_exit(t_tree *t, t_shell *sh)
 {
-	execve(p->cmd, p->argv, p->env);
-	warning("execve fucked up", p->cmd);
-	ft_reset_fd(p);
 	ft_free_tshell(sh);
 	ft_free_tree(t);
 	exit(-1);
 }
 
-int			ft_execve(t_process *p, t_shell *sh, t_tree *t)
+static void		ft_builtins(t_shell *sh, t_process *p, t_tree *t, int frk)
 {
-	if (!t->r || (t->r && ft_redirect_builtin(t, p)))
+	p->ret = run_builtin(t, p->argv, sh);
+	if (frk)
+		p->pid = 0;
+	else
+		ft_free_all_and_exit(t, sh);
+}
+
+void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
+{
+	if (!t->r || ft_redirect_builtin(t, p, sh))
 	{
 		if (p->cmd && !ft_isempty(p->cmd))
 		{
-			if (t->o_type == O_BACK)
-				ft_set_background(p, 0);
-			else
-				p->status = RUNNING_FG;
+			p->status = (t->o_type == O_BACK ? RUNNING_BG : RUNNING_FG);
 			if (p->builtins == TRUE)
+				ft_builtins(sh, p, t, frk);
+			else if (!frk || (p->pid = fork()) == 0)
 			{
-				t->ret = run_builtin(t, p->argv, sh);
-				p->ret = t->ret;
-				ft_reset_fd(p);
-				return (p->ret);
+				execve(p->cmd, p->argv, p->env);
+				ft_free_all_and_exit(t, sh);
 			}
-			else if ((p->pid = fork()) == 0)
-				ft_son(t, p, sh);
-			return (-2);
 		}
 		else
 			error("command not found", *p->argv);
 	}
-	ft_reset_fd(p);
-	return (-1);
+	if (!frk)
+		ft_free_all_and_exit(t, sh);
 }

@@ -23,6 +23,9 @@ static void	ft_null(t_shell *sh, char **envv)
 	sh->alias = NULL;
 	sh->txt = NULL;
 	sh->process = NULL;
+	sh->std[0] = STDIN_FILENO;
+	sh->std[1] = STDOUT_FILENO;
+	sh->std[2] = STDERR_FILENO;
 	sh->env = init_tenvv(envv);
 }
 

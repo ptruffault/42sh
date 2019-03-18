@@ -61,13 +61,9 @@ t_tree			*exec_instruction(t_tree *t, t_shell *sh)
 	{
 		p->next = sh->process;
 		sh->process = p;
-		p->ret = ft_execve(p, sh, t);
-		if (p->ret >= 0 || (p->ret == -2 && p->status == RUNNING_FG
-		&& (waitpid(p->pid, &p->ret, WUNTRACED) > 0)))
-		{
-			ft_reset_fd(p);
-			p->status = DONE;
-		}
+		ft_execve(p, sh, t, 1);
+		ft_wait(p, sh);
+		ft_reset_fd(sh);
 		t->ret = p->ret;
 	}
 	return (t);

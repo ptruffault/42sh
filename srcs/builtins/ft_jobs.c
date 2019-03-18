@@ -12,16 +12,6 @@
 
 #include <shell42.h>
 
-static void ft_init_status(char *stat[6])
-{
-	stat[0] = "initialised";
-	stat[1] = "running fg";
-	stat[2] = "\033[00;34mrunning bg\033[00m";
-	stat[3] = "\033[1;32mdone\033[00m";
-	stat[4] = "\033[1;36msuspended\033[00m";
-	stat[5] = "\033[00;31mkilled\033[00m";
-}
-
 static void ft_job_prompt(t_process *tmp, char *stat[6], int id)
 {
 	t_process *grp;
@@ -49,7 +39,7 @@ int		ft_hi(t_shell *sh)
 
 	id = 0;
 	tmp = sh->process;
-	ft_init_status(stat);
+	ft_process_tab_status(stat);
 	while (tmp)
 	{
 		if (tmp->cmd)
@@ -66,7 +56,7 @@ int 	ft_jobs(t_shell *sh)
 	int			id;
 
 	id = 0;
-	ft_init_status(stat);
+	 ft_process_tab_status(stat);
 	tmp = sh->process;
 	while (tmp)
 	{

@@ -12,51 +12,56 @@
 
 #include <libft.h>
 
-static int	ft_check_eol(int fd, char **text, char **line)
+static	int		ft_check_charriot(char *buff, char **res)
 {
-	char	*eol;
+	char	*tmp;
+	char	*tofree;
+	char	*s;
 
-	if (!*text)
-		*text = ft_strnew(0);
-	if (fd == -1)
+	tofree = *res;
+	s = buff;
+	if ((tmp = ft_strchr(buff, '\n')) != NULL)
+		s = ft_strsub(buff, 0, tmp - buff);
+	if (!(*res = ft_strjoin(*res, s)))
 	{
-		ft_strdel(text);
-		return (1);
+		ft_strdel(&tofree);
+		if (tmp != NULL)
+			ft_strdel(&s);
+		return (-1);
 	}
-	else if ((eol = ft_strchr(*text, '\n')))
+	ft_strdel(&tofree);
+	if (tmp != NULL)
 	{
-		*line = ft_strsub(*text, 0, eol - *text);
-		ft_strcpy(*text, eol + 1);
+		ft_strdel(&s);
+		ft_strcpy(buff, tmp + 1);
 		return (1);
 	}
 	return (0);
 }
 
-int			get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
-	char		buff[BUFF_SIZE + 1];
-	int			ret;
-	static char	*text;
-	char		*tmp;
+	static char		buff[BUFF_SIZE + 1];
+	int				i;
 
-	if (ft_check_eol(fd, &text, line))
-		return (1);
-	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
+	if (fd < 0 || line == NULL)
+		return (-1);
+	if (!(*line = ft_strnew(0)))
+		return (-1);
+	if (ft_strlen(buff) > 0)
+		if (ft_check_charriot(buff, line) == 1)
+			return (1);
+	while ((i = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		buff[ret] = '\0';
-		tmp = text;
-		text = ft_strjoin(text, buff);
-		ft_strdel(&tmp);
-		if (ft_check_eol(fd, &text, line))
+		buff[i] = '\0';
+		if (ft_check_charriot(buff, line) == 1)
 			return (1);
 	}
-	if (ret < 0)
-		return (-1);
-	if (text && *text)
+	if (ft_strlen(buff) == 0)
 	{
-		*line = ft_strdup(text);
-		ft_strdel(&text);
-		return (1);
+		ft_strdel(line);
+		return (i);
 	}
-	return (0);
+	ft_memset(buff, 0, 1);
+	return (1);
 }

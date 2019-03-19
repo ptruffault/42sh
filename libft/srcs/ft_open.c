@@ -24,7 +24,7 @@ int	ft_open(char *path, int flag, int mode)
 		error("is a directory", path);
 	else if (!(inf.st_mode & S_IRUSR))
 		error("permission denied", path);
-	else if (S_ISLNK(st_mode))
+	else if (S_ISLNK(inf.st_mode))
 		error("ft_open do not follow symbolic link", path);
 	else if ((fd = open(path, flag, mode)) < 0)
 		error("can't open this file", path);

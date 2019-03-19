@@ -19,8 +19,13 @@ void		sig_handler(int sig)
 
 	if ((sh = ft_get_set_shell(NULL)))
 	{
-		if (sig == SIGINT && !kill_process(sh->process, SIGINT, RUNNING_FG))
-			ft_disp(sh);
+		if (sig == SIGINT)
+		{
+			if (sh->interactif == TRUE && !kill_process(sh->process, SIGINT, RUNNING_FG))
+				ft_disp(sh);
+			else if (sh->interactif == FALSE)
+				ft_exit("2", sh);
+		}
 		else if (sig == SIGWINCH && sh)
 			ft_update_windows(&sh->e);
 		else if (sig == SIGTSTP && sh && sh->process)
@@ -37,7 +42,7 @@ void	sig_handler_ni(int sig)
 	if ((sh = ft_get_set_shell(NULL)))
 	{
 		if (sig == SIGINT)
-			ft_exit("2", sh);
+			
 		else if (sig == SIGTSTP && sh && sh->process)
 			kill_process(sh->process, SIGTSTP, RUNNING_FG);
 		else if (sig == SIGCHLD && sh && sh->process)
@@ -51,11 +56,4 @@ void		set_signals(void)
 	signal(SIGTSTP, sig_handler);
 	signal(SIGCHLD, sig_handler);
 	signal(SIGWINCH, sig_handler);
-}
-
-void 	set_signals_ni(void)
-{
-	signal(SIGINT, sig_handler_ni);
-	signal(SIGTSTP, sig_handler_ni);
-	signal(SIGCHLD, sig_handler_ni);
 }

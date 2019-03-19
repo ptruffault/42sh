@@ -13,9 +13,6 @@
 #include <shell42.h>
 
 
-//getpgid
-//tcsetpgrp()
-
 // PROBLEME DE FORGROUND pour 'cat &'
 
 void	ft_disp(t_shell *sh)

@@ -33,20 +33,18 @@ void		init_shell(t_shell *sh, char **envv, char **argv)
 {
 	ft_null(sh, envv);
 	init_env(sh, argv);
+	set_signals();
 	if (!isatty(0))
 	{
-		set_signals_ni();
 		if (exec_fd(sh, 0) == 0)
 			error("abort", "no standart input");
 		ft_exit("-1", sh);
 	}
 	if (argv[1] && !ft_isempty(argv[1]))
 	{
-		set_signals_ni();
 		exec_file(argv[1], sh);
 		ft_exit("-1", sh);
 	}
 	sh->interactive = TRUE;
-	set_signals();
 	init_termcaps(sh);
 }

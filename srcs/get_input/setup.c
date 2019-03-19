@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:23:52 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 11:43:05 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 13:49:05 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int 	init_tedit(t_shell *sh)
 	sh->e.pos = 0;
 	sh->e.select = -1;
 	sh->e.mode = 0;
+	sh->e.hist = NULL;
 	if ((tmp = new_hist()))
 	{
 		sh->e.hist = tmp;

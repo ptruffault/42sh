@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 13:59:48 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 11:43:05 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 13:49:05 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ int		exec_fd(t_shell *sh, int fd)
 	while (get_next_line(fd, &sh->txt) == 1 && sh->txt && *sh->txt && !ft_isempty(sh->txt))
 	{
 		i++;
-		if (*sh->txt != '#'
-		&& (t = get_tree(sh->txt)))
+		if (*sh->txt != '#' && (t = get_tree(sh->txt)))
 			ft_free_tree(exec_tree(t, sh));
 		ft_strdel(&sh->txt);
 	}
-	get_next_line(-1, NULL);
 	return (i);
 }
 

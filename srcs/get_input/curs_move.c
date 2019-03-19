@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:08:59 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 11:43:05 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 13:49:05 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ void	curs_reset(t_edit *e)
 	int y;
 
 	y = e->pos;
-	while (y > e->width)
+	if (e->width != 0)
 	{
-		y = y - e->width;
-		term_actions(CURSOR_UP);
+		while (y > e->width)
+		{
+			y = y - e->width;
+			term_actions(CURSOR_UP);
+		}
 	}
 	term_goto(CURSOR_MHORIZ, 0, 0);
 	e->pos = 0;

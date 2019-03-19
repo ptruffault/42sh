@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 12:38:45 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 11:43:05 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 13:49:05 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	ft_setup_env(t_shell *sh, char *shell_fold)
 
 	sh->env = ft_new_envv(sh->env, "SHELL_FOLD", shell_fold);
 	if ((hi_path = ft_strjoin(shell_fold, "/sys/.42history"))
-	&& (sh->env = ft_new_envv(sh->env, "HISTORY", hi_path)))
+		&& (sh->env = ft_new_envv(sh->env, "HISTORY", hi_path)))
 	{
 		sh->hist = init_hist(hi_path);
 		ft_strdel(&hi_path);
@@ -73,13 +73,12 @@ char		*ft_update_pwd(t_shell *sh)
 	return (NULL);
 }
 
-void		init_env(t_shell *sh, char **argv)
+int		init_env(t_shell *sh, char **argv)
 {
 	char *shell_fold;
 	char *shell_path;
 	char *pwd;
 
-	sh->env = ft_new_envv(sh->env, "TERM", "xterm-256color");
 	if ((pwd = ft_strdup(ft_update_pwd(sh))))
 	{
 		if ((shell_path = get_shell_path(*argv, pwd)))
@@ -89,9 +88,13 @@ void		init_env(t_shell *sh, char **argv)
 			{
 				ft_setup_env(sh, shell_fold);
 				ft_strdel(&shell_fold);
+				ft_strdel(&pwd);
+				ft_strdel(&shell_path);
+				return (1);
 			}
 			ft_strdel(&shell_path);
 		}
 		ft_strdel(&pwd);
 	}
+	return (0);
 }

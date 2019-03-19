@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 16:02:36 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/02/19 13:17:03 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/03/19 13:48:53 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		ft_execve_pip(t_process *p, t_shell *sh, t_tree *t, int mode);
 void		ft_delete_char(t_eval *e);
 char		*ft_update_pwd(t_shell *sh);
 t_redirect	*parse_heredoc(t_redirect *new, t_word *w);
-void		init_env(t_shell *sh, char **argv);
+int			init_env(t_shell *sh, char **argv);
 t_word		*ft_deltword(t_word *prev, t_word *src);
 t_hist		*ft_free_thist(t_hist *h);
 t_redirect	*ft_free_redirection(t_redirect *r);
@@ -49,7 +49,7 @@ t_word		*ft_free_tword(t_word *w);
 t_process	*ft_free_tprocess(t_process *p);
 void		ft_free_tshell(t_shell *sh);
 void		ft_disp(t_shell *sh);
-char		*get_input(void);
+int			get_input(char	**line);
 char		**ft_twordto_arr(t_word *w);
 void		ft_put_tword(t_word *w);
 t_word		*ft_expention(t_word *w);
@@ -72,7 +72,7 @@ void		ft_reset_fd(t_shell *sh);
 int			fd_dup(int fd1, int fd2, t_process *p, int close);
 t_shell		*ft_get_set_shell(t_shell *sh);
 void		reset_term(void);
-void		init_shell(t_shell *sh, char **envv, char **argv);
+int			init_shell(t_shell *sh, char **envv, char **argv);
 void		set_signals(void);
 void		set_signals_ni(void);
 void		ft_execve(t_process *p, t_shell *sh, t_tree *t, int fork);
@@ -94,7 +94,7 @@ int			ft_isparenth(char c);
 int			ft_setup_edit_term(t_shell *sh);
 void		ft_set_old_term(t_shell *sh);
 void		ft_update_windows(t_edit *e);
-void		init_termcaps(t_shell *sh);
+int			init_termcaps(t_shell *sh);
 int			check_builtin(char *input);
 t_envv		*ft_cd(char **input, t_envv *envv);
 t_envv		*change_dir(char *path, t_envv *envv);

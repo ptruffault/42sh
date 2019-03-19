@@ -8,14 +8,14 @@ static t_process	*ft_get_process(t_process *p, unsigned int status)
 
 	while (p)
 	{
-		if (p->status == status && p->pid != 0)
+		if (p->status == status && p->pid > 0)
 			return (p);
 		if (p->grp)
 		{
 			tmp = p->grp;
 			while (tmp)
 			{
-				if (tmp->status == status && p->pid != 0)
+				if (tmp->status == status && p->pid > 0)
 					return (tmp);
 				tmp = tmp->grp;
 			}
@@ -31,7 +31,6 @@ int			kill_process(t_process *p, int sig, unsigned int status)
 	int i;
 
 	i = 0;
-	ft_putchar('\n');
 	while (p && (tmp = ft_get_process(p, status)))
 	{
 		i++;

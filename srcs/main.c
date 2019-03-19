@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 15:33:46 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/19 11:42:21 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 13:49:05 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ void	ft_disp(t_shell *sh)
 	ft_putstr("\033[00m]\n");
 }
 
+int		ft_quit(int exit_code, t_shell *sh)
+{
+	kill_process(sh->process, SIGQUIT, RUNNING_FG);
+	kill_process(sh->process, SIGQUIT, RUNNING_BG);
+	kill_process(sh->process, SIGQUIT, SUSPENDED);
+	ft_strdel(&sh->txt);
+	ft_free_tshell(sh);
+	return (exit_code);
+}
+
 int		main(int argc, char **argv, char **envv)
 {
 	t_shell	sh;
@@ -32,16 +42,17 @@ int		main(int argc, char **argv, char **envv)
 	char	*in;
 
 	(void)argc;
-	init_shell(&sh, envv, argv);
-	while (42 && isatty(0))
+	if (!init_shell(&sh, envv, argv))
+		return (ft_quit(1, &sh));
+	while (isatty(0))
 	{
 		ft_disp(&sh);
-		in = get_input();
+		if (!(get_input(&in)))
+			return (ft_quit(1, &sh));
 		if ((t = get_tree(in)))
 			ft_free_tree(exec_tree(t, &sh));
 		ft_strdel(&in);
 	}
 	ft_printf("stdin no longer tty\n");
-	ft_exit("42", &sh);
-	return (0);
+	return (ft_quit(1, &sh));
 }

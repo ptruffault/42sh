@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 12:32:55 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/19 11:43:05 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 13:49:05 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ void	ft_update_windows(t_edit *e)
 {
 	struct winsize	window;
 
-	ioctl(0, TIOCGWINSZ, &window);
-	e->width = window.ws_col;
+	if ((ioctl(0, TIOCGWINSZ, &window)) == 0)
+		e->width = window.ws_col;
+	else
+		e->width = 0;
 }
 
-void	init_termcaps(t_shell *sh)
+int		init_termcaps(t_shell *sh)
 {
 	char *term;
 
 	term = NULL;
 	if (((term = get_tenvv_val(sh->env, "TERM")) && !tgetent(NULL, term)))
-		tgetent(NULL, "xterm-256color");
+		return (error("can't retrieve terminal informations", term));
+	if (!(tgetstr("ch", NULL)) || !(tgetstr("cd", NULL)) || !(tgetstr("up", NULL)))
+		return (error("term doesn't support necassary termcaps", term));
 	if (tcgetattr(0, &sh->saved_term) == -1)
-	{
-		error("can't save termios", NULL);
-		ft_free_tshell(sh);
-		ft_free_tree(ft_get_set_tree(NULL));
-		exit(0);
-	}
+		return (error("can't save termios", term));
 	ft_update_windows(&sh->e);
+	return (1);
 }
 
 int		ft_setup_edit_term(t_shell *sh)
@@ -43,7 +43,9 @@ int		ft_setup_edit_term(t_shell *sh)
 
 	term = NULL;
 	if (((term = get_tenvv_val(sh->env, "TERM")) && !tgetent(NULL, term)))
-		tgetent(NULL, "xterm-256color");
+		return (error("can't retrieve terminal informations", term));
+	if (!(tgetstr("ch", NULL)) || !(tgetstr("cd", NULL)) || !(tgetstr("up", NULL)))
+		return (error("term doesn't support necassary termcaps", term));
 	ft_memcpy(&sh->term, &sh->saved_term, sizeof(struct termios));
 	sh->term.c_lflag &= ~(ICANON | ECHO | ECHOK | ECHOKE
 			| ECHONL | ECHOCTL | ISIG);

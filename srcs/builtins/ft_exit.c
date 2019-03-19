@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 13:09:39 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 11:43:05 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 13:49:05 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ void	ft_exit(char *nbr, t_shell *sh)
 	if (sh->interactive == TRUE)
 		ft_set_old_term(sh);
 	else
-	{
 		ft_strdel(&sh->txt);
-		//get_next_line(-1, NULL);
-	}
 	ft_free_tshell(sh);
 	exit(exit_code);
 }

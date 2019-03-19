@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 12:08:41 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 11:43:05 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 13:49:05 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,25 @@ static void	ft_null(t_shell *sh, char **envv)
 	sh->env = init_tenvv(envv);
 }
 
-void		init_shell(t_shell *sh, char **envv, char **argv)
+int			init_shell(t_shell *sh, char **envv, char **argv)
 {
 	ft_null(sh, envv);
-	init_env(sh, argv);
+	if (!(init_env(sh, argv)))
+		return (0);
 	set_signals();
 	if (!isatty(0))
 	{
 		if (exec_fd(sh, 0) == 0)
 			error("abort", "no standart input");
-		ft_exit("-1", sh);
+		return (0);
 	}
 	if (argv[1] && !ft_isempty(argv[1]))
 	{
 		exec_file(argv[1], sh);
-		ft_exit("-1", sh);
+		return (0);
 	}
 	sh->interactive = TRUE;
-	init_termcaps(sh);
+	if (!init_termcaps(sh))
+		return (0);
+	return (1);
 }

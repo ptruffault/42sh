@@ -60,7 +60,6 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 {
 	t_process	*prev;
 	t_process	*tmp;
-	//pid_t		pgpid;
 
 	prev = NULL;
 	tmp = p;
@@ -75,8 +74,12 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 				ft_link_stdout(tmp->pipe);
 			ft_execve(tmp, sh, t, 0);
 		}
-		//setpgid(tmp->pid, tmp->pg)
-
+		if ((!prev && (setpgid(tmp->pid, 0)) < 0)
+		|| (prev && setpgid(tmp->pid, p->pid) < 0))
+		{
+			warning("can't set pgid", tmp->cmd);
+			perror(tmp->cmd);
+		}
 
 		if (prev)
 			ft_close_pipe(prev->pipe);

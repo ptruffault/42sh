@@ -34,15 +34,12 @@ int		exec_file(char *path, t_shell *sh)
 {
 	int		fd;
 
-	if ((fd = open(path, O_RDWR, S_IRWXU)) >= 0)
+	if ((fd = ft_open(path, O_RDWR, S_IRUSR | S_IXUSR)) >= 0)
 	{
 		exec_fd(sh, fd);
 		ft_close(fd);
 	}
 	else
-	{
-		error("can't exec this file", path);
 		return (-1);
-	}
 	return (0);
 }

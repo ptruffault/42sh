@@ -65,6 +65,7 @@ struct	s_file
 	t_file		*next;
 };
 
+int		ft_open(char *path, int flag, int mode);
 int		ft_printf(char *format, ...);
 char	*ft_strchr_end(const char *src, char c);
 int		ft_close(int fd);
@@ -73,7 +74,6 @@ char	**ft_strarrjoin(char **src, char **to_add);
 char	**ft_strarrjoin_fr(char **src, char **to_add);
 int		ft_match(char *s1, char *s2);
 void	ft_write_in_file(char *path, char *str);
-int		ft_open(char *path);
 void	ft_putstrarr_fd(char **t, int fd);
 void	ft_strdel_from_arr(int n, void *arr, size_t width, int len);
 char	*ft_get_next_word(char *str);

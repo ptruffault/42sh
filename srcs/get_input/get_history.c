@@ -76,7 +76,7 @@ t_hist	*init_hist(char *hist)
 	int		i;
 
 	new = NULL;
-	if ((fd = open(hist, O_RDWR | O_CREAT | O_NOFOLLOW, S_IRWXU | S_IRWXG | S_IRWXO)) >= 0)
+	if ((fd = ft_open(hist, O_RDWR | O_CREAT | O_NOFOLLOW, S_IRWXU | S_IRWXG | S_IRWXO)) >= 0)
 	{
 		if ((arr = ft_get_txt(fd)))
 		{
@@ -86,7 +86,5 @@ t_hist	*init_hist(char *hist)
 		}
 		ft_close(fd);
 	}
-	else
-		perror(hist);
 	return (new);
 }

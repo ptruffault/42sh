@@ -33,9 +33,7 @@ int			fd_dup(int fd1, int fd2, t_process *p, int close)
 	if (fd1 == fd2 || (fd1 = check_fd(p, fd1)) == -2)
 		return (-1);
 	if (fd1 == -1
-	&& (fd1 = open("/dev/null", O_RDWR | O_TRUNC | O_CREAT, S_IRWXU)) < 0)
-		warning("can't open this file", "dev/null");
-	else
+	&& (fd1 = ft_open("/dev/null", O_RDWR | O_TRUNC | O_CREAT, S_IWUSR)) >= 0)
 	{
 		ret = dup2(fd1, fd2);
 		if (close && !IS_STD(fd1))
@@ -67,16 +65,12 @@ int			get_destination_fd(t_redirect *r)
 {
 	r->path = ft_exp_var(r->path, ft_get_set_shell(NULL));
 	if ((r->t == R_RIGHT && r->to == -2 && r->path
-	&& (r->to = open(r->path, O_RDWR | O_TRUNC | O_CREAT, S_IRWXU)) == -1)
+	&& (r->to = ft_open(r->path, O_RDWR | O_TRUNC | O_CREAT, S_IWUSR)) < 0)
 	|| (r->t == R_DRIGHT && r->to == -2 && r->path
-	&& (r->to = open(r->path, O_RDWR | O_APPEND | O_CREAT, S_IRWXU)) == -1)
+	&& (r->to = ft_open(r->path, O_RDWR | O_APPEND | O_CREAT, S_IWUSR)) < 0)
 	|| (r->t == R_LEFT && r->to == -2 && r->path
-	&& (r->to = open(r->path, O_RDWR, S_IRWXU)) == -1))
-	{
-		warning("can't open this file", r->path);
-		perror(NULL);
+	&& (r->to = ft_open(r->path, O_RDWR, S_IRUSR)) < 0))
 		return (0);
-	}
 	else if (r->t == R_DLEFT)
 		ft_heredoc_content(r, ft_get_set_shell(NULL));
 	if (r->to != -2 && r->from != -2)

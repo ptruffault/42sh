@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 13:26:09 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ t_tree			*exec_instruction(t_tree *t, t_shell *sh)
 
 	if (t->o_type == O_PIPE)
 	{
-		if (t->next
-		&& (p = init_pipe_process(t, sh)))
+		if (t->next && (p = init_pipe_process(t, sh)))
 		{
 			p->next = sh->process;
 			sh->process = p;
@@ -79,7 +78,7 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 		if (!tmp->cmd || !tmp->cmd->word)
 		{
 			if (tmp->o_type == O_SEP || tmp->o_type == 0
-			|| tmp->o_type == O_BACK)
+				|| tmp->o_type == O_BACK)
 				tmp = tmp->next;
 			else
 			{

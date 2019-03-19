@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 14:17:51 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ int			ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh)
 	{
 		if (!get_destination_fd(r))
 			return (0);
-		printf("FD1 = %d %d\n", sh->std[r->from], sh->std[r->to]);
 		if (IS_STD(r->from) && IS_STD(sh->std[r->from]))
 			sh->std[r->from] = dup(r->from);
 		if (IS_STD(r->to) && IS_STD(sh->std[r->to]))
 			sh->std[r->to] = dup(r->to);
-		printf("FD2 = %d %d\n", sh->std[r->from], sh->std[r->to]);
 		if (fd_dup(r->to, r->from, p, 1) < 0)
 			return (0);
 		if (IS_STD(r->from))

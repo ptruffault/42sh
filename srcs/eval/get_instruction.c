@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:20:35 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static t_tree	*built_tree(t_tree *head, t_word *w)
 		}
 		else if (tmp && tmp->type == OPERATEUR)
 		{
-			tree = add_newttree(tree, tmp);
+			if (!(tree = add_newttree(tree, tmp)))
+				return (ft_syntax(head));
 			tmp = tmp->next;
 		}
 	}
@@ -63,7 +64,7 @@ int				ft_check_grammar(t_word *w)
 	while (w)
 	{
 		if ((w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
-		|| (w->type == REDIRECT && ft_strchr(w->word, '<') && ft_strchr(w->word, '>')))
+			|| (w->type == REDIRECT && ft_strchr(w->word, '<') && ft_strchr(w->word, '>')))
 		{
 			error("syntax error near", w->word);
 			return (0);
@@ -86,7 +87,7 @@ t_tree			*get_tree(char *input)
 	t_word	*w;
 
 	if (!input || ft_isempty(input) || !ft_check_ascii(input)
-	|| !(w = eval_line(input)))
+		|| !(w = eval_line(input)))
 		return (NULL);
 	if (!(head = new_tree()))
 		return (NULL);

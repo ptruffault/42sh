@@ -40,7 +40,7 @@ char		ft_parse_back(char c);
 void		ft_execve_pip(t_process *p, t_shell *sh, t_tree *t, int mode);
 void		ft_delete_char(t_eval *e);
 char		*ft_update_pwd(t_shell *sh);
-t_redirect	*parse_heredoc(t_redirect *new, t_word *w);
+t_redirect	*parse_heredoc(t_redirect *ret, t_word *w);
 int			init_env(t_shell *sh, char **argv);
 t_word		*ft_deltword(t_word *prev, t_word *src);
 t_hist		*ft_free_thist(t_hist *h);

@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 15:30:54 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,17 @@ t_tree		*new_tree(void)
 
 t_redirect	*new_redirection(void)
 {
-	t_redirect	*new;
+	t_redirect	*ret;
 
-	if (!(new = (t_redirect *)malloc(sizeof(t_redirect))))
+	if (!(ret = (t_redirect *)malloc(sizeof(t_redirect))))
 		return (NULL);
-	new->t = 0;
-	new->to = -2;
-	new->from = -2;
-	new->path = NULL;
-	new->heredoc = NULL;
-	new->next = NULL;
-	return (new);
+	ret->t = 0;
+	ret->to = -2;
+	ret->from = -2;
+	ret->path = NULL;
+	ret->heredoc = NULL;
+	ret->next = NULL;
+	return (ret);
 }
 
 static int	find_operateur(char *op)

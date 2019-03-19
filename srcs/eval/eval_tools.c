@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:19:48 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,24 @@ void		ft_delete_char(t_eval *e)
 		e->s[i] = e->s[i + 1];
 		i++;
 	}
-	e->s[i] = 0;
-	e->s = ft_realloc(e->s, len + 1, len);
-	e->eval = ft_realloc(e->eval, len + 1, len);
+	e->s[i] = '\0';
 }
 
-t_redirect	*parse_heredoc(t_redirect *new, t_word *w)
+t_redirect	*parse_heredoc(t_redirect *ret, t_word *w)
 {
 	t_shell *sh;
 
 	sh = ft_get_set_shell(NULL);
 	if (w->next && w->next->word)
 	{
-		new->path = ft_strdup(w->next->word);
+		if (!(ret->path = ft_strdup(w->next->word)))
+			return (ft_free_redirection(ret));
 		sh->heredoc = 1;
-		new->heredoc = heredoc_get_input(new->path, sh);
+		ret->heredoc = heredoc_get_input(ret->path, sh);
 		sh->heredoc = 0;
-		return (new);
+		return (ret);
 	}
-	ft_free_redirection(new);
-	return (NULL);
+	return (ft_free_redirection(ret));
 }
 
 char		ft_parse_back(char c)

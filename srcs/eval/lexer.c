@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 14:21:33 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ t_eval	lexer(char *src)
 
 	e.curr = 0;
 	e.err = OK;
-	e.s = ft_strdup(src);
-	if (!(e.eval = ft_strnew(ft_strlen(e.s) + 1)))
+	if (!(e.s = ft_strdup(src)))
+		return (e);
+	if (!(e.eval = ft_strnew(ft_strlen(e.s))))
 		return (e);
 	while (e.s[e.curr])
 		ft_lexword(&e);

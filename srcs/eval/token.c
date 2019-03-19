@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:19:48 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,15 @@ t_word			*ft_get_words(t_eval *e)
 		return (NULL);
 	len = ft_strlen(e->s);
 	tmp_w = head;
-	while (e->eval[i] == ' ')
-		i++;
-	while (i < len)
+	while (i < len && e->eval[i] != '\0')
 	{
-		if (e->eval[i] == 0 || !(tmp_w = g_n_w(tmp_w, e, &i, &pos)))
-			return (head);
-		if (e->eval[i] == 0 || !(tmp_w->next = new_tword()))
-			return (head);
-		tmp_w = tmp_w->next;
 		while (e->eval[i] && e->eval[i] == ' ')
 			i++;
+		if (!(tmp_w = g_n_w(tmp_w, e, &i, &pos)))
+			return (ft_free_tword(head));
+		if (e->eval[i] != '\0' && !(tmp_w->next = new_tword()))
+			return (ft_free_tword(head));
+		tmp_w = tmp_w->next;
 	}
 	return (head);
 }
@@ -98,18 +96,18 @@ t_word			*eval_line(char *input)
 	t_shell	*sh;
 
 	sh = ft_get_set_shell(NULL);
+	head = NULL;
 	if (!input || !*input || ft_isempty(input))
 		return (NULL);
 	e = lexer(input);
-	if ((head = ft_get_words(&e)))
+	if (e.s && e.eval && (head = ft_get_words(&e)))
 		ft_check_alias(head, sh);
 	ft_strdel(&e.eval);
 	ft_strdel(&e.s);
 	if (head && head->type == OPERATEUR)
 	{
 		error("syntax error near", head->word);
-		ft_free_tword(head);
-		return (NULL);
+		return (ft_free_tword(head));
 	}
 	return (head);
 }

@@ -42,7 +42,7 @@ char	**ft_strarrjoin_fr(char **src, char **to_add)
 	char	**ret;
 
 	ret = ft_strarrjoin(src, to_add);
-	to_add = ft_freestrarr(to_add);
-	src = ft_freestrarr(src);
+	ft_freestrarr(&to_add);
+	ft_freestrarr(&src);
 	return (ret);
 }

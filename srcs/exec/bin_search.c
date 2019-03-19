@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 13:22:32 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ char		*absolute_path(char *input, t_envv *envv)
 	if (lstat(input, &inf) == -1)
 	{
 		if ((pwd = get_tenvv_val(envv, "PWD"))
-		&& (path = ft_new_path(pwd, input))
-		&& (lstat(path, &inf) == -1))
+			&& (path = ft_new_path(pwd, input))
+			&& (lstat(path, &inf) == -1))
 		{
 			ft_strdel(&path);
 			return (NULL);
 		}
 	}
-	else
-		path = ft_strdup(input);
+	else if (!(path = ft_strdup(input)))
+			return (NULL);
 	return (check_exe(path, inf));
 }
 
@@ -61,17 +61,21 @@ char		*search_in_envv(char *input, t_envv *envv)
 		return (NULL);
 	while (path[i])
 	{
-		bin_path = ft_new_path(path[i], input);
+		if (!(bin_path = ft_new_path(path[i], input)))
+		{
+			ft_freestrarr(&path);
+			return (NULL);
+		}
 		if (lstat(bin_path, &inf) == -1)
 			ft_strdel(&bin_path);
 		else
 		{
-			path = ft_freestrarr(path);
+			ft_freestrarr(&path);
 			return (check_exe(bin_path, inf));
 		}
 		i++;
 	}
-	path = ft_freestrarr(path);
+	ft_freestrarr(&path);
 	return (NULL);
 }
 

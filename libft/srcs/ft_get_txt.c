@@ -39,7 +39,7 @@ char	**ft_get_txt(int fd)
 			return (NULL);
 		}
 		if (gnl == -1)
-			return (ft_freestrarr(ret));
+			ft_freestrarr(&ret);
 	}
 	return (ret);
 }

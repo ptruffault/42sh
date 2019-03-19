@@ -17,7 +17,8 @@ static char	*get_equal(char *name, char *value)
 	char	*tmp;
 	char	*ret;
 
-	if (!(tmp = ft_stradd_char(ft_strdup(name), '=')))
+	ret = NULL;
+	if (!(tmp = ft_strjoin(name, "=")))
 		return (NULL);
 	ret = ft_strjoin(tmp, value);
 	ft_strdel(&tmp);

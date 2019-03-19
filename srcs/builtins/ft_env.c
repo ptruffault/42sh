@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 15:04:08 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		ft_env_exec(char **arr, t_envv *tmp, t_envv *envv)
 		warning("{env} execve fucked up", *arr);
 	}
 	ft_strdel(&path);
-	e = ft_freestrarr(e);
+	ft_freestrarr(&e);
 	wait(&pid);
 }
 

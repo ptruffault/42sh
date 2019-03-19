@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 14:09:06 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ t_process	*ft_free_tprocess(t_process *p)
 	{
 		tmp = p->next;
 		ft_strdel(&p->cmd);
-		p->argv = ft_freestrarr(p->argv);
-		p->env = ft_freestrarr(p->env);
+		ft_freestrarr(&p->argv);
+		ft_freestrarr(&p->env);
 		if (p->grp)
 			p->grp = ft_free_tprocess(p->grp);
 		free(p);

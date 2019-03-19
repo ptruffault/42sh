@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 13:53:23 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 				ft_link_stdout(tmp->pipe);
 			ft_execve(tmp, sh, t, 0);
 		}
-		if ((!prev && (setpgid(tmp->pid, 0)) < 0)
+	/*	if ((!prev && (setpgid(tmp->pid, 0)) < 0)
 		|| (prev && setpgid(tmp->pid, p->pid) < 0))
 		{
 			warning("can't set pgid", tmp->cmd);
 			perror(tmp->cmd);
-		}
+		}*/
 
 		if (prev)
 			ft_close_pipe(prev->pipe);

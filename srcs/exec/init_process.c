@@ -6,28 +6,28 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 15:17:06 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <shell42.h>
 
-static void			ft_init_fd(t_process *new, t_shell *sh)
+static void			ft_init_fd(t_process *ret, t_shell *sh)
 {
-	new->fd[0] = sh->std[0];
-	new->fd[1] = sh->std[1];
-	new->fd[2] = sh->std[2];
-	new->pgid = 0;
-	new->pipe[0] = -1;
-	new->pipe[1] = -1;
-	new->status = INIT;
-	new->ret = -1;
-	new->argv = NULL;
-	new->grp = NULL;
-	new->next = NULL;
-	new->pid = -1;
-	new->env = NULL;
-	new->builtins = FALSE;
+	ret->fd[0] = sh->std[0];
+	ret->fd[1] = sh->std[1];
+	ret->fd[2] = sh->std[2];
+	ret->pgid = 0;
+	ret->pipe[0] = -1;
+	ret->pipe[1] = -1;
+	ret->status = INIT;
+	ret->ret = -1;
+	ret->argv = NULL;
+	ret->grp = NULL;
+	ret->next = NULL;
+	ret->pid = -1;
+	ret->env = NULL;
+	ret->builtins = FALSE;
 }
 
 static t_process	*ft_abort(t_process *p)
@@ -38,7 +38,10 @@ static t_process	*ft_abort(t_process *p)
 	while (p && p->cmd)
 	{
 		if (p->grp)
+		{
 			ft_close(p->pipe[0]);
+			ft_close(p->pipe[1]);
+		}
 		p = p->grp;
 	}
 	return (ft_free_tprocess(head));
@@ -46,26 +49,30 @@ static t_process	*ft_abort(t_process *p)
 
 t_process			*init_process(t_tree *t, t_shell *sh)
 {
-	t_process	*new;
+	t_process	*ret;
 
-	new = NULL;
-	if ((new = (t_process *)malloc(sizeof(t_process))))
+	ret = NULL;
+	if ((ret = (t_process *)malloc(sizeof(t_process))))
 	{
-		ft_init_fd(new, sh);
-		if (!(new->argv = ft_twordto_arr(t->cmd)))
+		ft_init_fd(ret, sh);
+		if (!(ret->argv = ft_twordto_arr(t->cmd)))
 		{
-			free(new);
+			free(ret);
 			return (NULL);
 		}
-		if (check_builtin(*new->argv) && (new->cmd = ft_strdup(*new->argv)))
-			new->builtins = TRUE;
+		if (check_builtin(*ret->argv))
+		{
+			ret->builtins = TRUE;
+			if (!(ret->cmd = ft_strdup(*ret->argv)))
+				return (ft_free_tprocess(ret));
+		}
 		else
 		{
-			new->env = tenvv_to_tab(sh->env);
-			new->cmd = get_bin_path(*new->argv, sh->env);
+			ret->env = tenvv_to_tab(sh->env);
+			ret->cmd = get_bin_path(*ret->argv, sh->env);
 		}
 	}
-	return (new);
+	return (ret);
 }
 
 t_process *init_pipe_process(t_tree *t, t_shell *sh)
@@ -73,6 +80,7 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 	t_process *head;
 	t_process *tmp;
 
+	head = NULL;
 	if ((head = init_process(t, sh)) && head->cmd && !pipe(head->pipe))
 	{
 		tmp = head;
@@ -84,7 +92,7 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 		 		if (tmp->grp->cmd)
 		 		{
 		 			if (t->o_type == O_PIPE && t->next 
-		 			&& (pipe(tmp->grp->pipe) < 0))
+		 				&& (pipe(tmp->grp->pipe) < 0))
 		 			{
 		 				error("broken pipe", tmp->grp->cmd);
 						return (ft_abort(head));
@@ -98,12 +106,6 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 				tmp = tmp->grp;
 			}
 		}
-	}
-	else
-	{
-		if (!head->cmd)
-			error("command not found", *head->argv);
-		return (ft_abort(head));
 	}
 	return (head);
 }

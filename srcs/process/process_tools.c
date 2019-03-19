@@ -1,6 +1,7 @@
 #include <shell42.h>
 #include "../includes/get_input.h"
 
+
 void ft_process_tab_status(char *stat[6])
 {
 	stat[0] = "\033[00;31minitialised\033[00m";

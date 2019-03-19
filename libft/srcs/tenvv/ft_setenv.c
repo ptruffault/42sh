@@ -14,21 +14,20 @@
 
 t_envv	*ft_new_envv(t_envv *envv, char *name, char *value)
 {
-	t_envv	*new;
+	t_envv	*ret;
 	t_envv	*tmp;
 
 	if ((tmp = get_tenvv(envv, name)))
 		return (ft_changetenvv_val(envv, name, value));
-	if (!name || !(new = new_tenvv()))
+	if (!name || !(ret = new_tenvv()))
 		return (envv);
-	if (!(new->name = ft_strdup(name)))
+	if (!(ret->name = ft_strdup(name)) || !(ret->value = ft_strdup(value)))
 	{
-		del_tenvv(new);
+		del_tenvv(ret);
 		return (envv);
 	}
-	new->value = ft_strdup(value);
-	new->next = envv;
-	return (new);
+	ret->next = envv;
+	return (ret);
 }
 
 t_envv	*ft_setenv(t_envv *envv, char **t)

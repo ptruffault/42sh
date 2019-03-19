@@ -24,7 +24,7 @@ t_envv	*ft_tenvv_cpy(t_envv *src)
 	{
 		if (!(tmp->name = ft_strdup(src->name)) 
 		|| !(tmp->value = ft_strdup(src->value)))
-			return (ret);
+			return (ft_free_tenv(ret));
 		src = src->next;
 		if (src)
 		{

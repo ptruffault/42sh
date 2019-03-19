@@ -12,6 +12,23 @@
 
 #include <shell42.h>
 
+char 	*ft_split_equal(char *str, char **aft)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != '=')
+		i++;
+	if (str[i] == '\0')
+	{
+		*aft = NULL;
+		return (str);
+	}
+	str[i] = '\0';
+	*aft = &str[i + 1];
+	return (str);
+}
+
 t_envv	*ft_export(t_shell *sh, char **argv)
 {
 	t_envv	*tmp;
@@ -24,11 +41,8 @@ t_envv	*ft_export(t_shell *sh, char **argv)
 	{
 		if (ft_isequal(argv[i]))
 		{
-			name = get_name(argv[i]);
-			val = get_value(argv[i]);
+			name = ft_split_equal(argv[i], &val);
 			sh->env = ft_new_envv(sh->env, name, val);
-			ft_strdel(&name);
-			ft_strdel(&val);
 		}
 		else if (sh->intern && (tmp = get_tenvv(sh->intern, argv[i])))
 			sh->env = ft_new_envv(sh->env, tmp->name, tmp->value);

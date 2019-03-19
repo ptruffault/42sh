@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 15:17:06 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:46:10 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 		if (!(ret->argv = ft_twordto_arr(t->cmd)))
 		{
 			free(ret);
-			return (NULL);
+			return (ret = NULL);
 		}
 		if (check_builtin(*ret->argv))
 		{
@@ -87,7 +87,7 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 		while (t->o_type == O_PIPE)
 		{	
 			t = t->next;
-			if ((tmp->grp = init_process(t, sh)))
+			if (t && (tmp->grp = init_process(t, sh)))
 		 	{
 		 		if (tmp->grp->cmd)
 		 		{

@@ -19,7 +19,7 @@ static void	set_var(char **argv, t_shell *sh)
 
 	head = ft_setenv(new_tenvv(), argv);
 	end = head;
-	while (end && end->next)
+	while (end->next)
 		end = end->next;
 	end->next = sh->intern;
 	sh->intern = head;

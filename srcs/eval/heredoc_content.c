@@ -36,8 +36,8 @@ char	*heredoc_get_input(char *eoi, t_shell *sh)
 	{
 		while (!ft_strequ(in, eoi) && sh->heredoc == 1)
 		{
-			in = ft_strappend(&in, "\n");
-			ret = ft_strappend(&ret, in);
+			if (!(in = ft_strappend(&in, "\n")) || !(ret = ft_strappend(&ret, in)))
+				break ;
 			ft_putstr("\033[00;34mheredoc>\n\033[00m");
 			if ((d = get_input(&in)) == 4)
 			{

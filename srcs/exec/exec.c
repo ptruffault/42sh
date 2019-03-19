@@ -23,7 +23,7 @@ static t_tree	*next_instruction(t_tree *t)
 		if (t->o_type == O_AND || t->o_type == O_OR)
 		{
 			if ((t->o_type == O_AND && t->ret == 0)
-			|| (t->o_type == O_OR && t->ret != 0))
+				|| (t->o_type == O_OR && t->ret != 0))
 				return (t->next);
 			else
 			{
@@ -82,7 +82,7 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 				tmp = tmp->next;
 			else
 			{
-				error("syntax error near", tmp->next->cmd->word);
+				error("syntax error near", *tmp->argv);
 				break ;
 			}
 		}

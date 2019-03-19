@@ -137,5 +137,5 @@ char		*backslash_get_input(void);
 t_process	*init_process(t_tree *t, t_shell *sh);
 t_process	*init_pipe_process(t_tree *t, t_shell *sh);
 void		ft_delete_process(int pid);
-
+char 		*ft_split_equal(char *str, char **aft);
 #endif

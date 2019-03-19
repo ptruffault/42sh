@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 12:46:36 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:12:11 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_process	*ft_get_process_id(t_process *p, int id)
 	while (p)
 	{
 		if ((p->status == RUNNING_BG || p->status == SUSPENDED)
-		&& p->builtins == FALSE && i++ == id)
+			&& p->builtins == FALSE && i++ == id)
 			return (p);
 		p = p->next;
 	}
@@ -32,8 +32,8 @@ static t_process 	*ft_get_process_name(t_process *p, char *name)
 	while (p)
 	{
 		if ((p->status == RUNNING_BG || p->status == SUSPENDED) 
-		&& (ft_strequ(p->cmd, name) || ft_strequ(*p->argv, name))
-		&& p->pid > 0)
+			&& (ft_strequ(p->cmd, name) || ft_strequ(*p->argv, name))
+			&& p->pid > 0)
 			return (p);
 		p = p->next;
 	}
@@ -65,8 +65,8 @@ int ft_bg(t_shell *sh, char **argv)
 	while (argv[++i])
 	{
 		if ((argv[1] && *argv[i] == '%' && ft_isdigit(argv[i][1])
-		&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
-		|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
+			&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
+			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 			ft_set_background(tmp);
 		else
 		{
@@ -93,8 +93,8 @@ int ft_fg(t_shell *sh, char **argv)
 	while (argv[++i])
 	{
 		if ((argv[1] && *argv[i] == '%' && ft_isdigit(argv[i][1])
-		&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
-		|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
+			&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
+			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 		{
 			ft_set_foreground(tmp);
 			ft_wait(tmp, sh);

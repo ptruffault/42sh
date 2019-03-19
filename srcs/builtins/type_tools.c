@@ -15,8 +15,8 @@
 int	putword(t_word *w, int t)
 {
 	if (ft_strequ(w->word, ";") || ft_strequ(w->word, "&&")
-	|| ft_strequ(w->word, "||") || ft_strequ(w->word, "||")
-	|| ft_strequ(w->word, "|"))
+		|| ft_strequ(w->word, "||") || ft_strequ(w->word, "||")
+		|| ft_strequ(w->word, "|"))
 	{
 		if (t)
 			ft_printf("keyword\n");

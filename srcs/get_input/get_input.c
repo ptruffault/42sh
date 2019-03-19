@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:12:58 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 13:49:05 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			get_input(char	**line)
 		read(0, &buf, 8);
 		buf = handle_input(buf, &sh->e);
 		if (buf == 9)
-			return (1);
+			return (4);
 		if (sh->hist)
 			ft_print_line(&sh->e);
 	}

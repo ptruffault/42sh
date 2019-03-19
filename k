@@ -1,0 +1,10 @@
+42sh
+42sh.dSYM
+Makefile
+auteur
+bin
+includes
+k
+libft
+srcs
+sys

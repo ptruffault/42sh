@@ -65,7 +65,7 @@ struct	s_file
 	t_file		*next;
 };
 
-int		ft_open(char *path, int flag, int mode);
+int		ft_open(char *path, int flag, mode_t mode);
 int		ft_printf(char *format, ...);
 char	*ft_strchr_end(const char *src, char c);
 int		ft_close(int fd);

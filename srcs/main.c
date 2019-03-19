@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 15:33:46 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/19 13:49:05 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/19 15:41:07 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		main(int argc, char **argv, char **envv)
 		return (ft_quit(1, &sh));
 	while (isatty(0))
 	{
+		ft_printf("1\n");
 		ft_disp(&sh);
 		if (!(get_input(&in)))
 			return (ft_quit(1, &sh));

@@ -12,19 +12,19 @@
 
 #include <libft.h>
 
-int	ft_open(char *path, int flag, int mode)
+int	ft_open(char *path, int flag, mode_t mode)
 {
 	int fd;
 	struct stat	inf;
 
 	fd = -1;
-	if (lstat(path, &inf) == -1)
+	if (!(flag & O_CREAT) && lstat(path, &inf) == -1)
 		error("no such file or directory", path);
-	else if (S_ISDIR(inf.st_mode))
+	else if (!(flag & O_CREAT) && S_ISDIR(inf.st_mode))
 		error("is a directory", path);
-	else if (!(inf.st_mode & S_IRUSR))
+	else if (!(flag & O_CREAT) && !(inf.st_mode & S_IRUSR))
 		error("permission denied", path);
-	else if (S_ISLNK(inf.st_mode))
+	else if (!(flag & O_CREAT) && S_ISLNK(inf.st_mode))
 		error("ft_open do not follow symbolic link", path);
 	else if ((fd = open(path, flag, mode)) < 0)
 		error("can't open this file", path);

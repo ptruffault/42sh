@@ -30,11 +30,12 @@ static void			ft_init_fd(t_process *ret, t_shell *sh)
 	ret->builtins = FALSE;
 }
 
-static t_process	*ft_abort(t_process *p)
+static t_process	*ft_abort(t_process *p, char *err, t_process *tmp)
 {
 	t_process *head;
 
 	head = p;
+	error(err, *tmp->argv);
 	while (p && p->cmd)
 	{
 		if (p->grp)
@@ -81,29 +82,25 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 	t_process *tmp;
 
 	head = NULL;
-	if ((head = init_process(t, sh)) && head->cmd && !pipe(head->pipe))
+	if ((head = init_process(t, sh)) && !pipe(head->pipe))
 	{
 		tmp = head;
+		if (!head->cmd)
+			return (ft_abort(head, "command not found", head));
 		while (t->o_type == O_PIPE)
 		{	
 			t = t->next;
 			if (t && (tmp->grp = init_process(t, sh)))
 		 	{
-		 		if (tmp->grp->cmd)
+		 		tmp = tmp->grp;
+		 		if (tmp->cmd)
 		 		{
 		 			if (t->o_type == O_PIPE && t->next 
-		 				&& (pipe(tmp->grp->pipe) < 0))
-		 			{
-		 				error("broken pipe", tmp->grp->cmd);
-						return (ft_abort(head));
-		 			}
-				}
-				else
-				{
-					error("command not found", *tmp->grp->argv);
-					return (ft_abort(head));
-				}
-				tmp = tmp->grp;
+		 				&& (pipe(tmp->pipe) < 0))
+						return (ft_abort(head, "broken pipe", tmp));
+		 		}
+		 		else
+		 			return (ft_abort(head, "command not found", tmp));
 			}
 		}
 	}

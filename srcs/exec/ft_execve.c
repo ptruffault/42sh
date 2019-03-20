@@ -46,6 +46,8 @@ void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 				execve(p->cmd, p->argv, p->env);
 				ft_free_all_and_exit(t, sh);
 			}
+			else if (p->pid < 0)
+				error("fork fucked up", p->cmd);
 		}
 		else
 			error("command not found", *p->argv);

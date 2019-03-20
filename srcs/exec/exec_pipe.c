@@ -74,6 +74,8 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 				ft_link_stdout(tmp->pipe);
 			ft_execve(tmp, sh, t, 0);
 		}
+		else if (tmp->pid < 0)
+			error("fork fucked up", tmp->cmd); 
 	/*	if ((!prev && (setpgid(tmp->pid, 0)) < 0)
 		|| (prev && setpgid(tmp->pid, p->pid) < 0))
 		{

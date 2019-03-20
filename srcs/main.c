@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 15:33:46 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/19 19:02:31 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,15 @@ int		main(int argc, char **argv, char **envv)
 	(void)argc;
 	if (!init_shell(&sh, envv, argv))
 		return (ft_quit(1, &sh));
+	in = NULL;
 	while (isatty(0))
 	{
 		ft_disp(&sh);
 		if (!(get_input(&in)))
+		{
+			ft_strdel(&in);
 			return (ft_quit(1, &sh));
+		}
 		if ((t = get_tree(in)))
 			ft_free_tree(exec_tree(t, &sh));
 		ft_strdel(&in);

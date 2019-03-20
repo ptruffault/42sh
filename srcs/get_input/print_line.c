@@ -6,12 +6,11 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:09:39 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <get_input.h>
-#include <curses.h>
 
 void		ft_delete_line(t_edit *e)
 {
@@ -22,7 +21,7 @@ void		ft_delete_line(t_edit *e)
 static void	print_background(t_edit *e, int pos, int size)
 {
 	ft_putstr(JAUNE);
-	ft_putstr(tparm(tgetstr("AB", NULL), COLOR_WHITE));
+	term_actions("mr");
 	write(1, e->hist->s + pos, size);
 	ft_putstr(NORMAL);
 	term_actions("me");
@@ -32,8 +31,8 @@ void ft_print_edited(t_edit *e)
 {
 	ft_delete_line(e);
 	e->curr = ft_strlen(e->hist->s);
-	ft_putstr(tparm(tgetstr("AF", NULL), COLOR_YELLOW));
-	write(1, e->hist->s, ft_strlen(e->hist->s));
+	ft_putstr("\x1B[33m");
+	write(1, e->hist->s, e->curr);
 	ft_putstr(NORMAL);
 	term_actions("ve");
 	ft_putchar('\n');
@@ -48,14 +47,14 @@ void ft_print_fast(t_edit *e)
 	ft_delete_line(e);
 	pos = 0;
 	size = 1;
-	term_actions((size_t)e->curr == ft_strlen(e->hist->s) ? "ve" : "vi");
+	term_actions((e->curr == (int)ft_strlen(e->hist->s)) ? "ve" : "vi");
 	i = ft_strlen(e->hist->s);
 	if (e->select == -1 || e->select == e->curr)
 		pos = e->curr;
 	else
 	{
-		pos = e->select > e->curr ? e->curr : e->select;
-		size += e->select > e->curr ? e->select - e->curr : e->curr - e->select;
+		pos = (e->select > e->curr) ? e->curr : e->select;
+		size += (e->select > e->curr) ? e->select - e->curr : e->curr - e->select;
 	}
 	write(1, e->hist->s, pos);
 	print_background(e, pos, size);
@@ -66,5 +65,6 @@ void ft_print_fast(t_edit *e)
 
 void		ft_print_line(t_edit *e)
 {
-	e->print_modes[e->mode](e);
+	if (e && e->hist && e->hist->s)
+		e->print_modes[e->mode](e);
 }

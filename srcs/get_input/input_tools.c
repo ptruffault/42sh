@@ -6,49 +6,50 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:21:10 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <get_input.h>
 
-void		ft_add_char(char buf, t_edit *e)
+int			ft_add_char(char buf, t_edit *e)
 {
 	int i;
 	int size;
 
 	if (e->select != -1)
-	{
 		delete_left(e);
-	}
 	if (!ft_isprint(buf) || !e->hist->s)
-		return ;
-	i = ft_strlen(e->hist->s);
-	size = ft_strlen(e->hist->s) + 1;
+		return (FAILURE);
+	i = (int)ft_strlen(e->hist->s);
+	size = i + 1;
 	while (i > 1 && i > e->curr)
 	{
 		e->hist->s[i] = e->hist->s[i - 1];
 		i--;
 	}
 	e->hist->s[e->curr] = buf;
-	e->hist->s = ft_realloc(e->hist->s, size, size + 1);
+	if (!(e->hist->s = ft_realloc(e->hist->s, size, size + 1)))
+		return (FAILURE);
 	e->hist->s[size] = '\0';
 	e->curr++;
 	if (e->select != -1)
 		e->select = -1;
+	return (SUCCESS);
 }
 
-static void	delete_simple_left(t_edit *e)
+static int	delete_simple_left(t_edit *e)
 {
 	int		i;
 	int		j;
 	char	*tmp;
 
 	if (e->curr < 1)
-		return ;
+		return (SUCCESS);
 	i = 0;
 	j = 0;
-	tmp = ft_strnew(ft_strlen(e->hist->s));
+	if (!(tmp = ft_strnew(ft_strlen(e->hist->s) - 1)))
+		return (FAILURE);
 	while (e->hist->s[j])
 	{
 		if (j != e->curr - 1)
@@ -59,6 +60,7 @@ static void	delete_simple_left(t_edit *e)
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
 	curr_move_left(e);
+	return (SUCCESS);
 }
 
 static int	delete_multiple_left(t_edit *e, int stop)
@@ -71,7 +73,7 @@ static int	delete_multiple_left(t_edit *e, int stop)
 	i = 0;
 	i = (e->curr > e->select ? e->curr : e->select);
 	if (!(tmp = ft_strnew(ft_strlen(e->hist->s) - (i - stop))))
-		return (0);
+		return (FAILURE);
 	ft_strncpy(tmp, e->hist->s, stop);
 	x = stop;
 	while (e->hist->s[i++])
@@ -82,7 +84,7 @@ static int	delete_multiple_left(t_edit *e, int stop)
 	e->curr = e->curr > e->select ? e->select : e->curr;
 	if (e->curr > (size = (int)ft_strlen(e->hist->s)))
 		e->curr = size;
-	return (1);
+	return (SUCCESS);
 }
 
 void		delete_left(t_edit *e)
@@ -103,14 +105,16 @@ void		delete_on(t_edit *e)
 {
 	int		i;
 	int		j;
+	int		size;
 	char	*tmp;
 
 	e->select = -1;
-	if ((size_t)e->curr == (size_t)ft_strlen(e->hist->s))
+	if (e->curr == (size = (int)ft_strlen(e->hist->s)))
 		return ;
 	i = 0;
 	j = 0;
-	tmp = ft_strnew(ft_strlen(e->hist->s));
+	if (!(tmp = ft_strnew(size - 1)))
+		return ;
 	while (e->hist->s[j])
 	{
 		if (j != e->curr)
@@ -120,4 +124,5 @@ void		delete_on(t_edit *e)
 	tmp[i] = '\0';
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
+	return ;
 }

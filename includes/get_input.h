@@ -112,7 +112,7 @@ void			hist_move_do(t_edit *e);
 void			hist_move_up(t_edit *e);
 void			delete_on(t_edit *e);
 void			delete_left(t_edit *e);
-void			ft_add_char(char buf, t_edit *e);
+int				ft_add_char(char buf, t_edit *e);
 void			curs_move_right(t_edit *e);
 void			curs_move_left(t_edit *e);
 void			curs_move_to(t_edit *e, int pos);

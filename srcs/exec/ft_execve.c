@@ -12,7 +12,7 @@
 
 #include <shell42.h>
 
-static void	ft_free_all_and_exit(t_tree *t, t_shell *sh)
+void			ft_exit_son(t_tree *t, t_shell *sh)
 {
 	ft_free_tshell(sh);
 	ft_free_tree(t);
@@ -27,7 +27,7 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t, int frk)
 		if (frk)
 			p->pid = 0;
 		else
-			ft_free_all_and_exit(t, sh);
+			ft_exit_son(t, sh);
 		return (1);
 	}
 	sh->env = ft_new_envv(sh->env, "_", p->cmd);
@@ -44,7 +44,7 @@ void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 			if (!ft_builtins(sh, p, t, frk) && (!frk || (p->pid = fork()) == 0))
 			{
 				execve(p->cmd, p->argv, p->env);
-				ft_free_all_and_exit(t, sh);
+				ft_exit_son(t, sh);
 			}
 			else if (p->pid < 0)
 				error("fork fucked up", p->cmd);
@@ -53,5 +53,5 @@ void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 			error("command not found", *p->argv);
 	}
 	if (!frk)
-		ft_free_all_and_exit(t, sh);
+		ft_exit_son(t, sh);
 }

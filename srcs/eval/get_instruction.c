@@ -64,20 +64,16 @@ int				ft_check_grammar(t_word *w)
 	while (w)
 	{
 		if ((w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
+			|| (w->type == OPERATEUR && ft_strlen(w->word) > 2)
+			|| (w->type == OPERATEUR && *w->word == ';' && ft_strlen(w->word) > 1)
 			|| (w->type == REDIRECT && ft_strchr(w->word, '<') && ft_strchr(w->word, '>')))
-		{
-			error("syntax error near", w->word);
-			return (0);
-		}
+			return (error("syntax error near", w->word));
 		if (IS_CMD(w->type))
 			cmd++;
 		w = w->next;
 	}
 	if (!cmd)
-	{
-		warning("nothing to do", NULL);
-		return (0);
-	}
+		return (warning("nothing to do", NULL));
 	return (1);
 }
 

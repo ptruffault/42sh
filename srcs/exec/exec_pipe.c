@@ -12,16 +12,18 @@
 
 #include <shell42.h>
 
-static void		ft_link_stdin(int pipe[2])
+static int		ft_link_stdin(int pipe[2])
 {
-	dup2(pipe[0], STDIN_FILENO);
-	ft_close(pipe[1]);
+	if (dup2(pipe[0], STDIN_FILENO) < 0)
+		return (-1);
+	return (ft_close(pipe[1]));
 }
 
-static void		ft_link_stdout(int pipe[2])
+static int		ft_link_stdout(int pipe[2])
 {
-	dup2(pipe[1], STDOUT_FILENO);
-	ft_close(pipe[0]);
+	if (dup2(pipe[1], STDOUT_FILENO) < 0)
+		return (-1);
+	return (ft_close(pipe[0]));
 }
 
 static int		ft_close_pipe(int pipe[2])
@@ -33,7 +35,7 @@ static int		ft_close_pipe(int pipe[2])
 }
 
 /* 
-static void		ft_exec_son(t_process *p, t_tree *t, t_shell *sh)
+static int		ft_exec_son(t_process *p, t_tree *t, t_shell *sh)
 {
 	int exit_code;
 
@@ -68,10 +70,9 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 		tmp->status = RUNNING_FG;
 		if (tmp->cmd && (tmp->pid = fork()) == 0)
 		{
-			if (prev)
-				ft_link_stdin(prev->pipe);
-			if (tmp->grp)
-				ft_link_stdout(tmp->pipe);
+			if ((prev && !ft_link_stdin(prev->pipe))
+			|| (tmp->grp && !ft_link_stdout(tmp->pipe)))
+				ft_exit_son(t, sh);
 			ft_execve(tmp, sh, t, 0);
 		}
 		else if (tmp->pid < 0)

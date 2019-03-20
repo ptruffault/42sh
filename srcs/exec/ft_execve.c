@@ -12,11 +12,12 @@
 
 #include <shell42.h>
 
-void			ft_exit_son(t_tree *t, t_shell *sh)
+void			ft_exit_son(t_tree *t, t_shell *sh, int exit_code)
 {
 	ft_free_tshell(sh);
 	ft_free_tree(t);
-	exit(-1);
+	ft_printf("exit ->%i\n", exit_code);
+	exit(exit_code);
 }
 
 static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t, int frk)
@@ -27,7 +28,7 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t, int frk)
 		if (frk)
 			p->pid = 0;
 		else
-			ft_exit_son(t, sh);
+			ft_exit_son(t, sh, p->ret);
 		return (1);
 	}
 	sh->env = ft_new_envv(sh->env, "_", p->cmd);
@@ -43,15 +44,18 @@ void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 			p->status = (t->o_type == O_BACK ? RUNNING_BG : RUNNING_FG);
 			if (!ft_builtins(sh, p, t, frk) && (!frk || (p->pid = fork()) == 0))
 			{
+				if (frk && t->o_type == O_BACK && setsid() < 0)
+					warning("setsid fucked up", p->cmd);
 				execve(p->cmd, p->argv, p->env);
-				ft_exit_son(t, sh);
+				error("execve fucked up", p->cmd);
+				ft_exit_son(t, sh, -1);
 			}
 			else if (p->pid < 0)
 				error("fork fucked up", p->cmd);
+/*			else if (frk && p->pid > 0 && t->o_type == O_BACK && setpgid(p->pid, 0) != 0)
+				warning("can't set pgid on this process", p->cmd);*/
 		}
 		else
 			error("command not found", *p->argv);
 	}
-	if (!frk)
-		ft_exit_son(t, sh);
 }

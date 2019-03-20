@@ -19,34 +19,16 @@ void	ft_put_process(t_process *p, t_shell *sh)
 
 	ft_process_tab_status(stat);
 	ft_delete_line(&sh->e);
-	ft_printf("\t{%i} \033[1;32m%s\033[00m  %s\n", 
-		p->pid, stat[p->status], p->cmd);
+	ft_printf("\t{%i} \033[1;32m%s\033[00m  %s -> (%i)\n", 
+		p->pid, stat[p->status], p->cmd, p->ret);
 	ft_putstr(sh->e.hist->s);
-}
-
-
-
-void	ft_sigcont(t_process *tmp)
-{
-	while (tmp)
-	{
-		if (tmp->status == SUSPENDED)
-		{
-			ft_printf("\t{%i} continued %s\n", tmp->pid, tmp->cmd);
-			kill(tmp->pid, SIGCONT);
-		}
-
-		tmp = tmp->grp;
-	}
 }
 
 void ft_set_background(t_process *p)
 {
-	if (p->status == INIT || p->status == SUSPENDED || p->status == RUNNING_FG)
-	{
-		if (p->status == SUSPENDED)
-			ft_sigcont(p);
-		ft_printf("\t{%i} running background %s\n", p->pid, p->cmd);
-		p->status = RUNNING_BG;
-	}
+	if (p->status == SUSPENDED)
+		kill_process(p, SIGCONT, SUSPENDED);
+	ft_printf("\t{%i} running background %s\n", p->pid, p->cmd);
+	p->status = RUNNING_BG;
+	kill_process(p, -1, RUNNING_FG);
 }

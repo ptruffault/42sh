@@ -5,19 +5,30 @@ void	ft_wait(t_process *p, t_shell *sh)
 {
 	while (p)
 	{
-		if ((p->builtins == TRUE
-				|| (p->status == RUNNING_FG && waitpid(p->pid, &p->ret, WUNTRACED ) > 0)
+		if ((p->pid == 0
+				|| (p->status == RUNNING_FG && waitpid(p->pid, &p->ret, WUNTRACED) > 0)
 			 	|| (p->status == RUNNING_BG && waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0))
 				&& IS_RUNNING(p->status))
 		{
-			if (p->status == RUNNING_BG)
+			if (WIFSIGNALED(p->ret))
 			{
-				p->status = DONE;
-				ft_put_process(p, sh);
+				ft_printf("\n%s killed by signal %i\n", p->cmd, WTERMSIG(p->ret));
+				if (WTERMSIG(p->ret) == SIGTSTP)
+				{
+					ft_printf("\t{%i} suspended %s\n", p->pid, p->cmd);
+					p->status = SUSPENDED;
+				}
+				else
+					p->status = KILLED;
 			}
-			p->status = DONE;
-			if (WIFEXITED(p->ret))
-				p->ret =  WEXITSTATUS(p->ret);
+			else 
+			{
+				if (p->status == RUNNING_BG)
+					ft_put_process(p, sh);
+				if (WIFEXITED(p->ret))
+					p->ret =  WEXITSTATUS(p->ret);
+				p->status = DONE;
+			}
 		}
 		p = p->grp;
 	}

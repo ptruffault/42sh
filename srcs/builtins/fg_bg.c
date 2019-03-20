@@ -40,20 +40,6 @@ static t_process 	*ft_get_process_name(t_process *p, char *name)
 	return (NULL);
 }
 
-static void 		ft_set_foreground(t_process *p)
-{
-	if (p->status == RUNNING_BG || p->status == SUSPENDED)
-	{
-		if (p->status == SUSPENDED)
-			ft_sigcont(p);
-		p->status = RUNNING_FG;
-		ft_printf("{%i} running foreground %s\n", p->pid, p->cmd);
-	}
-	
-}
-
-
-
 int ft_bg(t_shell *sh, char **argv)
 {
 	t_process *tmp;
@@ -87,7 +73,7 @@ int ft_fg(t_shell *sh, char **argv)
 	ret = 0;
 	if ((!argv[1] && (tmp = ft_get_process_id(sh->process, 1))))
 	{
-		ft_set_foreground(tmp);
+		kill_process(tmp, SIGCONT, SUSPENDED);
 		ft_wait(tmp, sh);
 	}
 	while (argv[++i])
@@ -96,7 +82,7 @@ int ft_fg(t_shell *sh, char **argv)
 			&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 		{
-			ft_set_foreground(tmp);
+			kill_process(tmp, SIGCONT, SUSPENDED);
 			ft_wait(tmp, sh);
 		}
 		else

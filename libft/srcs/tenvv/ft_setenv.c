@@ -59,10 +59,6 @@ t_envv *ft_new_envv_equ(t_envv *envv, char *eq)
 	return (NULL);
 }
 
-
-//mode 0 : only equal
-//mode 1 : both
-
 t_envv	*ft_setenv(t_envv *envv, char **t, int mode)
 {
 	int		i;

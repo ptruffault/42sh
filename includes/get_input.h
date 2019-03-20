@@ -21,7 +21,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <signal.h>
-# include <sys/ioctl.h>
 # include "shell42.h"
 # include "../libft/includes/libft.h"
 # define FAILURE 0

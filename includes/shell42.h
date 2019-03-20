@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <sys/ioctl.h>
 # include <dirent.h>
 # include "../libft/includes/libft.h"
 # include "termios.h"
@@ -36,13 +37,13 @@ int			ft_hi(t_shell *sh);
 void 		ft_process_tab_status(char *stat[6]);
 void		ft_put_process(t_process *p, t_shell *sh);
 
-void			ft_exit_son(t_tree *t, t_shell *sh);
+void			ft_exit_son(t_tree *t, t_shell *sh, int exit_code);
 char		ft_parse_back(char c);
 void		ft_execve_pip(t_process *p, t_shell *sh, t_tree *t, int mode);
 void		ft_delete_char(t_eval *e);
 char		*ft_update_pwd(t_shell *sh);
 t_redirect	*parse_heredoc(t_redirect *ret, t_word *w);
-int			init_env(t_shell *sh, char **argv);
+int			init_env(t_shell *sh, char **argv, char **envv);
 t_word		*ft_deltword(t_word *prev, t_word *src);
 t_hist		*ft_free_thist(t_hist *h);
 t_redirect	*ft_free_redirection(t_redirect *r);

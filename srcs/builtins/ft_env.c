@@ -79,7 +79,7 @@ static t_envv	*ft_env_option(t_envv *tmp, char **input, int *i)
 		tmp = ft_del_envv(tmp, input[*i]);
 	}
 	else if (input[*i][1] == 'i')
-		ft_free_tenvv(tmp);
+		return (ft_free_tenvv(tmp));
 	return (tmp);
 }
 

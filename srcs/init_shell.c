@@ -12,7 +12,7 @@
 
 #include <shell42.h>
 
-static void	ft_null(t_shell *sh, char **envv)
+static void	ft_null(t_shell *sh)
 {
 	ft_get_set_shell(sh);
 	sh->pid = getpid();
@@ -26,16 +26,17 @@ static void	ft_null(t_shell *sh, char **envv)
 	sh->std[0] = STDIN_FILENO;
 	sh->std[1] = STDOUT_FILENO;
 	sh->std[2] = STDERR_FILENO;
-	sh->env = ft_setenv(NULL, envv, 0);
+	sh->pgid = 0;
+	sh->env = NULL;
+	sh->intern = NULL;
 }
 
 int			init_shell(t_shell *sh, char **envv, char **argv)
 {
-	ft_null(sh, envv);
-	if (!(init_env(sh, argv)))
+	ft_null(sh);
+	if (!(init_env(sh, argv, envv)))
 		return (0);
 	sh->intern = ft_tenvv_cpy(sh->env);
-	set_signals();
 	if (!isatty(0))
 	{
 		if (exec_fd(sh, 0) == 0)
@@ -48,6 +49,7 @@ int			init_shell(t_shell *sh, char **envv, char **argv)
 		return (0);
 	}
 	sh->interactive = TRUE;
+	set_signals();
 	if (!init_termcaps(sh))
 		return (0);
 	return (1);

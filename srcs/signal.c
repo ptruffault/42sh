@@ -39,6 +39,7 @@
 		{.msg = NULL}
 };
 */
+
 void		sig_handler(int sig)
 {
 	t_shell		*sh;

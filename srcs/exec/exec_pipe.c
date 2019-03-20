@@ -57,14 +57,29 @@ static int		ft_exec_son(t_process *p, t_tree *t, t_shell *sh)
 	exit(exit_code);
 }*/
 
+int 	ft_get_pgid(int pgid, t_process *p, t_process *prev)
+{
+	if (pgid == 0 && !prev)
+		pgid = p->pid;
+	if ((!prev && pgid > 0 && (setpgid(pgid, 0)) < 0)
+		|| (prev && pgid > 0 && setpgid(0, pgid) < 0))
+	{
+		warning("can't set pgid", p->cmd);
+		perror(p->cmd);
+	}
+	return (pgid);
+}
+
 
 t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 {
 	t_process	*prev;
 	t_process	*tmp;
+	int pgid;
 
 	prev = NULL;
 	tmp = p;
+	pgid = 0;
 	while (tmp)
 	{
 		tmp->status = RUNNING_FG;
@@ -72,18 +87,13 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 		{
 			if ((prev && !ft_link_stdin(prev->pipe))
 			|| (tmp->grp && !ft_link_stdout(tmp->pipe)))
-				ft_exit_son(t, sh);
+				ft_exit_son(t, sh, -1);
 			ft_execve(tmp, sh, t, 0);
 		}
 		else if (tmp->pid < 0)
-			error("fork fucked up", tmp->cmd); 
-	/*	if ((!prev && (setpgid(tmp->pid, 0)) < 0)
-		|| (prev && setpgid(tmp->pid, p->pid) < 0))
-		{
-			warning("can't set pgid", tmp->cmd);
-			perror(tmp->cmd);
-		}*/
-
+			error("fork fucked up", tmp->cmd);
+	/*	else
+			pgid = ft_get_pgid(pgid, p, prev);*/
 		if (prev)
 			ft_close_pipe(prev->pipe);
 		prev = tmp;

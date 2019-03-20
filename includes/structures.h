@@ -142,6 +142,7 @@ typedef struct	s_process
 typedef struct	s_shell
 {
 	int				pid;
+	int				pgid;
 	int				std[3];
 	t_bool			interactive;
 	char			*txt;

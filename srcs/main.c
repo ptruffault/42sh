@@ -13,8 +13,6 @@
 #include <shell42.h>
 
 
-// PROBLEME DE FORGROUND pour 'cat &'
-
 void	ft_disp(t_shell *sh)
 {
 	char *pwd;

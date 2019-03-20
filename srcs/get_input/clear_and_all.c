@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 11:57:43 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,12 @@ void	just_exit(t_edit *e)
 		sh->heredoc = 0;
 		sh->e.edited = TRUE;
 	}
-	else if (!e->hist || !e->hist->s || !*e->hist->s)
+	ft_strdel(&e->hist->s);
+	free(e->hist);
+	/*else if (!e->hist || !e->hist->s || !*e->hist->s)
 	{
 		ft_set_old_term(sh);
 		ft_free_tshell(sh);
 		exit(4);
-	}
+	}*/
 }

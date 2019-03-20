@@ -6,23 +6,11 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 17:57:42 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <get_input.h>
-
-void	update_input(t_edit *e, char *s)
-{
-	if (s == NULL)
-		ft_delete_line(e);
-	ft_strdel(&e->hist->s);
-	if (s != NULL)
-		e->hist->s = s;
-	else if (s == NULL)
-		e->hist->s = ft_strnew(3);
-	e->curr = ft_strlen(s);
-}
 
 static void bottom_start_hist(t_edit *e, char *input)
 {
@@ -32,10 +20,10 @@ static void bottom_start_hist(t_edit *e, char *input)
 	while (hist)
 	{
 		if (ft_str_startwith(hist->s, input) != 0)
-			{
-				e->hist = hist;
-				return ;
-			}
+		{
+			e->hist = hist;
+			return ;
+		}
 		hist = hist->next;
 	}
 }
@@ -46,9 +34,7 @@ void	hist_move_up(t_edit *e)
 	if (!e->hist->next)
 		return ;
 	if (!e->hist->prev && e->hist->s[0] != '\0' && e->hist->next)
-		{
-			bottom_start_hist(e, e->hist->s);
-		}
+		bottom_start_hist(e, e->hist->s);
 	else
 		e->hist = e->hist->next;
 	e->curr = ft_strlen(e->hist->s);

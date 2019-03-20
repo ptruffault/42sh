@@ -29,6 +29,8 @@
 # include <stdint.h>
 # include "tenvv.h"
 # define BUFF_SIZE 256
+# define FAILURE 0
+# define SUCCESS 1
 
 # define BLEUCLAIR 	"\033[01;34m"
 # define ROUGE 		"\033[00;31m"

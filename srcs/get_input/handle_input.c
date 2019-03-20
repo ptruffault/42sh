@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:14:33 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ int		handle_input(unsigned long buf, t_edit *e)
 			if (x < 13)
 				e->select = -1;
 			e->ft_tab[x](e);
-			if (x == 9)
-				return (9);
+			if (x == 9 || x == 10)
+				return (x);
 			break ;
 		}
 	}
 	if (x == NUMBER_OF_KEYS && ft_isascii(buf) && e->hist)
-		ft_add_char((char)buf, e);
+		if (!(ft_add_char((char)buf, e)))
+			return (9);
 	return (x);
 }

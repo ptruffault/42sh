@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 13:01:07 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/19 19:04:57 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ void	ft_copy(t_edit *e)
 		pos = e->curr;
 		size = e->select - e->curr;
 	}
-	if (sh->clipboard)
-		ft_strdel(&sh->clipboard);
-	if ((sh->clipboard = ft_strnew(size + 1)))
-		sh->clipboard = ft_strncpy(sh->clipboard, e->hist->s + pos, size + 1);
+	ft_strdel(&sh->clipboard);
+	if ((sh->clipboard = ft_strnew(size)))
+		sh->clipboard = ft_strncpy(sh->clipboard, e->hist->s + pos, size);
 }
 
 void	ft_paste(t_edit *e)
@@ -48,10 +47,10 @@ void	ft_paste(t_edit *e)
 	char	*tmp;
 
 	sh = ft_get_set_shell(NULL);
-	if (e->select != -1)
+	if (sh->clipboard && e->select != -1)
 			delete_left(e);
 	if (sh->clipboard
-	&& (tmp = ft_strnew(ft_strlen(e->hist->s) + ft_strlen(sh->clipboard) + 1)))
+		&& (tmp = ft_strnew(ft_strlen(e->hist->s) + ft_strlen(sh->clipboard))))
 	{
 		b = 0;
 		x = 0;

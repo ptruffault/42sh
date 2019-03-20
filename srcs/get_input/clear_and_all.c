@@ -29,13 +29,14 @@ void	entry_key(t_edit *e)
 	char	*error[7];
 
 	setup_key(error);
-	eval = lexer(e->hist->s);
-	ft_strdel(&eval.eval);
+	lexer(&eval, e->hist->s);
+	if (eval.eval)
+		ft_strdel(&eval.eval);
 	ft_strdel(&eval.s);
 	if (eval.err > 1)
 	{
 		if (eval.err == 6 || eval.err == 5)
-		{
+		{	
 			ft_add_char('\\', e);
 			ft_add_char('n', e);
 		}

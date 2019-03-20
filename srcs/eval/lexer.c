@@ -82,18 +82,19 @@ void	ft_lexword(t_eval *e)
 		e->eval[e->curr++] = 'e';
 }
 
-t_eval	lexer(char *src)
+void	lexer(t_eval *e, char *src)
 {
-	t_eval	e;
-
-	e.curr = 0;
-	e.err = OK;
-	if (!(e.s = ft_strdup(src)))
-		return (e);
-	if (!(e.eval = ft_strnew(ft_strlen(e.s))))
-		return (e);
-	while (e.s[e.curr])
-		ft_lexword(&e);
-	e.eval[e.curr] = 0;
-	return (e);
+	e->curr = 0;
+	e->err = OK;
+	if ((e->s = ft_strdup(src)))
+	{
+		if ((e->eval = ft_strnew(ft_strlen(e->s))))
+		{
+			while (e->s[e->curr])
+				ft_lexword(e);
+			e->eval[e->curr] = 0;
+		}
+		else
+			ft_strdel(&e->s);
+	}
 }

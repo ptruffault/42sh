@@ -16,7 +16,6 @@ void			ft_exit_son(t_tree *t, t_shell *sh, int exit_code)
 {
 	ft_free_tshell(sh);
 	ft_free_tree(t);
-	ft_printf("exit ->%i\n", exit_code);
 	exit(exit_code);
 }
 
@@ -32,6 +31,7 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t, int frk)
 		return (1);
 	}
 	sh->env = ft_new_envv(sh->env, "_", p->cmd);
+	sh->intern = ft_new_envv(sh->intern, "_", p->cmd);
 	return (0);
 }
 
@@ -52,7 +52,7 @@ void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 			}
 			else if (p->pid < 0)
 				error("fork fucked up", p->cmd);
-/*			else if (frk && p->pid > 0 && t->o_type == O_BACK && setpgid(p->pid, 0) != 0)
+/*			else if (frk && t->o_type == O_BACK && setpgid(p->pid, 0) != 0)
 				warning("can't set pgid on this process", p->cmd);*/
 		}
 		else

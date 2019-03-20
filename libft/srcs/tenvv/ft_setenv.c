@@ -12,16 +12,36 @@
 
 #include <tenvv.h>
 
+
+char 	*ft_split_equal(char *str, char **aft)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != '=')
+		i++;
+	if (str[i] == '\0')
+	{
+		*aft = NULL;
+		return (str);
+	}
+	str[i] = '\0';
+	*aft = &str[i + 1];
+	return (str);
+}
+
+
 t_envv	*ft_new_envv(t_envv *envv, char *name, char *value)
 {
 	t_envv	*ret;
 	t_envv	*tmp;
 
-	if ((tmp = get_tenvv(envv, name)))
+	if (envv && (tmp = get_tenvv(envv, name)))
 		return (ft_changetenvv_val(envv, name, value));
 	if (!name || !(ret = new_tenvv()))
 		return (envv);
-	if (!(ret->name = ft_strdup(name)) || !(ret->value = ft_strdup(value)))
+	if (!(ret->name = ft_strdup(name)) 
+		|| !(ret->value = ft_strdup(value)))
 	{
 		del_tenvv(ret);
 		return (envv);
@@ -30,24 +50,29 @@ t_envv	*ft_new_envv(t_envv *envv, char *name, char *value)
 	return (ret);
 }
 
-t_envv	*ft_setenv(t_envv *envv, char **t)
+t_envv *ft_new_envv_equ(t_envv *envv, char *eq)
 {
-	char	*name;
-	char	*val;
+	char *value;
+
+	if (ft_isequal(eq))
+		return (ft_new_envv(envv, ft_split_equal(eq, &value), value));
+	return (NULL);
+}
+
+
+//mode 0 : only equal
+//mode 1 : both
+
+t_envv	*ft_setenv(t_envv *envv, char **t, int mode)
+{
 	int		i;
 
 	i = 0;
 	while (t[i])
 	{
 		if (ft_isequal(t[i]))
-		{
-			name = get_name(t[i]);
-			val = get_value(t[i]);
-			envv = ft_new_envv(envv, name, val);
-			ft_strdel(&name);
-			ft_strdel(&val);
-		}
-		else if (t[i + 1])
+			envv = ft_new_envv_equ(envv, t[i]);
+		else if (t[i + 1] && mode)
 		{
 			envv = ft_new_envv(envv, t[i], t[i + 1]);
 			i++;

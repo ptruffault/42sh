@@ -17,7 +17,7 @@ static void	set_var(char **argv, t_shell *sh)
 	t_envv *head;
 	t_envv *end;
 
-	head = ft_setenv(new_tenvv(), argv);
+	head = ft_setenv(new_tenvv(), argv, 0);
 	end = head;
 	while (end->next)
 		end = end->next;
@@ -30,7 +30,7 @@ static int	change_envv(char **argv, t_shell *sh)
 	if (ft_strequ(*argv, "unsetenv") && argv[1])
 		sh->env = ft_unsetenv(sh->env, &argv[1]);
 	else if (ft_strequ(*argv, "setenv") && argv[1])
-		sh->env = ft_setenv(sh->env, &argv[1]);
+		sh->env = ft_setenv(sh->env, &argv[1], 1);
 	else if (ft_isequal(*argv))
 		set_var(argv, sh);
 	else if (ft_strequ(*argv, "unset") && argv[1])

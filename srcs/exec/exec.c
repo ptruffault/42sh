@@ -82,7 +82,7 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 				tmp = tmp->next;
 			else
 			{
-				error("syntax error near", *tmp->argv);
+				error("parse error", NULL);
 				break ;
 			}
 		}

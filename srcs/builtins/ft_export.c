@@ -12,23 +12,6 @@
 
 #include <shell42.h>
 
-char 	*ft_split_equal(char *str, char **aft)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0' && str[i] != '=')
-		i++;
-	if (str[i] == '\0')
-	{
-		*aft = NULL;
-		return (str);
-	}
-	str[i] = '\0';
-	*aft = &str[i + 1];
-	return (str);
-}
-
 t_envv	*ft_export(t_shell *sh, char **argv)
 {
 	t_envv	*tmp;

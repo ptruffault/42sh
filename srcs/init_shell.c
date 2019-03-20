@@ -26,7 +26,7 @@ static void	ft_null(t_shell *sh, char **envv)
 	sh->std[0] = STDIN_FILENO;
 	sh->std[1] = STDOUT_FILENO;
 	sh->std[2] = STDERR_FILENO;
-	sh->env = init_tenvv(envv);
+	sh->env = ft_setenv(NULL, envv, 0);
 }
 
 int			init_shell(t_shell *sh, char **envv, char **argv)
@@ -34,6 +34,7 @@ int			init_shell(t_shell *sh, char **envv, char **argv)
 	ft_null(sh, envv);
 	if (!(init_env(sh, argv)))
 		return (0);
+	sh->intern = ft_tenvv_cpy(sh->env);
 	set_signals();
 	if (!isatty(0))
 	{

@@ -33,8 +33,6 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t, int frk)
 			ft_exit_son(t, sh, p->ret);
 		return (1);
 	}
-	sh->env = ft_new_envv(sh->env, "_", p->cmd);
-	sh->intern = ft_new_envv(sh->intern, "_", p->cmd);
 	return (0);
 }
 

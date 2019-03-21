@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 14:21:33 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/21 12:59:15 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	lexer(t_eval *e, char *src)
 {
 	e->curr = 0;
 	e->err = OK;
+	e->eval = NULL;
+	e->s = NULL;
 	if ((e->s = ft_strdup(src)))
 	{
 		if ((e->eval = ft_strnew(ft_strlen(e->s))))

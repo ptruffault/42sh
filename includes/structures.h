@@ -67,6 +67,13 @@ enum	e_error
 	P_MISS = 8,
 };
 
+typedef struct s_sig_msg
+{
+	pid_t sig;
+	const char *msg;
+	uint8_t rtn;
+}				t_sig_msg;
+
 typedef struct	s_hist
 {
 	char			*s;

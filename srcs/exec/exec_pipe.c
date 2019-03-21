@@ -12,6 +12,7 @@
 
 #include <shell42.h>
 
+
 static int		ft_link_stdin(int pipe[2])
 {
 	if (dup2(pipe[0], STDIN_FILENO) < 0)
@@ -75,36 +76,37 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 {
 	t_process	*prev;
 	t_process	*tmp;
-	int pgid;
 
 	prev = NULL;
+
+
+
 	tmp = p;
-	pgid = 0;
+
 	while (tmp)
 	{
 		tmp->status = RUNNING_FG;
 		if (tmp->cmd && (tmp->pid = fork()) == 0)
 		{
-				ft_printf("%i\n",pgid);
-			if ((!prev && (setsid() < 0 || setpgid(getpid(), 0) < 0))
-			|| (prev && setpgid(getpid(), pgid))
-			|| ((prev && !ft_link_stdin(prev->pipe))
-			|| (tmp->grp && !ft_link_stdout(tmp->pipe))))
+			if  ((prev && !ft_link_stdin(prev->pipe))
+			|| (tmp->grp && !ft_link_stdout(tmp->pipe)))
 				ft_exit_son(t, sh, -1);
 			ft_execve(tmp, sh, t, 0);
 		}
 		else if (tmp->pid < 0)
 			error("fork fucked up", tmp->cmd);
-		else
-			pgid = ft_get_pgid(pgid, p, prev);
+		
 		if (prev)
+		{
+		/*	if (setpgid(tmp->pid, tmp->pid) == -1)
+				perror("2nd setpgid");*/
 			ft_close_pipe(prev->pipe);
-		else
-			pgid = p->pid;
+		}
 		prev = tmp;
 		tmp = tmp->grp;
 		t = t->next;
 	}
+	tmp = p;
 	ft_wait(p, sh);
 	ft_reset_fd(sh);
 	return (t);

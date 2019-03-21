@@ -4,13 +4,13 @@
 
 static t_process	*ft_get_process(t_process *p, unsigned int status)
 {
-	t_process *tmp;
+	//t_process *tmp;
 
 	while (p)
 	{
 		if (p->status == status && p->pid > 0)
 			return (p);
-		if (p->grp)
+		/*if (p->grp)
 		{
 			tmp = p->grp;
 			while (tmp)
@@ -19,11 +19,29 @@ static t_process	*ft_get_process(t_process *p, unsigned int status)
 					return (tmp);
 				tmp = tmp->grp;
 			}
-		}
+		}*/
 		p = p->next;
 	}
 	return (NULL);
 }
+
+
+
+void update_process_status(t_process *p, unsigned int from, unsigned int to)
+{
+	char *stats[6];
+
+	ft_process_tab_status(stats);
+	while (p)
+	{
+		
+		if (p->status == from)
+			p->status = to;
+		ft_printf("\t{%i} %s %s\n", p->pid, stats[p->status], p->cmd);
+		p = p->grp;
+	}
+}
+
 
 //kill tout les process de p->status == status } avec sig , le status des process es changer 
 // sig == -1 -> put in bg avec iotcl
@@ -33,14 +51,11 @@ void ft_process_background(t_process *p)
 	if ((ioctl(0, TIOCSPGRP, &p->pid)) != 0)
 	{
 		error("can't set this process in background", p->cmd);
-		kill(p->pid, SIGTSTP);
-		p->status = SUSPENDED;
+		killpg(p->pid, SIGTSTP);
+		update_process_status(p, RUNNING_FG, SUSPENDED);
 	}
 	else
-	{
-		ft_printf("\t{%i} running background %s\n", p->pid, p->cmd);
-		p->status = RUNNING_BG;
-	}
+		update_process_status(p, RUNNING_FG, RUNNING_BG);
 }
 
 
@@ -54,22 +69,13 @@ int			kill_process(t_process *p, int sig, unsigned int status)
 	{
 		i++;
 		if (sig == SIGINT)
-		{
-			ft_printf("\t{%i} killed %s\n", tmp->pid, tmp->cmd);
-			tmp->status = KILLED;
-		}
+			update_process_status(tmp, RUNNING_FG, KILLED);
 		else if (sig == SIGTSTP)
-		{
-			ft_printf("\t{%i} suspended %s\n", tmp->pid, tmp->cmd);
-			tmp->status = SUSPENDED;
-		}
+			update_process_status(tmp, RUNNING_FG, SUSPENDED);
 		else if (sig == SIGCONT)
-		{
-			ft_printf("\t{%i} continued %s\n", tmp->pid, tmp->cmd);
-			tmp->status = RUNNING_FG;
-		}
+			update_process_status(tmp, SUSPENDED, RUNNING_FG);
 		if (sig == -1)
-			ft_process_background(p);
+			ft_process_background(tmp);
 		else
 			killpg(tmp->pid, sig);
 	}

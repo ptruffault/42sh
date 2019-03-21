@@ -73,7 +73,7 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 			if ((ret->cmd = get_bin_path(*ret->argv, sh->env)))
 			{
 				sh->env = ft_new_envv(sh->env, "_", ret->cmd);
-				sh->intern = ft_new_envv(sh->intern, "_", ret->cmd);
+				
 			}
 		}
 	}

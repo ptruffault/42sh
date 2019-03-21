@@ -36,8 +36,13 @@ t_envv	*ft_new_envv(t_envv *envv, char *name, char *value)
 	t_envv	*ret;
 	t_envv	*tmp;
 
-	if (envv && (tmp = get_tenvv(envv, name)))
-		return (ft_changetenvv_val(envv, name, value));
+	if (envv && name && (tmp = get_tenvv(envv, name)))
+	{
+		ft_strdel(&tmp->value);
+		if (value)
+			tmp->value = ft_strdup(value);
+		return (envv);
+	}
 	if (!name || !value || !(ret = new_tenvv()))
 		return (envv);
 	if (!(ret->name = ft_strdup(name)) 

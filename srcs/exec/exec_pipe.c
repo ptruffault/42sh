@@ -78,11 +78,7 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 	t_process	*tmp;
 
 	prev = NULL;
-
-
-
 	tmp = p;
-
 	while (tmp)
 	{
 		tmp->status = RUNNING_FG;
@@ -95,13 +91,8 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 		}
 		else if (tmp->pid < 0)
 			error("fork fucked up", tmp->cmd);
-		
 		if (prev)
-		{
-		/*	if (setpgid(tmp->pid, tmp->pid) == -1)
-				perror("2nd setpgid");*/
 			ft_close_pipe(prev->pipe);
-		}
 		prev = tmp;
 		tmp = tmp->grp;
 		t = t->next;

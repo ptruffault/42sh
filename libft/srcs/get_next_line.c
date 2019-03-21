@@ -12,6 +12,23 @@
 
 #include <libft.h>
 
+static char		*ft_strsub_gnl(char const *s, unsigned int start, size_t len)
+{
+	char			*res;
+	unsigned int	i;
+
+	i = 0;
+	res = NULL;
+	if (s == NULL)
+		return (0);
+	if (!(res = ft_strnew(len)))
+		return (NULL);
+	while (i < len)
+		res[i++] = s[start++];
+	res[i] = '\0';
+	return (res);
+}
+
 static	int		ft_check_charriot(char *buff, char **res)
 {
 	char	*tmp;
@@ -21,7 +38,7 @@ static	int		ft_check_charriot(char *buff, char **res)
 	tofree = *res;
 	s = buff;
 	if ((tmp = ft_strchr(buff, '\n')) != NULL)
-		s = ft_strsub(buff, 0, tmp - buff);
+		s = ft_strsub_gnl(buff, 0, tmp - buff);
 	if (!(*res = ft_strjoin(*res, s)))
 	{
 		ft_strdel(&tofree);

@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 15:43:08 by ptruffau          #+#    #+#             */
-/*   Updated: 2018/01/16 15:12:12 by ptruffau         ###   ########.fr       */
+/*   Updated: 2019/03/21 14:33:49 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,24 @@ static char		*ft_strsub_gnl(char const *s, unsigned int start, size_t len)
 	return (res);
 }
 
+static char		*ft_strjoin_gnl(char const *s1, char const *s2)
+{
+	char	*new;
+	size_t	ls1;
+	size_t	ls2;
+
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	ls1 = ft_strlen(s1);
+	ls2 = ft_strlen(s2);
+	if (!(new = ft_strnew(ls1 + ls2)))
+		return (NULL);
+	new = ft_strcpy(new, s1);
+	new = ft_strcat(new, s2);
+	return (new);
+}
+
+
 static	int		ft_check_charriot(char *buff, char **res)
 {
 	char	*tmp;
@@ -39,7 +57,7 @@ static	int		ft_check_charriot(char *buff, char **res)
 	s = buff;
 	if ((tmp = ft_strchr(buff, '\n')) != NULL)
 		s = ft_strsub_gnl(buff, 0, tmp - buff);
-	if (!(*res = ft_strjoin(*res, s)))
+	if (!(*res = ft_strjoin_gnl(*res, s)))
 	{
 		ft_strdel(&tofree);
 		if (tmp != NULL)

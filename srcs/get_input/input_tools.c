@@ -20,7 +20,7 @@ int			ft_add_char(char buf, t_edit *e)
 	if (e->select != -1)
 		delete_left(e);
 	if (!ft_isprint(buf) || !e->hist->s)
-		return (FAILURE);
+		return (SUCCESS);
 	i = (int)ft_strlen(e->hist->s);
 	size = i + 1;
 	while (i > 1 && i > e->curr)

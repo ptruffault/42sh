@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:40:09 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/21 16:26:38 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_jump_line_up(t_edit *e)
 		e->curr -= e->width;
 }
 
-void ft_select_line_up(t_edit *e)
+void	ft_select_line_up(t_edit *e)
 {
 	if (e->select == -1)
 		e->select = e->curr;
@@ -31,7 +31,7 @@ void	ft_jump_line_down(t_edit *e)
 		e->curr += e->width;
 }
 
-void ft_select_line_down(t_edit *e)
+void	ft_select_line_down(t_edit *e)
 {
 	if (e->select == -1)
 		e->select = e->curr;

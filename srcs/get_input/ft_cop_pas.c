@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 13:01:07 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/21 16:25:35 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_paste(t_edit *e)
 
 	sh = ft_get_set_shell(NULL);
 	if (sh->clipboard && e->select != -1)
-			delete_left(e);
+		delete_left(e);
 	if (sh->clipboard
 		&& (tmp = ft_strnew(ft_strlen(e->hist->s) + ft_strlen(sh->clipboard))))
 	{
@@ -65,5 +65,4 @@ void	ft_paste(t_edit *e)
 		ft_strdel(&e->hist->s);
 		e->hist->s = tmp;
 	}
-	e->select = -1;
 }

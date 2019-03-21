@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 11:57:43 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/21 13:00:57 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/21 16:26:21 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	entry_key(t_edit *e)
 	if (eval.err > 1)
 	{
 		if (eval.err == 6 || eval.err == 5)
-		{	
+		{
 			ft_add_char('\\', e);
 			ft_add_char('n', e);
 		}
@@ -82,5 +82,4 @@ void	just_exit(t_edit *e)
 		free(e->hist);
 		e->hist = NULL;
 	}
-
 }

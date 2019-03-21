@@ -6,19 +6,19 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:23:52 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/21 16:29:48 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <get_input.h>
 
-static void ft_init_print_modes(t_edit *e, int x)
+static	void ft_init_print_modes(t_edit *e, int x)
 {
 	e->print_modes[x++] = ft_print_fast;
 	e->print_modes[x++] = ft_print_edited;
 }
 
-static void	ft_init_inputs_kval(t_edit *e, int x)
+static	void	ft_init_inputs_kval(t_edit *e, int x)
 {
 	e->kval[x++] = KEY_ENTER;
 	e->kval[x++] = KEY_ARROW_UP;
@@ -48,7 +48,7 @@ static void	ft_init_inputs_kval(t_edit *e, int x)
 	e->kval[x++] = KEY_SHIFT_END;
 }
 
-static void	ft_init_inputs_tab(t_edit *e, int x)
+static	void	ft_init_inputs_tab(t_edit *e, int x)
 {
 	ft_init_inputs_kval(e, 0);
 	ft_init_print_modes(e, 0);
@@ -105,6 +105,7 @@ int 	init_tedit(t_shell *sh)
 			free(tmp);
 			return (0);
 		}
+		tmp->nb = tmp->next ? tmp->next->nb + 1 : 1;
 	}
 	else
 		return (0);

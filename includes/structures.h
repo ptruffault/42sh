@@ -70,6 +70,7 @@ enum	e_error
 typedef struct	s_hist
 {
 	char			*s;
+	size_t nb;
 	struct s_hist	*next;
 	struct s_hist *prev;
 }				t_hist;

@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:12:58 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/21 12:50:52 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/21 16:29:10 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_update_hist(t_shell *sh)
 {
 	char	*hi_path;
-	t_hist *hist;
+	t_hist	*hist;
 
 	if (sh->e.hist && sh->e.hist->s && sh->e.hist->s[0] != '\0')
 	{

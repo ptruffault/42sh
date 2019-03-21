@@ -26,9 +26,9 @@ void	ft_disp(t_shell *sh)
 
 int		ft_quit(int exit_code, t_shell *sh)
 {
-	kill_process(sh->process, SIGQUIT, RUNNING_FG);
-	kill_process(sh->process, SIGQUIT, RUNNING_BG);
-	kill_process(sh->process, SIGQUIT, SUSPENDED);
+	kill_process(sh->process, SIGKILL, SUSPENDED);
+	kill_process(sh->process, SIGKILL, RUNNING_FG);
+	kill_process(sh->process, SIGKILL, RUNNING_BG);
 	ft_free_tshell(sh);
 	return (exit_code);
 }

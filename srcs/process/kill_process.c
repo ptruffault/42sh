@@ -27,16 +27,14 @@ static t_process	*ft_get_process(t_process *p, unsigned int status)
 
 
 
-void update_process_status(t_process *p, unsigned int from, unsigned int to)
+void update_process_status(t_process *p, unsigned int to)
 {
 	char *stats[6];
 
 	ft_process_tab_status(stats);
 	while (p)
 	{
-		
-		if (p->status == from)
-			p->status = to;
+		p->status = to;
 		ft_printf("\t{%i} %s %s\n", p->pid, stats[p->status], p->cmd);
 		p = p->grp;
 	}
@@ -52,10 +50,10 @@ void ft_process_background(t_process *p)
 	{
 		error("can't set this process in background", p->cmd);
 		killpg(p->pid, SIGTSTP);
-		update_process_status(p, RUNNING_FG, SUSPENDED);
+		update_process_status(p, SUSPENDED);
 	}
 	else
-		update_process_status(p, RUNNING_FG, RUNNING_BG);
+		update_process_status(p, RUNNING_BG);
 }
 
 
@@ -68,12 +66,12 @@ int			kill_process(t_process *p, int sig, unsigned int status)
 	while (p && (tmp = ft_get_process(p, status)))
 	{
 		i++;
-		if (sig == SIGINT)
-			update_process_status(tmp, RUNNING_FG, KILLED);
+		if (sig == SIGINT || sig == SIGKILL)
+			update_process_status(tmp, KILLED);
 		else if (sig == SIGTSTP)
-			update_process_status(tmp, RUNNING_FG, SUSPENDED);
+			update_process_status(tmp, SUSPENDED);
 		else if (sig == SIGCONT)
-			update_process_status(tmp, SUSPENDED, RUNNING_FG);
+			update_process_status(tmp, RUNNING_FG);
 		if (sig == -1)
 			ft_process_background(tmp);
 		else

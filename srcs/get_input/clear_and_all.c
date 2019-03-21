@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 11:57:43 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/21 13:00:57 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	entry_key(t_edit *e)
 
 	setup_key(error);
 	lexer(&eval, e->hist->s);
-	if (eval.eval)
-		ft_strdel(&eval.eval);
+	ft_strdel(&eval.eval);
 	ft_strdel(&eval.s);
 	if (eval.err > 1)
 	{

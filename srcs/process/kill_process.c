@@ -66,16 +66,18 @@ int			kill_process(t_process *p, int sig, unsigned int status)
 	while (p && (tmp = ft_get_process(p, status)))
 	{
 		i++;
-		if (sig == SIGINT || sig == SIGKILL)
-			update_process_status(tmp, KILLED);
-		else if (sig == SIGTSTP)
-			update_process_status(tmp, SUSPENDED);
-		else if (sig == SIGCONT)
-			update_process_status(tmp, RUNNING_FG);
 		if (sig == -1)
 			ft_process_background(tmp);
 		else
+		{
+			if (sig == SIGINT || sig == SIGKILL)
+				update_process_status(tmp, KILLED);
+			else if (sig == SIGTSTP)
+				update_process_status(tmp, SUSPENDED);
+			else if (sig == SIGCONT)
+				update_process_status(tmp, RUNNING_FG);
 			killpg(tmp->pid, sig);
+		}
 	}
 	return (i);
 }

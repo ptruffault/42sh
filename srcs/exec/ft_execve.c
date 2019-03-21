@@ -53,6 +53,8 @@ void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 			}
 			else if (p->pid < 0)
 				error("fork fucked up", p->cmd);
+			if (t->o_type == O_BACK)
+				kill_process(p, -1, RUNNING_FG);
 		}
 		else
 			error("command not found", *p->argv);

@@ -60,7 +60,7 @@ static int		ft_exec_son(t_process *p, t_tree *t, t_shell *sh)
 int 	ft_get_pgid(int pgid, t_process *p, t_process *prev)
 {
 	if (pgid == 0 && !prev)
-		pgid = p->pid;
+		pgid = getpid();
 	if ((!prev && pgid > 0 && (setpgid(pgid, 0)) < 0)
 		|| (prev && pgid > 0 && setpgid(0, pgid) < 0))
 	{
@@ -85,17 +85,22 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 		tmp->status = RUNNING_FG;
 		if (tmp->cmd && (tmp->pid = fork()) == 0)
 		{
-			if ((prev && !ft_link_stdin(prev->pipe))
-			|| (tmp->grp && !ft_link_stdout(tmp->pipe)))
+				ft_printf("%i\n",pgid);
+			if ((!prev && (setsid() < 0 || setpgid(getpid(), 0) < 0))
+			|| (prev && setpgid(getpid(), pgid))
+			|| ((prev && !ft_link_stdin(prev->pipe))
+			|| (tmp->grp && !ft_link_stdout(tmp->pipe))))
 				ft_exit_son(t, sh, -1);
 			ft_execve(tmp, sh, t, 0);
 		}
 		else if (tmp->pid < 0)
 			error("fork fucked up", tmp->cmd);
 		else
-			pgid = ft_get_pgid(pgid, p, prev);*/
+			pgid = ft_get_pgid(pgid, p, prev);
 		if (prev)
 			ft_close_pipe(prev->pipe);
+		else
+			pgid = p->pid;
 		prev = tmp;
 		tmp = tmp->grp;
 		t = t->next;

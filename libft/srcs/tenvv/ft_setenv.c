@@ -38,7 +38,7 @@ t_envv	*ft_new_envv(t_envv *envv, char *name, char *value)
 
 	if (envv && (tmp = get_tenvv(envv, name)))
 		return (ft_changetenvv_val(envv, name, value));
-	if (!name || !(ret = new_tenvv()))
+	if (!name || !value || !(ret = new_tenvv()))
 		return (envv);
 	if (!(ret->name = ft_strdup(name)) 
 		|| !(ret->value = ft_strdup(value)))
@@ -53,9 +53,13 @@ t_envv	*ft_new_envv(t_envv *envv, char *name, char *value)
 t_envv *ft_new_envv_equ(t_envv *envv, char *eq)
 {
 	char *value;
+	char *name;
 
 	if (ft_isequal(eq))
-		return (ft_new_envv(envv, ft_split_equal(eq, &value), value));
+	{
+		name = ft_split_equal(eq, &value);
+		return (ft_new_envv(envv, name, value));
+	}
 	return (NULL);
 }
 

@@ -79,7 +79,7 @@ int		init_env(t_shell *sh, char **argv, char **envv)
 	char *shell_path;
 	char *pwd;
 
-	sh->env = ft_setenv(NULL, envv, 0);
+	sh->env = ft_setenv(sh->env, envv, 0);
 	if ((pwd = ft_strdup(ft_update_pwd(sh))))
 	{
 		if ((shell_path = get_shell_path(*argv, pwd)))

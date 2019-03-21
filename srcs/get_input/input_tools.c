@@ -14,8 +14,8 @@
 
 int			ft_add_char(char buf, t_edit *e)
 {
-	int i;
-	int size;
+	size_t i;
+	size_t size;
 
 	if (e->select != -1)
 		delete_left(e);
@@ -40,9 +40,9 @@ int			ft_add_char(char buf, t_edit *e)
 
 static int	delete_simple_left(t_edit *e)
 {
-	int		i;
-	int		j;
-	char	*tmp;
+	size_t	i;
+	size_t	j;
+	char		*tmp;
 
 	if (e->curr < 1)
 		return (SUCCESS);
@@ -65,13 +65,13 @@ static int	delete_simple_left(t_edit *e)
 
 static int	delete_multiple_left(t_edit *e, int stop)
 {
-	char	*tmp;
-	int		i;
-	int		x;
-	int		size;
+	char		*tmp;
+	size_t	i;
+	size_t	x;
+	size_t	size;
 
 	i = 0;
-	i = (e->curr > e->select ? e->curr : e->select);
+	i = (e->curr > e->select_pos ? e->curr : e->select_pos);
 	if (!(tmp = ft_strnew(ft_strlen(e->hist->s) - (i - stop))))
 		return (FAILURE);
 	ft_strncpy(tmp, e->hist->s, stop);
@@ -81,21 +81,21 @@ static int	delete_multiple_left(t_edit *e, int stop)
 	tmp[x] = '\0';
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
-	e->curr = e->curr > e->select ? e->select : e->curr;
-	if (e->curr > (size = (int)ft_strlen(e->hist->s)))
+	e->curr = e->curr > e->select_pos ? e->select_pos : e->curr;
+	if (e->curr > (size = ft_strlen(e->hist->s)))
 		e->curr = size;
 	return (SUCCESS);
 }
 
 void		delete_left(t_edit *e)
 {
-	int		stop;
+	size_t		stop;
 
 	if (e->select == -1)
 		delete_simple_left(e);
 	else
 	{
-		stop = e->curr > e->select ? e->select : e->curr;
+		stop = e->curr > e->select_pos ? e->select_pos : e->curr;
 		delete_multiple_left(e, stop);
 	}
 	e->select = -1;
@@ -103,13 +103,13 @@ void		delete_left(t_edit *e)
 
 void		delete_on(t_edit *e)
 {
-	int		i;
-	int		j;
-	int		size;
-	char	*tmp;
+	size_t	i;
+	size_t	j;
+	size_t	size;
+	char		*tmp;
 
 	e->select = -1;
-	if (e->curr == (size = (int)ft_strlen(e->hist->s)))
+	if (e->curr == (size = ft_strlen(e->hist->s)))
 		return ;
 	i = 0;
 	j = 0;

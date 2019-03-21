@@ -14,7 +14,7 @@
 
 void	curs_reset(t_edit *e)
 {
-	int y;
+	size_t y;
 
 	y = e->pos;
 	if (e->width != 0)

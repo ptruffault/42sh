@@ -40,25 +40,25 @@ void ft_print_edited(t_edit *e)
 
 void ft_print_fast(t_edit *e)
 {
-	uintmax_t pos;
-	uintmax_t size;
-	int i;
+	size_t pos;
+	size_t size;
+	size_t i;
 
 	ft_delete_line(e);
 	pos = 0;
 	size = 1;
-	term_actions((e->curr == (int)ft_strlen(e->hist->s)) ? "ve" : "vi");
+	term_actions((e->curr == ft_strlen(e->hist->s)) ? "ve" : "vi");
 	i = ft_strlen(e->hist->s);
-	if (e->select == -1 || e->select == e->curr)
+	if (e->select == -1 || e->select_pos == e->curr)
 		pos = e->curr;
 	else
 	{
-		pos = (e->select > e->curr) ? e->curr : e->select;
-		size += (e->select > e->curr) ? e->select - e->curr : e->curr - e->select;
+		pos = (e->select_pos > e->curr) ? e->curr : e->select_pos;
+		size += (e->select_pos > e->curr) ? e->select_pos - e->curr : e->curr - e->select_pos;
 	}
 	write(1, e->hist->s, pos);
 	print_background(e, pos, size);
-	if (e->curr != i && e->select != i)
+	if (e->curr != i && e->select_pos != i)
 		write(1, e->hist->s + pos + size, i - pos - size);
 	e->pos = i;
 }

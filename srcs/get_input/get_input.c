@@ -64,6 +64,7 @@ int			get_input(char	**line)
 	buf = 0;
 	while (sh->e.edited == FALSE && read(0, &buf, 8) > 0)
 	{
+		printf("%lu\n\n", buf);
 		buf = handle_input(buf, &sh->e);
 		if (buf == 9)
 		{

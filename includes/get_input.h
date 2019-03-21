@@ -44,6 +44,7 @@
 
 # define KEY_CTRL_C 3
 # define KEY_CTRL_D 4
+# define KEY_CTRL_L 12
 
 # define KEY_HOME 4741915
 # define KEY_END 4610843

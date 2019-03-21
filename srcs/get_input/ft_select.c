@@ -15,15 +15,21 @@
 void	ft_select_right(t_edit *e)
 {
 	if (e->select == -1)
-		e->select = e->curr;
-	if (e->curr + 1 < (int)ft_strlen(e->hist->s))
+	{
+		e->select = 1;
+		e->select_pos = e->curr;
+	}
+	if (e->curr + 1 < ft_strlen(e->hist->s))
 		e->curr++;
 }
 
 void	ft_select_left(t_edit *e)
 {
 	if (e->select == -1)
-		e->select = e->curr;
+	{
+		e->select = 1;
+		e->select_pos = e->curr;
+	}
 	if (e->curr > 0)
 		e->curr--;
 }
@@ -31,13 +37,19 @@ void	ft_select_left(t_edit *e)
 void	ft_select_end(t_edit *e)
 {
 	if (e->select == -1)
-		e->select = e->curr;
+	{
+		e->select = 1;
+		e->select_pos = e->curr;
+	}
 	curr_go_last(e);
 }
 
 void	ft_select_home(t_edit *e)
 {
 	if (e->select == -1)
-		e->select = e->curr;
+	{
+		e->select = 1;
+		e->select_pos = e->curr;
+	}
 	ft_home_key(e);
 }

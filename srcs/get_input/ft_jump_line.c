@@ -21,19 +21,25 @@ void	ft_jump_line_up(t_edit *e)
 void	ft_select_line_up(t_edit *e)
 {
 	if (e->select == -1)
-		e->select = e->curr;
+	{
+		e->select = 1;
+		e->select_pos = e->curr;
+	}
 	ft_jump_line_up(e);
 }
 
 void	ft_jump_line_down(t_edit *e)
 {
-	if ((int)ft_strlen(e->hist->s) - e->curr >= e->width)
+	if (ft_strlen(e->hist->s) - e->curr >= e->width)
 		e->curr += e->width;
 }
 
 void	ft_select_line_down(t_edit *e)
 {
 	if (e->select == -1)
-		e->select = e->curr;
+	{
+		e->select = 1;
+		e->select_pos = e->curr;
+	}
 	ft_jump_line_down(e);
 }

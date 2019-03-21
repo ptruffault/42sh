@@ -22,7 +22,10 @@ int		handle_input(unsigned long buf, t_edit *e)
 		if (e->kval[x] == buf)
 		{
 			if (x < 13)
+			{
 				e->select = -1;
+				e->select_pos = 0;
+			}
 			e->ft_tab[x](e);
 			if (x == 9 || x == 10)
 				return (x);

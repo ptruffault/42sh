@@ -78,10 +78,11 @@ typedef struct	s_hist
 typedef struct	s_edit
 {
 	t_bool		edited;
-	int			curr;
-	int			pos;
-	int			width;
-	int			select;
+	size_t			curr;
+	size_t			pos;
+	size_t			width;
+	size_t			select_pos;
+	short				select;
 	unsigned short		mode;
 	unsigned long kval[NUMBER_OF_KEYS];
 	void (*ft_tab[NUMBER_OF_KEYS])(struct s_edit *e);

@@ -15,23 +15,23 @@
 void	ft_copy(t_edit *e)
 {
 	t_shell	*sh;
-	int		pos;
-	int		size;
+	size_t	pos;
+	size_t	size;
 
 	sh = ft_get_set_shell(NULL);
-	if (e->curr == e->select || e->select == -1)
+	if (e->curr == e->select_pos || e->select == -1)
 		return ;
 	pos = 0;
 	size = 0;
-	if (e->curr > e->select)
+	if (e->curr > e->select_pos)
 	{
-		pos = e->select;
-		size = e->curr - e->select;
+		pos = e->select_pos;
+		size = e->curr - e->select_pos;
 	}
-	else if (e->curr < e->select)
+	else if (e->curr < e->select_pos)
 	{
 		pos = e->curr;
-		size = e->select - e->curr;
+		size = e->select_pos - e->curr;
 	}
 	ft_strdel(&sh->clipboard);
 	if ((sh->clipboard = ft_strnew(size)))
@@ -41,9 +41,9 @@ void	ft_copy(t_edit *e)
 void	ft_paste(t_edit *e)
 {
 	t_shell *sh;
-	int		x;
-	int		b;
-	int		c;
+	size_t		x;
+	size_t		b;
+	size_t		c;
 	char	*tmp;
 
 	sh = ft_get_set_shell(NULL);

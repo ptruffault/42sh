@@ -17,7 +17,7 @@ int		ft_update_hist(t_shell *sh)
 	char	*hi_path;
 	t_hist *hist;
 
-	if (sh->e.hist->s[0] != '\0')
+	if (sh->e.hist && sh->e.hist->s && sh->e.hist->s[0] != '\0')
 	{
 		if ((hi_path = get_tenvv_val(sh->env, "HISTORY")))
 			ft_write_in_file(hi_path, sh->e.hist->s);

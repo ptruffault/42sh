@@ -42,8 +42,7 @@ char		*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 		ft_strdel(&ret);
 		ret = tmp;
 	}
-	if (name)
-		ft_strdel(&name);
+	ft_strdel(&name);
 	return (ret);
 }
 
@@ -52,12 +51,13 @@ char		*ft_exp_home_var(char *ret, char *ptr, t_envv *envv)
 	char	*tmp;
 	char	*val;
 
-	if (!(val = get_tenvv_val(envv, "HOME")))
-		ft_strdel(&ret);
-	else if ((tmp = ft_strpull(ret, ptr, 0, val)))
+	tmp = NULL;
+	if ((val = get_tenvv_val(envv, "HOME"))
+	&& (tmp = ft_strpull(ret, ptr, 0, val)))
 	{
 		ft_strdel(&ret);
 		return (tmp);
 	}
+	ft_strdel(&ret);
 	return (NULL);
 }

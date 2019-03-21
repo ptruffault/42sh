@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:12:58 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/21 12:50:52 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			get_input(char	**line)
 			ft_set_old_term(sh);
 			return (4);
 		}
-		else if (buf == 10)
+		else if (buf == 10 && (!sh->e.hist || !sh->e.hist->s || !*sh->e.hist->s))
 		{
 			ft_set_old_term(sh);
 			return (0);

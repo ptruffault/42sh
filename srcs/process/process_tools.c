@@ -4,21 +4,22 @@
 
 void ft_process_tab_status(char *stat[6])
 {
-	stat[0] = "\033[00;31minitialised\033[00m";
-	stat[1] = "\033[00;34mrunning fg\033[00m";
-	stat[2] = "\033[00;34mrunning bg\033[00m";
-	stat[3] = "\033[1;32mdone\033[00m";
-	stat[4] = "\033[1;36msuspended\033[00m";
-	stat[5] = "\033[00;31mkilled\033[00m";
+	stat[0] = "\x1B[00;31minitialised\x1B[00m";
+	stat[1] = "\x1B[00;34mrunning fg\x1B[00m";
+	stat[2] = "\x1B[00;34mrunning bg\x1B[00m";
+	stat[3] = "\x1B[1;32mdone\x1B[00m";
+	stat[4] = "\x1B[1;36msuspended\x1B[00m";
+	stat[5] = "\x1B[00;31mkilled\033[00m";
 }
 
 
-void	ft_put_process(t_process *p, t_shell *sh)
+void	ft_put_process(t_process *p, t_shell *sh, unsigned int new_status)
 {	
 	char *stat[6];
 
 	ft_process_tab_status(stat);
 	ft_delete_line(&sh->e);
+	p->status = new_status;
 	ft_printf("\t{%i} \033[1;32m%s\033[00m  %s -> (%i)\n", 
 		p->pid, stat[p->status], p->cmd, p->ret);
 	ft_putstr(sh->e.hist->s);

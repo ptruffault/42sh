@@ -12,6 +12,7 @@
 
 #include <shell42.h>
 
+// FONCTION POUR RESTE TOUT LES SIGNAUX (ENV ET EXECVE)
 
 void	ft_disp(t_shell *sh)
 {
@@ -28,7 +29,6 @@ int		ft_quit(int exit_code, t_shell *sh)
 	kill_process(sh->process, SIGQUIT, RUNNING_FG);
 	kill_process(sh->process, SIGQUIT, RUNNING_BG);
 	kill_process(sh->process, SIGQUIT, SUSPENDED);
-	ft_strdel(&sh->txt);
 	ft_free_tshell(sh);
 	return (exit_code);
 }
@@ -37,23 +37,18 @@ int		main(int argc, char **argv, char **envv)
 {
 	t_shell	sh;
 	t_tree	*t;
-	char	*in;
 
 	(void)argc;
 	if (!init_shell(&sh, envv, argv))
 		return (ft_quit(1, &sh));
-	in = NULL;
 	while (isatty(0))
 	{
 		ft_disp(&sh);
-		if (!(get_input(&in)))
-		{
-			ft_strdel(&in);
+		if (!(get_input(&sh.txt)))
 			return (ft_quit(1, &sh));
-		}
-		if ((t = get_tree(in)))
+		if ((t = get_tree(sh.txt)))
 			ft_free_tree(exec_tree(t, &sh));
-		ft_strdel(&in);
+		ft_strdel(&sh.txt);
 	}
 	ft_printf("stdin no longer tty\n");
 	return (ft_quit(1, &sh));

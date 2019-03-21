@@ -66,9 +66,15 @@ int			get_input(char	**line)
 	{
 		buf = handle_input(buf, &sh->e);
 		if (buf == 9)
+		{
+			ft_set_old_term(sh);
 			return (4);
+		}
 		else if (buf == 10)
+		{
+			ft_set_old_term(sh);
 			return (0);
+		}
 		if (sh->hist)
 			ft_print_line(&sh->e);
 		buf = 0;

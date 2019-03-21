@@ -32,15 +32,15 @@
 # define FAILURE 0
 # define SUCCESS 1
 
-# define BLEUCLAIR 	"\033[01;34m"
-# define ROUGE 		"\033[00;31m"
-# define BLEU 		"\033[00;34m"
-# define SOULIGNE 	"\033[04m"
-# define NORMAL 	"\033[00m"
-# define VERT  		"\033[1;32m"
-# define CYAN 		"\033[1;36m"
-# define MAGENTA 	"\033[1;35m"
-# define JAUNE		"\033[1;39m"
+# define BLEUCLAIR 	"\x1B[01;34m"
+# define ROUGE 		"\x1B[00;31m"
+# define BLEU 		"\x1B[00;34m"
+# define SOULIGNE 	"\x1B[04m"
+# define NORMAL 	"\x1B[00m"
+# define VERT  		"\x1B[1;32m"
+# define CYAN 		"\x1B[1;36m"
+# define MAGENTA 	"\x1B[1;35m"
+# define JAUNE		"\x1B[1;39m"
 
 typedef enum	e_boolen {
 	FALSE = 0,

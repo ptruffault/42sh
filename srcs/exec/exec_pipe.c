@@ -92,7 +92,7 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 		}
 		else if (tmp->pid < 0)
 			error("fork fucked up", tmp->cmd);
-	/*	else
+		else
 			pgid = ft_get_pgid(pgid, p, prev);*/
 		if (prev)
 			ft_close_pipe(prev->pipe);

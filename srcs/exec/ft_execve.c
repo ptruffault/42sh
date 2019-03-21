@@ -14,8 +14,9 @@
 
 void			ft_exit_son(t_tree *t, t_shell *sh, int exit_code)
 {
+	(void)t;
 	ft_free_tshell(sh);
-	ft_free_tree(t);
+	ft_free_tree(ft_get_set_tree(NULL));
 	ft_printf("exit ->%i\n", exit_code);
 	exit(exit_code);
 }

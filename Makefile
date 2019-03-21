@@ -12,7 +12,7 @@
 
 NAME		=		42sh
 GIT 		=		https://github.com/ptruffault/$(NAME).git
-FLAG		=		-Wall -Werror -Wextra -g
+FLAG		=		-Wall -Werror -Wextra -g -pedantic
 INCLUDES	=		includes/shell42.h includes/get_input.h includes/structures.h
 OBJ_FOLDER 	= 		./bin/
 

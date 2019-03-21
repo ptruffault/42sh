@@ -35,7 +35,7 @@ int 		ft_bg(t_shell *sh, char **argv);
 int 		ft_fg(t_shell *sh, char **argv);
 int			ft_hi(t_shell *sh);
 void 		ft_process_tab_status(char *stat[6]);
-void		ft_put_process(t_process *p, t_shell *sh);
+void	ft_put_process(t_process *p, t_shell *sh, unsigned int new_status);
 
 void			ft_exit_son(t_tree *t, t_shell *sh, int exit_code);
 char		ft_parse_back(char c);

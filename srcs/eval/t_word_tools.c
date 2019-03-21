@@ -18,7 +18,7 @@ t_word			*ft_deltword(t_word *prev, t_word *src)
 	{
 		prev->next = src->next;
 		src->next = NULL;
-		ft_free_tword(src);
+		src = ft_free_tword(src);
 	}
 	return (prev);
 }

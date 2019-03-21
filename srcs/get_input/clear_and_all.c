@@ -76,12 +76,11 @@ void	just_exit(t_edit *e)
 		sh->heredoc = 0;
 		sh->e.edited = TRUE;
 	}
-	ft_strdel(&e->hist->s);
-	free(e->hist);
-	/*else if (!e->hist || !e->hist->s || !*e->hist->s)
+	if (!e->hist || !e->hist->s || !*e->hist->s)
 	{
-		ft_set_old_term(sh);
-		ft_free_tshell(sh);
-		exit(4);
-	}*/
+		ft_strdel(&e->hist->s);
+		free(e->hist);
+		e->hist = NULL;
+	}
+
 }

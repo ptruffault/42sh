@@ -24,7 +24,7 @@ void	ft_wait(t_process *p, t_shell *sh)
 			else 
 			{
 				if (p->status == RUNNING_BG)
-					ft_put_process(p, sh);
+					ft_put_process(p, sh, DONE);
 				if (WIFEXITED(p->ret))
 					p->ret =  WEXITSTATUS(p->ret);
 				p->status = DONE;

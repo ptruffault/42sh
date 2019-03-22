@@ -95,7 +95,7 @@ char		*get_bin_path(char *input, t_envv *envv);
 int			ft_check_ascii(char *input);
 int			ft_isparenth(char c);
 int			ft_setup_edit_term(t_shell *sh);
-void		ft_set_old_term(t_shell *sh);
+int		ft_set_old_term(t_shell *sh, int error);
 void		ft_update_windows(t_edit *e);
 int			init_termcaps(t_shell *sh);
 int			check_builtin(char *input);

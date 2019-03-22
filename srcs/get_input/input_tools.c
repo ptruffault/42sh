@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:21:10 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/22 16:23:35 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int			ft_add_char(char buf, t_edit *e)
 {
-	size_t i;
-	size_t size;
+	size_t	i;
+	size_t	size;
 
 	if (e->select != -1)
 		delete_left(e);
@@ -42,7 +42,7 @@ static int	delete_simple_left(t_edit *e)
 {
 	size_t	i;
 	size_t	j;
-	char		*tmp;
+	char	*tmp;
 
 	if (e->curr < 1)
 		return (SUCCESS);
@@ -65,7 +65,7 @@ static int	delete_simple_left(t_edit *e)
 
 static int	delete_multiple_left(t_edit *e, int stop)
 {
-	char		*tmp;
+	char	*tmp;
 	size_t	i;
 	size_t	x;
 	size_t	size;
@@ -89,7 +89,7 @@ static int	delete_multiple_left(t_edit *e, int stop)
 
 void		delete_left(t_edit *e)
 {
-	size_t		stop;
+	size_t	stop;
 
 	if (e->select == -1)
 		delete_simple_left(e);
@@ -106,7 +106,7 @@ void		delete_on(t_edit *e)
 	size_t	i;
 	size_t	j;
 	size_t	size;
-	char		*tmp;
+	char	*tmp;
 
 	e->select = -1;
 	if (e->curr == (size = ft_strlen(e->hist->s)))

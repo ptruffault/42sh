@@ -24,7 +24,7 @@ void	ft_exit(char *nbr, t_shell *sh)
 	kill_process(sh->process, SIGINT, RUNNING_BG);
 	kill_process(sh->process, SIGINT, SUSPENDED);
 	if (sh->interactive == TRUE)
-		ft_set_old_term(sh);
+		ft_set_old_term(sh, 0);
 	else
 		ft_strdel(&sh->txt);
 	ft_free_tshell(sh);

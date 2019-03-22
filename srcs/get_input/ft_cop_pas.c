@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 13:01:07 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/21 16:25:35 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/03/22 15:19:24 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	ft_copy(t_edit *e)
 
 void	ft_paste(t_edit *e)
 {
-	t_shell *sh;
-	size_t		x;
-	size_t		b;
-	size_t		c;
+	t_shell	*sh;
+	size_t	x;
+	size_t	b;
+	size_t	c;
 	char	*tmp;
 
 	sh = ft_get_set_shell(NULL);

@@ -6,13 +6,13 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:23:52 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/21 16:29:48 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/03/22 16:26:58 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <get_input.h>
 
-static	void ft_init_print_modes(t_edit *e, int x)
+static	void	ft_init_print_modes(t_edit *e, int x)
 {
 	e->print_modes[x++] = ft_print_fast;
 	e->print_modes[x++] = ft_print_edited;
@@ -33,13 +33,10 @@ static	void	ft_init_inputs_kval(t_edit *e, int x)
 	e->kval[x++] = KEY_CTRL_D;
 	e->kval[x++] = KEY_HOME;
 	e->kval[x++] = KEY_END;
-
 	e->kval[x++] = KEY_OPTION_C;
-
 	e->kval[x++] = KEY_BACKSPACE;
 	e->kval[x++] = KEY_DELETE;
 	e->kval[x++] = KEY_OPTION_V;
-
 	e->kval[x++] = KEY_SHIFT_ARROW_UP;
 	e->kval[x++] = KEY_SHIFT_ARROW_DOWN;
 	e->kval[x++] = KEY_SHIFT_ARROW_LEFT;
@@ -65,13 +62,10 @@ static	void	ft_init_inputs_tab(t_edit *e, int x)
 	e->ft_tab[x++] = just_exit;
 	e->ft_tab[x++] = ft_home_key;
 	e->ft_tab[x++] = curr_go_last;
-
 	e->ft_tab[x++] = ft_copy;
-
 	e->ft_tab[x++] = delete_left;
 	e->ft_tab[x++] = delete_on;
 	e->ft_tab[x++] = ft_paste;
-
 	e->ft_tab[x++] = ft_select_line_up;
 	e->ft_tab[x++] = ft_select_line_down;
 	e->ft_tab[x++] = ft_select_left;
@@ -80,10 +74,26 @@ static	void	ft_init_inputs_tab(t_edit *e, int x)
 	e->ft_tab[x++] = ft_select_end;
 }
 
-int 	init_tedit(t_shell *sh)
+static int		ft_init_input_link(t_shell *sh)
 {
-	t_hist *tmp;
+	t_hist	*tmp;
 
+	sh->e.hist = tmp;
+	if (sh->hist)
+	{
+		tmp->next = sh->hist;
+		tmp->next->prev = tmp;
+	}
+	if (!(tmp->s = ft_strnew(2)))
+	{
+		free(tmp);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+int				init_tedit(t_shell *sh)
+{
 	ft_update_windows(&sh->e);
 	ft_init_inputs_tab(&sh->e, 0);
 	sh->e.edited = FALSE;
@@ -93,22 +103,9 @@ int 	init_tedit(t_shell *sh)
 	sh->e.select_pos = 0;
 	sh->e.mode = 0;
 	sh->e.hist = NULL;
-	if ((tmp = new_hist()))
-	{
-		sh->e.hist = tmp;
-		if (sh->hist)
-		{
-			tmp->next = sh->hist;
-			tmp->next->prev = tmp;
-		}
-		if (!(tmp->s = ft_strnew(2)))
-		{
-			free(tmp);
-			return (0);
-		}
-		tmp->nb = tmp->next ? tmp->next->nb + 1 : 1;
-	}
+	if ((tmp = new_hist()) || ft_init_input_link(sh) == FAILURE)
+		return (FAILURE);
 	else
-		return (0);
-	return (1);
+		return (FAILURE);
+	return (SUCCESS);
 }

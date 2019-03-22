@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:09:39 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/22 16:07:10 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	print_background(t_edit *e, int pos, int size)
 	term_actions("me");
 }
 
-void ft_print_edited(t_edit *e)
+void		ft_print_edited(t_edit *e)
 {
 	ft_delete_line(e);
 	e->curr = ft_strlen(e->hist->s);
@@ -38,7 +38,7 @@ void ft_print_edited(t_edit *e)
 	ft_putchar('\n');
 }
 
-void ft_print_fast(t_edit *e)
+void		ft_print_fast(t_edit *e)
 {
 	size_t pos;
 	size_t size;
@@ -54,7 +54,10 @@ void ft_print_fast(t_edit *e)
 	else
 	{
 		pos = (e->select_pos > e->curr) ? e->curr : e->select_pos;
-		size += (e->select_pos > e->curr) ? e->select_pos - e->curr : e->curr - e->select_pos;
+		if (e->select_pos > e->curr)
+			size += e->select_pos - e->curr;
+		else
+			size += e->curr - e->select_pos;
 	}
 	write(1, e->hist->s, pos);
 	print_background(e, pos, size);

@@ -81,6 +81,8 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 	tmp = p;
 	while (tmp)
 	{
+		if (prev)
+			t = t->next;
 		tmp->status = RUNNING_FG;
 		if (tmp->cmd && (tmp->pid = fork()) == 0)
 		{
@@ -95,11 +97,7 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 			ft_close_pipe(prev->pipe);
 		prev = tmp;
 		tmp = tmp->grp;
-		t = t->next;
 	}
-	tmp = p;
-	ft_wait(p, sh);
-	ft_reset_fd(sh);
 	return (t);
 }
 

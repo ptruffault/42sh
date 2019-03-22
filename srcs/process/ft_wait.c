@@ -44,20 +44,18 @@ static void	ft_signal_check(t_process *p)
 	p->ret = g_signal_msg[WTERMSIG(p->ret) - 1].rtn;
 }
 
-void	ft_wait(t_process *p, t_shell *sh)
+int	ft_wait(t_process *p)
 {
-	int prompt;
-	(void)sh;
+	int ret;
 
-	prompt = 0;
 	ft_printf("WAIT\n");
+	ret = 0;
 	while (p)
 	{
-		if ((p->pid == 0
-				|| (p->status == SUSPENDED && waitpid(p->pid , &p->ret, WNOHANG))
-				|| (p->status == RUNNING_FG && waitpid(p->pid, &p->ret, WUNTRACED) > 0)
-			 	|| (p->status == RUNNING_BG && waitpid(p->pid, &p->ret, WUNTRACED ) > 0))
-				&& IS_RUNNING(p->status))
+		if (p->pid == 0
+			|| (p->status == SUSPENDED && waitpid(p->pid , &p->ret, WNOHANG) > 0) 
+			|| (p->status == RUNNING_FG && waitpid(p->pid, &p->ret, WUNTRACED) > 0)
+			 || (p->status == RUNNING_BG && waitpid(p->pid, &p->ret, WUNTRACED) > 0))
 		{
 			if (p->ret > 0 && WIFEXITED(p->ret))
 			{
@@ -68,11 +66,11 @@ void	ft_wait(t_process *p, t_shell *sh)
 				ft_signal_check(p);
 			else 
 				p->status = DONE;
-			if (prompt)
-				ft_put_process(p);
+			ret = ret + p->ret;
 		}
 		p = p->grp;
 	}
+	return (ret);
 }
 
 void ft_wait_background(t_shell *sh)
@@ -83,7 +81,7 @@ void ft_wait_background(t_shell *sh)
 	while (tmp)
 	{
 		if (tmp->status == RUNNING_BG)
-			ft_wait(tmp, sh);
+			ft_wait(tmp);
 		tmp = tmp->next;
 	}
 }

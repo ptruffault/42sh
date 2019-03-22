@@ -48,14 +48,9 @@ int			init_shell(t_shell *sh, char **envv, char **argv)
 		exec_file(argv[1], sh);
 		return (0);
 	}
+	if (!init_termcaps(sh))
+		return (0);
 	sh->interactive = TRUE;
 	set_signals();
-	if (!init_termcaps(sh))
-		return (0);/*
-	int pgid;
-		pgid = getpid();
-	if (setpgid(pgid, pgid) < 0)
-		perror("0st setgpid");
-	tcsetpgrp(0, pgid);*/
 	return (1);
 }

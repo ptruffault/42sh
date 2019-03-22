@@ -47,24 +47,20 @@ t_tree			*exec_instruction(t_tree *t, t_shell *sh)
 		{
 			p->next = sh->process;
 			sh->process = p;
-			return (exec_pipe(t, p, sh));
+			t = exec_pipe(t, p, sh);
 		}
 		else
-		{
 			while (t->o_type == O_PIPE)
 				t = t->next;
-			return (t);
-		}
 	}
 	else if ((p = init_process(t, sh)))
 	{
 		p->next = sh->process;
 		sh->process = p;
 		ft_execve(p, sh, t, 1);
-		ft_wait(p, sh);
-		ft_reset_fd(sh);
-		t->ret = p->ret;
 	}
+	t->ret = (p ? ft_wait(p) : -1);
+	ft_reset_fd(sh);
 	return (t);
 }
 
@@ -86,11 +82,9 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 				break ;
 			}
 		}
-		else
-		{
-			if ((tmp = exec_instruction(tmp, sh)))
-				tmp = next_instruction(tmp);
-		}
+		else if (!(tmp = exec_instruction(tmp, sh)))
+			break ;
+		tmp = next_instruction(tmp);
 	}
 	return (t);
 }

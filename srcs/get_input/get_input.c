@@ -50,8 +50,11 @@ int			ft_update_hist(t_shell *sh)
 			sh->e.hist = sh->e.hist->prev;
 		ft_strdel(&sh->e.hist->s);
 		sh->e.hist = sh->e.hist->next;
-		free(sh->e.hist->prev);
-		sh->e.hist->prev = NULL;
+		if (sh->e.hist && sh->e.hist->prev)
+		{
+			free(sh->e.hist->prev);
+			sh->e.hist->prev = NULL;
+		}
 	}
 	return (ft_set_old_term(sh, SUCCESS));
 }
@@ -74,7 +77,7 @@ int			get_input(char **line)
 		else if (buf == 10 && (!sh->e.hist
 			|| !sh->e.hist->s || !*sh->e.hist->s))
 			return (ft_set_old_term(sh, 0));
-		if (sh->hist)
+		if (sh->e.hist)
 			ft_print_line(&sh->e);
 		buf = 0;
 	}

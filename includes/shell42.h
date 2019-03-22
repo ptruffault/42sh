@@ -29,7 +29,7 @@
 
 void		ft_sigcont(t_process *tmp);
 void 		ft_wait_background(t_shell *sh);
-void		ft_wait(t_process *p, t_shell *sh);
+int			ft_wait(t_process *p);
 void		ft_set_background(t_process *p);
 int 		ft_bg(t_shell *sh, char **argv);
 int 		ft_fg(t_shell *sh, char **argv);

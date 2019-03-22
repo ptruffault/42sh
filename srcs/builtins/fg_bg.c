@@ -74,7 +74,7 @@ int ft_fg(t_shell *sh, char **argv)
 	if ((!argv[1] && (tmp = ft_get_process_id(sh->process, 1))))
 	{
 		kill_process(tmp, SIGCONT, SUSPENDED);
-		ft_wait(tmp, sh);
+		return (ft_wait(tmp));
 	}
 	while (argv[++i])
 	{
@@ -83,7 +83,7 @@ int ft_fg(t_shell *sh, char **argv)
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 		{
 			kill_process(tmp, SIGCONT, SUSPENDED);
-			ft_wait(tmp, sh);
+			ret = ret + ft_wait(tmp);
 		}
 		else
 		{

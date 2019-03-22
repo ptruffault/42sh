@@ -12,17 +12,6 @@
 
 #include <shell42.h>
 
-void	ft_kill_all_running_process(t_process *p, int sig)
-{
-	while (p)
-	{
-		if ((IS_RUNNING(p->status) || p->status == SUSPENDED)
-			&& p->pid != 0)
-			kill(p->pid, sig);
-		p = p->next;
-	}
-}
-
 void	ft_exit(char *nbr, t_shell *sh)
 {
 	int		exit_code;

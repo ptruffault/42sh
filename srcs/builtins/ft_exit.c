@@ -12,21 +12,16 @@
 
 #include <shell42.h>
 
+int		ft_quit(int exit_code, t_shell *sh)
+{
+	kill_process(sh->process, SIGKILL, SUSPENDED);
+	kill_process(sh->process, SIGKILL, RUNNING_FG);
+	kill_process(sh->process, SIGKILL, RUNNING_BG);
+	ft_free_tshell(sh);
+	return (exit_code);
+}
+
 void	ft_exit(char *nbr, t_shell *sh)
 {
-	int		exit_code;
-
-	if (nbr)
-		exit_code = ft_atoi(nbr);
-	else
-		exit_code = 0;
-	kill_process(sh->process, SIGINT, RUNNING_FG);
-	kill_process(sh->process, SIGINT, RUNNING_BG);
-	kill_process(sh->process, SIGINT, SUSPENDED);
-	if (sh->interactive == TRUE)
-		ft_set_old_term(sh, 0);
-	else
-		ft_strdel(&sh->txt);
-	ft_free_tshell(sh);
-	exit(exit_code);
+	exit(ft_quit((nbr ? ft_atoi(nbr) : 0), sh));
 }

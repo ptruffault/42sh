@@ -27,6 +27,10 @@
 # include "structures.h"
 # include <pwd.h>
 
+int			ft_quit(int exit_code, t_shell *sh);
+void 		update_grp_status(t_process *p, unsigned int to);
+void		ft_kill(t_process *p, int sig);
+void 		ft_killgrp(t_process *p, int sig);
 void		ft_sigcont(t_process *tmp);
 void 		ft_wait_background(t_shell *sh);
 int			ft_wait(t_process *p);
@@ -35,9 +39,9 @@ int 		ft_bg(t_shell *sh, char **argv);
 int 		ft_fg(t_shell *sh, char **argv);
 int			ft_hi(t_shell *sh);
 void 		ft_process_tab_status(char *stat[6]);
-void	ft_put_process(t_process *p);
+void		ft_put_process(t_process *p);
 
-void			ft_exit_son(t_tree *t, t_shell *sh, int exit_code);
+void		ft_exit_son(t_shell *sh, int exit_code);
 char		ft_parse_back(char c);
 void		ft_execve_pip(t_process *p, t_shell *sh, t_tree *t, int mode);
 void		ft_delete_char(t_eval *e);

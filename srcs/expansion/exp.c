@@ -12,12 +12,14 @@
 
 #include <shell42.h>
 
-t_process	*get_last_done_process(t_process *p)
+char	*get_last_process_val(t_process *p, int mode)
 {
 	while (p)
 	{
-		if (p && p->status == DONE)
-			return (p);
+		if (!mode && p->status == DONE)
+			return (ft_itoa(p->ret));
+		if (mode && p->background == TRUE)
+			return (ft_itoa(p->pid));
 		p = p->next;
 	}
 	return (NULL);
@@ -26,16 +28,17 @@ t_process	*get_last_done_process(t_process *p)
 char		*ft_exp_spec(char *ret, char *ptr, t_shell *sh)
 {
 	char		*val;
-	t_process	*p;
 
 	val = NULL;
-	if ((ptr[1] == '!' || ptr[1] == '?') && sh->process
-	&& (p = get_last_done_process(sh->process)))
-		val = ft_itoa((ptr[1] == '!' ? p->pid : p->ret));
-	else if (ptr[1] == '$')
+	if ((ptr[1] == '!' || ptr[1] == '?') && sh->process)
+		val = get_last_process_val(sh->process, (ptr[1] == '?' ? 0 : 1));
+	if (ptr[1] == '$')
 		val = ft_itoa(sh->pid);
-	ptr = ft_strpull(ret, ptr, 1, val);
-	ft_strdel(&val);
+	if (!(ptr = ft_strpull(ret, ptr, 1, val)))
+	{
+		ft_strdel(&val);
+		return (ret);
+	}
 	ft_strdel(&ret);
 	return (ptr);
 }

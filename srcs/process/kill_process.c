@@ -8,7 +8,7 @@ static t_process	*ft_get_process(t_process *p, unsigned int status)
 
 	while (p)
 	{
-		if (p->status == status && p->pid > 0)
+		if (p->status == status && p->pid > 0 && p->builtins == FALSE)
 			return (p);
 		/*if (p->grp)
 		{
@@ -26,21 +26,6 @@ static t_process	*ft_get_process(t_process *p, unsigned int status)
 }
 
 
-
-void update_process_status(t_process *p, unsigned int to)
-{
-	char *stats[6];
-
-	ft_process_tab_status(stats);
-	while (p)
-	{
-		p->status = to;
-		ft_printf("\t{%i} %s %s\n", p->pid, stats[p->status], p->cmd);
-		p = p->grp;
-	}
-}
-
-
 //kill tout les process de p->status == status } avec sig , le status des process es changer 
 // sig == -1 -> put in bg avec iotcl
 
@@ -49,11 +34,37 @@ void ft_process_background(t_process *p)
 	if ((ioctl(0, TIOCSPGRP, &p->pid)) != 0)
 	{
 		error("can't set this process in background", p->cmd);
-		killpg(p->pid, SIGTSTP);
-		update_process_status(p, SUSPENDED);
+		ft_kill(p, SIGTSTP);
 	}
 	else
-		update_process_status(p, RUNNING_BG);
+		p->status = RUNNING_BG;
+}
+
+void		ft_kill(t_process *p, int sig)
+{
+	if (sig == -1)
+		ft_process_background(p);
+	else
+	{
+		if (sig == SIGTSTP || sig == SIGSTOP)
+			p->status = SUSPENDED;
+		else if (sig == SIGCONT)
+			p->status = RUNNING_FG;
+		else
+			p->status = KILLED;
+		ft_printf("kill(%i, %i); status = %i\n",p->pid, sig, p->status);
+		if (p->builtins == FALSE && p->pid > 0)
+			kill(p->pid, sig);
+	}
+}
+
+void 		ft_killgrp(t_process *p, int sig)
+{
+	while (p)
+	{
+		ft_kill(p, sig);
+		p = p->grp;
+	}
 }
 
 
@@ -66,18 +77,7 @@ int			kill_process(t_process *p, int sig, unsigned int status)
 	while (p && (tmp = ft_get_process(p, status)))
 	{
 		i++;
-		if (sig == -1)
-			ft_process_background(tmp);
-		else
-		{
-			if (sig == SIGINT || sig == SIGKILL)
-				update_process_status(tmp, KILLED);
-			else if (sig == SIGTSTP)
-				update_process_status(tmp, SUSPENDED);
-			else if (sig == SIGCONT)
-				update_process_status(tmp, RUNNING_FG);
-			killpg(tmp->pid, sig);
-		}
+		ft_killgrp(p, sig);
 	}
 	return (i);
 }

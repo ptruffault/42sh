@@ -88,7 +88,7 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 		{
 			if  ((prev && !ft_link_stdin(prev->pipe))
 			|| (tmp->grp && !ft_link_stdout(tmp->pipe)))
-				ft_exit_son(t, sh, -1);
+				ft_exit_son(sh, -1);
 			ft_execve(tmp, sh, t, 0);
 		}
 		else if (tmp->pid < 0)

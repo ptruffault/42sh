@@ -24,15 +24,6 @@ void	ft_disp(t_shell *sh)
 	ft_putstr("\033[00m]\n");
 }
 
-int		ft_quit(int exit_code, t_shell *sh)
-{
-	kill_process(sh->process, SIGKILL, SUSPENDED);
-	kill_process(sh->process, SIGKILL, RUNNING_FG);
-	kill_process(sh->process, SIGKILL, RUNNING_BG);
-	ft_free_tshell(sh);
-	return (exit_code);
-}
-
 int		main(int argc, char **argv, char **envv)
 {
 	t_shell	sh;

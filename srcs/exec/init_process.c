@@ -56,6 +56,8 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 	if ((ret = (t_process *)malloc(sizeof(t_process))))
 	{
 		ft_init_fd(ret, sh);
+		ret->background = (t->o_type == O_BACK ? TRUE : FALSE);
+		ret->status = (ret->background == TRUE ? RUNNING_BG : RUNNING_FG);
 		if (!(ret->argv = ft_twordto_arr(t->cmd)))
 		{
 			free(ret);

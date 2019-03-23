@@ -16,7 +16,7 @@ static t_tree	*next_instruction(t_tree *t)
 {
 	unsigned int tmp;
 
-	if (t->o_type && t->next)
+	if (t && t->o_type && t->next)
 	{
 		if (t->o_type == O_SEP || t->o_type == O_BACK)
 			return (t->next);

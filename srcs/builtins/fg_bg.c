@@ -73,7 +73,10 @@ int ft_fg(t_shell *sh, char **argv)
 	ret = 0;
 	if ((!argv[1] && (tmp = ft_get_process_id(sh->process, 1))))
 	{
-		kill_process(tmp, SIGCONT, SUSPENDED);
+		if (tmp->status == SUSPENDED)
+			ft_killgrp(tmp, SIGCONT);
+		else
+			update_grp_status(tmp, RUNNING_FG);
 		return (ft_wait(tmp));
 	}
 	while (argv[++i])
@@ -82,7 +85,7 @@ int ft_fg(t_shell *sh, char **argv)
 			&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 		{
-			kill_process(tmp, SIGCONT, SUSPENDED);
+			ft_killgrp(tmp, SIGCONT);
 			ret = ret + ft_wait(tmp);
 		}
 		else

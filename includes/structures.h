@@ -137,6 +137,7 @@ typedef struct	s_process
 	char				**env;
 	int					fd[3];
 	t_bool				builtins;
+	t_bool				background;
 	char				*cmd;
 	enum e_pstatus		status;
 	char				**argv;

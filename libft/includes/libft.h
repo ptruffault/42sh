@@ -41,7 +41,11 @@
 # define CYAN 		"\x1B[1;36m"
 # define MAGENTA 	"\x1B[1;35m"
 # define JAUNE		"\x1B[1;39m"
-
+# define S_ROUGE	"\x1b[1;34;41m"
+# define S_BLEU		"\x1b[1;34;44m"
+# define S_CYAN		"\x1b[1;36;46m"
+# define S_ROSE		"\x1b[1;35;45m"
+# define S_VERT		"\x1b[1;32;42m"
 typedef enum	e_boolen {
 	FALSE = 0,
 	TRUE = 1

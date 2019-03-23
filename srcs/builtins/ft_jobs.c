@@ -12,38 +12,37 @@
 
 #include <shell42.h>
 
-static void ft_job_prompt(t_process *tmp, char *stat[6], int id)
+static void ft_job_prompt(t_process *tmp, int id)
 {
 	t_process *grp;
 
-	ft_printf("ID % -5i%-25s%i %-20s%i\033[00m\n",
-	id, stat[tmp->status], tmp->ret, tmp->cmd, tmp->pid);
-	if (tmp->grp)
+	ft_printf("-\x1B[01;34m%- 2i\x1B[00m", id);
+	ft_put_process(tmp);
+	grp = tmp->grp;
+	while (grp)
 	{
-		grp = tmp->grp;
-		while (grp)
+		if (grp->cmd)
 		{
-			if (grp->cmd)
-				ft_printf(" |       %-25s%i %-20s%i\033[00m\n",
-				stat[grp->status], grp->ret, grp->cmd, grp->pid);
-			grp = grp->grp;
+			ft_printf("  \x1B[1;35m|\x1B[00m ");
+			ft_put_process(tmp);
 		}
+		grp = grp->grp;
 	}
 }
+
 
 int		ft_hi(t_shell *sh)
 {
 	t_process	*tmp;
-	char 		*stat[6];
 	int			id;
 
 	id = 0;
+	ft_printf("\x1B[04m ID PID     RETURN STATUS      PATH         \n\x1B[00m");
 	tmp = sh->process;
-	ft_process_tab_status(stat);
 	while (tmp)
 	{
 		if (tmp->cmd)
-			ft_job_prompt(tmp, stat, id++);
+			ft_job_prompt(tmp, id++);
 		tmp = tmp->next;
 	}
 	return (0);
@@ -52,16 +51,14 @@ int		ft_hi(t_shell *sh)
 int 	ft_jobs(t_shell *sh)
 {
 	t_process	*tmp;
-	char 		*stat[6];
 	int			id;
 
 	id = 0;
-	 ft_process_tab_status(stat);
 	tmp = sh->process;
 	while (tmp)
 	{
 		if (tmp->status == RUNNING_BG || tmp->status == SUSPENDED)
-			ft_job_prompt(tmp, stat, id++);
+			ft_job_prompt(tmp, id++);
 		tmp = tmp->next;
 	}
 	return (0);

@@ -12,7 +12,7 @@
 
 #include <shell42.h>
 
-// FONCTION POUR RESTE TOUT LES SIGNAUX (ENV ET EXECVE)
+// $? et $! bugs
 
 void	ft_disp(t_shell *sh)
 {

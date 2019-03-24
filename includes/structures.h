@@ -140,6 +140,7 @@ typedef struct	s_process
 	int					fd[3];
 	t_bool				builtins;
 	t_bool				background;
+	int					sig;
 	char				*cmd;
 	enum e_pstatus		status;
 	char				**argv;

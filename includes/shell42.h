@@ -32,7 +32,6 @@ void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t);
 
 
 int			ft_quit(int exit_code, t_shell *sh);
-void 		update_grp_status(t_process *p, unsigned int to);
 void		ft_kill(t_process *p, int sig);
 void 		ft_killgrp(t_process *p, int sig);
 void		ft_sigcont(t_process *tmp);

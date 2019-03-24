@@ -11,15 +11,28 @@ int	ft_wait(t_process *p)
 			|| (p->status == RUNNING_FG && waitpid(p->pid, &p->ret, WUNTRACED) > 0)
 			 || (p->status == RUNNING_BG && waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0))
 		{
-			if (p->ret > 0 && WIFEXITED(p->ret))
+			if (WIFCONTINUED(p->ret) && p->status == RUNNING_FG)
+				ft_wait(p);
+			if (WIFSIGNALED(p->ret) || p->background == TRUE || WIFSTOPPED(p->ret))
+			{
+				if (WIFSIGNALED(p->ret))
+				{
+					p->sig = WTERMSIG(p->ret);
+					p->ret = p->ret + 128;
+				}
+				if (WIFSTOPPED(p->ret))
+					p->status = SUSPENDED;
+				else
+					p->status = KILLED;
+				ft_put_process(p);
+			}
+			else if (p->ret > 0 && WIFEXITED(p->ret))
 			{
 				p->ret =  WEXITSTATUS(p->ret);
 				p->status = DONE;
 			}
 			else  if (p->status == RUNNING_BG || p->status == RUNNING_FG)
 				p->status = DONE;
-			if (WIFSIGNALED(p->ret) || p->background == TRUE)
-				ft_put_process(p);
 			ret = ret + p->ret;	
 		}
 		p = p->grp;

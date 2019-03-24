@@ -22,6 +22,7 @@ static t_process 	*ft_new_process(t_shell *sh)
 	ret->fd[1] = sh->std[1];
 	ret->fd[2] = sh->std[2];
 	ret->pgid = 0;
+	ret->sig = 0;
 	ret->pipe[0] = -1;
 	ret->pipe[1] = -1;
 	ret->status = INIT;

@@ -19,6 +19,7 @@ void		ft_kill(t_process *p, int sig)
 	if (p && p->pid > 0 && p->status != DONE && p->status != KILLED 
 	&& 1 <= sig && sig <= 31)
 	{
+		p->sig = sig;
 		if (sig == SIGTSTP || sig == SIGSTOP)
 			p->status = SUSPENDED;
 		else if (sig == SIGCONT)

@@ -51,7 +51,7 @@ int ft_bg(t_shell *sh, char **argv)
 		if ((tmp = ft_get_process_id(sh->process, 1)))
 			ft_set_background(tmp);
 		else
-			return (error("no jobs found", NULL) - 1);
+			return (error("no current job", NULL) - 1);
 	}
 	while (argv[++i])
 	{
@@ -81,7 +81,7 @@ int ft_fg(t_shell *sh, char **argv)
 			ft_wait(tmp);
 		}
 		else
-			return (error("no jobs found", NULL) - 1);
+			return (error("no current job", NULL) - 1);
 	}
 	while (argv[++i])
 	{
@@ -93,10 +93,7 @@ int ft_fg(t_shell *sh, char **argv)
 			ft_wait(tmp);
 		}
 		else
-		{
-			error("job not found", argv[i]);
-			ret = -1;
-		}
+			ret = error("job not found", argv[i]) - 1;
 	}
 	return (ret);
 }

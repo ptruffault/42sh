@@ -2,35 +2,35 @@
 #include "../includes/get_input.h"
 
 static const t_sig_msg	g_signal_msg[] = {
-		{.sig = SIGHUP, .rtn = 129, .msg = "Hangup"},
-		{.sig = SIGINT, .rtn = 1, .msg = "Interupted"},
-		{.sig = SIGQUIT, .rtn = 131, .msg = "Quit"},
-		{.sig = SIGILL, .rtn = 132, .msg = "Illegal instruction"},
-		{.sig = SIGTRAP, .rtn = 133, .msg = "Trace/BPT trap"},
-		{.sig = SIGABRT, .rtn = 134, .msg = "Abort"},
-		{.sig = SIGTRAP, .rtn = 135, .msg = "emulate instruction executed"},
-		{.sig = SIGFPE, .rtn = 136, .msg = "Floating exception"},
-		{.sig = SIGKILL, .rtn = 137, .msg = "Killed"},
-		{.sig = SIGBUS, .rtn = 138, .msg = "Bus error"},
-		{.sig = SIGSEGV, .rtn = 139, .msg = "Segmentation fault"},
-		{.sig = SIGSYS, .rtn = 140, .msg = "Bad system call"},
-		{.sig = SIGPIPE, .rtn = 141, .msg = "Broken pipe"},
-		{.sig = SIGALRM, .rtn = 142, .msg = "Alarm clock"},
-		{.sig = SIGTERM, .rtn = 143, .msg = "Terminated"},
-		{.sig = SIGURG, .rtn = 0, .msg = ""},
-		{.sig = SIGSTOP, .rtn = 0, .msg = "Suspended"},
-		{.sig = SIGTSTP, .rtn = 0, .msg = "Suspended"},
-		{.sig = SIGCONT, .rtn = 0, .msg = "Continued"},
-		{.sig = SIGCHLD, .rtn = 0, .msg = "Done"},
-		{.sig = SIGTTIN, .rtn = 0, .msg = "background read attempted from control terminal"},
-		{.sig = SIGTTOU, .rtn = 0, .msg = "background write attempted from control terminal"},
-		{.sig = SIGIO, .rtn = 0, .msg = "I/O is possible on a descriptor"},
-		{.sig = SIGXCPU, .rtn = 152, .msg = "Cputime limit exceeded"},
-		{.sig = SIGXFSZ, .rtn = 153, .msg = "Filesize limit exceeded"},
-		{.sig = SIGVTALRM, .rtn = 142, .msg = "Alarm clock"},
-		{.sig = SIGPROF, .rtn = 155, .msg = "Profiling time alarm"},
-		{.sig = SIGUSR1, .rtn = 158, .msg = "User signal 1"},
-		{.sig = SIGUSR2, .rtn = 159, .msg = "User signal 2"},
+		{.sig = SIGHUP, .rtn = 129, .msg = "hanghup"},
+		{.sig = SIGINT, .rtn = 130, .msg = "interupted"},
+		{.sig = SIGQUIT, .rtn = 131, .msg = "quit"},
+		{.sig = SIGILL, .rtn = 132, .msg = "illegal instruction"},
+		{.sig = SIGTRAP, .rtn = 133, .msg = "trace/BPT trap"},
+		{.sig = SIGABRT, .rtn = 134, .msg = "abort"},
+		{.sig = SIGEMT, .rtn = 135, .msg = "emulate instruction executed"},
+		{.sig = SIGFPE, .rtn = 136, .msg = "floating exception"},
+		{.sig = SIGKILL, .rtn = 137, .msg = "killed"},
+		{.sig = SIGBUS, .rtn = 138, .msg = "bus error"},
+		{.sig = SIGSEGV, .rtn = 139, .msg = "segmentation fault"},
+		{.sig = SIGSYS, .rtn = 140, .msg = "bad system call"},
+		{.sig = SIGPIPE, .rtn = 141, .msg = "broken pipe"},
+		{.sig = SIGALRM, .rtn = 142, .msg = "alarm clock"},
+		{.sig = SIGTERM, .rtn = 143, .msg = "terminated"},
+		{.sig = SIGURG, .rtn = 144, .msg = "SIGURP"},
+		{.sig = SIGSTOP, .rtn = 145, .msg = "suspended"},
+		{.sig = SIGTSTP, .rtn = 146, .msg = "suspended"},
+		{.sig = SIGCONT, .rtn = 147, .msg = "continued"},
+		{.sig = SIGCHLD, .rtn = 148, .msg = "SIGCHLD"},
+		{.sig = SIGTTIN, .rtn = 149, .msg = "background read attempted from control terminal"},
+		{.sig = SIGTTOU, .rtn = 150, .msg = "background write attempted from control terminal"},
+		{.sig = SIGIO, .rtn = 151, .msg = "I/O is possible on a descriptor"},
+		{.sig = SIGXCPU, .rtn = 152, .msg = "cpu time limit exceeded"},
+		{.sig = SIGXFSZ, .rtn = 153, .msg = "file size limit exceeded"},
+		{.sig = SIGPROF, .rtn = 154, .msg = "profiling time alarm"},
+		{.sig = SIGVTALRM, .rtn = 155, .msg = "virtual time alarm"},
+		{.sig = SIGUSR1, .rtn = 158, .msg = "user signal 1"},
+		{.sig = SIGUSR2, .rtn = 159, .msg = "user signal 2"},
 		{.msg = NULL}
 };
 
@@ -48,35 +48,22 @@ void ft_process_tab_status(char *stat[6])
 
 static int	ft_signal_check(t_process *p)
 {
-	if (WIFSIGNALED(p->ret))
+	int i;
+
+	i = 0;
+	if (p->sig <= 0)
+		return (0);
+	while (g_signal_msg[i].msg != NULL)
 	{
-	 	if (WIFSTOPPED(p->ret))
-			p->status = SUSPENDED;
-		else if (WIFCONTINUED(p->ret))
-			p->status = RUNNING_FG;
-		else
-			p->status = KILLED;
-		if (g_signal_msg[WTERMSIG(p->ret) - 1].msg)
-			ft_printf("%s",  g_signal_msg[WTERMSIG(p->ret) - 1].msg);
-		return (1);
+		if (g_signal_msg[i].sig == p->sig)
+		{
+			ft_printf("%s",  g_signal_msg[i].msg);
+			return (1);
+		}
+		i++;
 	}
 	return (0);
 }
-
-void update_grp_status(t_process *p, unsigned int to)
-{
-	char *stats[6];
-
-	ft_process_tab_status(stats);
-	while (p)
-	{
-		ft_printf("\t{%i} | %s -> %s |%s\n", 
-			p->pid, stats[p->status], stats[to], p->cmd);
-		p->status = to;
-		p = p->grp;
-	}
-}
-
 
 static void 	ft_putpid_ret(t_process *p)
 {
@@ -87,17 +74,15 @@ static void 	ft_putpid_ret(t_process *p)
 	else if ((sh = ft_get_set_shell(NULL)))
 		ft_printf("{\x1B[01;36m%i\x1B[00m} ", sh->pid);
 
-	if (WIFSIGNALED(p->ret))
-		ft_printf("\x1B[00;31m%- 4i  \x1B[00m", g_signal_msg[WTERMSIG(p->ret) - 1].rtn);
-	else if (p->status == DONE || p->status == SUSPENDED || p->status == KILLED)
+	if (p->status == DONE || p->status == SUSPENDED || p->status == KILLED)
 	{
 		if (p->ret == 0)
-			ft_printf("\x1b[1;32;42m%- 4i  \x1B[00m", p->ret);
+			ft_printf("\x1b[1;32;42m  0  \x1B[00m ", p->ret);
 		else
-			ft_printf("\x1b[1;34;41m%- 4i  \x1B[00m", p->ret);
+			ft_printf("\x1b[1;34;41m%-4i \x1B[00m ", p->ret);
 	}
 	else
-		ft_printf("       ");
+		ft_printf("      ");
 }
 
 
@@ -110,9 +95,9 @@ void	ft_put_process(t_process *p)
 	ft_printf("%-25s", stat[p->status]);
 
 	if (p->builtins == TRUE)
-		ft_printf(" \x1B[1;36m%-17s\x1b[1;34;41m", p->cmd);
+		ft_printf(" \x1B[1;36m%-17s\x1B[00;31m", p->cmd);
 	else
-		ft_printf(" %-17s", p->cmd);
+		ft_printf(" %-17s\x1B[00;31m", p->cmd);
 	ft_signal_check(p);
 	ft_putstr("\x1B[00m\n");
 }

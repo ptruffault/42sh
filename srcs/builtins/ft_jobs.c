@@ -24,7 +24,7 @@ static void ft_job_prompt(t_process *tmp, int id)
 		if (grp->cmd)
 		{
 			ft_printf("  \x1B[1;35m|\x1B[00m ");
-			ft_put_process(tmp);
+			ft_put_process(grp);
 		}
 		grp = grp->grp;
 	}
@@ -36,7 +36,7 @@ int		ft_hi(t_shell *sh)
 	int			id;
 
 	id = 0;
-	ft_printf("\x1B[04m ID PID     RETURN STATUS      PATH         \x1B[00m\n");
+	ft_printf("\x1B[04m ID  PID    RETURN   STATUS    PATH         \x1B[00m\n");
 	tmp = sh->process;
 	while (tmp)
 	{

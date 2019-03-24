@@ -24,18 +24,17 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t, int frk)
 	if (p->builtins == TRUE)
 	{
 		p->ret = run_builtin(t, p->argv, sh);
-		if (frk)
-			p->pid = 0;
-		else
+		if (!frk)
 			ft_exit_son(sh, p->ret);
 		return (1);
 	}
 	return (0);
 }
 
+
 void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 {
-	if (!t->r || ft_redirect_builtin(t, p, sh))
+	if (p && (!t->r || ft_redirect_builtin(t, p, sh)))
 	{
 		if (p->cmd && !ft_isempty(p->cmd))
 		{
@@ -51,4 +50,7 @@ void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 		else
 			error("command not found", *p->argv);
 	}
+	else
+		error("abort", NULL);
+	ft_get_envv_back(sh, p, t);
 }

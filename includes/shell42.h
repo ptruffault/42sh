@@ -27,6 +27,10 @@
 # include "structures.h"
 # include <pwd.h>
 
+void 		ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t);
+void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t);
+
+
 int			ft_quit(int exit_code, t_shell *sh);
 void 		update_grp_status(t_process *p, unsigned int to);
 void		ft_kill(t_process *p, int sig);
@@ -57,7 +61,6 @@ void		ft_free_tshell(t_shell *sh);
 void		ft_disp(t_shell *sh);
 int			get_input(char	**line);
 char		**ft_twordto_arr(t_word *w);
-void		ft_put_tword(t_word *w);
 t_word		*ft_expention(t_word *w);
 char		*ft_exp_var(char *ret, t_shell *sh);
 int			get_content_size(char *s);
@@ -77,7 +80,6 @@ int			get_destination_fd(t_redirect *r);
 void		ft_reset_fd(t_shell *sh);
 int			fd_dup(int fd1, int fd2, t_process *p, int close);
 t_shell		*ft_get_set_shell(t_shell *sh);
-void		reset_term(void);
 int			init_shell(t_shell *sh, char **envv, char **argv);
 void		set_signals(void);
 void		set_signals_ni(void);
@@ -99,7 +101,7 @@ char		*get_bin_path(char *input, t_envv *envv);
 int			ft_check_ascii(char *input);
 int			ft_isparenth(char c);
 int			ft_setup_edit_term(t_shell *sh);
-int		ft_set_old_term(t_shell *sh, int error);
+int			ft_set_old_term(t_shell *sh, int error);
 void		ft_update_windows(t_edit *e);
 int			init_termcaps(t_shell *sh);
 int			check_builtin(char *input);
@@ -136,6 +138,7 @@ t_word		*ft_get_words(t_eval *e);
 void		lexer(t_eval *e, char *src);
 t_word		*eval_line(char *input);
 t_word		*new_tword(void);
+t_word 		*ft_arrto_tword(char **arr, t_shell *sh);
 char		*heredoc_get_input(char *eoi, t_shell *sh);
 t_word		*o_get_input(int type);
 char		*q_get_input(char c);
@@ -143,6 +146,7 @@ char		*p_get_input(char c);
 char		*backslash_get_input(void);
 t_process	*init_process(t_tree *t, t_shell *sh);
 t_process	*init_pipe_process(t_tree *t, t_shell *sh);
+t_process 	*init_process_tmp_var(t_shell *sh, t_envv *head, char **arr);
 void		ft_delete_process(int pid);
 char 		*ft_split_equal(char *str, char **aft);
 #endif

@@ -13,6 +13,16 @@
 #include <libft.h>
 #include <stdlib.h>
 
+char	*ft_stradd(char **str, const char *end)
+{
+	char	*rtn;
+
+	rtn = ft_strjoin(*str, end);
+	ft_strdel(str);
+	*str = rtn;
+	return (rtn);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char				*ret;

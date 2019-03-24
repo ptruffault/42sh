@@ -42,8 +42,6 @@ int			check_builtin(char *input)
 	ft_init_builtins_tab(builtins);
 	if (input == NULL)
 		return (0);
-	if (ft_isequal(input))
-		return (1);
 	while (i < 16 && builtins[i])
 		if (ft_strequ(builtins[i++], input))
 			return (1);

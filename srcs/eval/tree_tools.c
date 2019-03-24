@@ -34,6 +34,7 @@ t_tree		*new_tree(void)
 	n->o_type = 0;
 	n->ret = 0;
 	n->next = NULL;
+	n->assign = NULL;
 	return (n);
 }
 

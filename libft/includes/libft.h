@@ -71,6 +71,7 @@ struct	s_file
 	t_file		*next;
 };
 
+char	*ft_stradd(char **str, const char *end);
 int		ft_open(char *path, int flag, mode_t mode);
 int		ft_printf(char *format, ...);
 char	*ft_strchr_end(const char *src, char c);

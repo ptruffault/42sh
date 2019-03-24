@@ -64,3 +64,4 @@ t_word			*ft_addtword(t_word *head, t_word *ret)
 	tmp->next = ft_cpytword(ret);
 	return (head);
 }
+

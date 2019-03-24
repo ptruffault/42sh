@@ -30,14 +30,13 @@ static void ft_job_prompt(t_process *tmp, int id)
 	}
 }
 
-
 int		ft_hi(t_shell *sh)
 {
 	t_process	*tmp;
 	int			id;
 
 	id = 0;
-	ft_printf("\x1B[04m ID PID     RETURN STATUS      PATH         \n\x1B[00m");
+	ft_printf("\x1B[04m ID PID     RETURN STATUS      PATH         \x1B[00m\n");
 	tmp = sh->process;
 	while (tmp)
 	{

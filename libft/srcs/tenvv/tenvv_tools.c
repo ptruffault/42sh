@@ -35,22 +35,26 @@ t_envv	*get_tenvv(t_envv *envv, char *name)
 	return (NULL);
 }
 
-char	*get_tenvv_val(t_envv *envv, char *name)
+char	*get_tenvv_val(const t_envv *envv, char *name)
 {
 	t_envv *tmp;
 
-	if ((tmp = get_tenvv(envv, name)))
+	if ((tmp = get_tenvv((t_envv *)envv, name)))
 		return (tmp->value);
 	return (NULL);
 }
 
-void	ft_puttenvv(t_envv *t)
+int	ft_puttenvv(const t_envv *t)
 {
+	int i = -1;
+
 	while (t && t->name)
 	{
+		i = 0;
 		ft_printf("\033[1;32m\033[04m%s\033[00m = %s\n", t->name, t->value);
 		t = t->next;
 	}
+	return (i);
 }
 
 t_envv	*ft_changetenvv_val(t_envv *envv, char *name, char *new_val)

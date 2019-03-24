@@ -127,6 +127,7 @@ typedef struct	s_tree
 {
 	t_word			*cmd;
 	t_redirect		*r;
+	t_envv			*assign;
 	int				ret;
 	enum e_otype	o_type;
 	struct s_tree	*next;
@@ -134,6 +135,7 @@ typedef struct	s_tree
 
 typedef struct	s_process
 {
+	t_envv				*saved_env;
 	char				**env;
 	int					fd[3];
 	t_bool				builtins;

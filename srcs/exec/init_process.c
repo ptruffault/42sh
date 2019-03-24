@@ -12,8 +12,12 @@
 
 #include <shell42.h>
 
-static void			ft_init_fd(t_process *ret, t_shell *sh)
+static t_process 	*ft_new_process(t_shell *sh)
 {
+	t_process *ret;
+
+	if (!(ret = (t_process *)malloc(sizeof(t_process))))
+		return (NULL);
 	ret->fd[0] = sh->std[0];
 	ret->fd[1] = sh->std[1];
 	ret->fd[2] = sh->std[2];
@@ -25,9 +29,13 @@ static void			ft_init_fd(t_process *ret, t_shell *sh)
 	ret->argv = NULL;
 	ret->grp = NULL;
 	ret->next = NULL;
+	ret->cmd = NULL;
+	ret->argv = NULL;
 	ret->pid = -1;
+	ret->saved_env = NULL;
 	ret->env = NULL;
 	ret->builtins = FALSE;
+	return (ret);
 }
 
 static t_process	*ft_abort(t_process *p, char *err, t_process *tmp)
@@ -48,38 +56,59 @@ static t_process	*ft_abort(t_process *p, char *err, t_process *tmp)
 	return (ft_free_tprocess(head));
 }
 
+void			ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t)
+{
+	if (t->assign)
+	{
+		sh->env = ft_pull_tenvv(sh->env, t->assign);
+		sh->env = ft_push_tenvv(sh->env, p->saved_env);
+		p->saved_env = ft_free_tenvv(p->saved_env);
+	}	
+}
+
+void ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t)
+{
+	if (t->assign)
+	{
+		if (sh->env && !(p->saved_env = ft_tenvv_cpy(sh->env)))
+			error("can't save environnement", NULL);
+		sh->env = ft_push_tenvv(sh->env, t->assign);
+	}
+}
+
 t_process			*init_process(t_tree *t, t_shell *sh)
 {
 	t_process	*ret;
 
-	ret = NULL;
-	if ((ret = (t_process *)malloc(sizeof(t_process))))
+	if ((ret = ft_new_process(sh)))
 	{
-		ft_init_fd(ret, sh);
+		ft_setup_localenv(ret, sh, t);
 		ret->background = (t->o_type == O_BACK ? TRUE : FALSE);
 		ret->status = (ret->background == TRUE ? RUNNING_BG : RUNNING_FG);
 		if (!(ret->argv = ft_twordto_arr(t->cmd)))
 		{
-			free(ret);
-			return (ret = NULL);
+			ft_get_envv_back(sh, ret, t);
+			return (ft_free_tprocess(ret));
 		}
 		if (check_builtin(*ret->argv))
 		{
 			ret->builtins = TRUE;
+			ret->pid = 0;
 			if (!(ret->cmd = ft_strdup(*ret->argv)))
-				return (ft_free_tprocess(ret));
-		}
-		else
-		{
-			ret->env = tenvv_to_tab(sh->env);
-			if ((ret->cmd = get_bin_path(*ret->argv, sh->env)))
 			{
-				sh->env = ft_new_envv(sh->env, "_", ret->cmd);
-				
+				ft_get_envv_back(sh, ret, t);
+				return (ft_free_tprocess(ret));
 			}
+			
 		}
+		else if ((ret->cmd = get_bin_path(*ret->argv, sh->env)))
+		{
+			sh->env = ft_new_envv(sh->env, "_", ret->cmd);
+			ret->env = tenvv_to_tab(sh->env);
+		}
+		return (ret);
 	}
-	return (ret);
+	return (NULL);
 }
 
 t_process *init_pipe_process(t_tree *t, t_shell *sh)

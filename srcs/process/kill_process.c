@@ -1,36 +1,10 @@
 
 #include <shell42.h>
 
-
-static t_process	*ft_get_process(t_process *p, unsigned int status)
-{
-	//t_process *tmp;
-
-	while (p)
-	{
-		if (p->status == status && p->pid > 0 && p->builtins == FALSE)
-			return (p);
-		/*if (p->grp)
-		{
-			tmp = p->grp;
-			while (tmp)
-			{
-				if (tmp->status == status && p->pid > 0)
-					return (tmp);
-				tmp = tmp->grp;
-			}
-		}*/
-		p = p->next;
-	}
-	return (NULL);
-}
-
-
-//kill tout les process de p->status == status } avec sig , le status des process es changer 
-// sig == -1 -> put in bg avec iotcl
-
 void ft_process_background(t_process *p)
 {
+	if (p->status == SUSPENDED)
+		ft_kill(p, SIGCONT);
 	if ((ioctl(0, TIOCSPGRP, &p->pid)) != 0)
 	{
 		error("can't set this process in background", p->cmd);
@@ -42,9 +16,8 @@ void ft_process_background(t_process *p)
 
 void		ft_kill(t_process *p, int sig)
 {
-	if (sig == -1)
-		ft_process_background(p);
-	else
+	if (p && p->pid > 0 && p->status != DONE && p->status != KILLED 
+	&& 1 <= sig && sig <= 31)
 	{
 		if (sig == SIGTSTP || sig == SIGSTOP)
 			p->status = SUSPENDED;
@@ -54,11 +27,15 @@ void		ft_kill(t_process *p, int sig)
 			p->status = KILLED;
 		ft_printf("kill(%i, %i); status = %i\n",p->pid, sig, p->status);
 		if (p->builtins == FALSE && p->pid > 0)
+		{
+			if (sig == -1)
+				ft_process_background(p);
 			kill(p->pid, sig);
+		}
 	}
 }
 
-void 		ft_killgrp(t_process *p, int sig)
+void	ft_killgrp(t_process *p, int sig)
 {
 	while (p)
 	{
@@ -70,14 +47,17 @@ void 		ft_killgrp(t_process *p, int sig)
 
 int			kill_process(t_process *p, int sig, unsigned int status)
 {
-	t_process *tmp;
 	int i;
 
 	i = 0;
-	while (p && (tmp = ft_get_process(p, status)))
+	while (p)
 	{
-		i++;
-		ft_killgrp(p, sig);
+		if (p->status == status)
+		{
+			ft_killgrp(p, sig);
+			i++;
+		}
+		p = p->next;
 	}
 	return (i);
 }

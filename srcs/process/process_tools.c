@@ -78,7 +78,7 @@ void update_grp_status(t_process *p, unsigned int to)
 }
 
 
-void 	ft_putpid_ret(t_process *p)
+static void 	ft_putpid_ret(t_process *p)
 {
 	t_shell *sh;
 
@@ -112,7 +112,7 @@ void	ft_put_process(t_process *p)
 	if (p->builtins == TRUE)
 		ft_printf(" \x1B[1;36m%-17s\x1b[1;34;41m", p->cmd);
 	else
-		ft_printf(" \x1B[00;34m%-17s\x1b[1;34;41m", p->cmd);
+		ft_printf(" %-17s", p->cmd);
 	ft_signal_check(p);
 	ft_putstr("\x1B[00m\n");
 }

@@ -21,7 +21,7 @@ static t_process	*ft_get_process_id(t_process *p, int id)
 	{
 		if ((p->status == RUNNING_BG || p->status == SUSPENDED)
 			&& p->builtins == FALSE && i++ == id)
-			return (p);
+				return (p);
 		p = p->next;
 	}
 	return (NULL);
@@ -32,8 +32,8 @@ static t_process 	*ft_get_process_name(t_process *p, char *name)
 	while (p)
 	{
 		if ((p->status == RUNNING_BG || p->status == SUSPENDED) 
-			&& (ft_strequ(p->cmd, name) || ft_strequ(*p->argv, name))
-			&& p->pid > 0)
+			&& p->builtins == FALSE && (ft_strequ(p->cmd, name) 
+			|| ft_strequ(*p->argv, name)))
 			return (p);
 		p = p->next;
 	}
@@ -46,8 +46,13 @@ int ft_bg(t_shell *sh, char **argv)
 	int i;
 
 	i = 0;
-	if ((!argv[1] && (tmp = ft_get_process_id(sh->process, 1))))
-		ft_set_background(tmp);
+	if (!argv[1])
+	{
+		if ((tmp = ft_get_process_id(sh->process, 1)))
+			ft_set_background(tmp);
+		else
+			return (error("no jobs found", NULL) - 1);
+	}
 	while (argv[++i])
 	{
 		if ((argv[1] && *argv[i] == '%' && ft_isdigit(argv[i][1])
@@ -55,10 +60,7 @@ int ft_bg(t_shell *sh, char **argv)
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 			ft_set_background(tmp);
 		else
-		{
-			error("job not found", argv[1]);
-			return (-1);
-		}
+			return (error("job not found", argv[1]) - 1);
 	}
 	return (0);
 }
@@ -71,13 +73,15 @@ int ft_fg(t_shell *sh, char **argv)
 
 	i = 0;
 	ret = 0;
-	if ((!argv[1] && (tmp = ft_get_process_id(sh->process, 1))))
+	if (!argv[1])
 	{
-		if (tmp->status == SUSPENDED)
+		if ((tmp = ft_get_process_id(sh->process, 1)))
+		{
 			ft_killgrp(tmp, SIGCONT);
+			ft_wait(tmp);
+		}
 		else
-			update_grp_status(tmp, RUNNING_FG);
-		return (ft_wait(tmp));
+			return (error("no jobs found", NULL) - 1);
 	}
 	while (argv[++i])
 	{
@@ -86,7 +90,7 @@ int ft_fg(t_shell *sh, char **argv)
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 		{
 			ft_killgrp(tmp, SIGCONT);
-			ret = ret + ft_wait(tmp);
+			ft_wait(tmp);
 		}
 		else
 		{

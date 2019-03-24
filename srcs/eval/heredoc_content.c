@@ -12,16 +12,6 @@
 
 #include <shell42.h>
 
-static char	*ft_strappend(char **str, const char *end)
-{
-	char	*rtn;
-
-	rtn = ft_strjoin(*str, end);
-	ft_strdel(str);
-	*str = rtn;
-	return (rtn);
-}
-
 static char	*ft_heredoc_clear(char *in, char *ret)
 {
 	ft_strdel(&in);
@@ -43,8 +33,8 @@ char		*heredoc_get_input(char *eoi, t_shell *sh)
 	{
 		while (!ft_strequ(in, eoi) && sh->heredoc == 1)
 		{
-			if (!(in = ft_strappend(&in, "\n"))
-				|| !(ret = ft_strappend(&ret, in)))
+			if (!(in = ft_stradd(&in, "\n"))
+				|| !(ret = ft_stradd(&ret, in)))
 				break ;
 			ft_putstr("\033[00;34mheredoc>\n\033[00m");
 			if ((d = get_input(&in)) == 4)

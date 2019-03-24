@@ -48,8 +48,8 @@ void		sig_handler(int sig)
 	{
 		if (sig == SIGINT)
 		{
-			if (sh->interactive == TRUE && !kill_process(sh->process, SIGINT, RUNNING_FG))
-				ft_disp(sh);
+			if (sh->interactive == TRUE)
+				kill_process(sh->process, SIGINT, RUNNING_FG);
 			else if (sh->interactive == FALSE)
 				ft_exit("2", sh);
 		}

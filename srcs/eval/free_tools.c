@@ -50,8 +50,8 @@ t_tree		*ft_free_tree(t_tree *t)
 	while (t)
 	{
 		ft_free_tword(t->cmd);
-		if (t->r)
-			ft_free_redirection(t->r);
+		ft_free_redirection(t->r);
+		ft_free_tenvv(t->assign);
 		tmp = t->next;
 		free(t);
 		t = tmp;
@@ -83,6 +83,7 @@ t_process	*ft_free_tprocess(t_process *p)
 		ft_strdel(&p->cmd);
 		ft_freestrarr(&p->argv);
 		ft_freestrarr(&p->env);
+		ft_free_tenvv(p->saved_env);
 		if (p->grp)
 			p->grp = ft_free_tprocess(p->grp);
 		free(p);

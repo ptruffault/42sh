@@ -23,7 +23,7 @@ t_envv	*ft_tenvv_cpy(t_envv *src)
 	while (src)
 	{
 		if (!(tmp->name = ft_strdup(src->name))
-		|| !(tmp->value = ft_strdup(src->value)))
+		|| (src->value && !(tmp->value = ft_strdup(src->value))))
 			return (ft_free_tenvv(ret));
 		src = src->next;
 		if (src)
@@ -59,3 +59,43 @@ t_envv	*ft_free_tenvv(t_envv *envv)
 	}
 	return (NULL);
 }
+
+t_envv	*ft_push_tenvv(t_envv *dest, const t_envv *src)
+{
+	while (src)
+	{
+		dest = ft_new_envv(dest, src->name, src->value);
+		src = src->next;
+	}
+	return (dest);
+}
+
+t_envv *ft_pull_tenvv(t_envv *dest, const t_envv *src)
+ {
+ 	t_envv *tmp;
+ 	t_envv *prev;
+ 	t_envv	*save;
+
+ 	while (src && src->name)
+ 	{
+ 		tmp = dest;
+ 		prev = NULL;
+ 		while (tmp)
+ 		{
+ 			if (ft_strequ(tmp->name, src->name))
+ 			{
+ 				save = tmp->next;
+ 				del_tenvv(tmp);
+ 				if (prev)
+ 					prev->next = save;
+ 				else
+ 					dest = save;
+ 				break ;
+ 			}
+ 			prev = tmp;
+ 			tmp = tmp->next;
+ 		}
+ 		src = src->next;
+ 	}
+ 	return (dest);
+ }

@@ -12,8 +12,6 @@
 
 #include <shell42.h>
 
-// $? et $! bugs
-
 void	ft_disp(t_shell *sh)
 {
 	char *pwd;

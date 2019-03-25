@@ -27,13 +27,6 @@ static t_word	*get_argv(t_tree *t, t_word *w)
 	return (w);
 }
 
-static t_tree	*ft_syntax(t_tree *t)
-{
-	error("syntax error", NULL);
-	ft_free_tree(t);
-	return (NULL);
-}
-
 static t_tree	*built_tree(t_tree *head, t_word *w)
 {
 	t_word	*tmp;
@@ -45,18 +38,15 @@ static t_tree	*built_tree(t_tree *head, t_word *w)
 	{
 		if (tmp && IS_CMD(tmp->type))
 			tmp = get_argv(tree, tmp);
-		else if (tmp && tmp->type == REDIRECT)
+		if (tmp && ((tmp->type == REDIRECT
+			&& !(tmp = get_redirections(tree, tmp)))
+			|| (tmp->type == OPERATEUR && !(tree = add_newttree(tree, tmp)))))
 		{
-			if (!(tmp = get_redirections(tree, tmp)))
-				return (ft_syntax(head));
-			tmp = tmp->next;
+			error("syntax error", NULL);
+			return (ft_free_tree(head));
 		}
-		else if (tmp && tmp->type == OPERATEUR)
-		{
-			if (!(tree = add_newttree(tree, tmp)))
-				return (ft_syntax(head));
+		if (tmp)
 			tmp = tmp->next;
-		}
 	}
 	return (head);
 }
@@ -83,6 +73,17 @@ int				ft_check_grammar(t_word *w)
 	return (1);
 }
 
+int				ft_check_redirect(t_tree *t)
+{
+	while (t)
+	{
+		if (t->r && !t->cmd)
+			return (error("useless redirect", NULL));
+		t = t->next;
+	}
+	return (1);
+}
+
 t_tree			*get_tree(char *input)
 {
 	t_tree	*head;
@@ -94,7 +95,14 @@ t_tree			*get_tree(char *input)
 	if (!(head = new_tree()))
 		return (NULL);
 	if (ft_check_grammar(w) && (head = built_tree(head, w)))
+	{
+		if (!ft_check_redirect(head))
+		{
+			ft_free_tword(w);
+			return (ft_free_tree(head));
+		}
 		ft_get_set_tree(head);
+	}
 	w = ft_free_tword(w);
 	return (head);
 }

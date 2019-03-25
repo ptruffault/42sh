@@ -44,7 +44,7 @@ int			ft_update_hist(t_shell *sh)
 			return (FAILURE);
 		ft_print_edited(&sh->e);
 	}
-	else
+	else if (sh->e.hist)
 	{
 		while (sh->e.hist->prev)
 			sh->e.hist = sh->e.hist->prev;
@@ -81,6 +81,6 @@ int			get_input(char **line)
 			ft_print_line(&sh->e);
 		buf = 0;
 	}
-	*line = ft_strdup(sh->e.hist->s);
+	
 	return (ft_update_hist(sh));
 }

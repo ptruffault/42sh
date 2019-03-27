@@ -6,11 +6,11 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:20:35 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <shell42.h>
+#include "shell42.h"
 
 static t_redirect	*parse_right_redirect(t_redirect *ret, t_word *w)
 {

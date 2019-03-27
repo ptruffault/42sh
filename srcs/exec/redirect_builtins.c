@@ -6,11 +6,11 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 14:17:51 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <shell42.h>
+#include "shell42.h"
 
 int			ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh)
 {

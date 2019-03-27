@@ -6,18 +6,22 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 16:16:37 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/02/07 16:16:39 by ptruffau         ###   ########.fr       */
+/*   Updated: 2019/03/26 16:47:28 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
+# include <stdbool.h>
+# include "tenvv.h"
+
 # define IS_STD(x) (0 <= x && x <= 2)
 # define IS_CMD(x) (1 <= x && x <= 5)
 # define IS_EXP(x) (1 <= x && x <= 4)
 # define IS_RUNNING(x) (x == RUNNING_FG || x == RUNNING_BG)
 # define NUMBER_OF_KEYS 23
 # define NUMBER_OF_PRINT_MODES 2
+
 enum	e_rtype{
 	UNDEF = 0,
 	R_LEFT = 1,
@@ -34,6 +38,7 @@ enum	e_otype{
 	O_PIPE = 4,
 	O_BACK = 5
 };
+
 enum	e_wtype{
 	undef = 0,
 	CMD = 1,
@@ -169,4 +174,5 @@ typedef struct	s_shell
 	struct termios	term;
 	struct termios	saved_term;
 }				t_shell;
+
 #endif

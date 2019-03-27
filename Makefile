@@ -6,103 +6,144 @@
 #    By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 11:16:13 by ptruffau          #+#    #+#              #
-#    Updated: 2019/02/05 12:51:01 by adi-rosa         ###   ########.fr        #
+#    Updated: 2019/03/26 17:18:28 by stdenis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=		42sh
-GIT 		=		https://github.com/ptruffault/$(NAME).git
-FLAG		=		-Wall -Werror -Wextra -g -pedantic
-INCLUDES	=		includes/shell42.h includes/get_input.h includes/structures.h
-OBJ_FOLDER 	= 		./bin/
+GIT 		=		https://github.com/ptruffault/42sh.git
 
-FILES		=		main.c \
-					signal.c \
-					init_shell.c \
-					ft_get_set.c \
-					ft_free_tshell.c \
-					init_envv.c
+SRC		=	\
+	main.c				\
+	signal.c			\
+	init_shell.c		\
+	ft_get_set.c 		\
+	ft_free_tshell.c	\
+	init_envv.c			\
+	\
+	exec/ft_execve.c			\
+	exec/exec.c					\
+	exec/exec_pipe.c			\
+	exec/exec_file.c			\
+	exec/redirection.c			\
+	exec/redirect_builtins.c	\
+	exec/bin_search.c			\
+	exec/init_process.c			\
+	\
+	eval/eval_tools.c		\
+	eval/tree_tools.c		\
+	eval/lexer_tools.c		\
+	eval/lexer.c			\
+	eval/free_tools.c		\
+	eval/get_instruction.c	\
+	eval/heredoc_content.c	\
+	eval/token.c			\
+	eval/redirect.c			\
+	eval/alias.c			\
+	eval/t_word_tools.c		\
+	\
+	builtins/ft_echo.c			\
+	builtins/fg_bg.c			\
+	builtins/ft_cd.c			\
+	builtins/run_builtin.c		\
+	builtins/ft_env.c			\
+	builtins/ft_export.c		\
+	builtins/ft_type.c			\
+	builtins/ft_exit.c			\
+	builtins/type_tools.c		\
+	builtins/ft_alias.c			\
+	builtins/ft_jobs.c			\
+	builtins/check_builtins.c	\
+	\
+	get_input/curs_move.c		\
+	get_input/get_input.c		\
+	get_input/handle_input.c	\
+	get_input/history.c			\
+	get_input/input_tools.c		\
+	get_input/print_line.c		\
+	get_input/setup.c			\
+	get_input/get_history.c		\
+	get_input/ft_cop_pas.c		\
+	get_input/ft_jump_word.c	\
+	get_input/arrow_move.c		\
+	get_input/ft_select.c		\
+	get_input/clear_and_all.c	\
+	get_input/use_termcaps.c	\
+	get_input/term_settings.c	\
+	get_input/ft_jump_line.c	\
+	\
+	expansion/exp_var.c			\
+	expansion/exp.c				\
+	expansion/expantion_tools.c	\
+	expansion/exp_parenth.c		\
+	expansion/exp_sub_parenth.c	\
+	expansion/cut_string.c		\
+	expansion/parenth_tools.c	\
+	\
+	process/kill_process.c		\
+	process/ft_wait.c			\
+	process/process_tools.c		\
+	\
+	tenvv/ft_get_set_envv.c		\
+	tenvv/tenvv_tools.c			\
+	tenvv/tenvv_tools_2.c		\
+	tenvv/tenvv_to_tab.c		\
+	tenvv/ft_setenv.c			\
+	tenvv/ft_unsetenv.c
 
-EXEC 		=		ft_execve.c \
-					exec.c \
-					exec_pipe.c\
-					exec_file.c \
-					redirection.c \
-					redirect_builtins.c \
-					bin_search.c \
-					init_process.c
+#### COMPILER ####
+CC		?=	cc
 
-EVAL		=		eval_tools.c \
-					tree_tools.c \
-					lexer_tools.c \
-					lexer.c \
-					free_tools.c \
-					get_instruction.c \
-					heredoc_content.c\
-					token.c \
-					redirect.c \
-					alias.c \
-					t_word_tools.c \
+SRCDIR	:=	srcs
+INCDIR	:=	includes
+LIBDIR	:=	lib
+TESTDIR	:=	test
 
-BUILTINS	=		ft_echo.c \
-					fg_bg.c \
-					ft_cd.c \
-					run_builtin.c \
-					ft_env.c \
-					ft_export.c \
-					ft_type.c \
-					ft_exit.c \
-					type_tools.c \
-					ft_alias.c \
-					ft_jobs.c \
-					check_builtins.c
+BUILDDIR	:=	bin
+OBJDIR		:=	$(BUILDDIR)/obj
+DBGDIR		:=	$(BUILDDIR)/debug
+DEPDIR		:=	$(BUILDDIR)/dep
 
-GET_INPUT	=		curs_move.c	\
-					get_input.c	\
-					handle_input.c	\
-					history.c	\
-					input_tools.c	\
-					print_line.c	\
-					setup.c	\
-					get_history.c	\
-					ft_cop_pas.c	\
-					ft_jump_word.c	\
-					arrow_move.c	\
-					ft_select.c	\
-					clear_and_all.c	\
-					use_termcaps.c	\
-					term_settings.c \
-					ft_jump_line.c	\
-
-EXPANSION	=		exp_var.c \
-					exp.c \
-					expantion_tools.c \
-					exp_parenth.c \
-					exp_sub_parenth.c \
-					cut_string.c\
-					parenth_tools.c
-
-PROCESS		=		kill_process.c \
-					ft_wait.c \
-					process_tools.c \
+#### LIBRARY ####
+# Printf
+LIBFT_PRTF		:=	libftprintf.a
+LIBFT_PRTF_PATH :=  $(LIBDIR)/ft_printf
+LIB_LINK		:= -L $(LIBFT_PRTF_PATH) -l ftprintf
+LIB_INC			:= -I $(LIBFT_PRTF_PATH)/inc
 
 
+# Libft
+LIBFT		:=	libft.a
+LIBFT_PATH	:= $(LIBDIR)/libft
+LIB_LINK	+= -L $(LIBFT_PATH) -l ft
+LIB_INC		+= -I $(LIBFT_PATH)/includes
 
-SRC			= 		$(addprefix "./srcs/", $(FILES)) \
-					$(addprefix "./srcs/eval/", $(EVAL)) \
-					$(addprefix ./srcs/builtins/, $(BUILTINS))  	\
-					$(addprefix "./srcs/exec/", $(EXEC)) \
-					$(addprefix "./srcs/expansion/", $(EXPANSION))	\
-					$(addprefix "./srcs/get_input/", $(GET_INPUT)) \
-					$(addprefix "./srcs/process/", $(PROCESS))	
+INCFLAG		:=	-I $(INCDIR) $(LIB_INC)
+STDFLAG		?=	-std=gnu11
+WFLAGS		?=	-Wall -Wextra -Werror -pedantic
+CFLAGS		=	$(WFLAGS) $(INCFLAG) $(STDFLAG)
 
-OBJ			= 		$(addprefix $(OBJ_FOLDER), $(FILES:.c=.o)) 		\
-					$(addprefix $(OBJ_FOLDER), $(EVAL:.c=.o)) 		\
-					$(addprefix $(OBJ_FOLDER), $(BUILTINS:.c=.o)) 	\
-					$(addprefix $(OBJ_FOLDER), $(EXEC:.c=.o)) 		\
-					$(addprefix $(OBJ_FOLDER), $(GET_INPUT:.c=.o))	\
-					$(addprefix $(OBJ_FOLDER), $(EXPANSION:.c=.o))	\
-					$(addprefix $(OBJ_FOLDER), $(PROCESS:.c=.o))
+DEPGEN		:=	$(CC)
+DEPFLAG		:=	-MM $(INCFLAG)
+
+LD			:=	$(CC)
+LDFLAG		=	$(LIB_LINK) -ltermcap
+LDFLAG		+=	-Wno-unused-command-line-argument $(WFLAGS)
+
+#############################
+#    MAKEFILE VARIABLES     #
+#############################
+#### FILE STRUCTURE ####
+# *LOCA is the list of all subdirectory in a directory
+SRCLOCA	:=	$(shell find $(SRCDIR) -type d)
+OBJLOCA	:=	$(subst $(SRCDIR), $(OBJDIR), $(SRCLOCA))
+DBGLOCA	:=	$(subst $(SRCDIR), $(DBGDIR), $(SRCLOCA))
+DEPLOCA	:=	$(subst $(SRCDIR), $(DEPDIR), $(SRCLOCA))
+
+OBJ		:=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
+DBG		:=	$(addprefix $(DBGDIR)/, $(SRC:.c=.o))
+DEP		:=	$(addprefix $(DEPDIR)/, $(SRC:.c=.d))
+SRC		:=	$(addprefix $(SRCDIR)/, $(SRC))
 
 COLOR		= 		\033[01;34m
 NO_COLOR	= 		\033[00m
@@ -110,58 +151,75 @@ OP_COLOR	= 		\033[1;31m
 DONE 		= 		$(NO_COLOR)[\033[1;32mOK$(NO_COLOR)]
 KO			= 		$(NO_COLOR)[\033[00;31mKO$(NO_COLOR)]
 
+
+#############################
+#           RULES           #
+#############################
+#### COMPILE ####
 all: $(NAME)
 
-bin:
-	@mkdir $@
-
-$(NAME): bin $(OBJ) $(INCLUDES) Makefile
-	@make -C libft all
+$(NAME):	$(OBJ)| $(LIBFT_PATH)/$(LIBFT) $(LIBFT_PRTF_PATH)/$(LIBFT_PRTF)
 	@echo "$(OP_COLOR) building $(NAME)$(NO_COLOR)"
-	@gcc  $(FLAG) $(OBJ) -I includes -Llibft -lft -ltermcap -o $(NAME)
+	@$(LD) -o $(NAME) $(OBJ) $(LDFLAG)
 	@printf "$(DONE)$(OP_COLOR)$(NAME)$(NO_COLOR)  \n"
 
 
-bin/%.o: srcs/%.c
-	@printf "$(COLOR)$<$(NO_COLOR) -> "
+$(OBJDIR)/%.o:	$(SRCDIR)/%.c | $(OBJDIR) $(DEPDIR)
 	@touch $<
-	@gcc $(FLAG) -I includes -c $< -o $@ && printf "$(DONE)\n" || printf "$(KO)\n"
+	@$(CC) -c $< $(CFLAGS) -o  $@ && printf "$(DONE)	:  $(COLOR)$<$(NO_COLOR)\n" \
+			|| printf "$(KO)	<-  $(COLOR)$<$(NO_COLOR)\n"
+	@ $(DEPGEN) -c $< $(DEPFLAG) -MQ $@ \
+			> $(subst $(SRCDIR), $(DEPDIR), $(<:.c=.d))
+
+$(LIBFT_PATH)/$(LIBFT):
+	@ $(MAKE) -C $(LIBFT_PATH) --no-print-directory
+
+$(LIBFT_PRTF_PATH)/$(LIBFT_PRTF):
+	@ $(MAKE) -C $(LIBFT_PRTF_PATH) --no-print-directory
+
+# Dir created to store build cache
+$(OBJDIR):
+	@ mkdir -p $(OBJLOCA)
+$(DBGDIR):
+	@ mkdir -p $(DBGLOCA)
+$(DEPDIR):
+	@ mkdir -p $(DEPLOCA)
+$(BUILDDIR):
+	@ mkdir -p $(BUILDDIR)
 
 
-bin/%.o: srcs/eval/%.c
-	@printf "$(COLOR)$<$(NO_COLOR) -> "
-	@touch $<
-	@gcc $(FLAG) -I includes -c $< -o $@ && printf "$(DONE)\n" || printf "$(KO)\n"
+# Recompile with as much warning as possible
+warn:	WFLAGS := -Wall -Wextra -ansi -Wpedantic -Wno-vla
+warn:	WFLAGS += -Wstrict-prototypes -Wunreachable-code  -Wwrite-strings
+warn:	WFLAGS += -Wpointer-arith -Wbad-function-cast -Wcast-align -Wcast-qual
+CLANG_INSTALLED	:= $(shell which clang > /dev/null 2> /dev/null && echo yes)
+# If clang is installed also add this exclusive warning
+ifdef CLANG_INSTALLED
+warn:	CC := clang
+warn:	WFLAGS += -Weverything -Wno-padded -Wno-missing-noreturn
+endif
+warn:	lre
 
-bin/%.o: srcs/builtins/%.c
+#### DEBUGING ####
+$(DBGDIR)/%.o:		$(SRCDIR)/%.c | $(DBGDIR) $(DEPDIR)
 	@printf "$(COLOR)$<$(NO_COLOR) -> "
 	@touch $<
-	@gcc $(FLAG) -I includes -c $< -o $@ && printf "$(DONE)\n" || printf "$(KO)\n"
+	@ $(CC) -c $< $(CFLAGS) -o  $@ && printf "$(DONE)\n" || printf "$(KO)\n"
+	@ $(DEPGEN) -c $< $(DEPFLAG) -MQ $@ \
+		> $(subst $(SRCDIR), $(DEPDIR), $(<:.c=.d))
 
-bin/%.o: srcs/exec/%.c
-	@printf "$(COLOR)$<$(NO_COLOR) -> "
-	@touch $<
-	@gcc $(FLAG) -I includes -c $< -o $@ && printf "$(DONE)\n" || printf "$(KO)\n"
+debug:	WFLAGS		:= -g -fsanitize=address
+debug:	$(DBG) | $(LIBFT_PATH)/$(LIBFT)
+	@echo "$(OP_COLOR) building $(NAME)$(NO_COLOR)"
+	@$ $(LD) -o $(NAME) $(DBG) $(LDFLAG)
+	@printf "$(DONE)$(OP_COLOR)$(NAME)$(NO_COLOR)  \n"
 
-bin/%.o: srcs/exec/%.c
-	@printf "$(COLOR)$<$(NO_COLOR) -> "
-	@touch $<
-	@gcc $(FLAG) -I includes -c $< -o $@ && printf "$(DONE)\n" || printf "$(KO)\n"
+debugclean:
+	@ rm -r $(DBGDIR) 1> /dev/null 2> /dev/null \
+		&& printf "$(OP_COLOR)[CLR]$(NO_COLOR)"	:" debug obj" \
+		; (exit 0)
 
-bin/%.o: srcs/expansion/%.c
-	@printf "$(COLOR)$<$(NO_COLOR) -> "
-	@touch $<
-	@gcc $(FLAG) -I includes -c $< -o $@ && printf "$(DONE)\n" || printf "$(KO)\n"
-
-bin/%.o: srcs/get_input/%.c
-	@printf "$(COLOR)$<$(NO_COLOR) -> "
-	@touch $<
-	@gcc $(FLAG) -I includes -c $< -o $@ && printf "$(DONE)\n" || printf "$(KO)\n"
-
-bin/%.o: srcs/process/%.c
-	@printf "$(COLOR)$<$(NO_COLOR) -> "
-	@touch $<
-	@gcc $(FLAG) -I includes -c $< -o $@ && printf "$(DONE)\n" || printf "$(KO)\n"
+rdebug: debugclean debug
 
 clear:
 	@clear
@@ -169,15 +227,31 @@ clear:
 sclean:
 	@rm -rf $(OBJ) $(NAME)
 
-clean:
-	@rm -rf bin
-	@make -C ./libft clean
+#### LOCAL (Don't recompile lib) ####
+lclean:
+	@ rm -r $(BUILDDIR) 1> /dev/null 2> /dev/null \
+		&& printf "$(OP_COLOR)[CLR]$(NO_COLOR)	: obj\n" \
+        		; (exit 0)
 
-fclean: clean
-	rm -rf $(NAME)
-	@make -C ./libft fclean
+lfclean: lclean
+	@ rm -Rf *.dSYM 1> /dev/null 2> /dev/null
+	@ rm $(NAME) 1> /dev/null 2> /dev/null \
+		&& printf "$(OP_COLOR)[CLR]$(NO_COLOR)	: $(NAME)\n" \
+        		; (exit 0)
 
-re: fclean all
+lre: lfclean all
+
+#### MANDATORY ####
+clean: lclean
+	@ $(MAKE) -C $(LIBFT_PATH) --no-print-directory clean
+	@ $(MAKE) -C $(TESTDIR) --no-print-directory clean
+	@ $(MAKE) -C $(LIBFT_PRTF_PATH) --no-print-directory clean
+
+fclean:	lfclean
+	@ $(MAKE) -C $(LIBFT_PATH) --no-print-directory fclean
+	@ $(MAKE) -C $(LIBFT_PRTF_PATH) --no-print-directory fclean
+
+re:		fclean all
 
 fre: clear sclean all
 
@@ -192,4 +266,20 @@ save: fclean clear
 	@git add -A && git commit -m "make save" && git push \
 	&& printf "$(COLOR)save$(NO_COLOR) : $(DONE)\n" || printf"$(OP_COLOR)save : KO\n$(NO_COLOR)"
 
+
+#############################
+#          SETTING          #
+#############################
+# Add rule to phony if they are not based on actual files.
+.PHONY: all re
+.PHONY: debug rdebug debugclean
+.PHONY: warn
+.PHONY: lclean lfclean lre val exe fre
 .PHONY: clear sclean clean fclean save
+
+#############################
+#         DEPENDENCY        #
+#############################
+# Include all custom dependency rules created in .d's
+# the '-' prevent error in case of non existing files
+-include $(DEP)

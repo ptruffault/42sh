@@ -6,23 +6,14 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 16:50:42 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/02/08 16:50:48 by ptruffau         ###   ########.fr       */
+/*   Updated: 2019/03/26 16:47:28 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_GET_INPUT_H
 # define FT_GET_INPUT_H
-
-# include "termios.h"
-# include <termios.h>
-# include "term.h"
-# include <term.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <signal.h>
 # include "shell42.h"
-# include "../libft/includes/libft.h"
+
 # define FAILURE 0
 # define SUCCESS 1
 # define KEY_ENTER 0xA

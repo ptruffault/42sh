@@ -6,11 +6,11 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 15:33:46 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/20 18:11:13 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/26 17:18:36 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <shell42.h>
+#include "shell42.h"
 
 // compar getpgrp with the foreground process on term (tcgetpgrp)
 // |-> le shell a été lancer depuis un autre shell qui gere le job control

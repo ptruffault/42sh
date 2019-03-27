@@ -1,7 +1,5 @@
-export PATH=${PATH:-/bin:/usr:/usr/bin}
-export TERM=${TERM:-xterm-256color}
 alias cl /usr/bin/clear
 alias la "ls -aG" ll "ls -lG" ls "ls -G" lR "ls -RG ~"
 alias gitall "git add -A && git commit -m 'gitall' && git push"
-cat $SHELL_FOLD/sys/header
-cat $SHELL_FOLD/auteur
+#cat $SHELL_FOLD/sys/header
+#cat $SHELL_FOLD/auteur

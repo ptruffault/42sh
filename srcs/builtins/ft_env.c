@@ -25,6 +25,7 @@ static void		ft_env_exec(char **arr, t_envv *tmp, t_envv *envv)
 		warning("fork failed to create a new process", *arr);
 	if (pid == 0)
 	{
+		set_son_signal();
 		execve(path, arr, e);
 		warning("{env} execve fucked up", *arr);
 	}

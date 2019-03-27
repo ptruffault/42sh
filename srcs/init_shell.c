@@ -53,10 +53,6 @@ static void	ft_init_groups(t_shell *sh)
 int			init_shell(t_shell *sh, char **envv, char **argv)
 {
 	ft_null(sh);
-
-	
-	ft_init_groups(sh);
-
 	if (!(init_env(sh, argv, envv)))
 		return (0);
 	if (!isatty(0))
@@ -73,6 +69,7 @@ int			init_shell(t_shell *sh, char **envv, char **argv)
 	if (!init_termcaps(sh))
 		return (0);
 	sh->interactive = TRUE;
+	ft_init_groups(sh);
 	set_signals();
 	return (1);
 }

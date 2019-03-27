@@ -25,8 +25,9 @@
 # include "tenvv.h"
 # include "ft_printf.h"
 
-int ft_tcsetpgrp(int fd, pid_t pgrp);
-pid_t ft_tcgetpgrp(int fd);
+int			ft_tcsetpgrp(int fd, pid_t pgrp);
+pid_t		ft_tcgetpgrp(int fd);
+void		set_son_signal(void);
 
 void 		ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t);
 void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t);

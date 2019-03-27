@@ -22,7 +22,7 @@ int		exec_fd(t_shell *sh, int fd)
 		&& *sh->txt && !ft_isempty(sh->txt))
 	{
 		i++;
-		if ((t = get_tree(sh->txt)))
+		if (*sh->txt != '#' && (t = get_tree(sh->txt)))
 			ft_free_tree(exec_tree(t, sh));
 		ft_strdel(&sh->txt);
 	}

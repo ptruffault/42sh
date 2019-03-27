@@ -40,10 +40,14 @@ t_process		*ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 		{
 			if (!ft_builtins(sh, p, t, frk) && (!frk || (p->pid = fork()) == 0))
 			{
-				if (p->background == TRUE)
-				{
-					ft_printf("here i am");
-					setsid();
+				if (sh->interactive)
+				{	
+					set_son_signal();
+					if (p->background == TRUE)
+					{
+						ft_printf("here i am");
+						// setpgid;
+					}
 				}
 				execve(p->cmd, p->argv, p->env);
 				error("execve fucked up", p->cmd);

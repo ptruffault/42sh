@@ -81,6 +81,6 @@ int			get_input(char **line)
 			ft_print_line(&sh->e);
 		buf = 0;
 	}
-	
+	*line = ft_strdup(sh->e.hist->s);
 	return (ft_update_hist(sh));
 }

@@ -255,7 +255,7 @@ re:		fclean all
 
 fre: clear sclean all
 
-exe: fre
+exe: all
 	./$(NAME)
 
 val: all

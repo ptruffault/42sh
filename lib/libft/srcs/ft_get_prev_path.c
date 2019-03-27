@@ -23,10 +23,8 @@ char	*ft_get_prev_path(char *path)
 	{
 		len = ft_strlen(path);
 		i = len - 1;
-		while (path[i] != '/')
-		{
+		while (i > 0 && path[i] != '/')
 			i--;
-		}
 		new = ft_strndup(path, i);
 	}
 	return (new);

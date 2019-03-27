@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:12:58 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/22 16:06:37 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int			get_input(char **line)
 			ft_print_line(&sh->e);
 		buf = 0;
 	}
-	
+	if (sh->e.hist)
+		*line = ft_strdup(sh->e.hist->s);
 	return (ft_update_hist(sh));
 }

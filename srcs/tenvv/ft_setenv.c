@@ -6,11 +6,11 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 13:41:36 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/20 15:09:42 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/26 16:47:28 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tenvv.h>
+#include "tenvv.h"
 
 char	*ft_split_equal(char *str, char **aft)
 {

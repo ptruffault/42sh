@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   21sh.h                                             :+:      :+:    :+:   */
+/*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 16:02:36 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/20 15:09:42 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/03/26 16:47:28 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL42_H
 # define SHELL42_H
-# include <sys/types.h>
+
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
 # include <sys/ioctl.h>
-# include <dirent.h>
-# include "../libft/includes/libft.h"
-# include "termios.h"
-# include <termios.h>
 # include <term.h>
 # include "structures.h"
-# include <pwd.h>
+# include "libft.h"
+# include "tenvv.h"
+# include "ft_printf.h"
 
 void 		ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t);
 void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t);
-
-
 int			ft_quit(int exit_code, t_shell *sh);
 void		ft_kill(t_process *p, int sig);
 void 		ft_killgrp(t_process *p, int sig);
@@ -43,7 +39,6 @@ int 		ft_fg(t_shell *sh, char **argv);
 int			ft_hi(t_shell *sh);
 void 		ft_process_tab_status(char *stat[6]);
 void		ft_put_process(t_process *p);
-
 void		ft_exit_son(t_shell *sh, int exit_code);
 char		ft_parse_back(char c);
 void		ft_execve_pip(t_process *p, t_shell *sh, t_tree *t, int mode);
@@ -148,4 +143,5 @@ t_process	*init_pipe_process(t_tree *t, t_shell *sh);
 t_process 	*init_process_tmp_var(t_shell *sh, t_envv *head, char **arr);
 void		ft_delete_process(int pid);
 char 		*ft_split_equal(char *str, char **aft);
+
 #endif

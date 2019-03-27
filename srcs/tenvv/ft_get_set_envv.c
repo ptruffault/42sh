@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/21 15:36:45 by ptruffau          #+#    #+#             */
-/*   Updated: 2018/06/21 15:36:47 by ptruffau         ###   ########.fr       */
+/*   Created: 2019/02/05 13:35:15 by adi-rosa          #+#    #+#             */
+/*   Updated: 2019/02/05 13:43:56 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include "tenvv.h"
 
-int	ft_printf(char *format, ...)
+t_envv	*ft_get_set_envv(t_envv *t)
 {
-	va_list ap;
-	t_param *p;
-	int		ret;
+	static t_envv	*e = NULL;
 
-	p = NULL;
-	va_start(ap, format);
-	p = init_tparam(format, &ap);
-	ret = print(format, p);
-	free_tparam(p);
-	va_end(ap);
-	return (ret);
+	if (t != NULL)
+		e = t;
+	return (e);
 }

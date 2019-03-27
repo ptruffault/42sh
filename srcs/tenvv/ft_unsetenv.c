@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tenvv.h>
+#include "tenvv.h"
 
 t_envv		*ft_del_envv(t_envv *envv, char *name)
 {

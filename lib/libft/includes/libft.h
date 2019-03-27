@@ -6,7 +6,7 @@
 /*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 11:16:01 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/02/08 14:52:37 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/03/26 16:47:28 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <sys/types.h>
 # include <sys/xattr.h>
 # include <stdint.h>
-# include "tenvv.h"
+
 # define BUFF_SIZE 256
 # define FAILURE 0
 # define SUCCESS 1
@@ -73,7 +73,6 @@ struct	s_file
 
 char	*ft_stradd(char **str, const char *end);
 int		ft_open(char *path, int flag, mode_t mode);
-int		ft_printf(char *format, ...);
 char	*ft_strchr_end(const char *src, char c);
 int		ft_close(int fd);
 int		ft_count_word(char *s);

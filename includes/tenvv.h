@@ -6,7 +6,7 @@
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 14:44:14 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/22 18:09:57 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/03/26 16:47:28 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_envv	*ft_del_envv(t_envv *envv, char *name);
 int		ft_puttenvv(const t_envv *envv);
 t_envv	*del_tenvv(t_envv *envv);
 t_envv	*ft_free_tenvv(t_envv *envv);
-t_envv *ft_pull_tenvv(t_envv *dest, const t_envv *src);
+t_envv	*ft_pull_tenvv(t_envv *dest, const t_envv *src);
 t_envv	*ft_push_tenvv(t_envv *dest, const t_envv *src);
 t_envv	*new_tenvv(void);
 t_envv	*ft_changetenvv_val(t_envv *envv, char *name, char *new_val);

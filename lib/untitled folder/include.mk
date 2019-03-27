@@ -1,0 +1,14 @@
+LIBFT_PRTF		:=	libftprintf.a
+
+LIBFT_PRTF_PATH	?=	.
+
+LIBFT_PRTF_LINK	:= -L $(LIBFT_PRTF_PATH) -l ftprintf
+LIBFT_PRTF_INC	:= -I $(LIBFT_PRTF_PATH)/inc
+
+ifndef LIB_LINK
+LIB_LINK	:=
+LIB_INC		:=
+endif
+
+LIB_LINK	+= $(LIBFT_PRTF_LINK)
+LIB_INC		+= $(LIBFT_PRTF_INC)

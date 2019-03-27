@@ -32,9 +32,31 @@ static void	ft_null(t_shell *sh)
 	sh->intern = NULL;
 }
 
+static void	ft_init_groups(t_shell *sh)
+{
+	int *sh_pgid;
+
+	/*if ((ft_tcsetpgrp(STDIN_FILENO, sh->pgid)) < 0)
+		error("can't set groups", NULL);
+	ft_printf("%i\n", sh->pgid);*/
+	sh_pgid = &sh->pgid;
+	while (ft_tcgetpgrp(STDIN_FILENO) != (*sh_pgid = getpgrp()))
+		kill(-*sh_pgid, SIGTTIN);
+	*sh_pgid = getpid();
+	if (setpgid(*sh_pgid, *sh_pgid) < 0)
+		error("setpgid failed", NULL);
+	if (ft_tcsetpgrp(STDIN_FILENO, *sh_pgid) < 0)
+		error("can' set grousp 2", NULL);
+	ft_printf("%i\n", *sh_pgid);
+}
+
 int			init_shell(t_shell *sh, char **envv, char **argv)
 {
 	ft_null(sh);
+
+	
+	ft_init_groups(sh);
+
 	if (!(init_env(sh, argv, envv)))
 		return (0);
 	if (!isatty(0))

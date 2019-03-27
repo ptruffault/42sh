@@ -32,7 +32,7 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t, int frk)
 }
 
 
-void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
+t_process		*ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 {
 	if (p && (!t->r || ft_redirect_builtin(t, p, sh)))
 	{
@@ -40,6 +40,11 @@ void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 		{
 			if (!ft_builtins(sh, p, t, frk) && (!frk || (p->pid = fork()) == 0))
 			{
+				if (p->background == TRUE)
+				{
+					ft_printf("here i am");
+					setsid();
+				}
 				execve(p->cmd, p->argv, p->env);
 				error("execve fucked up", p->cmd);
 				ft_exit_son(sh, -1);
@@ -47,10 +52,14 @@ void			ft_execve(t_process *p, t_shell *sh, t_tree *t, int frk)
 			else if (p->pid < 0)
 				error("fork fucked up", p->cmd);
 		}
-		else
+		else if (frk)
+		{
 			error("command not found", *p->argv);
+			sh->process = sh->process->next;
+			p->next = NULL;
+			return (ft_free_tprocess(p));
+		}
 	}
-	else
-		error("abort", NULL);
 	ft_get_envv_back(sh, p, t);
+	return (p);
 }

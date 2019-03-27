@@ -100,7 +100,6 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 				ft_get_envv_back(sh, ret, t);
 				return (ft_free_tprocess(ret));
 			}
-			
 		}
 		else if ((ret->cmd = get_bin_path(*ret->argv, sh->env)))
 		{

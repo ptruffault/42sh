@@ -49,7 +49,7 @@ int ft_bg(t_shell *sh, char **argv)
 	if (!argv[1])
 	{
 		if ((tmp = ft_get_process_id(sh->process, 1)))
-			ft_set_background(tmp);
+			ft_killgrp(tmp, -1);
 		else
 			return (error("no current job", NULL) - 1);
 	}
@@ -58,7 +58,7 @@ int ft_bg(t_shell *sh, char **argv)
 		if ((argv[1] && *argv[i] == '%' && ft_isdigit(argv[i][1])
 			&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
-			ft_set_background(tmp);
+			ft_killgrp(tmp, -1);
 		else
 			return (error("job not found", argv[1]) - 1);
 	}

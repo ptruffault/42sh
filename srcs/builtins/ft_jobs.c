@@ -18,6 +18,8 @@ static void ft_job_prompt(t_process *tmp, int id)
 
 	if (id != -1)
 		ft_printf("-\x1B[01;34m%- 2i\x1B[00m", id);
+	else
+		ft_putstr("    ");
 	ft_put_process(tmp);
 	grp = tmp->grp;
 	while (grp)
@@ -46,8 +48,7 @@ int		ft_hi(t_shell *sh)
 	tmp = sh->process;
 	while (tmp)
 	{
-		if (tmp->cmd)
-			ft_job_prompt(tmp, id++);
+		ft_job_prompt(tmp, id++);
 		tmp = tmp->next;
 	}
 	return (0);
@@ -62,7 +63,8 @@ int 	ft_jobs(t_shell *sh)
 	tmp = sh->process;
 	while (tmp)
 	{
-		if (tmp->status == RUNNING_BG || tmp->status == SUSPENDED)
+		if (tmp->builtins == FALSE && (tmp->status == RUNNING_BG
+			|| tmp->status == SUSPENDED || tmp->status == RUNNING_FG))
 			ft_job_prompt(tmp, id++);
 		tmp = tmp->next;
 	}

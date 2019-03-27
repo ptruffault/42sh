@@ -1,17 +1,19 @@
 
 #include <shell42.h>
 
-void ft_process_background(t_process *p)
+pid_t ft_tcgetpgrp(int fd)
 {
-	if (p->status == SUSPENDED)
-		ft_kill(p, SIGCONT);
-	if ((ioctl(0, TIOCSPGRP, &p->pid)) != 0)
-	{
-		error("can't set this process in background", p->cmd);
-		ft_kill(p, SIGTSTP);
-	}
-	else
-		p->status = RUNNING_BG;
+ 	int pgrp;
+
+ 	if (ioctl(fd, TIOCGPGRP, &pgrp) < 0)
+		return -1 ;
+	return pgrp ;
+}
+
+int ft_tcsetpgrp(int fd, pid_t pgrp)
+{
+ int pgrp_int = pgrp;
+	 return (ioctl(fd, TIOCSPGRP, &pgrp_int));
 }
 
 void		ft_kill(t_process *p, int sig)
@@ -28,11 +30,7 @@ void		ft_kill(t_process *p, int sig)
 			p->status = KILLED;
 		ft_printf("kill(%i, %i); status = %i\n",p->pid, sig, p->status);
 		if (p->builtins == FALSE && p->pid > 0)
-		{
-			if (sig == -1)
-				ft_process_background(p);
 			kill(p->pid, sig);
-		}
 	}
 }
 
@@ -40,7 +38,12 @@ void	ft_killgrp(t_process *p, int sig)
 {
 	while (p)
 	{
-		ft_kill(p, sig);
+		if (sig == -1)
+		{
+			
+		}
+		else
+			ft_kill(p, sig);
 		p = p->grp;
 	}
 }

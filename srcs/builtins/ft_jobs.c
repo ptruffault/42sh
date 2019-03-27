@@ -16,7 +16,8 @@ static void ft_job_prompt(t_process *tmp, int id)
 {
 	t_process *grp;
 
-	ft_printf("-\x1B[01;34m%- 2i\x1B[00m", id);
+	if (id != -1)
+		ft_printf("-\x1B[01;34m%- 2i\x1B[00m", id);
 	ft_put_process(tmp);
 	grp = tmp->grp;
 	while (grp)
@@ -36,6 +37,11 @@ int		ft_hi(t_shell *sh)
 	int			id;
 
 	id = 0;
+	if (!isatty(0))
+	{
+		ft_job_prompt(sh->process, -1);
+		return (0);
+	}
 	ft_printf("\x1B[04m ID  PID    RETURN   STATUS    PATH         \x1B[00m\n");
 	tmp = sh->process;
 	while (tmp)

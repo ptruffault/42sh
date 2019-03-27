@@ -1,5 +1,5 @@
 #include "shell42.h"
-#include "../includes/get_input.h"
+#include "get_input.h"
 
 static const t_sig_msg	g_signal_msg[] = {
 		{.sig = SIGHUP, .rtn = 129, .msg = "hanghup"},
@@ -70,9 +70,9 @@ static void 	ft_putpid_ret(t_process *p)
 	t_shell *sh;
 
 	if (p->builtins == FALSE)
-		ft_printf("{%i} ", p->pid);
+		ft_printf("\x1B[00;34m{\x1B[00m%i\x1B[00;34m}\x1B[00m ", p->pid);
 	else if ((sh = ft_get_set_shell(NULL)))
-		ft_printf("{\x1B[01;36m%i\x1B[00m} ", sh->pid);
+		ft_printf("\x1B[00;34m{\x1B[01;36m%i\x1B[00m\x1B[00;34m}\x1B[00m ", sh->pid);
 
 	if (p->status == DONE || p->status == SUSPENDED || p->status == KILLED)
 	{

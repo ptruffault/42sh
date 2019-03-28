@@ -18,14 +18,14 @@ static void	fill_pointers(void *value, t_printf *ptab, char fill)
 
 	prec = (ptab->arg.prec > 0 || !(ptab->arg.flag & PREC)) ? true : false;
 	while (!(ptab->arg.flag & MINUS) && ptab->arg.larg-- > 0)
-		fill_buffer(fill,ptab);
+		fill_buffer(fill, ptab);
 	if (!(ptab->arg.flag & ZERO))
 	{
-		fill_buffer('0',ptab);
-		fill_buffer('x',ptab);
+		fill_buffer('0', ptab);
+		fill_buffer('x', ptab);
 	}
 	while (ptab->arg.prec-- > 0)
-		fill_buffer('0',ptab);
+		fill_buffer('0', ptab);
 	if (value == NULL && prec)
 		fill_buffer('0', ptab);
 	else

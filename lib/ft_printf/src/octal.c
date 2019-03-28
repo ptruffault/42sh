@@ -30,9 +30,9 @@ static void	fill_oct(uintmax_t value, t_printf *ptab, char fill)
 	if (value != 0)
 		putnbr_c(value, ptab, "01234567", 8);
 	else if (print)
-		fill_buffer('0',ptab);
+		fill_buffer('0', ptab);
 	while ((ptab->arg.flag & MINUS) && ptab->arg.larg-- > 0)
-		fill_buffer(fill,ptab);
+		fill_buffer(fill, ptab);
 }
 
 static void	prepare_oct(uintmax_t value, t_printf *ptab)

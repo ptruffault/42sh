@@ -70,10 +70,10 @@ void	putnbr_p(uintmax_t res, t_printf *ptab)
 		putnbr_p(mod, ptab);
 		p = (mod << 3) + (mod << 1);
 		mod = res - p;
-		fill_buffer((mod) + '0',ptab);
+		fill_buffer((mod) + '0', ptab);
 	}
 	else
-		fill_buffer(res + '0',ptab);
+		fill_buffer(res + '0', ptab);
 }
 
 void	putnbr_n(intmax_t res, t_printf *ptab)
@@ -89,8 +89,8 @@ void	putnbr_n(intmax_t res, t_printf *ptab)
 		putnbr_n(mod, ptab);
 		p = (mod << 3) + (mod << 1);
 		mod = res - p;
-		fill_buffer(-(mod) + '0',ptab);
+		fill_buffer(-(mod) + '0', ptab);
 	}
 	else if (res <= 0)
-		fill_buffer((-res) + '0',ptab);
+		fill_buffer((-res) + '0', ptab);
 }

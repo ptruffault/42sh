@@ -62,11 +62,11 @@ void		print_others(t_dbl *tab_dbl, int check, t_printf *ptab)
 	int		minus;
 
 	if (check == 4 && tab_dbl->sign == 1)
-		check_string("-inf",ptab);
+		check_string("-inf", ptab);
 	else if (check == 4 && tab_dbl->sign == 0)
-		check_string("inf",ptab);
+		check_string("inf", ptab);
 	else if (check == 3)
-		check_string("nan",ptab);
+		check_string("nan", ptab);
 	else
 	{
 		minus = (ptab->arg.prec > 0) ? 1 : 0;
@@ -121,5 +121,5 @@ void		rounding_ldbl(t_dbl *tab_dbl, t_printf *ptab)
 		}
 		calculate_nbr_integer(tab_dbl);
 	}
-	prepare_print(tab_dbl,ptab);
+	prepare_print(tab_dbl, ptab);
 }

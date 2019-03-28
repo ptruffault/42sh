@@ -47,8 +47,9 @@ TMP		:=	build/tmp.txt
 CC		?=	cc
 
 INCFLAG	:= -I $(INCDIR)
+STDFLAG	?=	-std=gnu11
 WFLAGS	?=	-Wall -Wextra -Werror -pedantic
-CFLAGS	=	$(WFLAGS) $(INCFLAG)
+CFLAGS	=	$(WFLAGS) $(INCFLAG) $(STDFLAG)
 
 LD		:=	ar
 LDFLAG	:=	rcs
@@ -136,6 +137,19 @@ clean: lclean
 fclean:	lfclean
 
 re:		fclean all
+
+# Recompile with as much warning as possible
+warn:	WFLAGS := -Wall -Wextra -ansi -Wpedantic -Wno-vla
+warn:	WFLAGS += -Wstrict-prototypes -Wunreachable-code  -Wwrite-strings
+warn:	WFLAGS += -Wpointer-arith -Wbad-function-cast -Wcast-align -Wcast-qual
+CLANG_INSTALLED	:= $(shell which clang > /dev/null 2> /dev/null && echo yes)
+# If clang is installed also add this exclusive warning
+ifdef CLANG_INSTALLED
+warn:	CC := clang
+warn:	WFLAGS += -Weverything -Wno-padded -Wno-missing-noreturn
+endif
+warn:	lre
+
 
 #############################
 #          SETTING          #

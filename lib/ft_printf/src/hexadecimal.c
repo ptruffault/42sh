@@ -15,15 +15,15 @@
 static void	before_or_after(uintmax_t value, t_printf *ptab, char fill)
 {
 	while (!(ptab->arg.flag & (MINUS | ZERO)) && ptab->arg.larg-- > 0)
-		fill_buffer(fill,ptab);
+		fill_buffer(fill, ptab);
 	if (ptab->arg.flag & HASH && value != 0)
-		fill_buffer('0',ptab);
+		fill_buffer('0', ptab);
 	if (ptab->arg.type == X && ptab->arg.flag & HASH && value != 0)
-		fill_buffer('x',ptab);
+		fill_buffer('x', ptab);
 	else if (ptab->arg.type == XX && ptab->arg.flag & HASH && value != 0)
-		fill_buffer('X',ptab);
+		fill_buffer('X', ptab);
 	while (check_flags(ptab->arg.flag, 2, ZERO, MINUS) && ptab->arg.larg-- > 0)
-		fill_buffer(fill,ptab);
+		fill_buffer(fill, ptab);
 }
 
 static void	fill_hex(uintmax_t value, t_printf *ptab, char fill)
@@ -33,11 +33,11 @@ static void	fill_hex(uintmax_t value, t_printf *ptab, char fill)
 	prec = ptab->arg.prec;
 	before_or_after(value, ptab, fill);
 	while (ptab->arg.prec-- > 0)
-		fill_buffer('0',ptab);
+		fill_buffer('0', ptab);
 	if (value == 0)
 	{
 		if (((ptab->arg.flag & PREC) && prec > 0) || !(ptab->arg.flag & PREC))
-			fill_buffer('0',ptab);
+			fill_buffer('0', ptab);
 	}
 	else if (ptab->arg.type == X)
 		putnbr_c(value, ptab, "0123456789abcdef", 16);

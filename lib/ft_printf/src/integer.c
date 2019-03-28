@@ -16,21 +16,21 @@
 static void	fill_integer_zero(intmax_t value, t_printf *ptab, char fill)
 {
 	if (ptab->arg.flag & SPACE && value >= 0)
-		fill_buffer(' ',ptab);
+		fill_buffer(' ', ptab);
 	if (value < 0)
-		fill_buffer('-',ptab);
+		fill_buffer('-', ptab);
 	if (ptab->arg.flag & PLUS && value >= 0)
-		fill_buffer('+',ptab);
+		fill_buffer('+', ptab);
 	while (!(ptab->arg.flag & MINUS) && ptab->arg.larg-- > 0)
-		fill_buffer(fill,ptab);
+		fill_buffer(fill, ptab);
 	while (ptab->arg.prec-- > 0)
-		fill_buffer('0',ptab);
+		fill_buffer('0', ptab);
 	if (value < 0)
-		putnbr_n(value,ptab);
+		putnbr_n(value, ptab);
 	else
-		putnbr_p(value,ptab);
+		putnbr_p(value, ptab);
 	while ((ptab->arg.flag & MINUS) && ptab->arg.larg-- > 0)
-		fill_buffer(fill,ptab);
+		fill_buffer(fill, ptab);
 }
 
 static void	fill_integer(intmax_t value, t_printf *ptab, char fill)
@@ -44,21 +44,21 @@ static void	fill_integer(intmax_t value, t_printf *ptab, char fill)
 		ptab->arg.larg++;
 	}
 	while (!(ptab->arg.flag & MINUS) && ptab->arg.larg-- > 0)
-		fill_buffer(fill,ptab);
+		fill_buffer(fill, ptab);
 	if (value >= 0 && ptab->arg.flag & SPACE)
-		fill_buffer(' ',ptab);
+		fill_buffer(' ', ptab);
 	if (value >= 0 && ptab->arg.flag & PLUS)
-		fill_buffer('+',ptab);
+		fill_buffer('+', ptab);
 	else if (value < 0)
-		fill_buffer('-',ptab);
+		fill_buffer('-', ptab);
 	while (ptab->arg.prec-- > 0)
-		fill_buffer('0',ptab);
+		fill_buffer('0', ptab);
 	if (print && value < 0)
-		putnbr_n(value,ptab);
+		putnbr_n(value, ptab);
 	else if (print)
-		putnbr_p(value,ptab);
+		putnbr_p(value, ptab);
 	while ((ptab->arg.flag & MINUS) && ptab->arg.larg-- > 0)
-		fill_buffer(fill,ptab);
+		fill_buffer(fill, ptab);
 }
 
 static void	prepare_int(intmax_t value, t_printf *ptab)

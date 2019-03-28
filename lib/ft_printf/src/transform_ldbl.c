@@ -77,7 +77,7 @@ static void			h_ldbl_pos(t_dbl *tab_dbl, t_printf *ptab, int exponent)
 		exponent -= power;
 	}
 	calculate_nbr_integer(tab_dbl);
-	rounding_ldbl(tab_dbl,ptab);
+	rounding_ldbl(tab_dbl, ptab);
 }
 
 static void			h_ldbl_neg(t_dbl *tab_dbl, t_printf *ptab, int exponent)
@@ -104,7 +104,7 @@ static void			h_ldbl_neg(t_dbl *tab_dbl, t_printf *ptab, int exponent)
 		exponent += power;
 	}
 	calculate_nbr_integer(tab_dbl);
-	rounding_ldbl(tab_dbl,ptab);
+	rounding_ldbl(tab_dbl, ptab);
 }
 
 void				transform_ldbl_80b(t_dbl *tab_dbl, t_printf *ptab)

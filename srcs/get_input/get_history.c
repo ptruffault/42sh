@@ -44,7 +44,7 @@ t_hist			*init_hist(char *hist)
 	tmp = NULL;
 	if ((fd = ft_open(hist, O_RDWR | O_CREAT | O_NOFOLLOW, 511)) >= 0)
 	{
-		while (get_next_line(fd, &line) > 0)
+		while (get_next_line(fd, &line) == 1)
 		{
 			if (!(tmp = new_hist()))
 				return (ft_free_thist(ret));

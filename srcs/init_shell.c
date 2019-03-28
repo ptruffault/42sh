@@ -36,9 +36,9 @@ static void	ft_init_groups(t_shell *sh)
 {
 	int *sh_pgid;
 
-	/*if ((ft_tcsetpgrp(STDIN_FILENO, sh->pgid)) < 0)
+	if ((ft_tcsetpgrp(STDIN_FILENO, sh->pgid)) < 0)
 		error("can't set groups", NULL);
-	ft_printf("%i\n", sh->pgid);*/
+	ft_printf("%i\n", sh->pgid);
 	sh_pgid = &sh->pgid;
 	while (ft_tcgetpgrp(STDIN_FILENO) != (*sh_pgid = getpgrp()))
 		kill(-*sh_pgid, SIGTTIN);

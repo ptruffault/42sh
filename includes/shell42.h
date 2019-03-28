@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <sys/ioctl.h>
+# include <pwd.h>
 # include <term.h>
 # include "structures.h"
 # include "libft.h"

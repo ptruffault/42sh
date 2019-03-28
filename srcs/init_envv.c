@@ -12,13 +12,32 @@
 
 #include "shell42.h"
 
-static char	*get_shell_path(char *path, char *pwd)
+static char	*get_shell_path(char *path)
 {
-	if (*path == '/')
+	char buff[4097];
+	char	*tmp;
+
+	ft_memset(buff, '\0', 4096);
+	if (*path == '/' || !(getcwd(buff, 4096)))
 		return (ft_strdup(path));
-	if (ft_str_startwith(path, "./") && pwd)
-		return (ft_strjoin(pwd, path + 1));
-	return (NULL);
+	if (ft_str_startwith(path, "./"))
+		return (ft_strjoin(buff, path + 1));
+	if ((tmp = ft_strchr(path, '.')))
+	{
+		if (tmp[0] == '.' && tmp[1] == '.')
+		{
+			buff[ft_strlen(buff)] = '/';
+			return (ft_strjoin(buff, tmp));
+		}
+		else
+			return (ft_strjoin(buff, tmp + 1));
+	}
+	else if (ft_strchr(path, '/'))
+		return (ft_strdup(ft_strchr(path, '/')));
+	buff[ft_strlen(buff)] = '/';
+	if (ft_strlen(path) < 1)
+		return (ft_strjoin(buff, "42sh"));
+	return (ft_strjoin(buff, path));
 }
 
 static void	ft_update_shelvl(t_shell *sh)
@@ -34,26 +53,6 @@ static void	ft_update_shelvl(t_shell *sh)
 	nbr = ft_itoa(lvl + 1);
 	sh->env = ft_new_envv(sh->env, "SHLVL", nbr);
 	ft_strdel(&nbr);
-}
-
-static void	ft_setup_env(t_shell *sh, char *shell_fold)
-{
-	char *hi_path;
-	char *rc_path;
-
-	sh->env = ft_new_envv(sh->env, "SHELL_FOLD", shell_fold);
-	if ((hi_path = ft_strjoin(shell_fold, "/sys/.42history"))
-		&& (sh->env = ft_new_envv(sh->env, "HISTORY", hi_path)))
-	{
-		sh->hist = init_hist(hi_path);
-		ft_strdel(&hi_path);
-	}
-	ft_update_shelvl(sh);
-	if ((rc_path = ft_strjoin(shell_fold, "/sys/.42shrc")))
-	{
-		exec_file(rc_path, sh);
-		ft_strdel(&rc_path);
-	}
 }
 
 char		*ft_update_pwd(t_shell *sh)
@@ -73,29 +72,45 @@ char		*ft_update_pwd(t_shell *sh)
 	return (NULL);
 }
 
+void	ft_setup_environ(t_shell *sh, char *shell_fold)
+{
+	struct passwd	*usr;
+	char			*hi_path;
+	char			*rc_path;
+
+	if (!(usr = getpwnam(getlogin())))
+		return ;
+	sh->env = ft_new_envv(sh->env, "LOGNAME", usr->pw_name);
+	sh->env = ft_new_envv(sh->env, "HOME", usr->pw_dir);
+	if ((hi_path = ft_strjoin(usr->pw_dir, "/.42history"))
+		&& (sh->env = ft_new_envv(sh->env, "HISTORY", hi_path)))
+	{
+		sh->hist = init_hist(hi_path);
+		ft_strdel(&hi_path);
+	}
+	ft_update_shelvl(sh);
+	sh->env = ft_new_envv(sh->env, "SHELL_FOLD", shell_fold);
+	if (isatty(0) && (rc_path = ft_strjoin(shell_fold, "/sys/.42shrc")))
+	{
+		exec_file(rc_path, sh);
+		ft_strdel(&rc_path);
+	}
+}
+
 int		init_env(t_shell *sh, char **argv, char **envv)
 {
 	char *shell_fold;
 	char *shell_path;
-	char *pwd;
 
 	sh->env = ft_setenv(sh->env, envv, 0);
-	if ((pwd = ft_strdup(ft_update_pwd(sh))))
+	ft_update_pwd(sh);
+	if ((shell_path = get_shell_path(*argv)))
 	{
-		if ((shell_path = get_shell_path(*argv, pwd)))
-		{
-			sh->env = ft_new_envv(sh->env, "SHELL", shell_path);
-			if ((shell_fold = ft_get_prev_path(shell_path)))
-			{
-				ft_setup_env(sh, shell_fold);
-				ft_strdel(&shell_fold);
-				ft_strdel(&pwd);
-				ft_strdel(&shell_path);
-				return (1);
-			}
-			ft_strdel(&shell_path);
-		}
-		ft_strdel(&pwd);
+		sh->env = ft_new_envv(sh->env, "SHELL", shell_path);
+		shell_fold = ft_get_prev_path(shell_path);
+		ft_setup_environ(sh, shell_fold);
+		ft_strdel(&shell_path);
+		return (1);
 	}
 	return (0);
 }

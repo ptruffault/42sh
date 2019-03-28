@@ -95,7 +95,7 @@ static void			h_ldbl_neg(t_dbl *tab_dbl, t_printf *ptab, int exponent)
 		decal = 4 + ((ptab->arg.prec + 9) / 9);
 		while (tab_dbl->digits < tab_dbl->last)
 		{
-			value = *tab_dbl->digits & (1 << power) - 1;
+			value = *tab_dbl->digits & ((1 << power) - 1);
 			*tab_dbl->digits = (*tab_dbl->digits >> power) + last;
 			last = (1000000000 >> power) * value;
 			tab_dbl->digits++;

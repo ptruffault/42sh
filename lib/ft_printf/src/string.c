@@ -42,7 +42,7 @@ void		check_string(char *value, t_printf *ptab)
 	{
 		len = ft_strlen(value);
 		if (ptab->arg.flag & PREC && ptab->arg.type == S)
-			len = ((int)len < ptab->arg.prec) ? len : ptab->arg.prec;
+			len = ((int)len < ptab->arg.prec) ? len : (size_t)ptab->arg.prec;
 		ptab->arg.larg -= (ptab->arg.larg > 0) ? len : 0;
 		if (ptab->arg.flag & ZERO && !(ptab->arg.flag & MINUS))
 			fill_with_string(value, ptab, len, '0');

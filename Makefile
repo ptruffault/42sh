@@ -208,8 +208,8 @@ $(DBGDIR)/%.o:		$(SRCDIR)/%.c | $(DBGDIR) $(DEPDIR)
 	@ $(DEPGEN) -c $< $(DEPFLAG) -MQ $@ \
 		> $(subst $(SRCDIR), $(DEPDIR), $(<:.c=.d))
 
-debug:	WFLAGS		:= -g -fsanitize=address
-debug:	$(DBG) | $(LIBFT_PATH)/$(LIBFT)
+debug:	WFLAGS		:= -g
+debug:	$(DBG) | $(LIBFT_PATH)/$(LIBFT) $(LIBFT_PRTF_PATH)/$(LIBFT_PRTF)
 	@echo "$(OP_COLOR) building $(NAME)$(NO_COLOR)"
 	@$ $(LD) -o $(NAME) $(DBG) $(LDFLAG)
 	@printf "$(DONE)$(OP_COLOR)$(NAME)$(NO_COLOR)  \n"

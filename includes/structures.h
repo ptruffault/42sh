@@ -92,6 +92,7 @@ typedef struct	s_edit
 	size_t			curr;
 	size_t			pos;
 	size_t			width;
+	size_t			tall;
 	size_t			select_pos;
 	short				select;
 	unsigned short		mode;

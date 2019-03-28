@@ -17,9 +17,15 @@ void	ft_update_windows(t_edit *e)
 	struct winsize	window;
 
 	if ((ioctl(0, TIOCGWINSZ, &window)) == 0)
+	{
 		e->width = window.ws_col;
+		e->tall = window.ws_row;
+	}
 	else
-		e->width = 0;
+	{
+		e->width = 6;
+		e->tall = 2;
+	}
 }
 
 int		init_termcaps(t_shell *sh)

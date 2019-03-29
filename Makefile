@@ -20,6 +20,7 @@ SRC		=	\
 	ft_get_set.c 		\
 	ft_free_tshell.c	\
 	init_envv.c			\
+	init_intern.c		\
 	\
 	exec/ft_execve.c			\
 	exec/exec.c					\

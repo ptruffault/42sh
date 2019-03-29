@@ -148,5 +148,6 @@ t_process	*init_pipe_process(t_tree *t, t_shell *sh);
 t_process 	*init_process_tmp_var(t_shell *sh, t_envv *head, char **arr);
 void		ft_delete_process(int pid);
 char 		*ft_split_equal(char *str, char **aft);
-
+int			init_intern(t_shell *sh);
+void		retrieve_path(t_shell *sh);
 #endif

@@ -29,6 +29,31 @@ char	*ft_split_equal(char *str, char **aft)
 	return (str);
 }
 
+t_envv	*ft_new_envv_int(t_envv *envv, char *name, int val)
+{
+	t_envv	*ret;
+	t_envv	*tmp;
+	char	*value;
+
+	value = ft_itoa(val);
+	if (envv && name && (tmp = get_tenvv(envv, name)))
+	{
+		ft_strdel(&tmp->value);
+		tmp->value = value;
+		return (envv);
+	}
+	if (!name || !value || !(ret = new_tenvv()))
+		return (envv);
+	if (!(ret->name = ft_strdup(name)))
+	{
+		del_tenvv(ret);
+		return (envv);
+	}
+	ret->value = value;
+	ret->next = envv;
+	return (ret);
+}
+
 t_envv	*ft_new_envv(t_envv *envv, char *name, char *value)
 {
 	t_envv	*ret;

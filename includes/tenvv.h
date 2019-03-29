@@ -40,5 +40,6 @@ t_envv	*get_tenvv(t_envv *envv, char *name);
 t_envv	*ft_tenvv_cpy(t_envv *src);
 char	**tenvv_to_tab(t_envv *envv);
 t_envv	*ft_new_envv_equ(t_envv *envv, char *eq);
+t_envv	*ft_new_envv_int(t_envv *envv, char *name, int val);
 
 #endif

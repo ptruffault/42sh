@@ -46,7 +46,7 @@ test/bin/sig9kill
 
 ### Build ###
 # Temporary build files
-build/
+bin/
 
 # Temporary
 *~
@@ -57,3 +57,4 @@ build/
 ### macOS ###
 # General
 .DS_Store
+debug

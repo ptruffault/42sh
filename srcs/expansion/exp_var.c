@@ -37,7 +37,7 @@ char		*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 	&& !(value = get_tenvv_val(sh->env, name))
 	&& !(value = get_tenvv_val(sh->intern, name)))
 		ft_strdel(&ret);
-	else if ((tmp = ft_strpull(ret, ptr, ft_strlen(name), value)))
+	else if (name && (tmp = ft_strpull(ret, ptr, ft_strlen(name), value)))
 	{
 		ft_strdel(&ret);
 		ret = tmp;

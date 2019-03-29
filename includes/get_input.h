@@ -63,6 +63,19 @@
 # define DELETE_LINE "dl"
 # define HOME_POS "ho"
 
+typedef enum	e_colors
+{
+	BLUE = 0,
+	RED,
+	BLUE2,
+	UNDERLINE,
+	RESET,
+	GREEN,
+	CYAN1,
+	MAGENTA1,
+	YELLOW
+}				t_colors;
+
 void			curr_move_right(t_edit *e);
 void			curr_move_left(t_edit *e);
 void			curs_go_last(t_edit *e);

@@ -71,6 +71,8 @@ int		init_intern(t_shell *sh)
 	char			*hostname;
 
 	hostname = NULL;
+	sh->intern = ft_new_envv(sh->intern, "HISTSIZE", "500");
+	sh->intern = ft_new_envv(sh->intern, "PS1", PS1);
 	if ((usr = getpwnam(getlogin())))
 	{
 		sh->intern = ft_new_envv_int(sh->intern, "EUID", usr->pw_uid);
@@ -78,7 +80,6 @@ int		init_intern(t_shell *sh)
 		if ((hi_path = ft_strjoin(usr->pw_dir, "/.42history"))
 			&& (sh->intern = ft_new_envv(sh->intern, "HISTFILE", hi_path)))
 		{
-			sh->intern = ft_new_envv(sh->intern, "HISTSIZE", "500");
 			sh->hist = init_hist(hi_path);
 			ft_strdel(&hi_path);
 		}

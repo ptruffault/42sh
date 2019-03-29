@@ -15,26 +15,112 @@
 // compar getpgrp with the foreground process on term (tcgetpgrp)
 // |-> le shell a été lancer depuis un autre shell qui gere le job control
 // |-> le shell es en background (interactif = SIGGTTIN)
-// 
+//
 // Job control is now available
 // setpgid() -> set 42sh in it's own group
 //  |-> tcsetpgrp to place his group in term forground
 //  |-> NIK SA MER
 //
-// 
+//
 
+static const char	*g_colors[] = {
+	BLEUCLAIR,
+	ROUGE,
+	BLEU,
+	SOULIGNE,
+	NORMAL,
+	VERT,
+	CYAN,
+	MAGENTA,
+	JAUNE,
+	"\0",
+};
 
-void	ft_disp(t_shell *sh)
+static char	*ft_replace_home(char *path, char *home)
 {
-	char *pwd;
+	char	*tmp;
 
-	pwd = ft_update_pwd(sh);
-	ft_putstr("\033[1;32m42sh\033[00m:[\033[01;34m\033[04m");
-	ft_putstr(pwd);
-	ft_putstr("\033[00m]\n");
+	if (!home || !path)
+		return (path);
+	if (!(tmp = ft_strstr(path, home)))
+		return (path);
+	path[0] = '~';
+	ft_strcpy(path + 1, tmp + ft_strlen(home));
+	return (path);
 }
 
-int		main(int argc, char **argv, char **envv)
+void		ft_print_colors(char *str, int *ptr)
+{
+	int					i;
+	const char *const	colors[] = {
+			"BLUE", "RED", "BLUE2", "UNDERLINE", "RESET",
+			"GREEN", "CYAN", "MAGENTA", "YELLOW", "\0"
+	};
+
+	i = 0;
+	while (str[i] != ']' && str[i] != '\0')
+		i += 1;
+	if (str[i] == '\0')
+		*ptr += i;
+	else
+		*ptr += i + 1;
+	str[i] = '\0';
+	i = -1;
+	while (colors[++i][0] != '\0')
+		if (ft_strequ(colors[i], str + 2))
+			break ;
+	ft_putstr(g_colors[i]);
+}
+
+void		ft_print_var(t_shell *sh, char *str, int *ptr)
+{
+	int		i;
+	char	*val;
+
+	i = 0;
+	while (str[i] != '}' && str[i] != '\0')
+		i += 1;
+	if (str[i] == '\0')
+		*ptr += i;
+	else
+		*ptr += i + 1;
+	str[i] = '\0';
+	if ((val = get_tenvv_val(sh->env, str + 2)))
+	{
+		if (ft_strequ("PWD", str + 2))
+			val = ft_replace_home(val, get_tenvv_val(sh->env, "HOME"));
+		ft_putstr(val);
+	}
+	else if ((val = get_tenvv_val(sh->intern, str + 2)))
+		ft_putstr(val);
+}
+
+void		ft_disp(t_shell *sh)
+{
+	int		i;
+	char	*prompt;
+
+	ft_update_pwd(sh);
+	if ((prompt = ft_strdup(get_tenvv_val(sh->intern, "PS1"))))
+	{
+		i = 0;
+		while (prompt[i])
+		{
+			if (prompt[i] == '$' && prompt[i + 1] == '[')
+				ft_print_colors(&prompt[i], &i);
+			else if (prompt[i] == '$' && prompt[i + 1] == '{')
+				ft_print_var(sh, &prompt[i], &i);
+			else
+				ft_putchar(prompt[i++]);
+		}
+		ft_putchar('\n');
+		ft_strdel(&prompt);
+	}
+	else
+		ft_putendl("&>");
+}
+
+int			main(int argc, char **argv, char **envv)
 {
 	t_shell	sh;
 	t_tree	*t;

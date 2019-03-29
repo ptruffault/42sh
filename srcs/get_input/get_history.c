@@ -39,9 +39,14 @@ t_hist			*init_hist(char *hist)
 	t_hist	*tmp;
 	int		fd;
 	char	*line;
+	t_shell	*sh;
+	int		i;
 
 	ret = NULL;
 	tmp = NULL;
+	sh = ft_get_set_shell(NULL);
+	line  = get_tenvv_val(sh->intern, "HISTSIZE");
+	i = ft_atoi(line);
 	if ((fd = ft_open(hist, O_RDWR | O_CREAT | O_NOFOLLOW, 511)) >= 0)
 	{
 		while (get_next_line(fd, &line) == 1)
@@ -53,9 +58,12 @@ t_hist			*init_hist(char *hist)
 			else if (!(tmp->s = ft_strnew(0)))
 				return (ft_free_thist(ret));
 			tmp->next = !ret ? NULL : ret;
+			tmp->nb = !ret ? 0 : ret->nb + 1;
 			if (tmp->next)
 				tmp->next->prev = tmp;
 			ret = tmp;
+			if (tmp->nb >= i)
+				break ;
 		}
 		ft_close(fd);
 	}

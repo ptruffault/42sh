@@ -29,6 +29,7 @@ t_hist			*new_hist(void)
 	if (!(n = (t_hist *)malloc(sizeof(t_hist))))
 		return (NULL);
 	n->s = NULL;
+	n->nb = 0;
 	n->next = NULL;
 	n->prev = NULL;
 	return (n);
@@ -54,7 +55,7 @@ t_hist			*init_hist(char *hist)
 			else if (!(tmp->s = ft_strnew(0)))
 				return (ft_free_thist(ret));
 			tmp->next = !ret ? NULL : ret;
-			tmp->nb = !ret ? 0 : ret->nb + 1;
+			tmp->nb = !ret ? 1 : ret->nb + 1;
 			if (tmp->next)
 				tmp->next->prev = tmp;
 			ret = tmp;

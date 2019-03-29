@@ -82,6 +82,7 @@ static int		ft_init_input_link(t_shell *sh, t_hist *tmp)
 		tmp->next = sh->hist;
 		tmp->next->prev = tmp;
 	}
+	tmp->nb = !sh->hist ? 1 : sh->hist->nb + 1;
 	if (!(tmp->s = ft_strnew(2)))
 	{
 		free(tmp);
@@ -125,6 +126,7 @@ int				init_tedit(t_shell *sh)
 		tmp->next = sh->hist;
 		sh->hist->prev = tmp;
 		sh->e.hist = tmp;
+		tmp->nb = sh->hist->nb + 1;
 	}
 	else if (!(tmp = new_hist()) || ft_init_input_link(sh, tmp) == FAILURE)
 		return (FAILURE);

@@ -30,6 +30,8 @@ int			ft_tcsetpgrp(int fd, pid_t pgrp);
 pid_t		ft_tcgetpgrp(int fd);
 void		set_son_signal(void);
 
+int         ft_fc(t_shell *sh, char **argv);
+
 void 		ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t);
 void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t);
 int			ft_quit(int exit_code, t_shell *sh);

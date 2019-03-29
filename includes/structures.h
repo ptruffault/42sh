@@ -81,7 +81,7 @@ typedef struct s_sig_msg
 typedef struct	s_hist
 {
 	char			*s;
-	size_t			nb;
+	int				nb;
 	struct s_hist	*next;
 	struct s_hist	*prev;
 }				t_hist;

@@ -58,7 +58,7 @@ t_hist			*init_hist(char *hist)
 			if (tmp->next)
 				tmp->next->prev = tmp;
 			ret = tmp;
-			if (tmp->nb >= (size_t)ft_get_hist_size())
+			if (tmp->nb >= ft_get_hist_size())
 				break ;
 		}
 		ft_close(fd);

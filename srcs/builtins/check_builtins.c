@@ -36,7 +36,7 @@ static void	ft_init_builtins_tab(char *builtins[18])
 
 int			check_builtin(char *input)
 {
-	char	*builtins[17];
+	char	*builtins[18];
 	int		i;
 
 	i = 0;

@@ -90,6 +90,17 @@ static int		ft_init_input_link(t_shell *sh, t_hist *tmp)
 	return (SUCCESS);
 }
 
+int ft_get_hist_size(void)
+{
+	t_shell	*sh;
+	char	*line;
+
+	sh = ft_get_set_shell(NULL);
+	if (!(line = get_tenvv_val(sh->intern, "HISTSISZE")))
+		return (32767);
+	return (ft_atoi(line));
+}
+
 int				init_tedit(t_shell *sh)
 {
 	t_hist *tmp;
@@ -97,6 +108,7 @@ int				init_tedit(t_shell *sh)
 	ft_update_windows(&sh->e);
 	ft_init_inputs_tab(&sh->e, 0);
 	sh->e.edited = FALSE;
+	sh->e.hist_size = ft_get_hist_size();
 	sh->e.curr = 0;
 	sh->e.pos = 0;
 	sh->e.select = -1;

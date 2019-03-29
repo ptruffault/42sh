@@ -103,7 +103,7 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 		}
 		else if ((ret->cmd = get_bin_path(*ret->argv, sh->env)))
 		{
-			sh->env = ft_new_envv(sh->env, "_", ret->cmd);
+			sh->env = ft_new_envv(sh->env, "_", ret->argv[0]);
 			ret->env = tenvv_to_tab(sh->env);
 		}
 		return (ret);

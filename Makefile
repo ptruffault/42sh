@@ -54,6 +54,7 @@ SRC		=	\
 	builtins/type_tools.c		\
 	builtins/ft_alias.c			\
 	builtins/ft_jobs.c			\
+	builtins/ft_fc.c			\
 	builtins/check_builtins.c	\
 	\
 	get_input/curs_move.c		\

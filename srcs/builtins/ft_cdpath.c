@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-char		*try_cdpath(char *cdpath, char *path, bool *pwd_f)
+char		*try_cdpath(char *cdpath, char *path, bool *pwd_f, unsigned int *opts)
 {
 	char		**tpath;
 	char		*res;
@@ -31,6 +31,7 @@ char		*try_cdpath(char *cdpath, char *path, bool *pwd_f)
 				{
 					res = ft_strdup(tpath[i]);
 					ft_freestrarr(&tpath);
+					*opts = (*opts | 0x04);
 					*pwd_f = true;
 					return (res);
 				}

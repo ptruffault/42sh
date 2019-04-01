@@ -153,5 +153,5 @@ char 		*ft_split_equal(char *str, char **aft);
 int			init_intern(t_shell *sh);
 void		retrieve_path(t_shell *sh);
 char		*trim_path(char *path);
-char		*try_cdpath(char *cdpath, char *path, bool *pwd_f);
+char		*try_cdpath(char *cdpath, char *path, bool *pwd_f, unsigned int *opts);
 #endif

@@ -21,7 +21,7 @@ t_envv				*change_dir(char *path, t_envv *envv, unsigned int opts)
 	if (!chdir(path))
 	{
 		cwd = ft_strdup(path);
-		if (ft_strequ(cwd, get_tenvv_val(envv, "OLDPWD")))
+		if (opts & 0x04)
 			ft_printf("%s\n", cwd);
 		envv = ft_new_envv(envv, "OLDPWD", get_tenvv_val(envv, "PWD"), true);
 		if ((opts & 0x02))
@@ -69,7 +69,7 @@ t_envv				*get_path_cd(char *path, t_envv *envv, unsigned int opts)
 	if ((opts & 0x02) && (path[0] == '/' || path[0] == '.'))
 		return (change_dir(path, envv, opts));
 	if ((cdpath = get_tenvv_val(envv, "CDPATH")) && ft_strlen(cdpath) > 0)
-		curpath = try_cdpath(cdpath, path, &pwd_f);
+		curpath = try_cdpath(cdpath, path, &pwd_f, &opts);
 	if (!curpath && path[0] != '/')
 		curpath = concat_pwd(envv, path, &pwd_f);
 	else if (!curpath)
@@ -134,7 +134,7 @@ t_envv				*ft_cd(char **input, t_envv *envv)
 	else if (input[1][0] == '-' && input[1][1] == '\0')
 	{
 		if ((val = get_tenvv_val(envv, "OLDPWD")))
-			return (get_path_cd(val, envv, opts));
+			return (get_path_cd(val, envv, (opts | 0x04)));
 		else
 			error("UNSET VAR", "OLDPWD");
 	}

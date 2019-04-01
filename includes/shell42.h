@@ -107,7 +107,7 @@ void		ft_update_windows(t_edit *e);
 int			init_termcaps(t_shell *sh);
 int			check_builtin(char *input);
 t_envv		*ft_cd(char **input, t_envv *envv);
-t_envv		*change_dir(char *path, t_envv *envv);
+t_envv		*change_dir(char *path, t_envv *envv, unsigned int opts);
 int			ft_echo(char **input);
 void		ft_exit(char *nbr, t_shell *sh);
 int			ft_env(t_envv *envv, char **argv);
@@ -152,4 +152,6 @@ void		ft_delete_process(int pid);
 char 		*ft_split_equal(char *str, char **aft);
 int			init_intern(t_shell *sh);
 void		retrieve_path(t_shell *sh);
+char		*trim_path(char *path);
+char		*try_cdpath(char *cdpath, char *path);
 #endif

@@ -78,6 +78,7 @@ void		ft_print_var(t_shell *sh, char *str, int *ptr)
 	char	*val;
 
 	i = 0;
+	val = NULL;
 	while (str[i] != '}' && str[i] != '\0')
 		i += 1;
 	if (str[i] == '\0')
@@ -85,14 +86,15 @@ void		ft_print_var(t_shell *sh, char *str, int *ptr)
 	else
 		*ptr += i + 1;
 	str[i] = '\0';
-	if ((val = get_tenvv_val(sh->env, str + 2)))
+	if ((val = ft_strdup(get_tenvv_val(sh->env, str + 2))))
 	{
 		if (ft_strequ("PWD", str + 2))
 			val = ft_replace_home(val, get_tenvv_val(sh->env, "HOME"));
 		ft_putstr(val);
 	}
-	else if ((val = get_tenvv_val(sh->intern, str + 2)))
+	else if ((val = ft_strdup(get_tenvv_val(sh->intern, str + 2))))
 		ft_putstr(val);
+	ft_strdel(&val);
 }
 
 void		ft_disp(t_shell *sh)
@@ -100,7 +102,6 @@ void		ft_disp(t_shell *sh)
 	int		i;
 	char	*prompt;
 
-	ft_update_pwd(sh);
 	if ((prompt = ft_strdup(get_tenvv_val(sh->intern, "PS1"))))
 	{
 		i = 0;

@@ -12,30 +12,38 @@
 
 #include "shell42.h"
 
-t_hist *search_in_hist(t_fc *fc)
+static t_hist  *search_by_number(t_hist *first, int nb)
+{
+    if (nb < 0)
+        return (search_by_number_from_first(first, nb));
+    else
+        return (search_by_number_from_last(first, nb));
+}
+
+int             search_in_hist_parser(t_fc *fc)
 {
     t_hist  *hist;
 
     hist = fc->shell->hist;
     if (fc->first != 0)
     {
-        if (!(fc->hist_first = search_by_number(fc->first)))
-            return (NULL);
+        if (!(fc->hist_first = search_by_number(fc->hist, fc->first)))
+            return (FAILURE);
     }
     else if (fc->first_)
     {
-        if (!(fc->hist_first = search_by_occurence(fc->first_)))
-            return (NULL);
+        if (!(fc->hist_first = search_by_occurence(fc->hist, fc->first_)))
+            return (FAILURE);
     }
     if (fc->last != 0)
     {
-        if (!(fc->hist_last = search_by_number(fc->last)))
-            return (NULL);
+        if (!(fc->hist_last = search_by_number(fc->hist, fc->last)))
+            return (FAILURE);
     }
     else if (fc->last_)
     {
-        if (!(fc->hist_last = search_by_occurence(fc->last_)))
-            return (NULL);
+        if (!(fc->hist_last = search_by_occurence(fc->hist, fc->last_)))
+            return (FAILURE);
     }
-    return (NULL);
+    return (SUCCESS);
 }

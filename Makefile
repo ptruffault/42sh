@@ -56,6 +56,7 @@ SRC		=	\
 	builtins/ft_jobs.c					\
 	builtins/ft_fc.c					\
 	builtins/ft_fc_search_hist_parser.c	\
+	builtins/ft_fc_search_hist.c		\
 	builtins/check_builtins.c			\
 	\
 	get_input/curs_move.c		\

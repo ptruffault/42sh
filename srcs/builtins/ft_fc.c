@@ -58,22 +58,13 @@ int		flags_gestion(char *flags, char **av, int x)
 
 void list_hist(t_fc *fc)
 {
-    int x;
     int reverse;
-    t_hist *hist;
 
-    x = 0;
     reverse = 0;
     if (ft_strchr(fc->flags, 'r'))
         reverse = 1;
-    hist = search_in_hist(fc);
-    printf("%d\t%s\n", hist->nb, hist->s);
-    while (x < 15 && fc->hist)
-        {
-            ft_printf("%10-d%s\n", fc->hist->nb, fc->hist->s);
-            fc->hist = fc->hist->next;
-            ++x;
-        }
+    if (search_in_hist_parser(fc) == FAILURE)
+        return ;
 }
 
 void fc_init_first_last(t_fc *fc, int pos)

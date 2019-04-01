@@ -31,8 +31,13 @@ int			ft_tcsetpgrp(int fd, pid_t pgrp);
 pid_t		ft_tcgetpgrp(int fd);
 void		set_son_signal(void);
 int			ft_init_groups(t_shell *sh);
+
 int         ft_fc(t_shell *sh, char **argv);
-t_hist      *search_in_hist(t_fc *fc);
+int         search_in_hist_parser(t_fc *fc);
+t_hist      *search_by_number_from_first(t_hist *first, int nb);
+t_hist      *search_by_number_from_last(t_hist *first, int nb);
+t_hist      *search_by_occurence(t_hist *first, char *to_search);
+
 
 void 		ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t);
 void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t);

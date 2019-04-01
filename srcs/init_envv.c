@@ -99,8 +99,8 @@ int		init_env(t_shell *sh, char **argv, char **envv)
 	{
 		sh->env = ft_new_envv(sh->env, "SHELL", shell_path);
 		shell_fold = ft_get_prev_path(shell_path);
-		ft_setup_environ(sh, shell_fold);
 		init_intern(sh);
+		ft_setup_environ(sh, shell_fold);
 		ft_strdel(&shell_path);
 		return (1);
 	}

@@ -30,7 +30,7 @@ static char	*sub_handle_modifier(char *parenth, char *ptr, t_shell *sh)
 		error(v1, v2);
 	else if (*ptr == '='
 	&& !(val = ft_strdup((get_tenvv(sh->env, v1) ? v1 : NULL))) && v2
-	&& (sh->env = ft_new_envv(sh->env, v1, v2)))
+	&& (sh->env = ft_new_envv(sh->env, v1, v2, true)))
 		val = ft_strdup(v2);
 	ft_strdel(&v1);
 	ft_strdel(&v2);

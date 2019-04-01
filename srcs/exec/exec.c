@@ -76,7 +76,7 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 		if (!tmp->cmd || !tmp->cmd->word)
 		{
 			if (t->assign)
-				sh->intern = ft_push_tenvv(sh->intern, t->assign);
+				sh->env = ft_push_tenvv(sh->env, t->assign);
 			if (tmp->o_type == O_SEP || tmp->o_type == 0
 				|| tmp->o_type == O_BACK)
 				tmp = tmp->next;

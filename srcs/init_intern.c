@@ -12,30 +12,6 @@
 
 #include "shell42.h"
 
-void	export_intern(t_shell *sh, const char *var)
-{
-	t_envv	*head;
-	t_envv	*tmp;
-
-	tmp = NULL;
-	head = sh->intern;
-	while (var && head)
-	{
-		if ((head->name) && ft_strequ(var, head->name))
-		{
-			if (tmp)
-				tmp->next = head->next;
-			else
-				sh->intern = head->next;
-			head->next = sh->env;
-			sh->env = head;
-			return ;
-		}
-		tmp = head;
-		head = head->next;
-	}
-}
-
 char				*trim_path(char *path)
 {
 	int		i;
@@ -73,9 +49,7 @@ void	retrieve_path(t_shell *sh)
 	path = NULL;
 	if (!(get_tenvv_val(sh->env, "PATH")))
 	{
-		if (get_tenvv_val(sh->intern, "PATH"))
-			export_intern(sh, "PATH");
-		else if ((path = ft_strnew(0)))
+		if ((path = ft_strnew(0)))
 		{
 			fd = open("/etc/paths", O_RDONLY);
 			while (fd >= 0 && get_next_line(fd, &line) > 0)
@@ -85,7 +59,7 @@ void	retrieve_path(t_shell *sh)
 			}
 			ft_close(fd);
 			if (path)
-				sh->env = ft_new_envv(sh->env, "PATH", path);
+				sh->env = ft_new_envv(sh->env, "PATH", path, true);
 			ft_strdel(&path);
 		}
 	}
@@ -98,16 +72,16 @@ int		init_intern(t_shell *sh)
 	char			*hostname;
 
 	hostname = NULL;
-	sh->intern = ft_new_envv(sh->intern, "HISTSIZE", "500");
-	sh->intern = ft_new_envv(sh->intern, "CDPATH", "");
-	sh->intern = ft_new_envv(sh->intern, "FCEDIT", "vim");
-	sh->intern = ft_new_envv(sh->intern, "PS1", PS1);
+	sh->env = ft_new_envv(sh->env, "HISTSIZE", "500", false);
+	sh->env = ft_new_envv(sh->env, "CDPATH", "", false);
+	sh->env = ft_new_envv(sh->env, "FCEDIT", "vim", false);
+	sh->env = ft_new_envv(sh->env, "PS1", PS1, false);
 	if ((usr = getpwnam(getlogin())))
 	{
-		sh->intern = ft_new_envv_int(sh->intern, "EUID", usr->pw_uid);
-		sh->intern = ft_new_envv_int(sh->intern, "GROUPS", usr->pw_gid);
+		sh->env = ft_new_envv_int(sh->env, "EUID", usr->pw_uid, false);
+		sh->env = ft_new_envv_int(sh->env, "GROUPS", usr->pw_gid, false);
 		if ((hi_path = ft_strjoin(usr->pw_dir, "/.42history"))
-			&& (sh->intern = ft_new_envv(sh->intern, "HISTFILE", hi_path)))
+			&& (sh->env = ft_new_envv(sh->env, "HISTFILE", hi_path, false)))
 		{
 			sh->hist = init_hist(hi_path);
 			ft_strdel(&hi_path);
@@ -115,7 +89,7 @@ int		init_intern(t_shell *sh)
 	}
 	if ((hostname = ft_strnew(255)))
 		if (!(gethostname(hostname, 254)))
-			sh->intern = ft_new_envv(sh->intern, "HOSTNAME", hostname);
+			sh->env = ft_new_envv(sh->env, "HOSTNAME", hostname, false);
 	ft_strdel(&hostname);
 	return (0);
 }

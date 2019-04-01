@@ -168,7 +168,6 @@ typedef struct	s_shell
 	char			*txt;
 	int				heredoc;
 	t_envv			*env;
-	t_envv			*intern;
 	t_envv			*alias;
 	t_hist			*hist;
 	t_process		*process;

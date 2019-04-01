@@ -25,10 +25,10 @@ t_envv	*ft_export(t_shell *sh, char **argv)
 		if (ft_isequal(argv[i]))
 		{
 			name = ft_split_equal(argv[i], &val);
-			sh->env = ft_new_envv(sh->env, name, val);
+			sh->env = ft_new_envv(sh->env, name, val, true);
 		}
-		else if (sh->intern && (tmp = get_tenvv(sh->intern, argv[i])))
-			sh->env = ft_new_envv(sh->env, tmp->name, tmp->value);
+		else if (sh->env && (tmp = get_tenvv(sh->env, argv[i])))
+			tmp->exported = true;
 	}
 	return (sh->env);
 }

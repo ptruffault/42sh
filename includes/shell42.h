@@ -21,6 +21,7 @@
 # include <sys/ioctl.h>
 # include <pwd.h>
 # include <term.h>
+# include <limits.h>
 # include "structures.h"
 # include "libft.h"
 # include "tenvv.h"
@@ -152,5 +153,5 @@ char 		*ft_split_equal(char *str, char **aft);
 int			init_intern(t_shell *sh);
 void		retrieve_path(t_shell *sh);
 char		*trim_path(char *path);
-char		*try_cdpath(char *cdpath, char *path);
+char		*try_cdpath(char *cdpath, char *path, bool *pwd_f);
 #endif

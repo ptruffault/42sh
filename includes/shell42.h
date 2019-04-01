@@ -113,7 +113,7 @@ void		ft_update_windows(t_edit *e);
 int			init_termcaps(t_shell *sh);
 int			check_builtin(char *input);
 t_envv		*ft_cd(char **input, t_envv *envv);
-t_envv		*change_dir(char *path, t_envv *envv);
+t_envv		*change_dir(char *path, t_envv *envv, unsigned int opts);
 int			ft_echo(char **input);
 void		ft_exit(char *nbr, t_shell *sh);
 t_envv		*ft_export(t_shell *sh, char **argv);
@@ -152,4 +152,6 @@ t_process 	*init_process_tmp_var(t_shell *sh, t_envv *head, char **arr);
 char 		*ft_split_equal(char *str, char **aft);
 int			init_intern(t_shell *sh);
 void		retrieve_path(t_shell *sh);
+char		*trim_path(char *path);
+char		*try_cdpath(char *cdpath, char *path);
 #endif

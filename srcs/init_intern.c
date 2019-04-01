@@ -36,6 +36,33 @@ void	export_intern(t_shell *sh, const char *var)
 	}
 }
 
+char				*trim_path(char *path)
+{
+	int		i;
+	int		save;
+	bool	second;
+
+	i = -1;
+	save = -1;
+	second = false;
+	while (path[++i] != '\0')
+	{
+		if (path[i] == '.' && path[i + 1] == '.')
+			if (save >= 0)
+				ft_strcpy(path + save, path + i + 2);
+		if (path[i] == '.' && path[i + 1] == '/')
+			if (save >= 0)
+				ft_strcpy(path + save, path + i + 1);
+		if (path[i] == '/' && path[i + 1] == '/')
+			ft_strcpy(path + i, path + i + 1);
+		if (path[i] == '/' && !second)
+			save = i;
+		if (path[i] == '/')
+			second = !second;
+	}
+	return (path);
+}
+
 void	retrieve_path(t_shell *sh)
 {
 	char	*line;

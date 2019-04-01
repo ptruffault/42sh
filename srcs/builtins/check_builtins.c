@@ -14,23 +14,21 @@
 
 static void	ft_init_builtins_tab(char *builtins[17])
 {
-	builtins[0] = "setenv";
-	builtins[1] = "unsetenv";
-	builtins[2] = "exit";
-	builtins[3] = "cd";
-	builtins[4] = "export";
-	builtins[5] = "unset";
-	builtins[6] = "alias";
-	builtins[7] = "unalias";
-	builtins[8] = "echo";
-	builtins[9] = "set";
-	builtins[10] = "type";
-	builtins[11] = "jobs";
-	builtins[12] = "hi";
-	builtins[13] = "fg";
-	builtins[14] = "bg";
-	builtins[15] = "fc";
-	builtins[16] = NULL;
+	builtins[0] = "exit";
+	builtins[1] = "cd";
+	builtins[2] = "export";
+	builtins[3] = "unset";
+	builtins[4] = "alias";
+	builtins[5] = "unalias";
+	builtins[6] = "echo";
+	builtins[7] = "set";
+	builtins[8] = "type";
+	builtins[9] = "jobs";
+	builtins[10] = "hi";
+	builtins[11] = "fg";
+	builtins[12] = "bg";
+	builtins[13] = "fc";
+	builtins[14] = NULL;
 }
 
 int			check_builtin(char *input)

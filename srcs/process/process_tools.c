@@ -1,5 +1,4 @@
 #include "shell42.h"
-#include "get_input.h"
 
 static const t_sig_msg	g_signal_msg[] = {
 		{.sig = SIGHUP, .msg = "hanghup"},

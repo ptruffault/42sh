@@ -12,7 +12,6 @@
 
 #include "shell42.h"
 
-
 static int 	job_control(char **argv, t_shell *sh)
 {
 	if (sh->interactive == TRUE && sh->process->background == FALSE)
@@ -28,11 +27,7 @@ static int 	job_control(char **argv, t_shell *sh)
 
 static int	change_envv(char **argv, t_shell *sh)
 {
-	if (ft_strequ(*argv, "unsetenv") && argv[1])
-		sh->env = ft_unsetenv(sh->env, &argv[1]);
-	else if (ft_strequ(*argv, "setenv") && argv[1])
-		sh->env = ft_setenv(sh->env, &argv[1], 1, true);
-	else if (ft_strequ(*argv, "unset") && argv[1])
+	if (ft_strequ(*argv, "unset") && argv[1])
 		sh->env = ft_unsetenv(sh->env, &argv[1]);
 	else if (ft_strequ(*argv, "cd"))
 		sh->env = ft_cd(argv, sh->env);

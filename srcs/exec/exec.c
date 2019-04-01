@@ -37,7 +37,7 @@ static t_tree	*next_instruction(t_tree *t)
 	return (NULL);
 }
 
-void 	ft_link_process_to_term(t_process *p, t_shell *sh, t_tree *t)
+static void 	ft_link_process_to_term(t_process *p, t_shell *sh, t_tree *t)
 {
 	if (p)
 	{
@@ -52,7 +52,7 @@ void 	ft_link_process_to_term(t_process *p, t_shell *sh, t_tree *t)
 	}
 }
 
-t_tree			*exec_instruction(t_tree *t, t_shell *sh)
+static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 {
 	t_process	*p;
 

@@ -38,8 +38,6 @@ int			run_builtin(t_tree *t, char **argv, t_shell *sh)
 {
 	if (ft_strequ(*argv, "exit"))
 		ft_exit(argv[1], sh);
-	else if (ft_strequ(*argv, "env"))
-		return (ft_env(sh->env, argv));
 	else if (ft_strequ(*argv, "echo"))
 		return (ft_echo(&argv[1]));
 	else if (ft_strequ(*argv, "type"))

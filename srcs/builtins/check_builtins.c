@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static void	ft_init_builtins_tab(char *builtins[18])
+static void	ft_init_builtins_tab(char *builtins[17])
 {
 	builtins[0] = "setenv";
 	builtins[1] = "unsetenv";
@@ -26,24 +26,23 @@ static void	ft_init_builtins_tab(char *builtins[18])
 	builtins[9] = "set";
 	builtins[10] = "type";
 	builtins[11] = "jobs";
-	builtins[12] = "env";
-	builtins[13] = "hi";
-	builtins[14] = "fg";
-	builtins[15] = "bg";
-	builtins[16] = "fc";
-	builtins[17] = NULL;
+	builtins[12] = "hi";
+	builtins[13] = "fg";
+	builtins[14] = "bg";
+	builtins[15] = "fc";
+	builtins[16] = NULL;
 }
 
 int			check_builtin(char *input)
 {
-	char	*builtins[18];
+	char	*builtins[17];
 	int		i;
 
 	i = 0;
 	ft_init_builtins_tab(builtins);
 	if (input == NULL)
 		return (0);
-	while (i < 17 && builtins[i])
+	while (i < 18 && builtins[i])
 		if (ft_strequ(builtins[i++], input))
 			return (1);
 	return (0);

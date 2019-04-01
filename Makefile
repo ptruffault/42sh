@@ -44,6 +44,7 @@ SRC		=	\
 	eval/t_word_tools.c		\
 	\
 	builtins/ft_echo.c					\
+	builtins/ft_jobs.c					\
 	builtins/fg_bg.c					\
 	builtins/ft_cd.c					\
 	builtins/ft_cdpath.c				\
@@ -53,7 +54,7 @@ SRC		=	\
 	builtins/ft_exit.c					\
 	builtins/type_tools.c				\
 	builtins/ft_alias.c					\
-	builtins/ft_jobs.c					\
+	builtins/hi.c					\
 	builtins/ft_fc.c					\
 	builtins/ft_fc_search_hist_parser.c	\
 	builtins/ft_fc_search_hist.c		\

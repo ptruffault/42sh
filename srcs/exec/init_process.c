@@ -23,6 +23,7 @@ static t_process 	*ft_new_process(t_shell *sh)
 	ret->fd[2] = sh->std[2];
 	ret->pgid = 0;
 	ret->sig = 0;
+	ret->line = NULL;
 	ret->pipe[0] = -1;
 	ret->pipe[1] = -1;
 	ret->status = INIT;
@@ -86,7 +87,8 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 		ft_setup_localenv(ret, sh, t);
 		ret->background = (t->o_type == O_BACK ? TRUE : FALSE);
 		ret->status = (ret->background == TRUE ? RUNNING_BG : RUNNING_FG);
-		if (!(ret->argv = ft_twordto_arr(t->cmd)))
+		if (!(ret->argv = ft_twordto_arr(t->cmd))
+		|| !(ret->line = ft_strdup(sh->txt)))
 		{
 			ft_get_envv_back(sh, ret, t);
 			return (ft_free_tprocess(ret));
@@ -111,6 +113,16 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 	return (NULL);
 }
 
+
+static void	ft_update_bg(t_process *p, t_bool val)
+{
+	while (p)
+	{
+		p->background = val;
+		p = p->grp;
+	}
+}
+
 t_process *init_pipe_process(t_tree *t, t_shell *sh)
 {
 	t_process *head;
@@ -128,6 +140,8 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 			if (t && (tmp->grp = init_process(t, sh)))
 		 	{
 		 		tmp = tmp->grp;
+		 		if (tmp->background == TRUE)
+		 			ft_update_bg(head, TRUE);
 		 		if (tmp->cmd)
 		 		{
 		 			if (t->o_type == O_PIPE && t->next 

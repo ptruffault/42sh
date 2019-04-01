@@ -52,7 +52,7 @@ static void	ft_update_shelvl(t_shell *sh)
 	sh->env = ft_new_envv_int(sh->env, "SHLVL", lvl + 1);
 }
 
-char		*ft_update_pwd(t_shell *sh)
+static char		*ft_update_pwd(t_shell *sh)
 {
 	char buff[4097];
 	char *pwd;
@@ -70,7 +70,7 @@ char		*ft_update_pwd(t_shell *sh)
 	return (NULL);
 }
 
-void	ft_setup_environ(t_shell *sh, char *shell_fold)
+static void	ft_setup_environ(t_shell *sh, char *shell_fold)
 {
 	struct passwd	*usr;
 	char			*rc_path;

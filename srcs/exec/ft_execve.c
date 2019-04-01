@@ -33,7 +33,7 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t, int frk)
 
 void		ft_execve(t_process *p, t_shell *sh)
 {
-	if (sh->interactive)
+	if (sh->interactive == TRUE)
 	{
 		p->pid = getpid();
 		p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
@@ -61,7 +61,7 @@ t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t, int  frk)
 				ft_execve(p, sh);
 			else if (p->pid < 0)
 				error("fork fucked up", p->cmd);
-			if (frk)
+			if (sh->interactive == TRUE && frk)
 			{
 				p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
 				if (setpgid(p->pid, p->pgid) < 0)

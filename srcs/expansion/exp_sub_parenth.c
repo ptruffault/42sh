@@ -12,29 +12,27 @@
 
 #include "shell42.h"
 
+
 static char	*sub_handle_modifier(char *parenth, char *ptr, t_shell *sh)
 {
-	char *v1;
-	char *v2;
 	char *val;
+	char *val1;
+	char *val2;
 
-	if (!(v1 = ft_strndup(parenth, ptr - parenth - 1)))
-		return (NULL);
-	v2 = ft_strdup(ptr + 1);
 	val = NULL;
-	if (*ptr == '-')
-		val = ft_strdup((get_tenvv(sh->env, v1) ? v1 : v2));
-	else if (*ptr == '+')
-		val = ft_strdup((get_tenvv(sh->env, v1) ? v2 : NULL));
-	if (*ptr == '?' && !(val = ft_strdup((get_tenvv(sh->env, v1) ? v1 : NULL))))
-		error(v1, v2);
-	else if (*ptr == '='
-	&& !(val = ft_strdup((get_tenvv(sh->env, v1) ? v1 : NULL))) && v2
-	&& (sh->env = ft_new_envv(sh->env, v1, v2, true)))
-		val = ft_strdup(v2);
-	ft_strdel(&v1);
-	ft_strdel(&v2);
-	return (val);
+	if (parenth && (val1 = ft_strndup(parenth, ptr - parenth - 1)))
+	{
+		val2 = ptr + 1;
+		if ((*ptr == '-' && !(get_tenvv(sh->env, val1)))
+		|| (*ptr == '+' && get_tenvv(sh->env, val1))
+		|| (*ptr == '=' && !(get_tenvv(sh->env, val1))
+		&& (sh->env = ft_new_envv(sh->env, val1, val2, true))))
+			val = val2;
+		else if (*ptr == '?' && !(get_tenvv(sh->env, val1)))
+			error(val1, val2);
+		ft_strdel(&val1);
+	}
+	return (ft_strdup(val));
 }
 
 static char	*sub_get_param_value(char *old_parenth, t_shell *sh)

@@ -79,7 +79,6 @@ SRC		=	\
 	\
 	expansion/exp_var.c			\
 	expansion/exp.c				\
-	expansion/expantion_tools.c	\
 	expansion/exp_parenth.c		\
 	expansion/exp_sub_parenth.c	\
 	expansion/cut_string.c		\

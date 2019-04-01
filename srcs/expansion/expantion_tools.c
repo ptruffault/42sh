@@ -12,16 +12,3 @@
 
 #include "shell42.h"
 
-int	get_content_size(char *s)
-{
-	int i;
-
-	i = 2;
-	while (s[i] && s[i] != '}')
-	{
-		if (s[i] == '$' && s[i + 1] == '{')
-			i = i + get_content_size(&s[i]) + 2;
-		i++;
-	}
-	return (i - 2);
-}

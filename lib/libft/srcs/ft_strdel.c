@@ -19,3 +19,9 @@ void	ft_strdel(char **as)
 	free(*as);
 	*as = 0;
 }
+
+char 	*ft_strdell(char **as)
+{
+	ft_strdel(as);
+	return (NULL);
+}

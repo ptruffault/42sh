@@ -20,7 +20,7 @@ char		*ft_get_secondvalue(char *src)
 
 	i = 0;
 	ret = NULL;
-	if ((cpy = ft_strdup(src)))
+	if (src && (cpy = ft_strdup(src)))
 	{
 		if (*src == '$')
 			cpy = ft_exp_var(cpy, ft_get_set_shell(NULL));
@@ -28,7 +28,8 @@ char		*ft_get_secondvalue(char *src)
 			&& cpy[i + 1] && ft_strchr("?=+-", cpy[i + 1]))
 			|| (cpy[i] == '#' || cpy[i] == '%') || cpy[i] == '}'))
 			i++;
-		ret = ft_strndup(cpy, i);
+		if (!(ret = ft_strndup(cpy, i)))
+			return (ft_strdell(&cpy));
 		ft_strdel(&cpy);
 	}
 	return (ret);

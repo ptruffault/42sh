@@ -43,20 +43,22 @@ SRC		=	\
 	eval/alias.c			\
 	eval/t_word_tools.c		\
 	\
-	builtins/ft_echo.c			\
-	builtins/fg_bg.c			\
-	builtins/ft_cd.c			\
-	builtins/ft_cdpath.c		\
-	builtins/run_builtin.c		\
-	builtins/ft_env.c			\
-	builtins/ft_export.c		\
-	builtins/ft_type.c			\
-	builtins/ft_exit.c			\
-	builtins/type_tools.c		\
-	builtins/ft_alias.c			\
-	builtins/ft_jobs.c			\
-	builtins/ft_fc.c			\
-	builtins/check_builtins.c	\
+	builtins/ft_echo.c					\
+	builtins/fg_bg.c					\
+	builtins/ft_cd.c					\
+	builtins/ft_cdpath.c				\
+	builtins/run_builtin.c				\
+	builtins/ft_env.c					\
+	builtins/ft_export.c				\
+	builtins/ft_type.c					\
+	builtins/ft_exit.c					\
+	builtins/type_tools.c				\
+	builtins/ft_alias.c					\
+	builtins/ft_jobs.c					\
+	builtins/ft_fc.c					\
+	builtins/ft_fc_search_hist_parser.c	\
+	builtins/ft_fc_search_hist.c		\
+	builtins/check_builtins.c			\
 	\
 	get_input/curs_move.c		\
 	get_input/get_input.c		\
@@ -123,7 +125,7 @@ LIB_INC		+= -I $(LIBFT_PATH)/includes
 
 INCFLAG		:=	-I $(INCDIR) $(LIB_INC)
 STDFLAG		?=	-std=gnu11
-WFLAGS		?=	-Wall -Wextra -Werror -pedantic
+WFLAGS		?=	-Wall -Wextra -Werror -pedantic -g
 CFLAGS		=	$(WFLAGS) $(INCFLAG) $(STDFLAG)
 
 DEPGEN		:=	$(CC)

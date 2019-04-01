@@ -12,17 +12,6 @@
 
 #include "shell42.h"
 
-// compar getpgrp with the foreground process on term (tcgetpgrp)
-// |-> le shell a été lancer depuis un autre shell qui gere le job control
-// |-> le shell es en background (interactif = SIGGTTIN)
-//
-// Job control is now available
-// setpgid() -> set 42sh in it's own group
-//  |-> tcsetpgrp to place his group in term forground
-//  |-> NIK SA MER
-//
-//
-
 static const char	*g_colors[] = {
 	BLEUCLAIR,
 	ROUGE,

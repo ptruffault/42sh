@@ -35,7 +35,7 @@ int		flags_gestion(char *flags, char **av, int x)
 	while (++x < 6)
 		flags[x] = '\0';
 	x = 1;
-	while (av[x] && av[x][0] == '-')
+	while (av[x] && av[x][0] == '-' && (av[x][1] < '0' || av[x][1] > '9'))
 	{
 		b = 1;
 		while (av[x][b])
@@ -52,55 +52,81 @@ int		flags_gestion(char *flags, char **av, int x)
 		}
 		++x;
 	}
+    ft_printf("%d\n", x);
 	return (x);
 }
 
-void list_hist(t_shell *sh, char *flags, char **argv)
+void list_hist(t_fc *fc)
 {
-    int x;
     int reverse;
-    t_hist *hist;
 
-    x = 0;
     reverse = 0;
-    if (ft_strchr(flags, 'r'))
+    if (ft_strchr(fc->flags, 'r'))
         reverse = 1;
-    hist = sh->hist;
-    (void)argv;
-    while (x < 15 && hist)
+    if (search_in_hist_parser(fc) == FAILURE)
+        return ;
+}
+
+void fc_init_first_last(t_fc *fc, int pos)
+{
+    fc->first = 0;
+    fc->last = 0;
+    fc->first_ = NULL;
+    fc->last_ = NULL;
+    
+    if (fc->av[pos])
         {
-            ft_printf("%10-d%s\n", hist->nb, hist->s);
-            hist = hist->next;
-            ++x;
+            if (fc->av[pos][0] >= '0' && fc->av[pos][0] <= '9')
+                fc->first = ft_atoi(fc->av[pos]) == 0 ? -1 : ft_atoi(fc->av[pos]);
+            else
+                fc->first_ = fc->av[pos];
+            if (fc->av[pos + 1])
+            {
+                if (fc->av[pos + 1][0] >= '0' && fc->av[pos + 1][0] <= '9')
+                fc->last = ft_atoi(fc->av[pos + 1]) == 0 ? -1 : ft_atoi(fc->av[pos + 1]);
+              else
+                 fc->last_ = fc->av[pos + 1];
+            }
         }
+    else
+    {
+        fc->first = -15;
+        fc->last = 0;
+    }
 }
 
 int ft_fc(t_shell *shell, char **argv)
 {
-    char flags[6];
+    t_fc *fc;
     int x;
     char c;
+    int i;
 
+    if (!(fc = malloc(sizeof(t_fc) * 1)))
+        return (1);
     x = -1;
-    (void)shell;
-    (void)argv;
-    if (flags_gestion(flags, argv, 0) == FAILURE)
+    fc->av = argv;
+    fc->shell = shell;
+    fc->hist = shell->hist;
+    fc->hist_first = NULL;
+    fc->hist_last = NULL;
+    if ((i = flags_gestion(fc->flags, fc->av, 0)) == FAILURE)
         return (-1);
-    while (flags[++x])
-    {
-        if (flags[x] == 'l' || flags[x] == 'e' || flags[x] == 's')
+    ft_printf("%d\n", i);
+    while (fc->flags[++x])
+        if (fc->flags[x] == 'l' || fc->flags[x] == 'e' || fc->flags[x] == 's')
             {
-                c = flags[x];
-                flags[x] = flags[0];
-                flags[0] = c;
+                c = fc->flags[x];
+                fc->flags[x] = fc->flags[0];
+                fc->flags[0] = c;
                 break;
             }
-    }
-    if (flags[0] == 'l')
-        list_hist(shell, flags, argv);
-    if (flags[0] == 'e')
+    if (fc->flags[0] == 'l')
+        list_hist(fc);
+    if (fc->flags[0] == 'e')
         ;
-    if (flags[0] == 's')
+    if (fc->flags[0] == 's')
         ;
+    free(fc);
     return (0);
 }

@@ -101,11 +101,3 @@ void	ft_put_process(t_process *p)
 	ft_signal_check(p);
 	ft_putstr("\x1B[00m\n");
 }
-
-void ft_set_background(t_process *p)
-{
-	if (p->status == SUSPENDED)
-		kill_process(p, SIGCONT, SUSPENDED);
-	kill_process(p, -1, RUNNING_FG);
-}
-

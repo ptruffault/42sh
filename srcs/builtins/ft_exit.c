@@ -14,9 +14,9 @@
 
 int		ft_quit(int exit_code, t_shell *sh)
 {
-	kill_process(sh->process, SIGKILL, SUSPENDED);
-	kill_process(sh->process, SIGKILL, RUNNING_FG);
-	kill_process(sh->process, SIGKILL, RUNNING_BG);
+	kill_process(sh->process, SIGHUP, SUSPENDED);
+	kill_process(sh->process, SIGHUP, RUNNING_FG);
+	kill_process(sh->process, SIGHUP, RUNNING_BG);
 	ft_free_tshell(sh);
 	return (exit_code);
 }

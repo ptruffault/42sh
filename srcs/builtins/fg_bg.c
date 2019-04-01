@@ -49,7 +49,11 @@ int ft_bg(t_shell *sh, char **argv)
 	if (!argv[1])
 	{
 		if ((tmp = ft_get_process_id(sh->process, 1)))
-			ft_killgrp(tmp, -1);
+		{
+			kill(-tmp->pid, SIGCONT);
+			tmp->background = TRUE;
+			ft_update_status(tmp, RUNNING_BG);
+		}
 		else
 			return (error("no current job", NULL) - 1);
 	}
@@ -58,10 +62,16 @@ int ft_bg(t_shell *sh, char **argv)
 		if ((argv[1] && *argv[i] == '%' && ft_isdigit(argv[i][1])
 			&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
-			ft_killgrp(tmp, -1);
+		{
+			ft_update_status(tmp, RUNNING_BG);
+			tmp->background = TRUE;
+			kill(-tmp->pid, SIGCONT);
+		}
 		else
 			return (error("job not found", argv[1]) - 1);
 	}
+	while (i < 1000000)
+		i++;
 	return (0);
 }
 
@@ -77,8 +87,10 @@ int ft_fg(t_shell *sh, char **argv)
 	{
 		if ((tmp = ft_get_process_id(sh->process, 1)))
 		{
-			ft_killgrp(tmp, SIGCONT);
-			ft_wait(tmp);
+			kill(-tmp->pid, SIGCONT);
+			tmp->background = FALSE;
+			ft_update_status(tmp, RUNNING_FG);
+			ft_wait(tmp, sh);
 		}
 		else
 			return (error("no current job", NULL) - 1);
@@ -89,8 +101,10 @@ int ft_fg(t_shell *sh, char **argv)
 			&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 		{
-			ft_killgrp(tmp, SIGCONT);
-			ft_wait(tmp);
+			kill(-tmp->pid, SIGCONT);
+			tmp->background = FALSE;
+			ft_update_status(tmp, RUNNING_FG);
+			ft_wait(tmp, sh);
 		}
 		else
 			ret = error("job not found", argv[i]) - 1;

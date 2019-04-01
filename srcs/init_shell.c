@@ -32,22 +32,46 @@ static void	ft_null(t_shell *sh)
 	sh->intern = NULL;
 }
 
-static void	ft_init_groups(t_shell *sh)
+pid_t ft_tcgetpgrp(int fd)
 {
-	int *sh_pgid;
+ 	int pgrp;
 
-	if ((ft_tcsetpgrp(STDIN_FILENO, sh->pgid)) < 0)
-		error("can't set groups", NULL);
-	ft_printf("%i\n", sh->pgid);
-	sh_pgid = &sh->pgid;
-	while (ft_tcgetpgrp(STDIN_FILENO) != (*sh_pgid = getpgrp()))
-		kill(-*sh_pgid, SIGTTIN);
-	*sh_pgid = getpid();
-	if (setpgid(*sh_pgid, *sh_pgid) < 0)
+ 	if (ioctl(fd, TIOCGPGRP, &pgrp) < 0)
+ 	{
+ 		error("can't get pgid", "tcgetpgrp");
+ 		perror(NULL);
+		return (-1);
+ 	}
+	return pgrp ;
+}
+
+int ft_tcsetpgrp(int fd, pid_t pgrp)
+{
+	int pgrp_int;
+	int ret;
+
+	pgrp_int = pgrp;
+	if ((ret = ioctl(fd, TIOCSPGRP, &pgrp_int)) < 0)
+	{
+		error("can't put process in forground", "tcgetpgrp");
+		perror(NULL);
+	}
+	return (ret);
+}
+
+int	ft_init_groups(t_shell *sh)
+{
+	while (ft_tcgetpgrp(STDIN_FILENO) != (sh->pgid = getpgrp()))
+		kill(-sh->pgid, SIGTTIN);
+	sh->pgid = getpid();
+	if (setpgid(sh->pgid, sh->pgid) < 0)
+	{
 		error("setpgid failed", NULL);
-	if (ft_tcsetpgrp(STDIN_FILENO, *sh_pgid) < 0)
-		error("can' set grousp 2", NULL);
-	ft_printf("%i\n", *sh_pgid);
+		return (0);
+	}
+	if (ft_tcsetpgrp(STDIN_FILENO, sh->pgid) < 0)
+		return (0);
+	return (1);
 }
 
 int			init_shell(t_shell *sh, char **envv, char **argv)
@@ -66,10 +90,10 @@ int			init_shell(t_shell *sh, char **envv, char **argv)
 		exec_file(argv[1], sh);
 		return (0);
 	}
-	if (!init_termcaps(sh))
-		return (0);
 	sh->interactive = TRUE;
-	ft_init_groups(sh);
+	if (!ft_init_groups(sh)
+	||	!init_termcaps(sh))
+		return (0);
 	set_signals();
 	return (1);
 }

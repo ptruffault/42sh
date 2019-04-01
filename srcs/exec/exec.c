@@ -37,6 +37,21 @@ static t_tree	*next_instruction(t_tree *t)
 	return (NULL);
 }
 
+void 	ft_link_process_to_term(t_process *p, t_shell *sh, t_tree *t)
+{
+	if (p)
+	{
+		p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
+		if (setpgid(p->pid, p->pgid) < 0)
+			error("can't set group (parent)", p->cmd);
+		else if (sh->interactive == TRUE && p && p->builtins == FALSE && p->background ==  FALSE)
+			ft_tcsetpgrp(STDIN_FILENO, p->pgid);
+		t->ret = (p ? ft_wait(p, sh) : -1);
+		if (sh->interactive == TRUE && p && p->builtins == FALSE)
+			ft_tcsetpgrp(STDIN_FILENO, sh->pgid);
+	}
+}
+
 t_tree			*exec_instruction(t_tree *t, t_shell *sh)
 {
 	t_process	*p;
@@ -45,28 +60,15 @@ t_tree			*exec_instruction(t_tree *t, t_shell *sh)
 	if (t->o_type == O_PIPE)
 	{
 		if (t->next && (p = init_pipe_process(t, sh)))
-		{
-			p->next = sh->process;
-			sh->process = p;
 			t = exec_pipe(t, p, sh);
-		}
 		else
 			while (t->o_type == O_PIPE)
 				t = t->next;
 	}
 	else if ((p = init_process(t, sh)))
-	{
-		p->next = sh->process;
-		sh->process = p;
-		p = ft_execve(p, sh, t, 1);
-	}
-	t->ret = (p ? ft_wait(p) : -1);
+		p = ft_exec_process(p, sh, t, 1);
+	ft_link_process_to_term(p, sh, t);
 	ft_reset_fd(sh);
-	if (p && p->background == TRUE)
-	{
-		ft_printf("jes uis la\n");
-		ft_killgrp(p, -1);
-	}
 	return (t);
 }
 

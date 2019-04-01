@@ -32,7 +32,8 @@ static int	envv_len(t_envv *envv)
 	i = 0;
 	while (envv)
 	{
-		i++;
+		if (envv->exported)
+			i++;
 		envv = envv->next;
 	}
 	return (i + 1);

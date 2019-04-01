@@ -72,6 +72,8 @@ int		init_intern(t_shell *sh)
 
 	hostname = NULL;
 	sh->intern = ft_new_envv(sh->intern, "HISTSIZE", "500");
+	sh->intern = ft_new_envv(sh->intern, "CDPATH", "");
+	sh->intern = ft_new_envv(sh->intern, "FCEDIT", "vim");
 	sh->intern = ft_new_envv(sh->intern, "PS1", PS1);
 	if ((usr = getpwnam(getlogin())))
 	{

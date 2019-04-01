@@ -3,33 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/16 13:07:08 by ptruffau          #+#    #+#             */
-/*   Updated: 2017/11/16 13:32:49 by ptruffau         ###   ########.fr       */
+/*   Created: 2017/07/07 09:07:20 by adi-rosa          #+#    #+#             */
+/*   Updated: 2017/11/30 13:00:10 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "libft.h"
 
-int			ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	long	result;
-	int		sign;
+	int				i;
+	unsigned int	nb;
+	int				neg;
 
-	result = 0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-')
-		sign = -1;
-	else
-		sign = 1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str != '\0' && *str >= '0' && *str <= '9')
-	{
-		result = result * 10 + (*str - '0');
-		str++;
-	}
-	return ((int)(result * sign));
+	i = 0;
+	nb = 0;
+	neg = 0;
+	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n')
+			|| (str[i] == '\v') || (str[i] == '\f') || (str[i] == '\r'))
+		++i;
+	if (str[i] == '-')
+		neg = 1;
+	if (str[i] == '-' || str[i] == '+')
+		++i;
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
+		nb = nb * 10 + (str[i++] - '0');
+	if ((nb > 2147483647 && neg == 0)
+		|| (nb > 2147483648 && neg == 1))
+		return (nb > 2147483648 && neg == 1 ? 0 : -1);
+	return ((int)neg == 1 ? -nb : nb);
 }

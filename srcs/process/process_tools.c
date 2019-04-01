@@ -44,8 +44,6 @@ void ft_process_tab_status(char *stat[6])
 	stat[5] = "\x1b[1;34;41m  killed   \x1B[00m";
 }
 
-
-
 static int	ft_signal_check(t_process *p)
 {
 	int i;

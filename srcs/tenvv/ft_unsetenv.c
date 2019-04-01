@@ -46,7 +46,7 @@ t_envv		*ft_unsetenv(t_envv *envv, char **t)
 	i = 0;
 	if (!envv)
 		return (NULL);
-	if (ft_strequ(*t, "-all"))
+	if (ft_strequ(*t, "-a"))
 		return (ft_free_tenvv(envv));
 	while (t[i])
 		envv = ft_del_envv(envv, t[i++]);

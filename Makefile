@@ -47,7 +47,6 @@ SRC		=	\
 	builtins/fg_bg.c					\
 	builtins/ft_cd.c					\
 	builtins/run_builtin.c				\
-	builtins/ft_env.c					\
 	builtins/ft_export.c				\
 	builtins/ft_type.c					\
 	builtins/ft_exit.c					\

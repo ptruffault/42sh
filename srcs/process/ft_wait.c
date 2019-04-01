@@ -1,6 +1,6 @@
 #include "shell42.h"
 
-void	ft_eval_status(t_process *p, t_shell *sh)
+static void	ft_eval_status(t_process *p, t_shell *sh)
 {
 	if (WIFCONTINUED(p->ret) && p->status == RUNNING_FG && p->builtins == FALSE)
 		ft_wait(p, sh);
@@ -21,8 +21,6 @@ void	ft_eval_status(t_process *p, t_shell *sh)
 		p->status = DONE;
 }
 
-
-
 int	ft_wait(t_process *p, t_shell *sh)
 {
 	int ret;
@@ -32,7 +30,7 @@ int	ft_wait(t_process *p, t_shell *sh)
 	{
 		if (p->pid == 0 
 			|| (p->status == RUNNING_FG && waitpid(p->pid, &p->ret, WUNTRACED) > 0)
-			 || (p->status == RUNNING_BG && waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0))
+			|| (p->status == RUNNING_BG && waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0))
 		{
 			ft_eval_status(p, sh);
 			if (p->status != DONE || p->background == TRUE)

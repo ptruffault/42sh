@@ -2,6 +2,10 @@
 
 void ft_update_status(t_process *p, unsigned int status)
 {
+	char *stat[6];
+
+	ft_process_tab_status(stat);
+	ft_printf("%i %s %s\n", p->pid, stat[status], p->cmd);
 	while (p)
 	{
 		p->status = status; 

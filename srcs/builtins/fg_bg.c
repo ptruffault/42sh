@@ -51,6 +51,7 @@ int ft_bg(t_shell *sh, char **argv)
 		if ((tmp = ft_get_process_id(sh->process, 1)))
 		{
 			kill(-tmp->pid, SIGCONT);
+			tmp->background = TRUE;
 			ft_update_status(tmp, RUNNING_BG);
 		}
 		else
@@ -63,11 +64,14 @@ int ft_bg(t_shell *sh, char **argv)
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 		{
 			ft_update_status(tmp, RUNNING_BG);
+			tmp->background = TRUE;
 			kill(-tmp->pid, SIGCONT);
 		}
 		else
 			return (error("job not found", argv[1]) - 1);
 	}
+	while (i < 1000000)
+		i++;
 	return (0);
 }
 
@@ -84,6 +88,7 @@ int ft_fg(t_shell *sh, char **argv)
 		if ((tmp = ft_get_process_id(sh->process, 1)))
 		{
 			kill(-tmp->pid, SIGCONT);
+			tmp->background = FALSE;
 			ft_update_status(tmp, RUNNING_FG);
 			ft_wait(tmp, sh);
 		}
@@ -97,6 +102,7 @@ int ft_fg(t_shell *sh, char **argv)
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 		{
 			kill(-tmp->pid, SIGCONT);
+			tmp->background = FALSE;
 			ft_update_status(tmp, RUNNING_FG);
 			ft_wait(tmp, sh);
 		}

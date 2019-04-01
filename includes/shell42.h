@@ -31,6 +31,7 @@ pid_t		ft_tcgetpgrp(int fd);
 void		set_son_signal(void);
 
 int         ft_fc(t_shell *sh, char **argv);
+t_hist      *search_in_hist(t_fc *fc);
 
 void 		ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t);
 void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t);

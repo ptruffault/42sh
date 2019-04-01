@@ -177,4 +177,18 @@ typedef struct	s_shell
 	struct termios	saved_term;
 }				t_shell;
 
+typedef struct	s_fc
+{
+	char	**av;
+	t_hist	*hist;
+	t_shell	*shell;
+	int		first;
+	int		last;
+	char	*first_;
+	char	*last_;
+	t_hist	*hist_first;
+	t_hist	*hist_last;
+	char	flags[6];
+}				t_fc;
+
 #endif

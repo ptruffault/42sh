@@ -51,7 +51,8 @@ char				*concat_pwd(t_envv *envv, char *path, bool *pwd_f)
 		pwd = getcwd(buff, 4096);
 	if (!(pwd = ft_strdup(pwd)))
 		return (path);
-	pwd = ft_stradd(&pwd, "/");
+	if (pwd[ft_strlen(pwd) - 1] != '/')
+		pwd = ft_stradd(&pwd, "/");
 	pwd = ft_stradd(&pwd, path);
 	*pwd_f = true;
 	return (pwd);
@@ -73,7 +74,8 @@ t_envv				*get_path_cd(char *path, t_envv *envv, unsigned int opts)
 		curpath = concat_pwd(envv, path, &pwd_f);
 	else if (!curpath)
 		curpath = path;
-	while (ft_strstr(curpath, "..") || ft_strstr(curpath, "//"))
+	while (ft_strstr(curpath, "..") || ft_strstr(curpath, "//")
+		|| ft_strstr(curpath, "./") || ft_strstr(curpath, "/."))
 		trim_path(curpath);
 	if (ft_strlen(curpath) == 0)
 		ft_strcpy(curpath, "/");

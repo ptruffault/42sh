@@ -48,7 +48,7 @@ char		**tenvv_to_tab(t_envv *envv)
 		return (NULL);
 	while (envv)
 	{
-		if ((t[i] = get_equal(envv->name, envv->value)))
+		if (envv->exported && (t[i] = get_equal(envv->name, envv->value)))
 			i++;
 		envv = envv->next;
 	}

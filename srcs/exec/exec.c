@@ -39,9 +39,12 @@ static t_tree	*next_instruction(t_tree *t)
 
 static void 	ft_link_process_to_term(t_process *p, t_shell *sh, t_tree *t)
 {
-	if (sh->interactive == TRUE && p && p->builtins == FALSE && p->background ==  FALSE)
+	if (sh->interactive == TRUE && p && p->background ==  FALSE && p->pid != 0)
 		ft_tcsetpgrp(STDIN_FILENO, p->pgid);
+	else if (sh->interactive == TRUE && p && p->background ==  TRUE)
+		sh->env = ft_new_envv_int(sh->env, "!", p->pid, false);
 	t->ret = (p ? ft_wait(p, sh) : -1);
+	sh->env = ft_new_envv_int(sh->env, "?", t->ret, false);
 	if (sh->interactive == TRUE && p && p->builtins == FALSE)
 		ft_tcsetpgrp(STDIN_FILENO, sh->pgid);
 }

@@ -19,6 +19,8 @@ static char	*ft_get_varname(char *s)
 
 	i = 0;
 	ptr = s + 1;
+	if (*ptr == '!' || *ptr == '?' || *ptr == '$')
+		return (ft_strndup(ptr, 1));
 	while (ptr[i] && (ptr[i] == '_' || ft_isalpha(ptr[i])
 	|| ft_isdigit(ptr[i]) || ptr[i] == '~' || ptr[i] == '@'))
 		i++;

@@ -139,5 +139,7 @@ t_process *init_pipe_process(t_tree *t, t_shell *sh)
 			}
 		}
 	}
+	head->next = sh->process;
+	sh->process = head;
 	return (head);
 }

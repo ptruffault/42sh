@@ -124,7 +124,7 @@ LIB_INC		+= -I $(LIBFT_PATH)/includes
 
 INCFLAG		:=	-I $(INCDIR) $(LIB_INC)
 STDFLAG		?=	-std=gnu11
-WFLAGS		?=	-Wall -Wextra -Werror -pedantic
+WFLAGS		?=	-Wall -Wextra -Werror -pedantic -g
 CFLAGS		=	$(WFLAGS) $(INCFLAG) $(STDFLAG)
 
 DEPGEN		:=	$(CC)

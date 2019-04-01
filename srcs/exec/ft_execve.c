@@ -71,8 +71,6 @@ t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t, int  frk)
 		else if (frk)
 		{
 			error("command not found", *p->argv);
-			sh->process = sh->process->next;
-			p->next = NULL;
 			return (ft_free_tprocess(p));
 		}
 	}

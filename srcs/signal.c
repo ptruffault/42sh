@@ -17,16 +17,10 @@ void		sig_handler(int sig)
 	t_shell		*sh;
 
 	sh = ft_get_set_shell(NULL);
-	if (sig == SIGINT || sig == SIGQUIT)
-		kill_process(sh->process, sig, RUNNING_FG);
-	else if (sig == SIGCHLD)
+	if (sig == SIGCHLD)
 		ft_wait_background(sh);
 	else if (sig == SIGWINCH)
 		ft_update_windows(&sh->e);
-	else if (sig == SIGTSTP)
-		kill_process(sh->process, SIGTSTP, RUNNING_FG);
-	else if (sig == SIGTTIN || sig == SIGTTOU)
-		kill_process(sh->process, SIGTSTP, RUNNING_BG);
 }
 
 void		set_son_signal(void)
@@ -42,11 +36,11 @@ void		set_son_signal(void)
 
 void		set_signals(void)
 {
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	signal(SIGTSTP, sig_handler);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGCHLD, sig_handler);
 	signal(SIGWINCH, sig_handler);
-	signal(SIGTTIN, sig_handler);
-	signal(SIGTTOU, sig_handler);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGTTOU, SIG_IGN);
 }

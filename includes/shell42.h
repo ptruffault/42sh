@@ -26,10 +26,11 @@
 # include "tenvv.h"
 # include "ft_printf.h"
 
+void 		ft_update_status(t_process *p, unsigned int status);
 int			ft_tcsetpgrp(int fd, pid_t pgrp);
 pid_t		ft_tcgetpgrp(int fd);
 void		set_son_signal(void);
-
+int			ft_init_groups(t_shell *sh);
 int         ft_fc(t_shell *sh, char **argv);
 t_hist      *search_in_hist(t_fc *fc);
 
@@ -40,7 +41,7 @@ void		ft_kill(t_process *p, int sig);
 void 		ft_killgrp(t_process *p, int sig);
 void		ft_sigcont(t_process *tmp);
 void 		ft_wait_background(t_shell *sh);
-int			ft_wait(t_process *p);
+int			ft_wait(t_process *p, t_shell *sh);
 void		ft_set_background(t_process *p);
 int 		ft_bg(t_shell *sh, char **argv);
 int 		ft_fg(t_shell *sh, char **argv);
@@ -85,7 +86,8 @@ t_shell		*ft_get_set_shell(t_shell *sh);
 int			init_shell(t_shell *sh, char **envv, char **argv);
 void		set_signals(void);
 void		set_signals_ni(void);
-t_process	*ft_execve(t_process *p, t_shell *sh, t_tree *t, int fork);
+void		ft_execve(t_process *p, t_shell *sh);
+t_process	*ft_exec_process(t_process *p, t_shell *sh, t_tree *t, int  frk);
 int 		ft_get_pgid(int pgid, t_process *p, t_process *prev);
 t_tree		*exec_pipe(t_tree *t, t_process *p, t_shell *sh);
 t_tree		*exec_instruction(t_tree *t, t_shell *sh);

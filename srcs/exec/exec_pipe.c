@@ -39,23 +39,32 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 {
 	t_process	*prev;
 	t_process	*tmp;
+	int 		pgid;
 
 	prev = NULL;
 	tmp = p;
+	pgid = 0;
 	while (tmp)
 	{
 		tmp->status = RUNNING_FG;
+		if (pgid != 0)
+			tmp->pgid = pgid;
 		if (tmp->cmd && (tmp->pid = fork()) == 0)
 		{
 			if  ((prev && !ft_link_stdin(prev->pipe))
 			|| (tmp->grp && !ft_link_stdout(tmp->pipe)))
 				ft_exit_son(sh, -1);
-			ft_execve(tmp, sh, t, 0);
+			ft_exec_process(tmp, sh, t, 0);
 		}
 		else if (tmp->pid < 0)
 			error("fork fucked up", tmp->cmd);
 		if (prev)
 			ft_close_pipe(prev->pipe);
+		else
+		{
+			pgid = tmp->pid;
+			tmp->pgid = pgid;
+		}
 		prev = tmp;
 		tmp = tmp->grp;
 		if (tmp)

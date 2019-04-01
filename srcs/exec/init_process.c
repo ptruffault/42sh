@@ -71,7 +71,7 @@ void ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t)
 {
 	if (t->assign)
 	{
-		if (sh->env && !(p->saved_env = ft_tenvv_cpy(sh->env)))
+		if (sh->env && !(p->saved_env = ft_tenvv_cpy(sh->env, true)))
 			error("can't save environnement", NULL);
 		sh->env = ft_push_tenvv(sh->env, t->assign);
 	}
@@ -103,7 +103,7 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 		}
 		else if ((ret->cmd = get_bin_path(*ret->argv, sh->env)))
 		{
-			sh->env = ft_new_envv(sh->env, "_", ret->argv[0]);
+			sh->env = ft_new_envv(sh->env, "_", ret->argv[0], true);
 			ret->env = tenvv_to_tab(sh->env);
 		}
 		return (ret);

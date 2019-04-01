@@ -18,7 +18,6 @@ static void	ft_null(t_shell *sh)
 	sh->pid = getpid();
 	sh->heredoc = 0;
 	sh->interactive = FALSE;
-	sh->intern = NULL;
 	sh->clipboard = NULL;
 	sh->alias = NULL;
 	sh->txt = NULL;
@@ -29,7 +28,6 @@ static void	ft_null(t_shell *sh)
 	sh->std[2] = STDERR_FILENO;
 	sh->pgid = 0;
 	sh->env = NULL;
-	sh->intern = NULL;
 }
 
 pid_t ft_tcgetpgrp(int fd)

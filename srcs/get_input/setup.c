@@ -97,7 +97,7 @@ int ft_get_hist_size(void)
 	char	*line;
 
 	sh = ft_get_set_shell(NULL);
-	if (!(line = get_tenvv_val(sh->intern, "HISTSISZE")))
+	if (!(line = get_tenvv_val(sh->env, "HISTSISZE")))
 		return (32767);
 	return (ft_atoi(line) > 100 ? ft_atoi(line) : 32767);
 }

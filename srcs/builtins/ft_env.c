@@ -42,7 +42,7 @@ static t_envv	*ft_tmpsetenv(t_envv *tmp, char *equal)
 
 	ret = NULL;
 	n = ft_split_equal(equal, &v);
-	if (!(ret = ft_new_envv(tmp, n, v)))
+	if (!(ret = ft_new_envv(tmp, n, v, true)))
 		warning("impossible to create tmp envv value", NULL);
 	return (ret);
 }
@@ -52,7 +52,7 @@ static t_envv	*init(int *i, t_envv *envv)
 	t_envv *tmp;
 
 	*i = 1;
-	if (!(tmp = ft_tenvv_cpy(envv)))
+	if (!(tmp = ft_tenvv_cpy(envv, true)))
 	{
 		error("impossible to create a tempory env", NULL);
 		return (NULL);
@@ -105,7 +105,7 @@ int				ft_env(t_envv *envv, char **argv)
 		}
 		i++;
 	}
-	ft_puttenvv(tmp);
+	ft_puttenvv(tmp, true);
 	ft_free_tenvv(tmp);
 	return (0);
 }

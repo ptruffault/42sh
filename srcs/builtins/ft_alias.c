@@ -15,7 +15,7 @@
 void	ft_alias(t_shell *sh, char **argv)
 {
 	if (argv[1] == NULL)
-		ft_puttenvv(sh->alias);
+		ft_puttenvv(sh->alias, true);
 	else
-		sh->alias = ft_setenv(sh->alias, &argv[1], 1);
+		sh->alias = ft_setenv(sh->alias, &argv[1], 1, true);
 }

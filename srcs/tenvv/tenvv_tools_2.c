@@ -12,23 +12,29 @@
 
 #include "tenvv.h"
 
-t_envv	*ft_tenvv_cpy(t_envv *src)
+t_envv	*ft_tenvv_cpy(t_envv *src, bool exp)
 {
 	t_envv *tmp;
 	t_envv *ret;
 
-	if (!(ret = new_tenvv()))
+	if (!(ret = new_tenvv(exp)))
 		return (NULL);
 	tmp = ret;
 	while (src)
 	{
+		while (src && !(src->exported == exp))
+			src = src->next;
+		if (!src)
+			return (ret);
 		if (!(tmp->name = ft_strdup(src->name))
-		|| (src->value && !(tmp->value = ft_strdup(src->value))))
+			|| (src->value && !(tmp->value = ft_strdup(src->value))))
 			return (ft_free_tenvv(ret));
 		src = src->next;
+		while (src && !(src->exported == exp))
+			src = src->next;
 		if (src)
 		{
-			tmp->next = new_tenvv();
+			tmp->next = new_tenvv(exp);
 			tmp = tmp->next;
 		}
 	}
@@ -64,7 +70,7 @@ t_envv	*ft_push_tenvv(t_envv *dest, const t_envv *src)
 {
 	while (src)
 	{
-		dest = ft_new_envv(dest, src->name, src->value);
+		dest = ft_new_envv(dest, src->name, src->value, src->exported);
 		src = src->next;
 	}
 	return (dest);

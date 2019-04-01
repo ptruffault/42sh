@@ -29,7 +29,7 @@ char	*ft_split_equal(char *str, char **aft)
 	return (str);
 }
 
-t_envv	*ft_new_envv_int(t_envv *envv, char *name, int val)
+t_envv	*ft_new_envv_int(t_envv *envv, char *name, int val, bool exp)
 {
 	t_envv	*ret;
 	t_envv	*tmp;
@@ -42,7 +42,7 @@ t_envv	*ft_new_envv_int(t_envv *envv, char *name, int val)
 		tmp->value = value;
 		return (envv);
 	}
-	if (!name || !value || !(ret = new_tenvv()))
+	if (!name || !value || !(ret = new_tenvv(exp)))
 		return (envv);
 	if (!(ret->name = ft_strdup(name)))
 	{
@@ -54,7 +54,7 @@ t_envv	*ft_new_envv_int(t_envv *envv, char *name, int val)
 	return (ret);
 }
 
-t_envv	*ft_new_envv(t_envv *envv, char *name, char *value)
+t_envv	*ft_new_envv(t_envv *envv, char *name, char *value, bool exp)
 {
 	t_envv	*ret;
 	t_envv	*tmp;
@@ -66,7 +66,7 @@ t_envv	*ft_new_envv(t_envv *envv, char *name, char *value)
 			tmp->value = ft_strdup(value);
 		return (envv);
 	}
-	if (!name || !value || !(ret = new_tenvv()))
+	if (!name || !value || !(ret = new_tenvv(exp)))
 		return (envv);
 	if (!(ret->name = ft_strdup(name))
 		|| !(ret->value = ft_strdup(value)))
@@ -78,7 +78,7 @@ t_envv	*ft_new_envv(t_envv *envv, char *name, char *value)
 	return (ret);
 }
 
-t_envv	*ft_new_envv_equ(t_envv *envv, char *eq)
+t_envv	*ft_new_envv_equ(t_envv *envv, char *eq, bool exp)
 {
 	char *value;
 	char *name;
@@ -86,12 +86,12 @@ t_envv	*ft_new_envv_equ(t_envv *envv, char *eq)
 	if (ft_isequal(eq))
 	{
 		name = ft_split_equal(eq, &value);
-		return (ft_new_envv(envv, name, value));
+		return (ft_new_envv(envv, name, value, exp));
 	}
 	return (NULL);
 }
 
-t_envv	*ft_setenv(t_envv *envv, char **t, int mode)
+t_envv	*ft_setenv(t_envv *envv, char **t, int mode, bool exp)
 {
 	int		i;
 
@@ -99,10 +99,10 @@ t_envv	*ft_setenv(t_envv *envv, char **t, int mode)
 	while (t[i])
 	{
 		if (ft_isequal(t[i]))
-			envv = ft_new_envv_equ(envv, t[i]);
+			envv = ft_new_envv_equ(envv, t[i], exp);
 		else if (t[i + 1] && mode)
 		{
-			envv = ft_new_envv(envv, t[i], t[i + 1]);
+			envv = ft_new_envv(envv, t[i], t[i + 1], exp);
 			i++;
 		}
 		else

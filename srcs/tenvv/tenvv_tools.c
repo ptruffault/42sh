@@ -13,13 +13,14 @@
 #include "tenvv.h"
 #include "ft_printf.h"
 
-t_envv	*new_tenvv(void)
+t_envv	*new_tenvv(bool exp)
 {
 	t_envv *new;
 
 	if (!(new = (t_envv *)malloc(sizeof(t_envv))))
 		return (NULL);
 	new->next = NULL;
+	new->exported = exp;
 	new->name = NULL;
 	new->value = NULL;
 	return (new);
@@ -45,14 +46,17 @@ char	*get_tenvv_val(const t_envv *envv, char *name)
 	return (NULL);
 }
 
-int	ft_puttenvv(const t_envv *t)
+int	ft_puttenvv(const t_envv *t, bool exp)
 {
 	int i = -1;
 
 	while (t && t->name)
 	{
-		i = 0;
-		ft_printf("\033[1;32m\033[04m%s\033[00m = %s\n", t->name, t->value);
+		if ((t->exported && exp) || (!t->exported && !exp))
+		{
+			i = 0;
+			ft_printf("\033[1;32m\033[04m%s\033[00m = %s\n", t->name, t->value);
+		}
 		t = t->next;
 	}
 	return (i);

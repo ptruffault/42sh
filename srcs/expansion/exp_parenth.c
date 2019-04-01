@@ -26,7 +26,7 @@ static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *val2)
 	if (*ptr == '?' && !(val = ft_strdup(get_tenvv_val(sh->env, val1))))
 		error(val1, val2);
 	if (*ptr == '=' && !(val = ft_strdup(get_tenvv_val(sh->env, val1)))
-		&& val2 && (sh->env = ft_new_envv(sh->env, val1, val2)))
+		&& val2 && (sh->env = ft_new_envv(sh->env, val1, val2, true)))
 		val = ft_strdup(val2);
 	ft_strdel(&val1);
 	return (val);

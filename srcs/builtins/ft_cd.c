@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "shell42.h"
-#include <limits.h>
 
 t_envv				*change_dir(char *path, t_envv *envv, unsigned int opts)
 {
@@ -24,11 +23,11 @@ t_envv				*change_dir(char *path, t_envv *envv, unsigned int opts)
 		cwd = ft_strdup(path);
 		if (ft_strequ(cwd, get_tenvv_val(envv, "OLDPWD")))
 			ft_printf("%s\n", cwd);
-		envv = ft_new_envv(envv, "OLDPWD", get_tenvv_val(envv, "PWD"));
+		envv = ft_new_envv(envv, "OLDPWD", get_tenvv_val(envv, "PWD"), true);
 		if ((opts & 0x02))
-			envv = ft_new_envv(envv, "PWD", getcwd(buff, 4096));
+			envv = ft_new_envv(envv, "PWD", getcwd(buff, 4096), true);
 		else
-			envv = ft_new_envv(envv, "PWD", cwd);
+			envv = ft_new_envv(envv, "PWD", cwd, true);
 		ft_strdel(&cwd);
 	}
 	else
@@ -65,19 +64,23 @@ t_envv				*get_path_cd(char *path, t_envv *envv, unsigned int opts)
 	char	*cdpath;
 
 	pwd_f = false;
+	curpath = NULL;
 	if ((opts & 0x02) && (path[0] == '/' || path[0] == '.'))
 		return (change_dir(path, envv, opts));
 	if ((cdpath = get_tenvv_val(envv, "CDPATH")) && ft_strlen(cdpath) > 0)
-		curpath = try_cdpath(cdpath, path);
-	if (path[0] != '/')
-		curpath = concat_pwd(envv,  path, &pwd_f);
-	else
+		curpath = try_cdpath(cdpath, path, &pwd_f);
+	if (!curpath && path[0] != '/')
+		curpath = concat_pwd(envv, path, &pwd_f);
+	else if (!curpath)
 		curpath = path;
 	while (ft_strstr(curpath, "..") || ft_strstr(curpath, "//"))
 		trim_path(curpath);
 	if (ft_strlen(curpath) == 0)
 		ft_strcpy(curpath, "/");
-	envv = change_dir(curpath, envv, opts);
+	if (ft_strlen(curpath) > PATH_MAX)
+		envv = change_dir(path, envv, (opts | 0x02));
+	else
+		envv = change_dir(curpath, envv, opts);
 	if (pwd_f)
 		ft_strdel(&curpath);
 	return (envv);

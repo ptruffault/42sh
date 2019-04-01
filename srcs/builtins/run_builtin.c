@@ -18,15 +18,15 @@ static int	change_envv(char **argv, t_shell *sh)
 	if (ft_strequ(*argv, "unsetenv") && argv[1])
 		sh->env = ft_unsetenv(sh->env, &argv[1]);
 	else if (ft_strequ(*argv, "setenv") && argv[1])
-		sh->env = ft_setenv(sh->env, &argv[1], 1);
+		sh->env = ft_setenv(sh->env, &argv[1], 1, true);
 	else if (ft_strequ(*argv, "unset") && argv[1])
-		sh->intern = ft_unsetenv(sh->intern, &argv[1]);
+		sh->env = ft_unsetenv(sh->env, &argv[1]);
 	else if (ft_strequ(*argv, "cd"))
 		sh->env = ft_cd(argv, sh->env);
 	else if (ft_strequ(*argv, "export"))
 		sh->env = ft_export(sh, &argv[1]);
 	else if (ft_strequ(*argv, "set"))
-		ft_puttenvv(sh->intern);
+		ft_puttenvv(sh->env, false);
 	else if (ft_strequ(*argv, "alias"))
 		ft_alias(sh, argv);
 	else if (ft_strequ(*argv, "unalias") && argv[1])

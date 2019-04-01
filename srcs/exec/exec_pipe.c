@@ -39,16 +39,14 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 {
 	t_process	*prev;
 	t_process	*tmp;
-	int 		pgid;
 
 	prev = NULL;
 	tmp = p;
-	pgid = 0;
 	while (tmp)
 	{
 		tmp->status = RUNNING_FG;
-		if (pgid != 0)
-			tmp->pgid = pgid;
+		if (prev)
+			tmp->pgid = p->pgid;
 		if (tmp->cmd && (tmp->pid = fork()) == 0)
 		{
 			if  ((prev && !ft_link_stdin(prev->pipe))
@@ -61,10 +59,9 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 		if (prev)
 			ft_close_pipe(prev->pipe);
 		else
-		{
-			pgid = tmp->pid;
-			tmp->pgid = pgid;
-		}
+			tmp->pgid = tmp->pid;
+		if (sh->interactive == TRUE && setpgid(tmp->pid, tmp->pgid) < 0)
+			error("can't set group (parenth pipe)" , p->cmd);
 		prev = tmp;
 		tmp = tmp->grp;
 		if (tmp)

@@ -12,14 +12,22 @@
 
 #include "shell42.h"
 
+static int 	job_control(char **argv, t_shell *sh)
+{
+	if (sh->interactive == TRUE && sh->process->background == FALSE)
+	{
+		if (ft_strequ(*argv, "fg"))
+			return (ft_fg(sh, argv));
+		else if (ft_strequ(*argv, "bg"))
+			return (ft_bg(sh, argv));
+	}
+	error("no job control", NULL);
+	return (0);
+}
 
 static int	change_envv(char **argv, t_shell *sh)
 {
-	if (ft_strequ(*argv, "unsetenv") && argv[1])
-		sh->env = ft_unsetenv(sh->env, &argv[1]);
-	else if (ft_strequ(*argv, "setenv") && argv[1])
-		sh->env = ft_setenv(sh->env, &argv[1], 1, true);
-	else if (ft_strequ(*argv, "unset") && argv[1])
+	if (ft_strequ(*argv, "unset") && argv[1])
 		sh->env = ft_unsetenv(sh->env, &argv[1]);
 	else if (ft_strequ(*argv, "cd"))
 		sh->env = ft_cd(argv, sh->env);
@@ -43,14 +51,12 @@ int			run_builtin(t_tree *t, char **argv, t_shell *sh)
 	else if (ft_strequ(*argv, "type"))
 		return (ft_type(t->cmd->next));
 	else if (ft_strequ(*argv, "jobs"))
-		return (ft_jobs(sh));
+		return (ft_jobs(sh, argv));
 	else if (ft_strequ(*argv, "hi"))
 		return (ft_hi(sh));
-	else if (ft_strequ(*argv, "fg"))
-		return (ft_fg(sh, argv));
-	else if (ft_strequ(*argv, "bg"))
-		return (ft_bg(sh, argv));
 	else if (ft_strequ(*argv, "fc"))
 		return (ft_fc(sh, argv));
+	else if (ft_strequ(*argv, "bg") || ft_strequ(*argv, "fg"))
+		return (job_control(argv, sh));
 	return (change_envv(argv, sh));
 }

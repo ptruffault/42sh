@@ -1,5 +1,4 @@
 #include "shell42.h"
-#include "get_input.h"
 
 static const t_sig_msg	g_signal_msg[] = {
 		{.sig = SIGHUP, .msg = "hanghup"},
@@ -8,7 +7,7 @@ static const t_sig_msg	g_signal_msg[] = {
 		{.sig = SIGILL,  .msg = "illegal instruction"},
 		{.sig = SIGTRAP, .msg = "trace/BPT trap"},
 		{.sig = SIGABRT, .msg = "abort"},
-	//	{.sig = SIGEMT,  .msg = "emulate instruction executed"},
+		{.sig = SIGEMT,  .msg = "emulate instruction executed"},
 		{.sig = SIGFPE,  .msg = "floating exception"},
 		{.sig = SIGKILL, .msg = "killed"},
 		{.sig = SIGBUS,  .msg = "bus error"},

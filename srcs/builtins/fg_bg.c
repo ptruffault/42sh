@@ -14,17 +14,22 @@
 
 static t_process	*ft_get_process_id(t_process *p, int id)
 {
+	t_process *def;
 	int i;
 
 	i = 1;
+	def = NULL;
 	while (p)
 	{
-		if ((p->status == RUNNING_BG || p->status == SUSPENDED)
-			&& p->builtins == FALSE && i++ == id)
+		if (p->status == RUNNING_BG || p->status == SUSPENDED)
+		{
+			if (i++ == id)
 				return (p);
+			def = p;
+		}
 		p = p->next;
 	}
-	return (NULL);
+	return (def);
 }
 
 static t_process 	*ft_get_process_name(t_process *p, char *name)
@@ -48,11 +53,10 @@ int ft_bg(t_shell *sh, char **argv)
 	i = 0;
 	if (!argv[1])
 	{
-		if ((tmp = ft_get_process_id(sh->process, 1)))
+		if ((tmp = ft_get_process_id(sh->process, -1)))
 		{
-			kill(-tmp->pid, SIGCONT);
-			tmp->background = TRUE;
 			ft_update_status(tmp, RUNNING_BG);
+			kill(-tmp->pid, SIGCONT);
 		}
 		else
 			return (error("no current job", NULL) - 1);
@@ -64,7 +68,6 @@ int ft_bg(t_shell *sh, char **argv)
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 		{
 			ft_update_status(tmp, RUNNING_BG);
-			tmp->background = TRUE;
 			kill(-tmp->pid, SIGCONT);
 		}
 		else
@@ -85,10 +88,9 @@ int ft_fg(t_shell *sh, char **argv)
 	ret = 0;
 	if (!argv[1])
 	{
-		if ((tmp = ft_get_process_id(sh->process, 1)))
+		if ((tmp = ft_get_process_id(sh->process, -1)))
 		{
 			kill(-tmp->pid, SIGCONT);
-			tmp->background = FALSE;
 			ft_update_status(tmp, RUNNING_FG);
 			ft_wait(tmp, sh);
 		}
@@ -102,7 +104,6 @@ int ft_fg(t_shell *sh, char **argv)
 			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
 		{
 			kill(-tmp->pid, SIGCONT);
-			tmp->background = FALSE;
 			ft_update_status(tmp, RUNNING_FG);
 			ft_wait(tmp, sh);
 		}

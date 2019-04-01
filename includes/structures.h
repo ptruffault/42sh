@@ -143,6 +143,7 @@ typedef struct	s_process
 {
 	t_envv				*saved_env;
 	char				**env;
+	char				*line;
 	int					fd[3];
 	t_bool				builtins;
 	t_bool				background;

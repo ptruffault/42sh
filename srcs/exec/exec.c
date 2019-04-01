@@ -39,17 +39,11 @@ static t_tree	*next_instruction(t_tree *t)
 
 static void 	ft_link_process_to_term(t_process *p, t_shell *sh, t_tree *t)
 {
-	if (p)
-	{
-		p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
-		if (setpgid(p->pid, p->pgid) < 0)
-			error("can't set group (parent)", p->cmd);
-		else if (sh->interactive == TRUE && p && p->builtins == FALSE && p->background ==  FALSE)
-			ft_tcsetpgrp(STDIN_FILENO, p->pgid);
-		t->ret = (p ? ft_wait(p, sh) : -1);
-		if (sh->interactive == TRUE && p && p->builtins == FALSE)
-			ft_tcsetpgrp(STDIN_FILENO, sh->pgid);
-	}
+	if (sh->interactive == TRUE && p && p->builtins == FALSE && p->background ==  FALSE)
+		ft_tcsetpgrp(STDIN_FILENO, p->pgid);
+	t->ret = (p ? ft_wait(p, sh) : -1);
+	if (sh->interactive == TRUE && p && p->builtins == FALSE)
+		ft_tcsetpgrp(STDIN_FILENO, sh->pgid);
 }
 
 static t_tree	*exec_instruction(t_tree *t, t_shell *sh)

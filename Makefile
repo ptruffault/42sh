@@ -54,7 +54,7 @@ SRC		=	\
 	builtins/ft_exit.c					\
 	builtins/type_tools.c				\
 	builtins/ft_alias.c					\
-	builtins/hi.c					\
+	builtins/hi.c						\
 	builtins/ft_fc.c					\
 	builtins/ft_fc_search_hist_parser.c	\
 	builtins/ft_fc_search_hist.c		\
@@ -76,6 +76,11 @@ SRC		=	\
 	get_input/use_termcaps.c	\
 	get_input/term_settings.c	\
 	get_input/ft_jump_line.c	\
+	\
+	autocompletion/check_line.c			\
+	autocompletion/tabl_handler.c		\
+	autocompletion/binary_completion.c	\
+	autocompletion/files_completion.c	\
 	\
 	expansion/exp_var.c			\
 	expansion/exp.c				\

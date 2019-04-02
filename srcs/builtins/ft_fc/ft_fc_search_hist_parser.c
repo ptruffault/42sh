@@ -12,38 +12,38 @@
 
 #include "shell42.h"
 
-static t_hist  *search_by_number(t_hist *first, int nb)
+static t_hist	*search_by_number(t_hist *first, int nb)
 {
-    if (nb < 0)
-        return (search_by_number_from_first(first, nb));
-    else
-        return (search_by_number_from_last(first, nb));
+	if (nb < 0)
+		return (search_by_number_from_first(first, nb));
+	else
+		return (search_by_number_from_last(first, nb));
 }
 
-int             search_in_hist_parser(t_fc *fc)
+int				search_in_hist_parser(t_fc *fc)
 {
-    t_hist  *hist;
+	t_hist	*hist;
 
-    hist = fc->shell->hist;
-    if (fc->first != 0)
-    {
-        if (!(fc->hist_first = search_by_number(fc->hist, fc->first)))
-            return (FAILURE);
-    }
-    else if (fc->first_)
-    {
-        if (!(fc->hist_first = search_by_occurence(fc->hist, fc->first_)))
-            return (FAILURE);
-    }
-    if (fc->last != 0)
-    {
-        if (!(fc->hist_last = search_by_number(fc->hist, fc->last)))
-            return (FAILURE);
-    }
-    else if (fc->last_)
-    {
-        if (!(fc->hist_last = search_by_occurence(fc->hist, fc->last_)))
-            return (FAILURE);
-    }
-    return (SUCCESS);
+	hist = fc->shell->hist;
+	if (fc->first != 0)
+	{
+		if (!(fc->hist_first = search_by_number(fc->hist, fc->first)))
+			return (FAILURE);
+	}
+	else if (fc->first_)
+	{
+		if (!(fc->hist_first = search_by_occurence(fc->hist, fc->first_)))
+			return (FAILURE);
+	}
+	if (fc->last != 0)
+	{
+		if (!(fc->hist_last = search_by_number(fc->hist, fc->last)))
+			return (FAILURE);
+	}
+	else if (fc->last_)
+	{
+		if (!(fc->hist_last = search_by_occurence(fc->hist, fc->last_)))
+			return (FAILURE);
+	}
+	return (SUCCESS);
 }

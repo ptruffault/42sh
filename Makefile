@@ -54,11 +54,15 @@ SRC		=	\
 	builtins/ft_exit.c					\
 	builtins/type_tools.c				\
 	builtins/ft_alias.c					\
-	builtins/hi.c					\
-	builtins/ft_fc.c					\
-	builtins/ft_fc_search_hist_parser.c	\
-	builtins/ft_fc_search_hist.c		\
+	builtins/hi.c						\
 	builtins/check_builtins.c			\
+	\
+	builtins/ft_fc/ft_fc.c						\
+	builtins/ft_fc/ft_fc_search_hist_parser.c	\
+	builtins/ft_fc/ft_fc_search_hist.c			\
+	builtins/ft_fc/ft_fc_option_e.c				\
+	builtins/ft_fc/ft_fc_option_l.c				\
+	builtins/ft_fc/ft_fc_option_s.c				\
 	\
 	get_input/curs_move.c		\
 	get_input/get_input.c		\

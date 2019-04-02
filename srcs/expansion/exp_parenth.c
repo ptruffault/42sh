@@ -18,21 +18,23 @@ static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *val2)
 	char *val1;
 
 	val = NULL;
-	if ((val1 = ft_get_secondvalue(parenth)))
+	if (parenth && (val1 = ft_strndup(parenth, ptr - parenth - 1)))
 	{
-		if ((*ptr == '-' && !(val = get_tenvv_val(sh->env, val1)))
+		if ((*ptr == '-' && !(get_tenvv(sh->env, val1)))
 		|| (*ptr == '+' && get_tenvv(sh->env, val1))
-		|| (*ptr == '=' && !(val = get_tenvv_val(sh->env, val1))
+		|| (*ptr == '=' && !(get_tenvv(sh->env, val1))
 		&& (sh->env = ft_new_envv(sh->env, val1, val2, true))))
-			val = val2;
-		if (*ptr == '?' && !(val = get_tenvv_val(sh->env, val1)))
+			val = ft_strdup(val2);
+		else if (*ptr == '?' && !(get_tenvv(sh->env, val1)))
 			error(val1, val2);
+		else
+			val = ft_strdup(get_tenvv_val(sh->env, val1));
 		ft_strdel(&val1);
 	}
-	return (ft_strdup(val));
+	return (val);
 }
 
-char		*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
+static char	*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
 {
 	char *param;
 	char *value;
@@ -50,7 +52,7 @@ char		*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
 	return (ft_cut_string(parenth, val, i));
 }
 
-char		*ft_get_param_value(t_shell *sh, char *parenth)
+static char	*ft_get_param_value(t_shell *sh, char *parenth)
 {
 	int		i;
 	char	*val;
@@ -64,6 +66,7 @@ char		*ft_get_param_value(t_shell *sh, char *parenth)
 		{
 			ft_strdel(&val);
 			val = handle_modifier(parenth, &parenth[i + 1], sh, param);
+			i = i + ft_strlen(param);
 			ft_strdel(&param);
 		}
 		else if (parenth[i] == '#' || parenth[i] == '%')
@@ -73,22 +76,30 @@ char		*ft_get_param_value(t_shell *sh, char *parenth)
 	return (val);
 }
 
-char		*ft_exp_param(char *ret, t_shell *sh, char *ptr)
+char		*ft_exp_param(char *ret, t_shell *sh, int *i)
 {
+	char	*ptr;
 	char	*value;
 	char	*parenth;
 	int		len;
 
 	value = NULL;
+	ptr = &ret[*i];
 	len = 0;
 	if ((parenth = ft_strsub(ret, ptr - ret + 2, get_content_size(ptr))))
 	{
 		if (*parenth == '#')
 			len = 1;
+		else if (*parenth == '$')
+		{
+			warning("bad substitution", ret);
+			return (NULL);
+		}
 		value = ft_get_param_value(sh, &parenth[len]);
 		ft_strdel(&parenth);
 		if (len == 1)
 			value = ft_get_len(value);
 	}
+	*i = 0;
 	return (ft_exp_end(ret, ptr, value, parenth));
 }

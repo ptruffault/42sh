@@ -73,8 +73,6 @@ int ft_bg(t_shell *sh, char **argv)
 		else
 			return (error("job not found", argv[1]) - 1);
 	}
-	while (i < 1000000)
-		i++;
 	return (0);
 }
 

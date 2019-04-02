@@ -22,13 +22,9 @@ char		*ft_get_secondvalue(char *src)
 	ret = NULL;
 	if (src && (cpy = ft_strdup(src)))
 	{
-		if (*src == '$')
-			cpy = ft_exp_var(cpy, ft_get_set_shell(NULL));
-		while (cpy && cpy[i] && !((cpy[i] == ':'
-			&& cpy[i + 1] && ft_strchr("?=+-", cpy[i + 1]))
-			|| (cpy[i] == '#' || cpy[i] == '%') || cpy[i] == '}'))
+		while (cpy && cpy[i] && cpy[i] != '#' && cpy[i] != '%')
 			i++;
-		if (!(ret = ft_strndup(cpy, i)))
+		if (cpy && !(ret = ft_strndup(cpy, i)))
 			return (ft_strdell(&cpy));
 		ft_strdel(&cpy);
 	}
@@ -45,20 +41,24 @@ static char	*ft_get_op(char *s, int *i)
 	return (ft_strsub(s, start, *i - start));
 }
 
-char		*ft_cut_begin(char *val, char *pat)
+static char	*ft_cut_begin(char *val, char *pat)
 {
 	char	*new;
+	char	*tmp;
 
+	new = NULL;
 	if (val && pat && ft_str_startwith(val, pat))
 	{
-		new = ft_strdup(val + ft_strlen(pat));
+		if ((tmp = val + ft_strlen(pat))
+		&& !(new = ft_strdup(tmp)))
+			return (ft_strdell(&val));
 		ft_strdel(&val);
 		return (new);
 	}
 	return (val);
 }
 
-char		*ft_cut_end(char *val, char *pat)
+static char	*ft_cut_end(char *val, char *pat)
 {
 	char	*new;
 

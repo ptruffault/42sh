@@ -78,7 +78,7 @@ int				ft_type(t_word *w)
 	sh = ft_get_set_shell(NULL);
 	while (w)
 	{
-		if (w->word && !handle_opts(w, opts, sh) && ++ret)
+		if (w->word && !handle_opts(w, opts, sh) && --ret)
 			warning("not found", w->word);
 		w = w->next;
 	}

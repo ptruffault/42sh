@@ -52,7 +52,7 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 			if  ((prev && !ft_link_stdin(prev->pipe))
 			|| (tmp->grp && !ft_link_stdout(tmp->pipe)))
 				ft_exit_son(sh, -1);
-			ft_exec_process(tmp, sh, t, 0);
+			ft_exec_process(tmp, sh, t);
 		}
 		else if (tmp->pid < 0)
 			error("fork fucked up", tmp->cmd);

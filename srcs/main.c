@@ -118,7 +118,7 @@ int			main(int argc, char **argv, char **envv)
 	(void)argc;
 	if (!init_shell(&sh, envv, argv))
 		return (ft_quit(1, &sh));
-	while (isatty(0))
+	while (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))
 	{
 		ft_disp(&sh);
 		if (!(get_input(&sh.txt)))

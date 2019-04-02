@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
@@ -14,7 +14,8 @@
 
 static int 	job_control(char **argv, t_shell *sh)
 {
-	if (sh->interactive == TRUE && sh->process->background == FALSE)
+	if (sh->interactive == TRUE && sh->process->background == FALSE
+	&& sh->pid == getpid())
 	{
 		if (ft_strequ(*argv, "fg"))
 			return (ft_fg(sh, argv));
@@ -22,7 +23,7 @@ static int 	job_control(char **argv, t_shell *sh)
 			return (ft_bg(sh, argv));
 	}
 	error("no job control", NULL);
-	return (0);
+	return (-1);
 }
 
 static int	change_envv(char **argv, t_shell *sh)

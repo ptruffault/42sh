@@ -19,14 +19,17 @@ char		*ft_exp_var(char *ret, t_shell *sh)
 	i = 0;
 	while (ret && *ret && ret[i])
 	{
-		if ((ret && ret[i] == '~'
+				ft_printf("exp loop ~> %s\n", ret);
+		if ((i == 0 || ret[i - 1] != '\\')
+		&& ((ret && ret[i] == '~'
 		&& !(ret = ft_exp_home_var(ret, &ret[i], sh->env)))
 		|| (ret && ret[i] == '$' && ret[i + 1] == '{'
-		&& !(ret = ft_exp_param(ret, sh, &ret[i])))
-		|| (ret && ret[i] == '$' && ret[i + 1]
-		&& !(ret = ft_exp_envv_var(ret, &ret[i], sh))))
+		&& !(ret = ft_exp_param(ret, sh, &i)))
+		|| (ret && ret[i] == '$' && ret[i + 1] != '{'
+		&& !(ret = ft_exp_envv_var(ret, &ret[i], sh)))))
 			return (NULL);
-		i++;
+		if (ret[i] != '$' && ret[i] != '~')
+			i++;
 	}
 	return (ret);
 }

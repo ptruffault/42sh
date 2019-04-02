@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expantion_tools.c                                  :+:      :+:    :+:   */
+/*   ft_fc_option_e.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/08 16:13:02 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Created: 2019/04/01 16:07:42 by adi-rosa          #+#    #+#             */
+/*   Updated: 2019/04/01 16:07:42 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 
-int	get_content_size(char *s)
+void ft_fc_option_e(t_fc *fc)
 {
-	int i;
-
-	i = 2;
-	while (s[i] && s[i] != '}')
-	{
-		if (s[i] == '$' && s[i + 1] == '{')
-			i = i + get_content_size(&s[i]) + 2;
-		i++;
-	}
-	return (i - 2);
+	(void)fc;
 }

@@ -19,12 +19,19 @@ void			ft_exit_son(t_shell *sh, int exit_code)
 	exit(exit_code);
 }
 
-static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t, int frk)
+static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 {
 	if (p->builtins == TRUE)
 	{
+		if (sh->pid != getpid() && sh->interactive == TRUE)
+		{
+			p->pid = getpid();
+			p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
+			if (setpgid(p->pid, p->pgid) < 0)
+				error("can't set group (son)" , p->cmd);
+		}
 		p->ret = run_builtin(t, p->argv, sh);
-		if (!frk)
+		if (sh->pid != getpid())
 			ft_exit_son(sh, p->ret);
 		return (1);
 	}
@@ -46,29 +53,29 @@ void		ft_execve(t_process *p, t_shell *sh)
 	ft_exit_son(sh, 1);	
 }
 
-t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t, int  frk)
+t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 {
 	if (p && (!t->r || ft_redirect_builtin(t, p, sh)))
 	{
 		if (p->cmd && !ft_isempty(p->cmd))
 		{
-			if (frk)
+			if (sh->pid == getpid())
 			{
 				p->next = sh->process;
 				sh->process = p; 
 			}
-			if (!ft_builtins(sh, p, t, frk) && (!frk || (p->pid = fork()) == 0))
+			if (!ft_builtins(sh, p, t) && (sh->pid != getpid() || (p->pid = fork()) == 0))
 				ft_execve(p, sh);
 			else if (p->pid < 0)
 				error("fork fucked up", p->cmd);
-			if (sh->interactive == TRUE && frk)
+			if (sh->interactive == TRUE && sh->pid == getpid())
 			{
 				p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
 				if (setpgid(p->pid, p->pgid) < 0)
 					error("can't set group (parent)", p->cmd);
 			}
 		}
-		else if (frk)
+		else if (sh->pid == getpid())
 		{
 			error("command not found", *p->argv);
 			return (ft_free_tprocess(p));

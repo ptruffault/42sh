@@ -55,10 +55,14 @@ SRC		=	\
 	builtins/type_tools.c				\
 	builtins/ft_alias.c					\
 	builtins/hi.c						\
-	builtins/ft_fc.c					\
-	builtins/ft_fc_search_hist_parser.c	\
-	builtins/ft_fc_search_hist.c		\
 	builtins/check_builtins.c			\
+	\
+	builtins/ft_fc/ft_fc.c						\
+	builtins/ft_fc/ft_fc_search_hist_parser.c	\
+	builtins/ft_fc/ft_fc_search_hist.c			\
+	builtins/ft_fc/ft_fc_option_e.c				\
+	builtins/ft_fc/ft_fc_option_l.c				\
+	builtins/ft_fc/ft_fc_option_s.c				\
 	\
 	get_input/curs_move.c		\
 	get_input/get_input.c		\
@@ -84,9 +88,7 @@ SRC		=	\
 	\
 	expansion/exp_var.c			\
 	expansion/exp.c				\
-	expansion/expantion_tools.c	\
 	expansion/exp_parenth.c		\
-	expansion/exp_sub_parenth.c	\
 	expansion/cut_string.c		\
 	expansion/parenth_tools.c	\
 	\

@@ -159,10 +159,10 @@ typedef struct	s_process
 	struct s_process	*next;
 }				t_process;
 
-typedef struct	s_shell
+typedef struct		s_shell
 {
-	pid_t				pid;
-	pid_t				pgid;
+	pid_t			pid;
+	pid_t			pgid;
 	int				std[3];
 	t_bool			interactive;
 	char			*txt;
@@ -175,20 +175,20 @@ typedef struct	s_shell
 	char			*clipboard;
 	struct termios	term;
 	struct termios	saved_term;
-}				t_shell;
+}					t_shell;
 
 typedef struct	s_fc
 {
-	char	**av;
-	t_hist	*hist;
-	t_shell	*shell;
-	int		first;
-	int		last;
-	char	*first_;
-	char	*last_;
-	t_hist	*hist_first;
-	t_hist	*hist_last;
-	char	flags[6];
+	char		**av;
+	t_hist		*hist;
+	t_shell		*shell;
+	int			first;
+	int			last;
+	char		*first_;
+	char		*last_;
+	t_hist		*hist_first;
+	t_hist		*hist_last;
+	char		flags[6];
 }				t_fc;
 
 #endif

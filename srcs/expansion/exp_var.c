@@ -19,13 +19,15 @@ static char	*ft_get_varname(char *s)
 
 	i = 0;
 	ptr = s + 1;
+	if (*ptr == '!' || *ptr == '?' || *ptr == '$')
+		return (ft_strndup(ptr, 1));
 	while (ptr[i] && (ptr[i] == '_' || ft_isalpha(ptr[i])
 	|| ft_isdigit(ptr[i]) || ptr[i] == '~' || ptr[i] == '@'))
 		i++;
 	return (ft_strsub(s, ptr - s, i));
 }
 
-char		*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
+char	*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 {
 	char	*name;
 	char	*value;

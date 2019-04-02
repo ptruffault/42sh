@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel.c                                        :+:      :+:    :+:   */
+/*   ft_fc_option_s.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/08 16:18:28 by ptruffau          #+#    #+#             */
-/*   Updated: 2018/06/08 16:18:30 by ptruffau         ###   ########.fr       */
+/*   Created: 2019/04/01 16:07:49 by adi-rosa          #+#    #+#             */
+/*   Updated: 2019/04/01 16:07:50 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "shell42.h"
 
-void	ft_strdel(char **as)
+void ft_fc_option_s(t_fc *fc)
 {
-	if (!as || !*as)
-		return ;
-	free(*as);
-	*as = 0;
-}
-
-char 	*ft_strdell(char **as)
-{
-	ft_strdel(as);
-	return (NULL);
+	(void)fc;
 }

@@ -71,6 +71,9 @@ int		init_intern(t_shell *sh)
 
 	hostname = NULL;
 	sh->env = ft_new_envv(sh->env, "HISTSIZE", "500", false);
+	sh->env = ft_new_envv(sh->env, "!", "0", false);
+	sh->env = ft_new_envv(sh->env, "?", "0", false);
+	sh->env = ft_new_envv_int(sh->env, "$", sh->pid, false);
 	sh->env = ft_new_envv(sh->env, "CDPATH", "", false);
 	sh->env = ft_new_envv(sh->env, "FCEDIT", "vim", false);
 	sh->env = ft_new_envv(sh->env, "PS1", PS1, false);

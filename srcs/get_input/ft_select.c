@@ -14,6 +14,15 @@
 
 void	ft_select_right(t_edit *e)
 {
+/*	char **tabl;
+
+	int i, a, b = 0;
+	if ((tabl = check_line(&a, &b, e)))
+	{
+		for (i = 0; tabl[i] != NULL; i++)
+			ft_printf("\n%s\n", tabl[i]);
+		ft_freestrarr(&tabl);
+	}*/
 	if (e->select == -1)
 	{
 		e->select = 1;

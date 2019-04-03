@@ -57,10 +57,6 @@ int		flags_gestion(char *flags, char **av, int x)
 
 void	fc_init_first_last(t_fc *fc, int pos)
 {
-	fc->first = 0;
-	fc->last = 0;
-	fc->first_ = NULL;
-	fc->last_ = NULL;
 	if (fc->av[pos])
 	{
 		if ((fc->av[pos][0] >= '0' && fc->av[pos][0] <= '9') || fc->av[pos][0] == '-')
@@ -76,11 +72,6 @@ void	fc_init_first_last(t_fc *fc, int pos)
 		}
 		else
 			fc->last = -1;
-	}
-	else
-	{
-		fc->first = -16;
-		fc->last = -1;
 	}
 	ft_printf("\nFIRST->%d | LAST->%d\n", fc->first, fc->last);
 }
@@ -102,6 +93,10 @@ int		ft_fc(t_shell *shell, char **argv)
 	fc->hist = shell->hist->next;
 	fc->hist_first = NULL;
 	fc->hist_last = NULL;
+	fc->first = -16;
+	fc->last = -1;
+	fc->first_ = NULL;
+	fc->last_ = NULL;
 	if ((i = flags_gestion(fc->flags, fc->av, 0)) == FAILURE)
 		return (-1);
 	while (fc->flags[++x])
@@ -112,13 +107,14 @@ int		ft_fc(t_shell *shell, char **argv)
 			fc->flags[0] = c;
 			break ;
 		}
-	fc_init_first_last(fc, i);
+	if (fc->flags[0] != 's')
+		fc_init_first_last(fc, i);
 	if (fc->flags[0] == 'l')
 		ft_fc_option_l(fc);
-	if (fc->flags[0] == 'e')
+	else if (fc->flags[0] == 'e')
 		;
-	if (fc->flags[0] == 's')
-		;
+	else if (fc->flags[0] == 's')
+		ft_fc_option_s(fc, i);
 	free(fc);
 	return (0);
 }

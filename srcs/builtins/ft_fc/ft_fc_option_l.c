@@ -12,9 +12,9 @@
 
 #include "shell42.h"
 
-void	print_hist_opt_l(t_fc *fc, short way)
+static void	print_hist_opt_l(t_fc *fc, short way)
 {
-	int nb;
+	int	nb;
 
 	nb = ft_strchr(fc->flags, 'n') ? 1 : 0;
 	if (way == 0)
@@ -41,19 +41,19 @@ void	print_hist_opt_l(t_fc *fc, short way)
 	}
 }
 
-void	ft_fc_option_l(t_fc *fc)
+void		ft_fc_option_l(t_fc *fc)
 {
 	short	way;
 	t_hist	*tmp;
 
-	if (search_in_hist_parser(fc) == FAILURE)
+	if (search_in_hist_parser(fc, 3) == FAILURE)
 		return ;
 	if (ft_strchr(fc->flags, 'r'))
-		{
-			tmp = fc->hist_first;
-			fc->hist_first = fc->hist_last;
-			fc->hist_last = tmp;
-		}
+	{
+		tmp = fc->hist_first;
+		fc->hist_first = fc->hist_last;
+		fc->hist_last = tmp;
+	}
 	ft_printf("FIRST->[%s][%d] | LAST->[%s][%d]\n", fc->hist_first->s, fc->hist_first->nb, fc->hist_last->s, fc->hist_last->nb);
 	way = 0;
 	if (fc->hist_first->nb < fc->hist_last->nb)

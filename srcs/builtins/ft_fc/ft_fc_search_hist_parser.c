@@ -20,29 +20,26 @@ static t_hist	*search_by_number(t_hist *first, int nb)
 		return (search_by_number_from_last(first, nb));
 }
 
-int				search_in_hist_parser(t_fc *fc)
+int				search_in_hist_parser(t_fc *fc, short i)
 {
-	t_hist	*hist;
-
-	hist = fc->shell->hist;
-	if (fc->first != 0)
-	{
-		if (!(fc->hist_first = search_by_number(fc->hist, fc->first)))
-			return (FAILURE);
-	}
-	else if (fc->first_)
+	if ((i == 1 || i == 3) && fc->first_ != NULL)
 	{
 		if (!(fc->hist_first = search_by_occurence(fc->hist, fc->first_)))
 			return (FAILURE);
 	}
-	if (fc->last != 0)
+	else if ((i == 1 || i == 3) && fc->first != 0)
 	{
-		if (!(fc->hist_last = search_by_number(fc->hist, fc->last)))
+		if (!(fc->hist_first = search_by_number(fc->hist, fc->first)))
 			return (FAILURE);
 	}
-	else if (fc->last_)
+	if ((i == 2 || i == 3) && fc->last_)
 	{
 		if (!(fc->hist_last = search_by_occurence(fc->hist, fc->last_)))
+			return (FAILURE);
+	}
+	else if ((i == 2 || i == 3) && fc->last != 0)
+	{
+		if (!(fc->hist_last = search_by_number(fc->hist, fc->last)))
 			return (FAILURE);
 	}
 	return (SUCCESS);

@@ -17,7 +17,7 @@ t_hist	*search_by_number_from_first(t_hist *first, int nb)
 	t_hist	*hist;
 
 	hist = first;
-	while (hist && hist->next && nb < 0)
+	while (hist && hist->next && nb < -1)
 	{
 		hist = hist->next;
 		++nb;

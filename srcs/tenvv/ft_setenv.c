@@ -66,10 +66,10 @@ t_envv	*ft_new_envv(t_envv *envv, char *name, char *value, bool exp)
 			tmp->value = ft_strdup(value);
 		return (envv);
 	}
-	if (!name || !value || !(ret = new_tenvv(exp)))
+	if (!name || !(ret = new_tenvv(exp)))
 		return (envv);
 	if (!(ret->name = ft_strdup(name))
-		|| !(ret->value = ft_strdup(value)))
+		|| (value && !(ret->value = ft_strdup(value))))
 	{
 		del_tenvv(ret);
 		return (envv);

@@ -12,44 +12,57 @@
 
 #include "shell42.h"
 
-static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *val2)
+static char	*ft_exp_end(char *ret, char *ptr, char *value, char *parenth)
+{
+	char *tmp;
+
+	if (value && ft_isempty(value))
+		ft_strdel(&value);
+	if ((tmp = ft_strpull(ret, ptr, get_content_size(ptr) + 2, value))
+	&& ft_isempty(tmp))
+		ft_strdel(&tmp);
+	ft_strdel(&ret);
+	ft_strdel(&value);
+	ft_strdel(&parenth);
+	return (tmp);
+}
+
+static char	*ft_get_len(char *value)
+{
+	char *tmp;
+
+	tmp = ft_itoa(ft_strlen(value));
+	ft_strdel(&value);
+	return (tmp);
+}
+
+static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *param)
 {
 	char *val;
 	char *val1;
+	char *val2;
 
 	val = NULL;
+	val2 = NULL;
 	if (parenth && (val1 = ft_strndup(parenth, ptr - parenth - 1)))
 	{
-		if ((*ptr == '-' && !(get_tenvv(sh->env, val1)))
-		|| (*ptr == '+' && get_tenvv(sh->env, val1))
-		|| (*ptr == '=' && !(get_tenvv(sh->env, val1))
-		&& (sh->env = ft_new_envv(sh->env, val1, val2, true))))
+		if ((val2 = ft_strdup(param))
+		&& ((*ptr == '-' && !(get_tenvv(sh->env, val1)))
+		|| (*ptr == '+' && get_tenvv(sh->env, val1))))
 			val = ft_strdup(val2);
-		else if (*ptr == '?' && !(get_tenvv(sh->env, val1)))
+		else if (val2 && *ptr == '=' && !(get_tenvv(sh->env, val1)))
+		{
+			val2 = ft_exp_var(val2, sh);
+			sh->env = ft_new_envv(sh->env, val1, val2, false);
+		}
+		else if (val2 && *ptr == '?' && !(get_tenvv(sh->env, val1)))
 			error(val1, val2);
 		else
 			val = ft_strdup(get_tenvv_val(sh->env, val1));
 		ft_strdel(&val1);
+		ft_strdel(&val2);
 	}
-	return (val);
-}
-
-static char	*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
-{
-	char *param;
-	char *value;
-
-	if (!val && parenth && (param = ft_get_secondvalue(parenth)))
-	{
-		if ((value = get_tenvv_val(sh->env, param))
-		&& !(val = ft_strdup(value)))
-		{
-			ft_strdel(&param);
-			return (NULL);
-		}
-		ft_strdel(&param);
-	}
-	return (ft_cut_string(parenth, val, i));
+	return (ft_strdup(val));
 }
 
 static char	*ft_get_param_value(t_shell *sh, char *parenth)
@@ -86,20 +99,19 @@ char		*ft_exp_param(char *ret, t_shell *sh, int *i)
 	value = NULL;
 	ptr = &ret[*i];
 	len = 0;
-	if ((parenth = ft_strsub(ret, ptr - ret + 2, get_content_size(ptr))))
+	*i = -1;
+	parenth = ft_strsub(ret, ptr - ret + 2, get_content_size(ptr));
+	if (!parenth || *parenth == '$' || ft_isempty(parenth))
 	{
-		if (*parenth == '#')
-			len = 1;
-		else if (*parenth == '$')
-		{
-			warning("bad substitution", ret);
-			return (NULL);
-		}
-		value = ft_get_param_value(sh, &parenth[len]);
 		ft_strdel(&parenth);
-		if (len == 1)
-			value = ft_get_len(value);
+		warning("bad substitution", ret);
+		return (NULL);
 	}
-	*i = 0;
+	if (*parenth == '#')
+		len = 1;
+	else 
+	value = ft_get_param_value(sh, &parenth[len]);
+	value = (len == 1 ? ft_get_len(value) : value);
+	ft_strdel(&parenth);
 	return (ft_exp_end(ret, ptr, value, parenth));
 }

@@ -12,24 +12,73 @@
 
 #include "shell42.h"
 
+static char	*ft_get_varname(char *s)
+{
+	char	*ptr;
+	int		i;
+
+	i = 0;
+	ptr = s + 1;
+	if (*ptr == '!' || *ptr == '?' || *ptr == '$')
+		return (ft_strndup(ptr, 1));
+	while (ptr[i] && (ptr[i] == '_' || ft_isalpha(ptr[i])
+	|| ft_isdigit(ptr[i]) || ptr[i] == '~' || ptr[i] == '@'))
+		i++;
+	return (ft_strsub(s, ptr - s, i));
+}
+
+static char	*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
+{
+	char	*name;
+	char	*value;
+	char	*tmp;
+
+	name = NULL;
+	value = NULL;
+	if (!(name = ft_get_varname(ptr))
+	|| !(value = get_tenvv_val(sh->env, name)))
+		ft_strdel(&ret);
+	else if (name && (tmp = ft_strpull(ret, ptr, ft_strlen(name), value)))
+	{
+		ft_strdel(&ret);
+		ret = tmp;
+	}
+	ft_strdel(&name);
+	return (ret);
+}
+
+static char	*ft_exp_home_var(char *ret, char *ptr, t_envv *envv)
+{
+	char	*tmp;
+	char	*val;
+
+	tmp = NULL;
+	if ((val = get_tenvv_val(envv, "HOME"))
+	&& (tmp = ft_strpull(ret, ptr, 0, val)))
+	{
+		ft_strdel(&ret);
+		return (tmp);
+	}
+	ft_strdel(&ret);
+	return (NULL);
+}
+
+
 char		*ft_exp_var(char *ret, t_shell *sh)
 {
 	int i;
 
-	i = 0;
-	while (ret && *ret && ret[i])
+	i = -1;
+	while (ret && *ret && ret[++i])
 	{
-				ft_printf("exp loop ~> %s\n", ret);
 		if ((i == 0 || ret[i - 1] != '\\')
 		&& ((ret && ret[i] == '~'
 		&& !(ret = ft_exp_home_var(ret, &ret[i], sh->env)))
 		|| (ret && ret[i] == '$' && ret[i + 1] == '{'
 		&& !(ret = ft_exp_param(ret, sh, &i)))
-		|| (ret && ret[i] == '$' && ret[i + 1] != '{'
+		|| (ret && ret[i] == '$' && ret[i + 1] && ret[i + 1] != '{'
 		&& !(ret = ft_exp_envv_var(ret, &ret[i], sh)))))
 			return (NULL);
-		if (ret[i] != '$' && ret[i] != '~')
-			i++;
 	}
 	return (ret);
 }

@@ -12,25 +12,6 @@
 
 #include "shell42.h"
 
-char		*ft_get_secondvalue(char *src)
-{
-	char	*cpy;
-	char	*ret;
-	int		i;
-
-	i = 0;
-	ret = NULL;
-	if (src && (cpy = ft_strdup(src)))
-	{
-		while (cpy && cpy[i] && cpy[i] != '#' && cpy[i] != '%')
-			i++;
-		if (cpy && !(ret = ft_strndup(cpy, i)))
-			return (ft_strdell(&cpy));
-		ft_strdel(&cpy);
-	}
-	return (ret);
-}
-
 static char	*ft_get_op(char *s, int *i)
 {
 	int	start;
@@ -71,7 +52,7 @@ static char	*ft_cut_end(char *val, char *pat)
 	return (val);
 }
 
-char		*ft_cut_string(char *parenth, char *val, int *curr)
+static char	*ft_cut_string(char *parenth, char *val, int *curr)
 {
 	char	*pattern;
 	char	*op;
@@ -97,4 +78,22 @@ char		*ft_cut_string(char *parenth, char *val, int *curr)
 		ft_strdel(&op);
 	}
 	return (val);
+}
+
+char	*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
+{
+	char *param;
+	char *value;
+
+	if (!val && parenth && (param = ft_get_secondvalue(parenth)))
+	{
+		if ((value = get_tenvv_val(sh->env, param))
+		&& !(val = ft_strdup(value)))
+		{
+			ft_strdel(&param);
+			return (NULL);
+		}
+		ft_strdel(&param);
+	}
+	return (ft_cut_string(parenth, val, i));
 }

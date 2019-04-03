@@ -12,28 +12,24 @@
 
 #include "shell42.h"
 
-char	*ft_exp_end(char *ret, char *ptr, char *value, char *parenth)
+char		*ft_get_secondvalue(char *src)
 {
-	char *tmp;
+	char	*cpy;
+	char	*ret;
+	int		i;
 
-	if (value && ft_isempty(value))
-		ft_strdel(&value);
-	if ((tmp = ft_strpull(ret, ptr, get_content_size(ptr) + 2, value))
-	&& ft_isempty(tmp))
-		ft_strdel(&tmp);
-	ft_strdel(&ret);
-	ft_strdel(&value);
-	ft_strdel(&parenth);
-	return (tmp);
-}
-
-char	*ft_get_len(char *value)
-{
-	char *tmp;
-
-	tmp = ft_itoa(ft_strlen(value));
-	ft_strdel(&value);
-	return (tmp);
+	i = 0;
+	ret = NULL;
+	if (src && (cpy = ft_strdup(src)))
+	{
+		while (cpy && cpy[i] && cpy[i] != '#' && cpy[i] != '%' &&
+		(i == 0 || cpy[i - 1] != '}'))
+			i++;
+		if (cpy && !(ret = ft_strndup(cpy, i)))
+			return (ft_strdell(&cpy));
+		ft_strdel(&cpy);
+	}
+	return (ret);
 }
 
 int	get_content_size(char *s)

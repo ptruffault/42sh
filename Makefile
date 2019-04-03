@@ -81,7 +81,6 @@ SRC		=	\
 	get_input/term_settings.c	\
 	get_input/ft_jump_line.c	\
 	\
-	expansion/exp_var.c			\
 	expansion/exp.c				\
 	expansion/exp_parenth.c		\
 	expansion/cut_string.c		\

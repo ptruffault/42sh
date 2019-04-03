@@ -18,7 +18,8 @@ int		exec_fd(t_shell *sh, int fd)
 	t_tree	*t;
 
 	i = 0;
-	while (get_next_line(fd, &sh->txt) == 1 && sh->txt
+	sh->fd = fd;
+	while (get_next_line(sh->fd, &sh->txt) == 1 && sh->txt
 		&& !ft_isempty(sh->txt))
 	{
 		i++;
@@ -32,7 +33,7 @@ int		exec_fd(t_shell *sh, int fd)
 
 int		exec_file(char *path, t_shell *sh)
 {
-	int		fd;
+	int fd;
 
 	if ((fd = ft_open(path, O_RDWR, S_IRUSR | S_IXUSR)) >= 0)
 	{

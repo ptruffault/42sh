@@ -12,14 +12,14 @@
 
 #include "shell42.h"
 
-static char	*ft_heredoc_clear(char *in, char *ret)
+static char		*ft_heredoc_clear(char *in, char *ret)
 {
 	ft_strdel(&in);
 	ft_strdel(&ret);
 	return (NULL);
 }
 
-char		*heredoc_get_input(char *eoi, t_shell *sh)
+static char		*heredoc_get_input(char *eoi, t_shell *sh)
 {
 	char	*ret;
 	char	*in;
@@ -43,4 +43,43 @@ char		*heredoc_get_input(char *eoi, t_shell *sh)
 	}
 	ft_strdel(&in);
 	return (ret);
+}
+
+static char		*heredoc_get_content(char *eof, t_shell *sh)
+{
+	char *ret;
+	char *line;
+
+	ret = NULL;
+	while (get_next_line(sh->fd, &line) == 1)
+	{
+		if (!ft_strequ(line, eof))
+			ret = ft_strjoin_fr(ret, ft_stradd_char(line, '\n'));
+		else
+		{
+			ft_strdel(&line);
+			break ;
+		}
+	}
+	return (ret);
+}
+
+t_redirect		*parse_heredoc(t_redirect *ret, t_word *w)
+{
+	t_shell *sh;
+
+	sh = ft_get_set_shell(NULL);
+	if (w->next && w->next->word)
+	{
+		if (!(ret->path = ft_strdup(w->next->word)))
+			return (ft_free_redirection(ret));
+		sh->heredoc = 1;
+		if (sh->interactive == TRUE)
+			ret->heredoc = heredoc_get_input(ret->path, sh);
+		else
+			ret->heredoc = heredoc_get_content(ret->path, sh);
+		sh->heredoc = 0;
+		return (ret);
+	}
+	return (ft_free_redirection(ret));
 }

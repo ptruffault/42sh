@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-char		*ft_get_secondvalue(char *src)
+char	*ft_get_secondvalue(char *src)
 {
 	char	*cpy;
 	char	*ret;
@@ -32,7 +32,7 @@ char		*ft_get_secondvalue(char *src)
 	return (ret);
 }
 
-int	get_content_size(char *s)
+int		get_content_size(char *s)
 {
 	int i;
 

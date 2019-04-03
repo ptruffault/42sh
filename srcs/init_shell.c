@@ -17,6 +17,7 @@ static void	ft_null(t_shell *sh)
 	ft_get_set_shell(sh);
 	sh->pid = getpid();
 	sh->heredoc = 0;
+	sh->fd = 0;
 	sh->interactive = FALSE;
 	sh->clipboard = NULL;
 	sh->alias = NULL;

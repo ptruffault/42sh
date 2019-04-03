@@ -142,7 +142,6 @@ void		lexer(t_eval *e, char *src);
 t_word		*eval_line(char *input);
 t_word		*new_tword(void);
 t_word 		*ft_arrto_tword(char **arr, t_shell *sh);
-char		*heredoc_get_input(char *eoi, t_shell *sh);
 t_process	*init_process(t_tree *t, t_shell *sh);
 t_process	*init_pipe_process(t_tree *t, t_shell *sh);
 t_process 	*init_process_tmp_var(t_shell *sh, t_envv *head, char **arr);

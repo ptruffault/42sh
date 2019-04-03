@@ -63,7 +63,6 @@ static char	*ft_exp_home_var(char *ret, char *ptr, t_envv *envv)
 	return (NULL);
 }
 
-
 char		*ft_exp_var(char *ret, t_shell *sh)
 {
 	int i;

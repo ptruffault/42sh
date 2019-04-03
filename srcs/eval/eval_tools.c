@@ -40,23 +40,6 @@ void		ft_delete_char(t_eval *e)
 	e->s[i] = '\0';
 }
 
-t_redirect	*parse_heredoc(t_redirect *ret, t_word *w)
-{
-	t_shell *sh;
-
-	sh = ft_get_set_shell(NULL);
-	if (w->next && w->next->word)
-	{
-		if (!(ret->path = ft_strdup(w->next->word)))
-			return (ft_free_redirection(ret));
-		sh->heredoc = 1;
-		ret->heredoc = heredoc_get_input(ret->path, sh);
-		sh->heredoc = 0;
-		return (ret);
-	}
-	return (ft_free_redirection(ret));
-}
-
 char		ft_parse_back(char c)
 {
 	if (c == 'n')

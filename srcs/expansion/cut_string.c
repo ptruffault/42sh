@@ -80,7 +80,7 @@ static char	*ft_cut_string(char *parenth, char *val, int *curr)
 	return (val);
 }
 
-char	*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
+char		*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
 {
 	char *param;
 	char *value;

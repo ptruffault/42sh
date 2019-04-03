@@ -76,32 +76,32 @@ t_envv	*ft_push_tenvv(t_envv *dest, const t_envv *src)
 	return (dest);
 }
 
-t_envv *ft_pull_tenvv(t_envv *dest, const t_envv *src)
- {
- 	t_envv *tmp;
- 	t_envv *prev;
- 	t_envv	*save;
+t_envv	*ft_pull_tenvv(t_envv *dest, const t_envv *src)
+{
+	t_envv	*tmp;
+	t_envv	*prev;
+	t_envv	*save;
 
- 	while (src && src->name)
- 	{
- 		tmp = dest;
- 		prev = NULL;
- 		while (tmp)
- 		{
- 			if (ft_strequ(tmp->name, src->name))
- 			{
- 				save = tmp->next;
- 				del_tenvv(tmp);
- 				if (prev)
- 					prev->next = save;
- 				else
- 					dest = save;
- 				break ;
- 			}
- 			prev = tmp;
- 			tmp = tmp->next;
- 		}
- 		src = src->next;
- 	}
- 	return (dest);
- }
+	while (src && src->name)
+	{
+		tmp = dest;
+		prev = NULL;
+		while (tmp)
+		{
+			if (ft_strequ(tmp->name, src->name))
+			{
+				save = tmp->next;
+				del_tenvv(tmp);
+				if (prev)
+					prev->next = save;
+				else
+					dest = save;
+				break ;
+			}
+			prev = tmp;
+			tmp = tmp->next;
+		}
+		src = src->next;
+	}
+	return (dest);
+}

@@ -46,10 +46,11 @@ char	*get_tenvv_val(const t_envv *envv, char *name)
 	return (NULL);
 }
 
-int	ft_puttenvv(const t_envv *t, bool exp)
+int		ft_puttenvv(const t_envv *t, bool exp)
 {
-	int i = -1;
+	int i;
 
+	i = -1;
 	while (t && t->name)
 	{
 		if ((t->exported && exp) || (!t->exported && !exp))

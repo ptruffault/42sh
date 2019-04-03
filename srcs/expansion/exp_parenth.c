@@ -98,7 +98,6 @@ char		*ft_exp_param(char *ret, t_shell *sh, int *i)
 
 	value = NULL;
 	ptr = &ret[*i];
-	len = 0;
 	*i = -1;
 	parenth = ft_strsub(ret, ptr - ret + 2, get_content_size(ptr));
 	if (!parenth || *parenth == '$' || ft_isempty(parenth))
@@ -107,9 +106,7 @@ char		*ft_exp_param(char *ret, t_shell *sh, int *i)
 		warning("bad substitution", ret);
 		return (NULL);
 	}
-	if (*parenth == '#')
-		len = 1;
-	else 
+	len = (*parenth == '#' ? 1 : 0);
 	value = ft_get_param_value(sh, &parenth[len]);
 	value = (len == 1 ? ft_get_len(value) : value);
 	ft_strdel(&parenth);

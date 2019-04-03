@@ -166,6 +166,7 @@ typedef struct		s_shell
 	int				std[3];
 	t_bool			interactive;
 	char			*txt;
+	int				fd;
 	int				heredoc;
 	t_envv			*env;
 	t_envv			*alias;

@@ -81,15 +81,11 @@ SRC		=	\
 	get_input/term_settings.c	\
 	get_input/ft_jump_line.c	\
 	\
-<<<<<<< HEAD
-=======
 	autocompletion/check_line.c			\
 	autocompletion/tabl_handler.c		\
 	autocompletion/binary_completion.c	\
 	autocompletion/files_completion.c	\
 	\
-	expansion/exp_var.c			\
->>>>>>> 21f320cfa910a5089109c41fb0d86767f33e93eb
 	expansion/exp.c				\
 	expansion/exp_parenth.c		\
 	expansion/cut_string.c		\

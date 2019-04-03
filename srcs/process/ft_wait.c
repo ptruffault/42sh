@@ -2,7 +2,8 @@
 
 static void	ft_eval_status(t_process *p, t_shell *sh)
 {
-	if (WIFCONTINUED(p->ret) && p->status == RUNNING_FG && p->builtins == FALSE)
+	if (WIFCONTINUED(p->ret) && p->status == RUNNING_FG
+		&& p->builtins == FALSE)
 		ft_wait(p, sh);
 	else if (WIFSIGNALED(p->ret))
 	{
@@ -17,32 +18,35 @@ static void	ft_eval_status(t_process *p, t_shell *sh)
 		p->ret =  WEXITSTATUS(p->ret);
 		p->status = DONE;
 	}
-	else  if (p->status == RUNNING_BG || p->status == RUNNING_FG)
+	else if (p->status == RUNNING_BG || p->status == RUNNING_FG)
 		p->status = DONE;
 }
 
-int	ft_wait(t_process *p, t_shell *sh)
+int			ft_wait(t_process *p, t_shell *sh)
 {
 	int ret;
 
 	ret = 0;
 	while (p)
 	{
-		if ((p->builtins == TRUE && (p->status == RUNNING_FG || p->status == RUNNING_BG))
-			|| (p->status == RUNNING_FG && waitpid(p->pid, &p->ret, WUNTRACED) > 0)
-			|| (p->status == RUNNING_BG && waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0))
+		if ((p->builtins == TRUE && (p->status == RUNNING_FG
+			|| p->status == RUNNING_BG))
+			|| (p->status == RUNNING_FG
+			&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)
+			|| (p->status == RUNNING_BG
+			&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0))
 		{
 			ft_eval_status(p, sh);
 			if (p->status != DONE || p->background == TRUE)
 				ft_put_process(p);
-			ret = ret + p->ret;	
+			ret = ret + p->ret;
 		}
 		p = p->grp;
 	}
 	return (ret);
 }
 
-void ft_wait_background(t_shell *sh)
+void		ft_wait_background(t_shell *sh)
 {
 	t_process *tmp;
 
@@ -54,4 +58,3 @@ void ft_wait_background(t_shell *sh)
 		tmp = tmp->next;
 	}
 }
-

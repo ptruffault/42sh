@@ -34,13 +34,13 @@ void		set_son_signal(void);
 int			ft_init_groups(t_shell *sh);
 
 int			ft_fc(t_shell *sh, char **argv);
-int			search_in_hist_parser(t_fc *fc);
+int			search_in_hist_parser(t_fc *fc, short i);
 t_hist		*search_by_number_from_first(t_hist *first, int nb);
 t_hist		*search_by_number_from_last(t_hist *first, int nb);
 t_hist		*search_by_occurence(t_hist *first, char *to_search);
 void		ft_fc_option_l(t_fc *fc);
 void		ft_fc_option_e(t_fc *fc);
-void		ft_fc_option_s(t_fc *fc);
+void		ft_fc_option_s(t_fc *fc, int pos);
 
 void 		ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t);
 void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t);

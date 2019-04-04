@@ -34,6 +34,7 @@ void		set_son_signal(void);
 int			ft_init_groups(t_shell *sh);
 
 int			ft_fc(t_shell *sh, char **argv);
+int			flags_gestion(char *flags, char **av, int x);
 int			search_in_hist_parser(t_fc *fc, short i);
 t_hist		*search_by_number_from_first(t_hist *first, int nb);
 t_hist		*search_by_number_from_last(t_hist *first, int nb);

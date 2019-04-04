@@ -96,7 +96,6 @@ void	ft_fc_option_s(t_fc *fc, int pos)
 			error("Memory allocation failed", NULL);
 			return ;
 		}
-		ft_printf("[%s]\n", hist->s);
 	}
 	if ((t = get_tree(hist->s)))
 		ft_free_tree(exec_tree(t, fc->shell));

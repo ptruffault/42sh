@@ -12,7 +12,55 @@
 
 #include "shell42.h"
 
-void ft_fc_option_e(t_fc *fc)
+void	ft_fc_write_in_file(t_fc *fc, int fd)
 {
-	(void)fc;
+	t_hist	*tmp;
+	int		nb;
+	int		way;
+
+	if (ft_strchr(fc->flags, 'r'))
+	{
+		tmp = fc->hist_first;
+		fc->hist_first = fc->hist_last;
+		fc->hist_last = tmp;
+	}
+	way = fc->hist_first->nb < fc->hist_last->nb ? 1 : 0;
+	if (way == 0)
+		while (fc->hist_first->nb >= fc->hist_last->nb)
+		{
+			write(fd, fc->hist_first->s, ft_strlen(fc->hist_first->s));
+			fc->hist_first = fc->hist_first->next;
+			write(fd, "\n", 1);
+		}
+	else if (way == 1)
+		while (fc->hist_first->nb <= fc->hist_last->nb)
+		{
+			write(fd, fc->hist_first->s, ft_strlen(fc->hist_first->s));
+			write(fd, "\n", 1);
+			fc->hist_first = fc->hist_first->prev;
+		}
+}
+
+void	ft_fc_option_e(t_fc *fc, int pos)
+{
+	char	*editor;
+	int		fd;
+
+	editor = NULL;
+	if (fc->av[pos] && !ft_isdigit(fc->av[pos][0]) && fc->av[pos][0] != '-')
+		editor = fc->av[pos];
+	else if (!(editor = get_tenvv_val(fc->shell->env, "FCEDIT")))
+		return ;
+	else if (editor == NULL)
+		editor = "ed";
+	if (search_in_hist_parser(fc, 3) == FAILURE)
+		return ;
+	ft_printf("editor:%s\n", editor);
+	if ((fd = open("/tmp/fc____42sh", O_CREAT | O_RDWR, 0644)) == -1
+			|| 	unlink("/tmp/fc____42sh") == -1)
+		return ;
+	ft_fc_write_in_file(fc, fd);
+	
+	close(fd);
+	ft_printf("fd->%d\n", fd);
 }

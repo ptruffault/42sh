@@ -34,7 +34,10 @@ void		fc_init_first_last(t_fc *fc, int pos)
 	else
 	{
 		fc->first = -1;
-		fc->last = -16;
+		if (fc->flags[0] == 'e')
+			fc->last = -1;
+		else
+			fc->last = -16;
 		fc->first_ = NULL;
 		fc->last_ = NULL;
 	}
@@ -74,10 +77,10 @@ int			ft_fc(t_shell *shell, char **argv)
 	ft_printf("FIRST->%d | %s\nLAST->%d | %s\n", fc->first, fc->first_, fc->last, fc->last_);
 	if (fc->flags[0] == 'l')
 		ft_fc_option_l(fc);
-	/*else if (fc->flags[0] == 'e')
-		ft_fc_option_e(fc);*/
-	//else if (fc->flags[0] == 's')
-	//	ft_fc_option_s(fc, i);
+	else if (fc->flags[0] == 'e')
+		ft_fc_option_e(fc, i);
+	else if (fc->flags[0] == 's')
+		ft_fc_option_s(fc, i);
 	free(fc);
 	return (0);
 }

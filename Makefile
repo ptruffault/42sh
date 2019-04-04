@@ -63,6 +63,7 @@ SRC		=	\
 	builtins/ft_fc/ft_fc_option_e.c				\
 	builtins/ft_fc/ft_fc_option_l.c				\
 	builtins/ft_fc/ft_fc_option_s.c				\
+	builtins/ft_fc/flags_lexer.c				\
 	\
 	get_input/curs_move.c		\
 	get_input/get_input.c		\

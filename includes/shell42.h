@@ -38,6 +38,7 @@ void		ft_remove_jobs(int pid, t_shell *sh);
 t_jobs 		*ft_free_tjobs(t_jobs *j);
 
 int			ft_fc(t_shell *sh, char **argv);
+int			flags_gestion(char *flags, char **av, int x);
 int			search_in_hist_parser(t_fc *fc, short i);
 t_hist		*search_by_number_from_first(t_hist *first, int nb);
 t_hist		*search_by_number_from_last(t_hist *first, int nb);

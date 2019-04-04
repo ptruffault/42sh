@@ -16,11 +16,13 @@ GIT 		=		https://github.com/ptruffault/42sh.git
 SRC		=	\
 	main.c				\
 	signal.c			\
-	init_shell.c		\
 	ft_get_set.c 		\
-	ft_free_tshell.c	\
-	init_envv.c			\
-	init_intern.c		\
+	\
+	setup_exit/free_tools2.c \
+	setup_exit/init_envv.c		\
+	setup_exit/init_intern.c	\
+	setup_exit/init_shell.c		\
+	setup_exit/free_tools.c		\
 	\
 	exec/ft_execve.c			\
 	exec/exec.c					\
@@ -35,7 +37,6 @@ SRC		=	\
 	eval/tree_tools.c		\
 	eval/lexer_tools.c		\
 	eval/lexer.c			\
-	eval/free_tools.c		\
 	eval/get_instruction.c	\
 	eval/heredoc_content.c	\
 	eval/token.c			\
@@ -44,8 +45,6 @@ SRC		=	\
 	eval/t_word_tools.c		\
 	\
 	builtins/ft_echo.c					\
-	builtins/ft_jobs.c					\
-	builtins/fg_bg.c					\
 	builtins/ft_cd.c					\
 	builtins/ft_cdpath.c				\
 	builtins/run_builtin.c				\
@@ -54,7 +53,6 @@ SRC		=	\
 	builtins/ft_exit.c					\
 	builtins/type_tools.c				\
 	builtins/ft_alias.c					\
-	builtins/hi.c						\
 	builtins/check_builtins.c			\
 	\
 	builtins/ft_fc/ft_fc.c						\
@@ -63,6 +61,10 @@ SRC		=	\
 	builtins/ft_fc/ft_fc_option_e.c				\
 	builtins/ft_fc/ft_fc_option_l.c				\
 	builtins/ft_fc/ft_fc_option_s.c				\
+	\
+	builtins/jobs/fg_bg.c \
+	builtins/jobs/ft_jobs.c \
+	builtins/jobs/hi.c \
 	\
 	get_input/curs_move.c		\
 	get_input/get_input.c		\
@@ -92,8 +94,8 @@ SRC		=	\
 	expansion/parenth_tools.c	\
 	\
 	process/kill_process.c		\
-	process/ft_wait.c			\
-	process/process_tools.c		\
+	process/wait_process.c		\
+	process/jobs_tools.c		\
 	\
 	tenvv/ft_get_set_envv.c		\
 	tenvv/tenvv_tools.c			\

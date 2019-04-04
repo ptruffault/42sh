@@ -64,6 +64,7 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	}
 	else if ((p = init_process(t, sh)))
 		p = ft_exec_process(p, sh, t);
+	ft_add_jobs(p, sh);
 	ft_link_process_to_term(p, sh, t);
 	ft_reset_fd(sh);
 	return (t);

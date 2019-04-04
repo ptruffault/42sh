@@ -18,6 +18,7 @@ static void	ft_null(t_shell *sh)
 	sh->pid = getpid();
 	sh->heredoc = 0;
 	sh->fd = 0;
+	sh->jobs = NULL;
 	sh->interactive = FALSE;
 	sh->clipboard = NULL;
 	sh->alias = NULL;
@@ -64,10 +65,7 @@ int	ft_init_groups(t_shell *sh)
 		kill(-sh->pgid, SIGTTIN);
 	sh->pgid = getpid();
 	if (setpgid(sh->pgid, sh->pgid) < 0)
-	{
-		error("setpgid failed", NULL);
-		return (0);
-	}
+		return (error("setpgid failed", NULL));
 	if (ft_tcsetpgrp(STDIN_FILENO, sh->pgid) < 0)
 		return (0);
 	return (1);

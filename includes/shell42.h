@@ -32,6 +32,10 @@ int			ft_tcsetpgrp(int fd, pid_t pgrp);
 pid_t		ft_tcgetpgrp(int fd);
 void		set_son_signal(void);
 int			ft_init_groups(t_shell *sh);
+int			ft_signal_check(t_process *p);
+void 		ft_add_jobs(t_process *p, t_shell *sh);
+void		ft_remove_jobs(int pid, t_shell *sh);
+t_jobs 		*ft_free_tjobs(t_jobs *j);
 
 int			ft_fc(t_shell *sh, char **argv);
 int			search_in_hist_parser(t_fc *fc, short i);

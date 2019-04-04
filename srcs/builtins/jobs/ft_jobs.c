@@ -12,27 +12,23 @@
 
 #include "shell42.h"
 
-static void	ft_job_prompt(t_process *p, int id)
+static void	ft_job_prompt(t_jobs *j)
 {
 	char *stat[6];
 
 	ft_process_tab_status(stat);
-	ft_printf("[%i] %s %s\n", id, stat[p->status], p->line);
+	ft_printf("[%i] %s %s\n", j->id, stat[j->p->status], j->p->line);
 }
 
 int			ft_jobs(t_shell *sh, char **argv)
 {
-	t_process	*tmp;
-	int			id;
+	t_jobs		*tmp;
 
-	id = 0;
 	(void)argv;
-	tmp = sh->process;
+	tmp = sh->jobs;
 	while (tmp)
 	{
-		if (tmp->builtins == FALSE && (tmp->status == RUNNING_BG
-			|| tmp->status == SUSPENDED || tmp->status == RUNNING_FG))
-			ft_job_prompt(tmp, id++);
+		ft_job_prompt(tmp);
 		tmp = tmp->next;
 	}
 	return (0);

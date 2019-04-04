@@ -64,11 +64,26 @@ char	**get_tabl_others(char **path, char *value, int pos, int *total)
 	if (pos == 0 && !startwith)
 	{
 		tabl = get_binary(path, tmp, all, total);
-		if (total == 0)
+		if (*total == 0)
 			ft_arrdel(&tabl);
 	}
-	if (pos > 0 || total == 0 || startwith)
+	if (pos > 0 || *total == 0 || startwith)
 		tabl = get_files(tmp, all, total);
+	return (tabl);
+}
+
+char	**get_tabl_expansion(char *value, int *total)
+{
+	char	**tabl;
+	bool	all;
+
+	tabl = NULL;
+	all = false;
+	if (value[0] == '{')
+		value += 1;
+	if (value[0] == '\0')
+		all = true;
+	tabl = get_environ_match(value, total, all);
 	return (tabl);
 }
 
@@ -82,7 +97,7 @@ char		**check_line(int *max_len, int *total, t_edit *e)
 
 	value = NULL;
 	pos = e->curr;
-	(void)max_len;
+	*total = 0;
 	sh = ft_get_set_shell(NULL);
 	if (!e->hist || !e->hist->s)
 		return (NULL);
@@ -92,8 +107,12 @@ char		**check_line(int *max_len, int *total, t_edit *e)
 		return (NULL);
 	if (value[0] != '$')
 		tabl = get_tabl_others(path, value, pos, total);
-	if (*total == 0 && tabl != NULL)
+	else
+		tabl = get_tabl_expansion(value + 1, total);
+	if (tabl != NULL && (*total <= 0))
 		ft_arrdel(&tabl);
+	else
+		ft_sort_table(tabl, max_len);
 	ft_freestrarr(&path);
 	ft_strdel(&value);
 	return (tabl);

@@ -15,7 +15,6 @@
 void	ft_fc_write_in_file(t_fc *fc, int fd)
 {
 	t_hist	*tmp;
-	int		nb;
 	int		way;
 
 	if (ft_strchr(fc->flags, 'r'))

@@ -86,6 +86,7 @@ SRC		=	\
 	autocompletion/tabl_handler.c		\
 	autocompletion/binary_completion.c	\
 	autocompletion/files_completion.c	\
+	autocompletion/environ_completion.c	\
 	\
 	expansion/exp.c				\
 	expansion/exp_parenth.c		\

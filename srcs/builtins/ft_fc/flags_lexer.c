@@ -46,7 +46,6 @@ static void	flags_priority(char *flags)
 int			flags_gestion(char *flags, char **av, int x)
 {
 	int		b;
-	char	c;
 
 	x = -1;
 	while (++x < 6)

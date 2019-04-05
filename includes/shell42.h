@@ -43,6 +43,8 @@ void		ft_fc_option_l(t_fc *fc);
 void		ft_fc_option_e(t_fc *fc, int pos);
 void		ft_fc_option_s(t_fc *fc, int pos);
 
+void		ft_deload_hist_in_file(t_shell *sh);
+
 void 		ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t);
 void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t);
 int			ft_quit(int exit_code, t_shell *sh);
@@ -126,7 +128,6 @@ int			putalias(t_word *w, t_envv *alias, int t);
 t_hist		*init_hist(char *hist);
 int			ft_hist_len(t_hist *hist);
 t_hist		*new_hist(void);
-t_hist		*add_hist(t_hist *head, char *s);
 void		ft_lex_backslash(t_eval *e);
 void		ft_lex_parenth(t_eval *e);
 void		ft_lex_var(t_eval *e);

@@ -72,7 +72,6 @@ SRC		=	\
 	get_input/input_tools.c		\
 	get_input/print_line.c		\
 	get_input/setup.c			\
-	get_input/get_history.c		\
 	get_input/ft_cop_pas.c		\
 	get_input/ft_jump_word.c	\
 	get_input/arrow_move.c		\
@@ -102,7 +101,10 @@ SRC		=	\
 	tenvv/tenvv_tools_2.c		\
 	tenvv/tenvv_to_tab.c		\
 	tenvv/ft_setenv.c			\
-	tenvv/ft_unsetenv.c
+	tenvv/ft_unsetenv.c			\
+	\
+	history/deload_history.c	\
+	history/get_history.c		\
 
 #### COMPILER ####
 CC		?=	cc

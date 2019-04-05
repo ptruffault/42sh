@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-t_jobs 	*ft_free_tjobs(t_jobs *j)
+t_jobs	*ft_free_tjobs(t_jobs *j)
 {
 	t_jobs *tmp;
 

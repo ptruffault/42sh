@@ -13,39 +13,39 @@
 #include "shell42.h"
 
 static const t_sig_msg	g_signal_msg[] = {
-		{.sig = SIGHUP, .msg = "hanghup"},
-		{.sig = SIGINT, .msg = "interupted"},
-		{.sig = SIGQUIT, .msg = "quit"},
-		{.sig = SIGILL,  .msg = "illegal instruction"},
-		{.sig = SIGTRAP, .msg = "trace/BPT trap"},
-		{.sig = SIGABRT, .msg = "abort"},
-		{.sig = SIGEMT,  .msg = "emulate instruction executed"},
-		{.sig = SIGFPE,  .msg = "floating exception"},
-		{.sig = SIGKILL, .msg = "killed"},
-		{.sig = SIGBUS,  .msg = "bus error"},
-		{.sig = SIGSEGV, .msg = "segmentation fault"},
-		{.sig = SIGSYS, .msg = "bad system call"},
-		{.sig = SIGPIPE, .msg = "broken pipe"},
-		{.sig = SIGALRM, .msg = "alarm clock"},
-		{.sig = SIGTERM, .msg = "terminated"},
-		{.sig = SIGURG, .msg = "SIGURP"},
-		{.sig = SIGSTOP, .msg = "suspended"},
-		{.sig = SIGTSTP, .msg = "suspended"},
-		{.sig = SIGCONT, .msg = "continued"},
-		{.sig = SIGCHLD, .msg = "SIGCHLD"},
-		{.sig = SIGTTIN, .msg = "background read attempted from control terminal"},
-		{.sig = SIGTTOU, .msg = "background write attempted from control terminal"},
-		{.sig = SIGIO, .msg = "I/O is possible on a descriptor"},
-		{.sig = SIGXCPU, .msg = "cpu time limit exceeded"},
-		{.sig = SIGXFSZ, .msg = "file size limit exceeded"},
-		{.sig = SIGPROF, .msg = "profiling time alarm"},
-		{.sig = SIGVTALRM, .msg = "virtual time alarm"},
-		{.sig = SIGUSR1, .msg = "user signal 1"},
-		{.sig = SIGUSR2, .msg = "user signal 2"},
-		{.msg = NULL}
+	{.sig = SIGHUP, .msg = "hanghup"},
+	{.sig = SIGINT, .msg = "interupted"},
+	{.sig = SIGQUIT, .msg = "quit"},
+	{.sig = SIGILL, .msg = "illegal instruction"},
+	{.sig = SIGTRAP, .msg = "trace/BPT trap"},
+	{.sig = SIGABRT, .msg = "abort"},
+	{.sig = SIGEMT, .msg = "emulate instruction executed"},
+	{.sig = SIGFPE, .msg = "floating exception"},
+	{.sig = SIGKILL, .msg = "killed"},
+	{.sig = SIGBUS, .msg = "bus error"},
+	{.sig = SIGSEGV, .msg = "segmentation fault"},
+	{.sig = SIGSYS, .msg = "bad system call"},
+	{.sig = SIGPIPE, .msg = "broken pipe"},
+	{.sig = SIGALRM, .msg = "alarm clock"},
+	{.sig = SIGTERM, .msg = "terminated"},
+	{.sig = SIGURG, .msg = "SIGURP"},
+	{.sig = SIGSTOP, .msg = "suspended"},
+	{.sig = SIGTSTP, .msg = "suspended"},
+	{.sig = SIGCONT, .msg = "continued"},
+	{.sig = SIGCHLD, .msg = "SIGCHLD"},
+	{.sig = SIGTTIN, .msg = "background read attempted from control terminal"},
+	{.sig = SIGTTOU, .msg = "background write attempted from control terminal"},
+	{.sig = SIGIO, .msg = "I/O is possible on a descriptor"},
+	{.sig = SIGXCPU, .msg = "cpu time limit exceeded"},
+	{.sig = SIGXFSZ, .msg = "file size limit exceeded"},
+	{.sig = SIGPROF, .msg = "profiling time alarm"},
+	{.sig = SIGVTALRM, .msg = "virtual time alarm"},
+	{.sig = SIGUSR1, .msg = "user signal 1"},
+	{.sig = SIGUSR2, .msg = "user signal 2"},
+	{.msg = NULL}
 };
 
-int	ft_signal_check(t_process *p)
+int		ft_signal_check(t_process *p)
 {
 	int i;
 
@@ -64,8 +64,7 @@ int	ft_signal_check(t_process *p)
 	return (0);
 }
 
-
-void		sig_handler(int sig)
+void	sig_handler(int sig)
 {
 	t_shell		*sh;
 
@@ -76,7 +75,7 @@ void		sig_handler(int sig)
 		ft_update_windows(&sh->e);
 }
 
-void		set_son_signal(void)
+void	set_son_signal(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -87,7 +86,7 @@ void		set_son_signal(void)
 	signal(SIGWINCH, SIG_DFL);
 }
 
-void		set_signals(void)
+void	set_signals(void)
 {
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);

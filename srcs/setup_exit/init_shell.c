@@ -32,20 +32,20 @@ static void	ft_null(t_shell *sh)
 	sh->env = NULL;
 }
 
-pid_t ft_tcgetpgrp(int fd)
+pid_t		ft_tcgetpgrp(int fd)
 {
- 	int pgrp;
+	int pgrp;
 
- 	if (ioctl(fd, TIOCGPGRP, &pgrp) < 0)
- 	{
- 		error("can't get pgid", "tcgetpgrp");
- 		perror(NULL);
+	if (ioctl(fd, TIOCGPGRP, &pgrp) < 0)
+	{
+		error("can't get pgid", "tcgetpgrp");
+		perror(NULL);
 		return (-1);
- 	}
-	return pgrp ;
+	}
+	return (pgrp);
 }
 
-int ft_tcsetpgrp(int fd, pid_t pgrp)
+int			ft_tcsetpgrp(int fd, pid_t pgrp)
 {
 	int pgrp_int;
 	int ret;
@@ -59,7 +59,7 @@ int ft_tcsetpgrp(int fd, pid_t pgrp)
 	return (ret);
 }
 
-int	ft_init_groups(t_shell *sh)
+int			ft_init_groups(t_shell *sh)
 {
 	while (ft_tcgetpgrp(STDIN_FILENO) != (sh->pgid = getpgrp()))
 		kill(-sh->pgid, SIGTTIN);
@@ -89,7 +89,7 @@ int			init_shell(t_shell *sh, char **envv, char **argv)
 	}
 	sh->interactive = TRUE;
 	if (!ft_init_groups(sh)
-	||	!init_termcaps(sh))
+	|| !init_termcaps(sh))
 		return (0);
 	set_signals();
 	return (1);

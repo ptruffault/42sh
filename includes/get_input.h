@@ -17,6 +17,7 @@
 # define FAILURE 0
 # define SUCCESS 1
 # define KEY_ENTER 0xA
+# define KEY_TAB 9
 
 # define KEY_ARROW_UP 4283163
 # define KEY_ARROW_DOWN 4348699
@@ -112,6 +113,8 @@ void			ft_delete_line(t_edit *e);
 
 int             ft_get_hist_size(void);
 int				init_tedit(t_shell *sh);
+
+int				tab_handle(t_edit *e);
 
 void			ft_delete_line(t_edit *e);
 void			curr_go_last(t_edit *e);

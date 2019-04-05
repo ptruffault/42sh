@@ -79,8 +79,6 @@ void	just_exit(t_edit *e)
 			sh->e.edited = TRUE;
 		}
 		ft_strdel(&e->hist->s);
-		if (e->hist->next)
-			e->hist->next->prev = NULL;
 		free(e->hist);
 		e->hist = NULL;
 	}

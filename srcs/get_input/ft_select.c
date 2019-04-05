@@ -14,19 +14,6 @@
 
 void	ft_select_right(t_edit *e)
 {
-	char **tabl;
-
-	int i = 0, a = 0, b = 0;
-	if ((tabl = check_line(&a, &b, e)))
-	{
-		if (b > 0)
-		{
-			for (i = 0; tabl[i] != NULL; i++)
-				ft_printf("\n%s\n", tabl[i]);
-			ft_arrdel(&tabl);
-			ft_printf("Len = %d && %d %d\n", a, i, b);
-		}
-	}
 	if (e->select == -1)
 	{
 		e->select = 1;

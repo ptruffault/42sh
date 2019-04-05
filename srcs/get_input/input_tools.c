@@ -19,7 +19,7 @@ int			ft_add_char(char buf, t_edit *e)
 
 	if (e->select != -1)
 		delete_left(e);
-	if (!ft_isprint(buf) || !e->hist->s)
+	if ((!ft_isprint(buf) || !e->hist->s) && buf != 9)
 		return (SUCCESS);
 	i = (int)ft_strlen(e->hist->s);
 	size = i + 1;

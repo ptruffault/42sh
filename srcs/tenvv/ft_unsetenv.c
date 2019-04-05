@@ -12,6 +12,31 @@
 
 #include "tenvv.h"
 
+t_envv		*del_tenvv(t_envv *envv)
+{
+	if (envv)
+	{
+		ft_strdel(&envv->name);
+		ft_strdel(&envv->value);
+		envv->next = NULL;
+		free(envv);
+	}
+	return (NULL);
+}
+
+t_envv		*ft_free_tenvv(t_envv *envv)
+{
+	t_envv *tmp;
+
+	while (envv)
+	{
+		tmp = envv;
+		envv = envv->next;
+		tmp = del_tenvv(tmp);
+	}
+	return (NULL);
+}
+
 t_envv		*ft_del_envv(t_envv *envv, char *name)
 {
 	t_envv *tmp;

@@ -74,7 +74,6 @@ int			ft_fc(t_shell *shell, char **argv)
 		fc_init_first_last(fc, i + 1);
 	else
 		fc_init_first_last(fc, i);
-	ft_printf("FIRST->%d | %s\nLAST->%d | %s\n", fc->first, fc->first_, fc->last, fc->last_);
 	if (fc->flags[0] == 'l')
 		ft_fc_option_l(fc);
 	else if (fc->flags[0] == 'e')

@@ -42,10 +42,9 @@ t_hist			*init_hist(char *hist)
 	int		fd;
 	char	*line;
 
-	ret = NULL;
 	tmp = NULL;
+	ret = NULL;
 	if ((fd = ft_open(hist, O_RDWR | O_CREAT | O_NOFOLLOW, 511)) >= 0)
-	{
 		while (get_next_line(fd, &line) == 1)
 		{
 			if (!(tmp = new_hist()))
@@ -62,7 +61,6 @@ t_hist			*init_hist(char *hist)
 			if (tmp->nb >= ft_get_hist_size())
 				break ;
 		}
-		ft_close(fd);
-	}
+	ft_close(fd);
 	return (tmp);
 }

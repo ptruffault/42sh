@@ -55,7 +55,6 @@ void	ft_fc_option_e(t_fc *fc, int pos)
 		return ;
 	if (!(editor = ft_strjoin(editor, " /tmp/fc____42sh")))
 		return ;
-	ft_printf("editor:%s\n", editor);
 	if ((fd = open("/tmp/fc____42sh", O_CREAT | O_RDWR, 0644)) == -1)
 		return ;
 	ft_fc_write_in_file(fc, fd);

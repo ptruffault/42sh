@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "shell42.h"
+#include "get_input.h"
 
 char				*trim_path(char *path)
 {
@@ -77,6 +78,7 @@ int		init_intern(t_shell *sh)
 	sh->env = ft_new_envv(sh->env, "CDPATH", "", false);
 	sh->env = ft_new_envv(sh->env, "FCEDIT", "vim", false);
 	sh->env = ft_new_envv(sh->env, "PS1", PS1, false);
+	sh->env = ft_new_envv(sh->env, "PS2", PS2, false);
 	if ((usr = getpwnam(getlogin())))
 	{
 		sh->env = ft_new_envv_int(sh->env, "EUID", usr->pw_uid, false);

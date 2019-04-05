@@ -15,8 +15,6 @@
 # include <stdbool.h>
 # include "libft.h"
 
-# define PS1 "$[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]"
-
 typedef struct s_envv	t_envv;
 
 struct	s_envv

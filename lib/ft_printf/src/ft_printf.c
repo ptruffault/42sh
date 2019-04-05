@@ -52,7 +52,7 @@ int		ft_printf(const char *format, ...)
 		return (1);
 	va_start(ap, format);
 	set_struct(&tab);
-	while (check_arg(format, &tab))
+	while (check_arg(format, &tab, ap))
 	{
 		if (tab.arg.type == PERCENT)
 			check_string("%", &tab);

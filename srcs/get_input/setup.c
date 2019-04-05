@@ -112,6 +112,8 @@ int				init_tedit(t_shell *sh)
 	sh->e.hist_size = ft_get_hist_size();
 	sh->e.curr = 0;
 	sh->e.pos = 0;
+	sh->e.tmp = NULL;
+	sh->e.pos_z = 0;
 	sh->e.select = -1;
 	sh->e.select_pos = 0;
 	sh->e.mode = 0;

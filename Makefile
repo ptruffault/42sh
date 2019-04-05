@@ -81,6 +81,7 @@ SRC		=	\
 	get_input/use_termcaps.c	\
 	get_input/term_settings.c	\
 	get_input/ft_jump_line.c	\
+	get_input/prompt.c			\
 	\
 	autocompletion/check_line.c			\
 	autocompletion/tabl_handler.c		\

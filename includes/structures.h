@@ -94,8 +94,10 @@ typedef struct	s_edit
 	size_t			width;
 	size_t			tall;
 	size_t			select_pos;
+	size_t			pos_z;
 	int				hist_size;
 	short			select;
+	char			*tmp;
 	unsigned short	mode;
 	unsigned long	kval[NUMBER_OF_KEYS];
 	void			(*ft_tab[NUMBER_OF_KEYS])(struct s_edit *e);

@@ -20,6 +20,8 @@ void	curr_move_right(t_edit *e)
 
 void	curr_move_left(t_edit *e)
 {
+	if (e->pos_z > 0)
+		e->pos_z--;
 	if (e->curr > 0)
 		e->curr--;
 }

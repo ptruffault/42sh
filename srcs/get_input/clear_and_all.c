@@ -12,7 +12,7 @@
 
 #include <get_input.h>
 
-void	setup_key(char *error[7])
+void	setup_key(char *error[7], t_edit *e)
 {
 	error[0] = "cmdand";
 	error[1] = "cmdor";
@@ -21,32 +21,39 @@ void	setup_key(char *error[7])
 	error[4] = "dquote";
 	error[5] = "backslash";
 	error[6] = "parenth";
+	if (e->tmp == NULL)
+		e->tmp = e->hist->s;
+	else
+		e->tmp = ft_strjoin_add(&e->tmp, &e->hist->s, "\n");
+	e->hist->s = e->tmp;
 }
 
 void	entry_key(t_edit *e)
 {
 	t_eval	eval;
+	t_shell	*sh;
 	char	*error[7];
 
-	setup_key(error);
+	sh = ft_get_set_shell(NULL);
+	setup_key(error, e);
 	lexer(&eval, e->hist->s);
 	ft_strdel(&eval.eval);
 	ft_strdel(&eval.s);
-	if (eval.err > 1)
+	if (sh->heredoc == 0 && eval.err > 1)
 	{
-		if (eval.err == 6 || eval.err == 5)
-		{
-			ft_add_char('\\', e);
-			ft_add_char('n', e);
-		}
-		else
-		{
-			ft_printf("\n\033[00;31m%s\033[00m >\n", error[eval.err - 2]);
-			ft_putstr(e->hist->s);
-		}
+		e->curr = 0;
+		e->pos = 0;
+		e->select = -1;
+		e->select_pos = 0;
+		e->hist->s = ft_strnew(3);
+		eval.err = (eval.err > 2) ? eval.err - 2 : eval.err;
+		ft_others_prompt(ft_get_set_shell(NULL), error[eval.err]);
 	}
 	else
+	{
+		e->tmp = NULL;
 		e->edited = TRUE;
+	}
 }
 
 void	clear_term(t_edit *e)

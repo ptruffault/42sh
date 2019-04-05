@@ -12,94 +12,45 @@
 
 #include "shell42.h"
 
-static t_process	*ft_get_process_id(t_process *p, int id)
+void		ft_handle_jobs(t_process *p, unsigned int s, t_shell *sh)
 {
-	t_process	*def;
-	int			i;
-
-	i = 1;
-	def = NULL;
-	while (p)
+	if (p->status == SUSPENDED)
+		kill(-p->pid, SIGCONT);
+	if (p->status == s)
+		warning("jobs already in background", p->cmd);
+	else
 	{
-		if (p->status == RUNNING_BG || p->status == SUSPENDED)
-		{
-			if (i++ == id)
-				return (p);
-			def = p;
-		}
-		p = p->next;
+		if (s == RUNNING_FG)
+			ft_link_process_to_term(p, sh);
+		ft_update_status(p, s);
+		ft_wait(p, sh);
 	}
-	return (def);
-}
-
-static t_process	*ft_get_process_name(t_process *p, char *name)
-{
-	while (p)
-	{
-		if ((p->status == RUNNING_BG || p->status == SUSPENDED)
-			&& p->builtins == FALSE && (ft_strequ(p->cmd, name)
-			|| ft_strequ(*p->argv, name)))
-			return (p);
-		p = p->next;
-	}
-	return (NULL);
-}
-
-static	void		ft_handle_jobs(t_process *p, unsigned int s, t_shell *sh)
-{
-	kill(-p->pid, SIGCONT);
-	ft_update_status(p, s);
-	ft_wait(p, sh);
 }
 
 int					ft_bg(t_shell *sh, char **argv)
 {
-	t_process	*tmp;
-	int			i;
+	t_jobs *j;
+	int i;
 
 	i = 0;
-	if (!argv[1])
-	{
-		if ((tmp = ft_get_process_id(sh->process, -1)))
-			ft_handle_jobs(tmp, RUNNING_BG, sh);
-		else
-			return (error("no current job", NULL) - 1);
-	}
+	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL)))
+		ft_handle_jobs(j->p, RUNNING_BG, sh);
 	while (argv[++i])
-	{
-		if ((argv[1] && *argv[i] == '%' && ft_isdigit(argv[i][1])
-			&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
-			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
-			ft_handle_jobs(tmp, RUNNING_BG, sh);
-		else
-			return (error("job not found", argv[1]) - 1);
-	}
+		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i])))
+			ft_handle_jobs(j->p, RUNNING_BG, sh);
 	return (0);
 }
 
 int					ft_fg(t_shell *sh, char **argv)
 {
-	t_process	*tmp;
-	int			i;
-	int			ret;
+	t_jobs *j;
+	int i;
 
 	i = 0;
-	ret = 0;
-	if (!argv[1])
-	{
-		if ((tmp = ft_get_process_id(sh->process, -1)))
-			ft_handle_jobs(tmp, RUNNING_FG, sh);
-		else
-			return (error("no current job", NULL) - 1);
-	}
+	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL)))
+		ft_handle_jobs(j->p, RUNNING_FG, sh);
 	while (argv[++i])
-	{
-		if ((argv[1] && *argv[i] == '%' && ft_isdigit(argv[i][1])
-			&& (tmp = ft_get_process_id(sh->process, ft_atoi(&argv[i][1]))))
-			|| (argv[1] && (tmp = ft_get_process_name(sh->process, argv[i]))))
-			ft_handle_jobs(tmp, RUNNING_FG, sh);
-		else
-			ret = error("job not found", argv[i]) - 1;
-	}
-	return (ret);
+		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i])))
+			ft_handle_jobs(j->p, RUNNING_FG, sh);
+	return (0);
 }

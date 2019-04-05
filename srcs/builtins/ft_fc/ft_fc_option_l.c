@@ -48,6 +48,9 @@ void		ft_fc_option_l(t_fc *fc)
 
 	if (search_in_hist_parser(fc, 3) == FAILURE)
 		return ;
+	tmp = fc->hist_first;
+	fc->hist_first = fc->hist_last;
+	fc->hist_last = tmp;
 	if (ft_strchr(fc->flags, 'r'))
 	{
 		tmp = fc->hist_first;
@@ -55,8 +58,6 @@ void		ft_fc_option_l(t_fc *fc)
 		fc->hist_last = tmp;
 	}
 	ft_printf("FIRST->[%s][%d] | LAST->[%s][%d]\n", fc->hist_first->s, fc->hist_first->nb, fc->hist_last->s, fc->hist_last->nb);
-	way = 0;
-	if (fc->hist_first->nb < fc->hist_last->nb)
-		way = 1;
+	way = fc->hist_first->nb < fc->hist_last->nb ? 1 : 0;
 	print_hist_opt_l(fc, way);
 }

@@ -37,16 +37,12 @@ static t_tree	*next_instruction(t_tree *t)
 	return (NULL);
 }
 
-static void 	ft_link_process_to_term(t_process *p, t_shell *sh, t_tree *t)
+void 	ft_link_process_to_term(t_process *p, t_shell *sh)
 {
 	if (sh->interactive == TRUE && p && p->background ==  FALSE && p->pid != 0)
 		ft_tcsetpgrp(STDIN_FILENO, p->pgid);
 	else if (sh->interactive == TRUE && p && p->background ==  TRUE)
 		sh->env = ft_new_envv_int(sh->env, "!", p->pid, false);
-	t->ret = (p ? ft_wait(p, sh) : -1);
-	sh->env = ft_new_envv_int(sh->env, "?", t->ret, false);
-	if (sh->interactive == TRUE && p)
-		ft_tcsetpgrp(STDIN_FILENO, sh->pgid);
 }
 
 static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
@@ -65,7 +61,10 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	else if ((p = init_process(t, sh)))
 		p = ft_exec_process(p, sh, t);
 	ft_add_jobs(p, sh);
-	ft_link_process_to_term(p, sh, t);
+	ft_link_process_to_term(p, sh);
+	t->ret = (p ? ft_wait(p, sh) : -1);
+	if (sh->interactive == TRUE && p)
+		ft_tcsetpgrp(STDIN_FILENO, sh->pgid);
 	ft_reset_fd(sh);
 	return (t);
 }

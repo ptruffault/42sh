@@ -66,18 +66,18 @@ int			ft_fc(t_shell *shell, char **argv)
 	set_struct_fc(fc, shell);
 	if (fc->flags[0] == 'e' && fc->av[i]
 	&& ft_isdigit(fc->av[i][0]) == 0 && fc->av[i][0] != '-')
-		++i;
+		fc_init_first_last(fc, i + 1);
 	if (fc->flags[0] == 's' && fc->av[i] && ft_strchr(fc->av[i], '='))
-		++i;
-	fc_init_first_last(fc, i);
+		fc_init_first_last(fc, i + 1);
+	else
+		fc_init_first_last(fc, i);
 	ft_printf("FIRST->%d | %s\nLAST->%d | %s\n", fc->first, fc->first_, fc->last, fc->last_);
-	/*
 	if (fc->flags[0] == 'l')
 		ft_fc_option_l(fc);
-	else if (fc->flags[0] == 'e')
-		ft_fc_option_e(fc);
-	else if (fc->flags[0] == 's')
-		ft_fc_option_s(fc, i);*/
+	/*else if (fc->flags[0] == 'e')
+		ft_fc_option_e(fc);*/
+	//else if (fc->flags[0] == 's')
+	//	ft_fc_option_s(fc, i);
 	free(fc);
 	return (0);
 }

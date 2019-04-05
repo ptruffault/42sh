@@ -27,6 +27,9 @@
 # include "tenvv.h"
 # include "ft_printf.h"
 
+
+void 		ft_link_process_to_term(t_process *p, t_shell *sh);
+t_jobs		*ft_search_jobs(t_jobs *j, char *s);
 void 		ft_update_status(t_process *p, unsigned int status);
 int			ft_tcsetpgrp(int fd, pid_t pgrp);
 pid_t		ft_tcgetpgrp(int fd);

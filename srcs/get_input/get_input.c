@@ -32,12 +32,8 @@ static int	replace_first_link(t_shell *sh)
 
 int			ft_update_hist(t_shell *sh)
 {
-	char	*hi_path;
-
 	if (sh->e.hist && sh->e.hist->s && sh->e.hist->s[0] != '\0')
 	{
-		if ((hi_path = get_tenvv_val(sh->env, "HISTFILE")))
-			ft_write_in_file(hi_path, sh->e.hist->s);
 		if (!sh->e.hist->prev)
 			sh->hist = sh->e.hist;
 		else if (replace_first_link(sh) == FAILURE)

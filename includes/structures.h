@@ -145,10 +145,10 @@ typedef struct	s_process
 {
 	t_envv				*saved_env;
 	char				**env;
-	char				*line;
 	int					fd[3];
 	t_bool				builtins;
 	t_bool				background;
+	char				*line;
 	int					sig;
 	char				*cmd;
 	enum e_pstatus		status;
@@ -160,6 +160,13 @@ typedef struct	s_process
 	struct s_process	*grp;
 	struct s_process	*next;
 }				t_process;
+
+typedef struct 			s_jobs
+{
+	t_process			*p;
+	int					id;
+	struct s_jobs		*next;
+}						t_jobs;
 
 typedef struct		s_shell
 {
@@ -175,6 +182,7 @@ typedef struct		s_shell
 	t_envv			*alias;
 	t_hist			*hist;
 	t_process		*process;
+	t_jobs			*jobs;
 	t_edit			e;
 	char			*clipboard;
 	struct termios	term;

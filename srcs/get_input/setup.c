@@ -86,6 +86,8 @@ static int		ft_init_input_link(t_shell *sh, t_hist *tmp)
 	if (!(tmp->s = ft_strnew(2)))
 	{
 		free(tmp);
+		if (sh->hist)
+			sh->hist->prev = NULL;
 		return (FAILURE);
 	}
 	return (SUCCESS);

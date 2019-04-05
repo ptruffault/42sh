@@ -14,7 +14,7 @@
 
 static char	*get_shell_path(char *path)
 {
-	char buff[4097];
+	char	buff[4097];
 	char	*tmp;
 
 	ft_memset(buff, '\0', 4096);
@@ -52,7 +52,7 @@ static void	ft_update_shelvl(t_shell *sh)
 	sh->env = ft_new_envv_int(sh->env, "SHLVL", lvl + 1, true);
 }
 
-static char		*ft_update_pwd(t_shell *sh)
+static char	*ft_update_pwd(t_shell *sh)
 {
 	char buff[4097];
 	char *pwd;
@@ -88,7 +88,7 @@ static void	ft_setup_environ(t_shell *sh, char *shell_fold)
 	}
 }
 
-int		init_env(t_shell *sh, char **argv, char **envv)
+int			init_env(t_shell *sh, char **argv, char **envv)
 {
 	char *shell_fold;
 	char *shell_path;

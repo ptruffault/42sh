@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tshell.c                                   :+:      :+:    :+:   */
+/*   deload_history.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/08 15:26:10 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Created: 2019/04/05 12:33:19 by adi-rosa          #+#    #+#             */
+/*   Updated: 2019/04/05 12:33:20 by adi-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 
-void	ft_free_tshell(t_shell *sh)
+void	ft_deload_hist_in_file(t_shell *sh)
 {
-	sh->env = ft_free_tenvv(sh->env);
-	sh->alias = ft_free_tenvv(sh->alias);
-	sh->process = ft_free_tprocess(sh->process);
-	sh->hist = ft_free_thist(sh->hist);
-	ft_strdel(&sh->clipboard);
-	ft_strdel(&sh->txt);
+	t_hist	*hist;
+	char	*path;
+
+	hist = sh->hist;
+	while (hist->next)
+		hist = hist->next;
+	if (!(path = get_tenvv_val(sh->env, "HISTFILE")))
+		return ;
+	while (hist)
+	{
+		ft_write_in_file(path, hist->s);
+		hist = hist->prev;
+	}
 }

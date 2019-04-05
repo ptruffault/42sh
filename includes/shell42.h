@@ -27,11 +27,18 @@
 # include "tenvv.h"
 # include "ft_printf.h"
 
+
+void 		ft_link_process_to_term(t_process *p, t_shell *sh);
+t_jobs		*ft_search_jobs(t_jobs *j, char *s);
 void 		ft_update_status(t_process *p, unsigned int status);
 int			ft_tcsetpgrp(int fd, pid_t pgrp);
 pid_t		ft_tcgetpgrp(int fd);
 void		set_son_signal(void);
 int			ft_init_groups(t_shell *sh);
+int			ft_signal_check(t_process *p);
+void 		ft_add_jobs(t_process *p, t_shell *sh);
+void		ft_remove_jobs(int pid, t_shell *sh);
+t_jobs 		*ft_free_tjobs(t_jobs *j);
 
 int			ft_fc(t_shell *sh, char **argv);
 int			flags_gestion(char *flags, char **av, int x);
@@ -42,6 +49,8 @@ t_hist		*search_by_occurence(t_hist *first, char *to_search);
 void		ft_fc_option_l(t_fc *fc);
 void		ft_fc_option_e(t_fc *fc, int pos);
 void		ft_fc_option_s(t_fc *fc, int pos);
+
+void		ft_deload_hist_in_file(t_shell *sh);
 
 void 		ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t);
 void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t);
@@ -126,7 +135,6 @@ int			putalias(t_word *w, t_envv *alias, int t);
 t_hist		*init_hist(char *hist);
 int			ft_hist_len(t_hist *hist);
 t_hist		*new_hist(void);
-t_hist		*add_hist(t_hist *head, char *s);
 void		ft_lex_backslash(t_eval *e);
 void		ft_lex_parenth(t_eval *e);
 void		ft_lex_var(t_eval *e);

@@ -13,7 +13,7 @@
 #include "shell42.h"
 #include "get_input.h"
 
-char				*trim_path(char *path)
+char	*trim_path(char *path)
 {
 	int		i;
 	int		save;
@@ -32,7 +32,7 @@ char				*trim_path(char *path)
 				return (ft_strcpy(path + i, path + i + 1));
 		if (path[i] == '/' && path[i + 1] == '/')
 			return (ft_strcpy(path + i, path + i + 1));
-		if (path[i] == '/' &&  path[i + 1] != '.')
+		if (path[i] == '/' && path[i + 1] != '.')
 			save = i;
 	}
 	return (path);

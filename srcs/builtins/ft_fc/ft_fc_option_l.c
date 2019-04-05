@@ -18,7 +18,6 @@ static void	print_hist_opt_l(t_fc *fc, short way)
 
 	nb = ft_strchr(fc->flags, 'n') ? 1 : 0;
 	if (way == 0)
-	{
 		while (fc->hist_first->nb >= fc->hist_last->nb)
 		{
 			if (nb == 0)
@@ -27,9 +26,7 @@ static void	print_hist_opt_l(t_fc *fc, short way)
 				ft_printf("%s\n", fc->hist_first->s);
 			fc->hist_first = fc->hist_first->next;
 		}
-	}
 	else if (way == 1)
-	{
 		while (fc->hist_first->nb <= fc->hist_last->nb)
 		{
 			if (nb == 0)
@@ -38,7 +35,6 @@ static void	print_hist_opt_l(t_fc *fc, short way)
 				ft_printf("%s\n", fc->hist_first->s);
 			fc->hist_first = fc->hist_first->prev;
 		}
-	}
 }
 
 void		ft_fc_option_l(t_fc *fc)

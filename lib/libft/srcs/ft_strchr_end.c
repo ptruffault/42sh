@@ -17,7 +17,7 @@ char	*ft_strchr_end(const char *s, char c)
 	int i;
 
 	i = ft_strlen(s);
-	while (i > 0)
+	while (i >= 0)
 	{
 		if (s[i] == c)
 			return ((char *)&s[i]);

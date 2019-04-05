@@ -13,47 +13,91 @@
 #include <dirent.h>
 #include "shell42.h"
 
-int			fill_tabl_binary(DIR *fd, char ***tabl, char *value, char *path)
+static int	check_notb(char *name)
 {
-	static int				j;
-	struct dirent	*dir;
+	t_shell	*sh;
+	int		i;
 
-	while (fd && (dir = readdir(fd)))
-	{
-		if (!(ft_strequ(dir->d_name, "."))
-			&& !(ft_strequ(dir->d_name, "..")))
-		{
-			if ((ft_str_startwith(dir->d_name, value)) &&
-				check_exec(dir->d_name, path))
-			{
-				j++;
-				if (add_to_tabl(tabl, dir->d_name, j))
-					return (-1);
-			}
-		}
-	}
-	return (j);
+	i = -1;
+	sh = ft_get_set_shell(NULL);
+	while (sh->builtins[++i])
+		if (ft_strequ(sh->builtins[i], name))
+			return (0);
+	return (1);
 }
 
-int			fill_tabl_all_bin(DIR *fd, char ***tabl, char *path)
+int			fill_tabl_binary(int *j, char ***tabl, char *value, char *path)
 {
-	static int				j;
+	DIR				*fd;
 	struct dirent	*dir;
 
+	fd = opendir(path);
 	while (fd && (dir = readdir(fd)))
 	{
 		if (!(ft_strequ(dir->d_name, "."))
 			&& !(ft_strequ(dir->d_name, "..")))
 		{
-			if (check_exec(dir->d_name, path))
+			if ((ft_str_startwith(dir->d_name, value))
+				&& check_exec(dir->d_name, path) && check_notb(dir->d_name))
 			{
-				j++;
-				if (add_to_tabl(tabl, dir->d_name, j))
+				*j += 1;
+				if (add_to_tabl(tabl, dir->d_name, *j) && !closedir(fd))
 					return (-1);
 			}
 		}
 	}
-	return (j);
+	if (fd)
+		closedir(fd);
+	return (*j);
+}
+
+int			fill_tabl_all_bin(int *j, char ***tabl, char *path)
+{
+	DIR				*fd;
+	struct dirent	*dir;
+
+	fd = opendir(path);
+	while (fd && (dir = readdir(fd)))
+	{
+		if (!(ft_strequ(dir->d_name, "."))
+			&& !(ft_strequ(dir->d_name, "..")))
+		{
+			if (check_exec(dir->d_name, path) && check_notb(dir->d_name))
+			{
+				*j += 1;
+				if (add_to_tabl(tabl, dir->d_name, *j) && !closedir(fd))
+					return (-1);
+			}
+		}
+	}
+	if (fd)
+		closedir(fd);
+	return (*j);
+}
+
+int			fill_tabl_builtin(char ***tabl, char *value, bool all, int *j)
+{
+	int			i;
+	t_shell		*sh;
+
+	i = -1;
+	sh = ft_get_set_shell(NULL);
+	while (sh->builtins[++i])
+	{
+		if (!all && ft_str_startwith(sh->builtins[i], value))
+		{
+			*j += 1;
+			if (add_to_tabl(tabl, sh->builtins[i], *j))
+				return (-1);
+		}
+		else if (all)
+		{
+			*j += 1;
+			if (add_to_tabl(tabl, sh->builtins[i], *j))
+				return (-1);
+		}
+	}
+	return (*j);
 }
 
 char		**get_binary(char **path, char *value, bool all, int *total)
@@ -61,22 +105,21 @@ char		**get_binary(char **path, char *value, bool all, int *total)
 	int				i;
 	int				j;
 	char			**tabl;
-	DIR				*fd;
 
 	i = -1;
 	j = 0;
 	if (!(tabl = (char**)malloc(sizeof(char*) * 2)))
 		return (NULL);
-	tabl[j] = NULL;
+	set_null_tabl(tabl, 2);
 	while (path[++i])
 	{
-		fd = opendir(path[i]);
 		if (!all)
-			j = fill_tabl_binary(fd, &tabl, value, path[i]);
+			j = fill_tabl_binary(&j, &tabl, value, path[i]);
 		else
-			j = fill_tabl_all_bin(fd, &tabl, path[i]);
-		closedir(fd);
+			j = fill_tabl_all_bin(&j, &tabl, path[i]);
 	}
-	*total += j;
+	if (j == -1 || (fill_tabl_builtin(&tabl, value, all, &j)) == -1)
+		ft_arrdel(&tabl);
+	*total = j;
 	return (tabl);
 }

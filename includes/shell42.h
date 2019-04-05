@@ -47,7 +47,7 @@ t_hist		*search_by_number_from_first(t_hist *first, int nb);
 t_hist		*search_by_number_from_last(t_hist *first, int nb);
 t_hist		*search_by_occurence(t_hist *first, char *to_search);
 void		ft_fc_option_l(t_fc *fc);
-void		ft_fc_option_e(t_fc *fc);
+void		ft_fc_option_e(t_fc *fc, int pos);
 void		ft_fc_option_s(t_fc *fc, int pos);
 
 void 		ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t);
@@ -162,5 +162,9 @@ char		**check_line(int *max_len, int *total, t_edit *e);
 int			add_to_tabl(char ***tabl, char *value, int j);
 char		**get_binary(char **path, char *value, bool all, int *total);
 char		**get_files(char *value, bool all, int *total);
+void		ft_arrdel(char ***arr);
+void		set_null_tabl(char **tabl, int len_env);
+char		**get_environ_match(char *value, int *total, bool all);
 int			check_exec(char *file, char *path);
+void		ft_sort_table(char **tabl, int *max_len);
 #endif

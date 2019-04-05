@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-char		*replace_occurances(char *old, char *new, char *str)
+char			*replace_occurances(char *old, char *new, char *str)
 {
 	size_t	x;
 	char	*tmp;
@@ -45,57 +45,46 @@ static t_hist	*ft_fc_option_s_replace(t_fc *fc, int pos)
 	t_hist	*hist;
 	char	*tmp;
 
-	if (!(tabl = ft_strsplit(fc->av[pos], '=')))
-	{
-		error("Memory allocation failed", NULL);
+	if (!(tabl = ft_strsplit(fc->av[pos], '='))
+			|| (!tabl[0] || (tabl[0] && !tabl[1])))
 		return (NULL);
-	}
-	if (!tabl[0] || (tabl[0] && !tabl[1]))
-	{
-		error("fc -s [OLD=NEW] [FIRST]", NULL);
-		return (NULL);
-	}
 	if (fc->av[pos + 1])
 	{
-		if ((fc->av[pos + 1][0] >= '0' && fc->av[pos + 1][0] <= '9') || fc->av[pos + 1][0] == '-')
-			fc->first = ft_atoi(fc->av[pos + 1]) == 0 ? -1 : ft_atoi(fc->av[pos + 1]);
+		if ((fc->av[pos + 1][0] >= '0' && fc->av[pos + 1][0] <= '9')
+			|| fc->av[pos + 1][0] == '-')
+			fc->first = ft_atoi(fc->av[pos + 1]) == 0 ? -1
+				: ft_atoi(fc->av[pos + 1]);
 		else
 			fc->first_ = fc->av[pos + 1];
 	}
 	if (search_in_hist_parser(fc, 1) == FAILURE)
 		return (NULL);
 	hist = fc->shell->hist;
-	if (!(tmp = replace_occurances(tabl[0], tabl[1], ft_strdup(fc->hist_first->s))))
+	if (!(tmp = replace_occurances(tabl[0], tabl[1],
+			ft_strdup(fc->hist_first->s))))
 		return (NULL);
 	ft_strdel(&hist->s);
 	hist->s = tmp;
 	return (hist);
 }
 
-void	ft_fc_option_s(t_fc *fc, int pos)
+void			ft_fc_option_s(t_fc *fc, int pos)
 {
 	t_tree	*t;
 	t_hist	*hist;
 
-	fc->first = 0;
 	hist = NULL;
-	if (fc->av[pos] && ft_strchr(fc->av[pos], '=') && !(hist = ft_fc_option_s_replace(fc, pos)))
+	if (fc->av[pos] && ft_strchr(fc->av[pos], '=')
+		&& !(hist = ft_fc_option_s_replace(fc, pos)))
 		return ;
-	else if (fc->av[pos] && hist == NULL)
+	else if (hist == NULL)
 	{
-		if ((fc->av[pos][0] >= '0' && fc->av[pos][0] <= '9') || fc->av[pos][0] == '-')
-			fc->first = ft_atoi(fc->av[pos]) == 0 ? -1 : ft_atoi(fc->av[pos]);
-		else
-			fc->first_ = fc->av[pos];
 		if (search_in_hist_parser(fc, 1) == FAILURE)
 			return ;
 		hist = fc->shell->hist;
 		ft_strdel(&hist->s);
 		if (!(hist->s = ft_strdup(fc->hist_first->s)))
-		{
-			error("Memory allocation failed", NULL);
 			return ;
-		}
 	}
 	if ((t = get_tree(hist->s)))
 		ft_free_tree(exec_tree(t, fc->shell));

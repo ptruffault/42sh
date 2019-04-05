@@ -168,4 +168,5 @@ void		set_null_tabl(char **tabl, int len_env);
 char		**get_environ_match(char *value, int *total, bool all);
 int			check_exec(char *file, char *path);
 void		ft_sort_table(char **tabl, int *max_len);
+void		ft_others_prompt(t_shell *sh, const char *prompt_txt);
 #endif

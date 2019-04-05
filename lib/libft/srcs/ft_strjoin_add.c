@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   curs_move.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin_add.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: stdenis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/13 13:08:59 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Created: 2019/02/18 15:33:46 by stdenis           #+#    #+#             */
+/*   Updated: 2019/03/26 17:18:36 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <get_input.h>
+#include "libft.h"
 
-void	curs_reset(t_edit *e)
+char	*ft_strjoin_add(char **s1, char **s2, const char *add)
 {
-	size_t y;
+	char	*ret;
 
-	y = e->pos /*- e->pos_z*/;
-	if (e->width != 0)
+	if (!(*s1 = ft_stradd(s1, add)))
 	{
-		while (y > e->width)
-		{
-			y = y - e->width;
-			term_actions(CURSOR_UP);
-		}
+		ft_strdel(s2);
+		return (NULL);
 	}
-	term_goto(CURSOR_MHORIZ, 0, 0);
-	e->pos = 0;
+	ret = ft_strjoin(*s1, *s2);
+	ft_strdel(s1);
+	ft_strdel(s2);
+	return (ret);
 }

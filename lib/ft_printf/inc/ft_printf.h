@@ -80,7 +80,7 @@ void				fill_buffer(char c, t_printf *ptab);
 /*
 ** arguments.c
 */
-int					check_arg(const char *format, t_printf *ptab);
+int					check_arg(const char *format, t_printf *ptab, va_list ap);
 
 /*
 ** string.c

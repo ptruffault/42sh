@@ -64,6 +64,9 @@
 # define DELETE_LINE "dl"
 # define HOME_POS "ho"
 
+# define PS1 "$[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]"
+# define PS2 "\n$[RED]%$[RESET] >"
+
 typedef enum	e_colors
 {
 	BLUE = 0,

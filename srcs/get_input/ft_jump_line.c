@@ -14,8 +14,12 @@
 
 void	ft_jump_line_up(t_edit *e)
 {
+	size_t	width;
+
+	width = e->width;
 	if (e->curr >= e->width)
-		e->curr -= e->width;
+		while (width-- > 0)
+			curr_move_left(e);
 }
 
 void	ft_select_line_up(t_edit *e)
@@ -30,8 +34,12 @@ void	ft_select_line_up(t_edit *e)
 
 void	ft_jump_line_down(t_edit *e)
 {
+	size_t	width;
+
+	width = e->width;
 	if (ft_strlen(e->hist->s) - e->curr >= e->width)
-		e->curr += e->width;
+		while (width-- > 0)
+			curr_move_left(e);
 }
 
 void	ft_select_line_down(t_edit *e)

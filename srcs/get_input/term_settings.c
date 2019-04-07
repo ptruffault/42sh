@@ -20,6 +20,7 @@ void	ft_update_windows(t_edit *e)
 	{
 		e->width = window.ws_col;
 		e->tall = window.ws_row;
+		e->max_char = (e->width * (e->tall - 1));
 	}
 	else
 	{

@@ -94,7 +94,9 @@ typedef struct	s_edit
 	size_t			width;
 	size_t			tall;
 	size_t			select_pos;
-	size_t			pos_z;
+	size_t			max_char;
+	int				pos_z;
+	int				pos_y;
 	int				hist_size;
 	short			select;
 	char			*tmp;

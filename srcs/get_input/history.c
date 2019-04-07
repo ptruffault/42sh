@@ -38,8 +38,13 @@ void		hist_move_up(t_edit *e)
 	else
 		e->hist = e->hist->next;
 	e->curr = ft_strlen(e->hist->s);
+	e->pos_y = 0;
+	if (e->curr > e->max_char)
+		e->pos_z = e->curr - e->width + 2;
+	else
+		e->pos_z = 0;
 	e->select = -1;
-	ft_print_line(e);
+	ft_print_fast(e);
 }
 
 void		hist_move_do(t_edit *e)
@@ -49,6 +54,11 @@ void		hist_move_do(t_edit *e)
 		return ;
 	e->hist = e->hist->prev;
 	e->curr = ft_strlen(e->hist->s);
+	e->pos_y = 0;
+	if (e->curr > e->max_char)
+		e->pos_z = e->curr - e->width + 2;
+	else
+		e->pos_z = 0;
 	e->select = -1;
-	ft_print_line(e);
+	ft_print_fast(e);
 }

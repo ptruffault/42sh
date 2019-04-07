@@ -33,6 +33,13 @@ int			ft_add_char(char buf, t_edit *e)
 		return (FAILURE);
 	e->hist->s[size] = '\0';
 	e->curr++;
+	if (e->max_char < e->pos + 1)
+	{
+		if (e->curr > e->max_char)
+			e->pos_z += 1;
+		if (e->curr < e->max_char)
+			e->pos_y += 1;
+	}
 	if (e->select != -1)
 		e->select = -1;
 	return (SUCCESS);
@@ -50,6 +57,7 @@ static int	delete_simple_left(t_edit *e)
 	j = 0;
 	if (!(tmp = ft_strnew(ft_strlen(e->hist->s) - 1)))
 		return (FAILURE);
+	ft_delete_line(e);
 	while (e->hist->s[j])
 	{
 		if (j != e->curr - 1)
@@ -60,6 +68,7 @@ static int	delete_simple_left(t_edit *e)
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
 	curr_move_left(e);
+	ft_print_fast(e);
 	return (SUCCESS);
 }
 
@@ -74,6 +83,7 @@ static int	delete_multiple_left(t_edit *e, int stop)
 	i = (e->curr > e->select_pos ? e->curr : e->select_pos);
 	if (!(tmp = ft_strnew(ft_strlen(e->hist->s) - (i - stop))))
 		return (FAILURE);
+	ft_delete_line(e);
 	ft_strncpy(tmp, e->hist->s, stop);
 	x = stop;
 	while (e->hist->s[i++])
@@ -84,6 +94,7 @@ static int	delete_multiple_left(t_edit *e, int stop)
 	e->curr = e->curr > e->select_pos ? e->select_pos : e->curr;
 	if (e->curr > (size = ft_strlen(e->hist->s)))
 		e->curr = size;
+	ft_print_fast(e);
 	return (SUCCESS);
 }
 

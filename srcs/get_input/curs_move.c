@@ -12,11 +12,34 @@
 
 #include <get_input.h>
 
+size_t	how_much_cr(t_edit *e)
+{
+	size_t	i;
+	int		count;
+
+	i = 0;
+	count = 0;
+	while (e->hist && e->hist->s && e->hist->s[i])
+	{
+		if (e->hist->s[i] == '\n')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 void	curs_reset(t_edit *e)
 {
-	size_t y;
+	size_t	y;
+	int		count;
 
-	y = e->pos /*- e->pos_z*/;
+	count = how_much_cr(e);
+	while (count-- > 0)
+		term_actions(CURSOR_UP);
+	if (e->pos_z == 0 && e->pos_y == 0)
+		y = e->pos;
+	else
+		y = e->width;
 	if (e->width != 0)
 	{
 		while (y > e->width)

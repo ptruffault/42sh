@@ -29,7 +29,6 @@ static void	print_background(t_edit *e, int pos, int size)
 
 void		ft_print_edited(t_edit *e)
 {
-	ft_delete_line(e);
 	e->curr = ft_strlen(e->hist->s);
 	ft_putstr("\x1B[33m");
 	write(1, e->hist->s, e->curr);
@@ -43,20 +42,11 @@ void		ft_print_fast(t_edit *e)
 	size_t pos;
 	size_t size;
 	size_t i;
-	size_t max_char;
 
-	ft_delete_line(e);
 	size = 1;
 	pos = 0;
-	max_char = (e->width * (e->tall - 1));
 	i = ft_strlen(e->hist->s);
 	term_actions((e->curr == i) ? "ve" : "vi");
-	/*if (max_char < i)
-	{
-		if (e->curr >= max_char)
-			e->pos_z += (e->pos_z == 0) ? 5 : 1;
-		write(1, "...>", 4);
-	}*/
 	if (e->select == -1 || e->select_pos == e->curr)
 		pos = e->curr;
 	else
@@ -67,21 +57,16 @@ void		ft_print_fast(t_edit *e)
 		else
 			size += e->curr - e->select_pos;
 	}
-	write(1, e->hist->s, pos);
+	write(1, e->hist->s + (e->pos_z), (pos - (e->pos_z)));
 	print_background(e, pos, size);
 	if (e->curr != i && e->select_pos != i)
-		write(1, e->hist->s + pos + size, i - pos - size);
-	/*print_background(e, pos, 0);
-	if (e->curr <= max_char && e->pos_z > 0)
-		i -= 4;
-	write(1, e->hist->s + e->pos_z, i - e->pos_z);
-	if (e->curr <= max_char && e->pos_z > 0)
-		write(1, "<...", 4);*/
+		write(1, e->hist->s + pos + size, i - pos - size - e->pos_y);
 	e->pos = i;
 }
 
 void		ft_print_line(t_edit *e)
 {
+	ft_delete_line(e);
 	if (e && e->hist && e->hist->s)
 		e->print_modes[e->mode](e);
 }

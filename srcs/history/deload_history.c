@@ -24,7 +24,7 @@ void	ft_deload_hist_in_file(t_shell *sh)
 		return ;
 	while (hist)
 	{
-		ft_write_in_file(path, hist->s);
+			ft_write_in_file(path, hist->s);
 		hist = hist->prev;
 	}
 }

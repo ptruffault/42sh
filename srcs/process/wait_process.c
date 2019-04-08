@@ -19,7 +19,7 @@ static void	ft_eval_status(t_process *p, t_shell *sh)
 		ft_wait(p, sh);
 	else if (WIFSTOPPED(p->ret) && p->builtins == FALSE)
 		p->status = SUSPENDED;
-	else if (WIFSIGNALED(p->ret))
+	else if (WIFSIGNALED(p->ret) && p->builtins == FALSE)
 	{
 		p->status = KILLED;
 		p->sig = WTERMSIG(p->ret);

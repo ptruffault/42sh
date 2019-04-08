@@ -85,6 +85,8 @@ void	just_exit(t_edit *e)
 			sh->heredoc = 0;
 			sh->e.edited = TRUE;
 		}
+		while (e->hist->prev)
+			e->hist = e->hist->prev;
 		if (e->hist->next)
 			e->hist->next->prev = NULL;
 		ft_strdel(&e->hist->s);

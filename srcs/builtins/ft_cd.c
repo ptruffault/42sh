@@ -12,12 +12,11 @@
 
 #include "shell42.h"
 
-t_envv				*change_dir(char *path, t_envv *envv, unsigned int opts)
+t_envv			*change_dir(char *path, t_envv *envv, t_opts opts)
 {
 	char	buff[4097];
 	char	*cwd;
 
-	cwd = NULL;
 	if (!chdir(path))
 	{
 		cwd = ft_strdup(path);
@@ -42,7 +41,7 @@ t_envv				*change_dir(char *path, t_envv *envv, unsigned int opts)
 	return (envv);
 }
 
-char				*concat_pwd(t_envv *envv, char *path, bool *pwd_f)
+char			*concat_pwd(t_envv *envv, char *path, bool *pwd_f)
 {
 	char		*pwd;
 	char		buff[4097];
@@ -58,13 +57,11 @@ char				*concat_pwd(t_envv *envv, char *path, bool *pwd_f)
 	return (pwd);
 }
 
-t_envv				*get_path_cd(char *path, t_envv *envv, unsigned int opts)
+t_envv			*get_path_cd(char *path, t_envv *envv, t_opts opts, bool pwd_f)
 {
 	char	*curpath;
-	bool	pwd_f;
 	char	*cdpath;
 
-	pwd_f = false;
 	curpath = NULL;
 	if ((opts & 0x02) && (path[0] == '/' || path[0] == '.'))
 		return (change_dir(path, envv, opts));
@@ -75,7 +72,7 @@ t_envv				*get_path_cd(char *path, t_envv *envv, unsigned int opts)
 	else if (!curpath)
 		curpath = path;
 	while (ft_strstr(curpath, "..") || ft_strstr(curpath, "//")
-		|| ft_strstr(curpath, "./") || ft_strstr(curpath, "/."))
+			|| ft_strstr(curpath, "./") || ft_strstr(curpath, "/."))
 		trim_path(curpath);
 	if (ft_strlen(curpath) == 0)
 		ft_strcpy(curpath, "/");
@@ -88,9 +85,9 @@ t_envv				*get_path_cd(char *path, t_envv *envv, unsigned int opts)
 	return (envv);
 }
 
-static unsigned int	get_options_cd(char **input, size_t *tabl)
+static t_opts	get_options_cd(char **input, size_t *tabl)
 {
-	unsigned int	opts;
+	t_opts			opts;
 	size_t			i;
 	size_t			j;
 
@@ -113,13 +110,12 @@ static unsigned int	get_options_cd(char **input, size_t *tabl)
 	return (opts);
 }
 
-t_envv				*ft_cd(char **input, t_envv *envv)
+t_envv			*ft_cd(char **input, t_envv *envv)
 {
 	char			*val;
-	unsigned int	opts;
+	t_opts			opts;
 	size_t			tabl;
 
-	val = NULL;
 	tabl = 1;
 	opts = get_options_cd(input, &tabl);
 	if (opts & 0x10)
@@ -127,18 +123,18 @@ t_envv				*ft_cd(char **input, t_envv *envv)
 	else if (!(input[1]))
 	{
 		if ((val = get_tenvv_val(envv, "HOME")))
-			return (get_path_cd(val, envv, opts));
+			return (get_path_cd(val, envv, opts, false));
 		else
 			error("UNSET VAR", "HOME");
 	}
 	else if (input[1][0] == '-' && input[1][1] == '\0')
 	{
 		if ((val = get_tenvv_val(envv, "OLDPWD")))
-			return (get_path_cd(val, envv, (opts | 0x04)));
+			return (get_path_cd(val, envv, (opts | 0x04), false));
 		else
 			error("UNSET VAR", "OLDPWD");
 	}
 	else if (input[tabl])
-		return (get_path_cd(input[tabl], envv, opts));
+		return (get_path_cd(input[tabl], envv, opts, false));
 	return (envv);
 }

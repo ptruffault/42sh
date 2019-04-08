@@ -72,6 +72,8 @@ enum	e_error
 	P_MISS = 8,
 };
 
+typedef unsigned int	t_opts;
+
 typedef struct s_sig_msg
 {
 	pid_t		sig;

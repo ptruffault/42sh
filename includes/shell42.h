@@ -156,7 +156,7 @@ char 		*ft_split_equal(char *str, char **aft);
 int			init_intern(t_shell *sh);
 void		retrieve_path(t_shell *sh);
 char		*trim_path(char *path);
-char		*try_cdpath(char *cdpath, char *path, bool *pwd_f, unsigned int *opts);
+char		*try_cdpath(char *cdpath, char *path, bool *pwd_f, t_opts *opts);
 char		**check_line(int *max_len, int *total, t_edit *e);
 int			add_to_tabl(char ***tabl, char *value, int j);
 char		**get_binary(t_shell *sh, char *value, bool all, int *total);

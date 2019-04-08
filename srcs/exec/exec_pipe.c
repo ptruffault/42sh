@@ -12,22 +12,21 @@
 
 #include "shell42.h"
 
-
-static int		ft_link_stdin(int pipe[2])
+static int			ft_link_stdin(int pipe[2])
 {
 	if (dup2(pipe[0], STDIN_FILENO) < 0)
 		return (-1);
 	return (ft_close(pipe[1]));
 }
 
-static int		ft_link_stdout(int pipe[2])
+static int			ft_link_stdout(int pipe[2])
 {
 	if (dup2(pipe[1], STDOUT_FILENO) < 0)
 		return (-1);
 	return (ft_close(pipe[0]));
 }
 
-static int		ft_close_pipe(int pipe[2])
+static int			ft_close_pipe(int pipe[2])
 {
 	if (!ft_close(pipe[0])
 	|| !ft_close(pipe[1]))
@@ -35,7 +34,18 @@ static int		ft_close_pipe(int pipe[2])
 	return (1);
 }
 
-t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
+static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
+{
+	if (prev)
+		ft_close_pipe(prev->pipe);
+	else
+		tmp->pgid = tmp->pid;
+	if (sh->interactive == TRUE && setpgid(tmp->pid, tmp->pgid) < 0)
+		error("can't set group", tmp->cmd);
+	return (tmp);
+}
+
+t_tree				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 {
 	t_process	*prev;
 	t_process	*tmp;
@@ -45,28 +55,21 @@ t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 	while (tmp)
 	{
 		tmp->status = RUNNING_FG;
-		if (prev)
-			tmp->pgid = p->pgid;
 		if (tmp->cmd && (tmp->pid = fork()) == 0)
 		{
-			if  ((prev && !ft_link_stdin(prev->pipe))
+			if ((prev && !ft_link_stdin(prev->pipe))
 			|| (tmp->grp && !ft_link_stdout(tmp->pipe)))
 				ft_exit_son(sh, -1);
 			ft_exec_process(tmp, sh, t);
 		}
 		else if (tmp->pid < 0)
 			error("fork fucked up", tmp->cmd);
-		if (prev)
-			ft_close_pipe(prev->pipe);
-		else
-			tmp->pgid = tmp->pid;
-		if (sh->interactive == TRUE && setpgid(tmp->pid, tmp->pgid) < 0)
-			error("can't set group (parenth pipe)" , p->cmd);
-		prev = tmp;
-		tmp = tmp->grp;
-		if (tmp)
+		prev = ft_stuff(prev, tmp, sh);
+		if ((tmp = tmp->grp))
+		{
+			tmp->pgid = p->pgid;
 			t = t->next;
+		}
 	}
 	return (t);
 }
-

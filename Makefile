@@ -102,11 +102,12 @@ SRC		=	\
 	expansion/cut_string.c		\
 	expansion/parenth_tools.c	\
 	\
-	process/kill_process.c		\
+	process/ft_kill.c			\
 	process/wait_process.c		\
 	process/jobs_tools.c		\
 	process/init_process.c		\
 	process/init_pipe.c			\
+	process/job_search.c 		\
 	\
 	tenvv/ft_get_set_envv.c		\
 	tenvv/tenvv_tools.c			\

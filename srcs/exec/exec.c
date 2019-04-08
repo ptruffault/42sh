@@ -37,11 +37,11 @@ static t_tree	*next_instruction(t_tree *t)
 	return (NULL);
 }
 
-void 	ft_link_process_to_term(t_process *p, t_shell *sh)
+void			ft_link_process_to_term(t_process *p, t_shell *sh)
 {
-	if (sh->interactive == TRUE && p && p->background ==  FALSE && p->pid != 0)
+	if (sh->interactive == TRUE && p && p->background == FALSE && p->pid != 0)
 		ft_tcsetpgrp(STDIN_FILENO, p->pgid);
-	else if (sh->interactive == TRUE && p && p->background ==  TRUE)
+	else if (sh->interactive == TRUE && p && p->background == TRUE)
 		sh->env = ft_new_envv_int(sh->env, "!", p->pid, false);
 }
 

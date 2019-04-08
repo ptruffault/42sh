@@ -12,29 +12,44 @@
 
 #include "get_input.h"
 
-static void	autocompletion_printing(t_edit *e, char **tabl, int max_len, int total)
+static void	autocompletion_printing(t_edit *e, char **tabl, int max_len)
 {
 	int		x;
 	t_shell *sh;
 	int nb;
 
 	x = -1;
-	(void)e;
-	(void)total;
 	sh = ft_get_set_shell(NULL);
 	ft_putstr("\n");
-	nb = e->width / max_len;
+	nb = e->width / (max_len + 1);
 	while (tabl[++x])
 	{
-		ft_printf("%*s", max_len, tabl[x]);
+		ft_printf("%*-s", max_len + 1, tabl[x]);
 		if (nb == 0)
 		{
 			ft_putstr("\n");
-			nb = e->width / max_len;
+			nb = e->width / (max_len + 1);
 		}
 		--nb;
 	}
+	ft_putstr("\n");
 	ft_disp(sh);
+}
+
+int		autocompletion_adding(t_edit *e, char **tabl)
+{
+	size_t	x;
+	char	*tmp;
+
+	x = 1;
+	while (!ft_str_startwith(tabl[0], e->hist->s + e->curr - x))
+		++x;
+	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr - x, x - 1, tabl[0])))
+		return (FAILURE);
+	ft_strdel(&e->hist->s);
+	e->hist->s = tmp;
+	e->curr = (e->curr - x) + ft_strlen(tabl[0]);
+	return (SUCCESS);
 }
 
 int	tab_handle(t_edit *e)
@@ -42,7 +57,6 @@ int	tab_handle(t_edit *e)
 	char	**tabl;
 	int		max_len;
 	int		total;
-	char	*tmp;
 
 	max_len = 0;
 	total = 0;
@@ -58,18 +72,13 @@ int	tab_handle(t_edit *e)
 		if (!(tabl = check_line(&max_len, &total, e)))
 			return (FAILURE);
 		if (total > 1)
-			autocompletion_printing(e, tabl, max_len, total);
+			autocompletion_printing(e, tabl, max_len);
 		else if (total == 1)
-		{
-			while (e->hist->s[e->curr] != ' ' && e->curr > 0)
-				e->curr--;
-			if (e->hist->s[e->curr])
-				e->hist->s[++e->curr] = '\0';
-			if (!(tmp = ft_stradd(&e->hist->s, tabl[0])))
-				return (FAILURE);
-			e->curr += ft_strlen(tabl[0]);
-			e->hist->s = tmp;
-		}
+			autocompletion_adding(e, tabl);
+		max_len = 0;
+		while (tabl[max_len])
+			ft_strdel(&tabl[max_len++]);
+		free(tabl);
 	}
 	return (SUCCESS);
 }

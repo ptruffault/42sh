@@ -66,18 +66,13 @@ void	ft_sort_table(char **tabl, int *max_len)
 	*max_len = 0;
 	while (tabl[i] != 0)
 	{
-		j = 0;
+		j = -1;
 		len = (int)ft_strlen(tabl[i]);
 		if (len > *max_len)
 			*max_len = len;
-		while (tabl[j] != 0)
-		{
+		while (tabl[++j] != 0)
 			if (ft_strcmp((char*)tabl[j], (char*)tabl[i]) > 0)
-			{
 				ft_swap_strings(&tabl[i], &tabl[j]);
-			}
-			j++;
-		}
 		i++;
 	}
 }

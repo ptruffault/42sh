@@ -49,7 +49,6 @@ void	ft_arrdel(char ***arr)
 	*arr = NULL;
 }
 
-
 char	**get_tabl_others(char **path, char *value, int pos, int *total)
 {
 	char	**tabl;

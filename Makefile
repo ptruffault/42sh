@@ -54,6 +54,12 @@ SRC		=	\
 	builtins/ft_alias.c					\
 	builtins/check_builtins.c			\
 	\
+	builtins/ft_hash/ft_hash.c		\
+	builtins/ft_hash/hash_utility.c	\
+	\
+	builtins/ft_test/ft_test.c		\
+	builtins/ft_test/test_utility.c	\
+	\
 	builtins/ft_fc/ft_fc.c						\
 	builtins/ft_fc/ft_fc_search_hist_parser.c	\
 	builtins/ft_fc/ft_fc_search_hist.c			\

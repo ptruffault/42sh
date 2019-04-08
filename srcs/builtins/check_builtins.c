@@ -28,7 +28,9 @@ static void	ft_init_builtins_tab(t_shell *sh)
 	sh->builtins[11] = "fg";
 	sh->builtins[12] = "bg";
 	sh->builtins[13] = "fc";
-	sh->builtins[14] = NULL;
+	sh->builtins[14] = "hash";
+	sh->builtins[15] = "test";
+	sh->builtins[16] = NULL;
 }
 
 int			check_builtin(char *input)

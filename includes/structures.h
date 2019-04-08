@@ -21,6 +21,7 @@
 # define IS_RUNNING(x) (x == RUNNING_FG || x == RUNNING_BG)
 # define NUMBER_OF_KEYS 23
 # define NUMBER_OF_PRINT_MODES 2
+# define HASHTABLE_SIZE 150
 
 enum	e_rtype{
 	UNDEF = 0,
@@ -87,6 +88,15 @@ typedef struct	s_hist
 	struct s_hist	*next;
 	struct s_hist	*prev;
 }				t_hist;
+
+
+typedef struct	s_hash
+{
+	size_t			hit;
+	char			*command;
+	char			path[1024];
+	struct s_hash	*next;
+}				t_hash;
 
 typedef struct	s_edit
 {
@@ -189,6 +199,7 @@ typedef struct		s_shell
 	t_jobs			*jobs;
 	t_edit			e;
 	char			*clipboard;
+	t_hash			**htable;
 	struct termios	term;
 	struct termios	saved_term;
 }					t_shell;

@@ -45,6 +45,25 @@ static t_process	*ft_new_process(t_shell *sh)
 	return (ft_process_null(ret));
 }
 
+static int			hash_or_path(t_process *ret, t_shell *sh)
+{
+	t_hash	*hash;
+
+	if (!(hash = search_in_htable(*ret->argv, sh)))
+	{
+		if (!(ret->cmd = get_bin_path(*ret->argv, sh->env)))
+			return (0);
+		add_in_htable(*ret->argv, ret->cmd, sh);
+	}
+	else
+	{
+		if (!(ret->cmd = ft_strdup(hash->path)))
+			return (0);
+		hash->hit += 1;
+	}
+	return (1);
+}
+
 static	t_process	*ft_init_cmd(t_process *ret, t_tree *t, t_shell *sh)
 {
 	if (check_builtin(*ret->argv))
@@ -57,7 +76,7 @@ static	t_process	*ft_init_cmd(t_process *ret, t_tree *t, t_shell *sh)
 			return (ft_free_tprocess(ret));
 		}
 	}
-	else if ((ret->cmd = get_bin_path(*ret->argv, sh->env)))
+	else if (hash_or_path(ret, sh))
 	{
 		sh->env = ft_new_envv(sh->env, "_", ret->argv[0], true);
 		ret->env = tenvv_to_tab(sh->env);

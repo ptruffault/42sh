@@ -169,4 +169,13 @@ int			check_exec(char *file, char *path);
 void		ft_sort_table(char **tabl, int *max_len);
 void		ft_others_prompt(t_shell *sh, const char *prompt_txt);
 char		*check_tilde(char *value);
+t_hash		**init_htable(void);
+int			builtin_htable(char **cmd, t_shell *sh);
+int			cleaning_htable(char *cmd, t_shell *sh);
+t_hash		*search_in_htable(const char *str, t_shell *sh);
+int			add_in_htable(const char *str, const char *path, t_shell *sh);
+unsigned int ft_hash(const char *str);
+int			ft_test(char **argv);
+int			check_integer_tab(char *argv);
+int			return_fnc(char *str, int ret);
 #endif

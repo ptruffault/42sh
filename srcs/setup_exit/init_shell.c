@@ -30,6 +30,7 @@ static void	ft_null(t_shell *sh)
 	sh->std[2] = STDERR_FILENO;
 	sh->pgid = 0;
 	sh->env = NULL;
+	sh->htable = init_htable();
 }
 
 pid_t		ft_tcgetpgrp(int fd)

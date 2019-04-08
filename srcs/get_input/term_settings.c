@@ -73,5 +73,6 @@ int		ft_set_old_term(t_shell *sh, int error)
 {
 	if ((tcsetattr(0, TCSADRAIN, &sh->saved_term)) == -1)
 		warning("can't load old term setting", NULL);
+	term_actions("ve");
 	return (error);
 }

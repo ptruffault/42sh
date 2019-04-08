@@ -19,7 +19,7 @@ static char		*ft_heredoc_clear(char *in, char *ret)
 	return (NULL);
 }
 
-char	*ft_strappend_fr(char **str, char **end)
+char			*ft_strappend_fr(char **str, char **end)
 {
 	char	*rtn;
 
@@ -29,7 +29,6 @@ char	*ft_strappend_fr(char **str, char **end)
 	*str = rtn;
 	return (rtn);
 }
-
 
 static char		*heredoc_get_input(char *eoi, t_shell *sh)
 {

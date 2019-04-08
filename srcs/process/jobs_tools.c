@@ -12,10 +12,10 @@
 
 #include "shell42.h"
 
-int 	ft_get_new_id(t_jobs *j)
+int				ft_get_new_id(t_jobs *j)
 {
-	t_jobs *head;
-	int ret;
+	t_jobs	*head;
+	int		ret;
 
 	ret = 1;
 	head = j;
@@ -50,7 +50,7 @@ static t_jobs	*ft_get_jobs_name(t_jobs *j, char *name)
 {
 	while (j)
 	{
-		if (ft_strstr(*j->p->argv, name) 
+		if (ft_strstr(*j->p->argv, name)
 		|| ft_strstr(j->p->cmd, name))
 			return (j);
 		j = j->next;
@@ -58,7 +58,7 @@ static t_jobs	*ft_get_jobs_name(t_jobs *j, char *name)
 	return (NULL);
 }
 
-t_jobs	*ft_search_jobs(t_jobs *j, char *s)
+t_jobs			*ft_search_jobs(t_jobs *j, char *s)
 {
 	t_jobs *ret;
 
@@ -75,8 +75,7 @@ t_jobs	*ft_search_jobs(t_jobs *j, char *s)
 	return (NULL);
 }
 
-
-void	ft_remove_jobs(int pid, t_shell *sh)
+void			ft_remove_jobs(int pid, t_shell *sh)
 {
 	t_jobs *tmp;
 	t_jobs *j;
@@ -105,10 +104,10 @@ void	ft_remove_jobs(int pid, t_shell *sh)
 	}
 }
 
-void ft_add_jobs(t_process *p, t_shell *sh)
+void			ft_add_jobs(t_process *p, t_shell *sh)
 {
-	t_jobs *n;
-	t_jobs *tmp;
+	t_jobs	*n;
+	t_jobs	*tmp;
 	int		id;
 
 	n = NULL;

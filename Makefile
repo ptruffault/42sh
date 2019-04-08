@@ -31,7 +31,6 @@ SRC		=	\
 	exec/redirection.c			\
 	exec/redirect_builtins.c	\
 	exec/bin_search.c			\
-	exec/init_process.c			\
 	\
 	eval/eval_tools.c		\
 	eval/tree_tools.c		\
@@ -100,6 +99,8 @@ SRC		=	\
 	process/kill_process.c		\
 	process/wait_process.c		\
 	process/jobs_tools.c		\
+	process/init_process.c		\
+	process/init_pipe.c			\
 	\
 	tenvv/ft_get_set_envv.c		\
 	tenvv/tenvv_tools.c			\

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tenvv.h"
+#include "shell42.h"
 
 static char	*get_equal(char *name, char *value)
 {
@@ -60,4 +60,24 @@ char		**tenvv_to_tab(t_envv *envv)
 		return (NULL);
 	}
 	return (t);
+}
+
+void			ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t)
+{
+	if (t->assign)
+	{
+		sh->env = ft_pull_tenvv(sh->env, t->assign);
+		sh->env = ft_push_tenvv(sh->env, p->saved_env);
+		p->saved_env = ft_free_tenvv(p->saved_env);
+	}	
+}
+
+void ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t)
+{
+	if (t->assign)
+	{
+		if (sh->env && !(p->saved_env = ft_tenvv_cpy(sh->env, true)))
+			error("can't save environnement", NULL);
+		sh->env = ft_push_tenvv(sh->env, t->assign);
+	}
 }

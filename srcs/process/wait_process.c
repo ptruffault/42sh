@@ -73,4 +73,3 @@ void		ft_wait_background(t_shell *sh)
 		tmp = tmp->next;
 	}
 }
-

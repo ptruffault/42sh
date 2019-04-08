@@ -60,7 +60,7 @@ void	ft_sort_table(char **tabl, int *max_len)
 {
 	int		i;
 	int		j;
-	int	len;
+	int		len;
 
 	i = 0;
 	*max_len = 0;

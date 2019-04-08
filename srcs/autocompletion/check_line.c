@@ -22,7 +22,8 @@ char	*get_word_cursor(char *str, int *pos)
 	i = p;
 	if (str[p] == ' ')
 		p--;
-	while (p > 0 && str[p] != ' ' && str[p] != ';')
+	while (p > 0 && str[p] != ' ' && str[p] != ';'
+		&& str[p] != '|' && str[p] != '&' && str[p] != '"' && str[p] != '\'')
 		p--;
 	p += (p > 0) ? 1 : 0;
 	i = i - p;
@@ -30,7 +31,8 @@ char	*get_word_cursor(char *str, int *pos)
 	p -= (p > 0) ? 1 : 0;
 	while (p > 0 && str[p] == ' ')
 		p--;
-	p = (str[p] == ';') ? 0 : p;
+	if (p > 0)
+	p = (ft_strchr("|&;",str[p]) && str[p - 1] != '\\') ? 0 : p;
 	*pos = p;
 	return (ret);
 }
@@ -62,7 +64,7 @@ char	**get_tabl_others(char *value, int pos, int *total)
 	all = (ft_strlen(tmp) == 0) ? true : false;
 	if (pos == 0 && !startwith)
 	{
-		tabl = get_binary(ft_get_set_shell(NULL) ,tmp, all, total);
+		tabl = get_binary(ft_get_set_shell(NULL), tmp, all, total);
 		if (*total == 0)
 			ft_arrdel(&tabl);
 	}
@@ -86,7 +88,7 @@ char	**get_tabl_expansion(char *value, int *total)
 	return (tabl);
 }
 
-char		**check_line(int *max_len, int *total, t_edit *e)
+char	**check_line(int *max_len, int *total, t_edit *e)
 {
 	char	*value;
 	char	**tabl;

@@ -25,7 +25,7 @@ static int	environ_len(t_envv *envv)
 	return (i);
 }
 
-int		copy_env_tab(char *value, char **tabl, t_envv *envv, bool all)
+int			copy_env_tab(char *value, char **tabl, t_envv *envv, bool all)
 {
 	int		i;
 
@@ -43,7 +43,7 @@ int		copy_env_tab(char *value, char **tabl, t_envv *envv, bool all)
 	return (i);
 }
 
-char 	**get_environ_match(char *value, int *total, bool all)
+char		**get_environ_match(char *value, int *total, bool all)
 {
 	t_shell			*sh;
 	char			**tabl;

@@ -74,24 +74,16 @@ char		*which_file(char *value, DIR **fd)
 	if (ft_strequ(value, "/"))
 	{
 		*fd = opendir(value);
-		value = value + 1;
-		return (value);
+		return (value + 1);
 	}
 	if ((tmp = ft_strchr_end(value, '/')))
 	{
+		tmp[0] = '\0';
 		if (value - tmp == 0)
-		{
 			*fd = opendir("/");
-			tmp[0] = '\0';
-			tmp = tmp + 1;
-		}
 		else
-		{
-			tmp[0] = '\0';
-			tmp = tmp + 1;
 			*fd = opendir(value);
-		}
-		return (tmp);
+		return (tmp + 1);
 	}
 	*fd = opendir(".");
 	return (value);

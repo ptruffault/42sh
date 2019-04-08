@@ -12,6 +12,56 @@
 
 #include "shell42.h"
 
+static void	ft_write_special(char s, char c, int *i)
+{
+	*i += 1;
+	if (c == 't')
+		write(1, "\t", 1);
+	else if (c == 'n')
+		write(1, "\n", 1);
+	else if (c == 'f')
+		write(1, "\f", 1);
+	else if (c == 'r')
+		write(1, "\r", 1);
+	else if (c == 'v')
+		write(1, "\v", 1);
+	else if (c == 'a')
+		write(1, "\a", 1);
+	else if (c == '"')
+		write(1, "\"", 1);
+	else if (c == '\'')
+		write(1, "\'", 1);
+	else if (c == '\\')
+		write(1, "\\", 1);
+	else
+	{
+		write(1, &s, 1);
+		*i -= 1;
+	}
+}
+
+static void	ft_putstr_echo(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == 92)
+		{
+			if (s[i + 1] == 92)
+				i++;
+			ft_write_special(s[i], s[i + 1], &i);
+			i++;
+		}
+		else
+		{
+			write(1, &s[i], 1);
+			i++;
+		}
+	}
+}
+
 int		ft_echo(char **input)
 {
 	int i;
@@ -25,7 +75,7 @@ int		ft_echo(char **input)
 	{
 		if (i > opts_n)
 			ft_putstr("    ");
-		ft_putstr(input[i++]);
+		ft_putstr_echo(input[i++]);
 	}
 	if (opts_n == 0)
 		ft_putchar('\n');

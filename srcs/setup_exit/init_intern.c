@@ -13,7 +13,19 @@
 #include "shell42.h"
 #include "get_input.h"
 
-char	*trim_path(char *path)
+static void	ft_intern_var(t_shell *sh)
+{
+	sh->env = ft_new_envv(sh->env, "HISTSIZE", "500", false);
+	sh->env = ft_new_envv(sh->env, "!", "0", false);
+	sh->env = ft_new_envv(sh->env, "?", "0", false);
+	sh->env = ft_new_envv_int(sh->env, "$", sh->pid, false);
+	sh->env = ft_new_envv(sh->env, "CDPATH", "", false);
+	sh->env = ft_new_envv(sh->env, "FCEDIT", "vim", false);
+	sh->env = ft_new_envv(sh->env, "PS1", PS1, false);
+	sh->env = ft_new_envv(sh->env, "PS2", PS2, false);
+}
+
+char		*trim_path(char *path)
 {
 	int		i;
 	int		save;
@@ -38,7 +50,7 @@ char	*trim_path(char *path)
 	return (path);
 }
 
-void	retrieve_path(t_shell *sh)
+void		retrieve_path(t_shell *sh)
 {
 	char	*line;
 	char	*path;
@@ -64,21 +76,14 @@ void	retrieve_path(t_shell *sh)
 	}
 }
 
-int		init_intern(t_shell *sh)
+int			init_intern(t_shell *sh)
 {
 	struct passwd	*usr;
 	char			*hi_path;
 	char			*hostname;
 
 	hostname = NULL;
-	sh->env = ft_new_envv(sh->env, "HISTSIZE", "500", false);
-	sh->env = ft_new_envv(sh->env, "!", "0", false);
-	sh->env = ft_new_envv(sh->env, "?", "0", false);
-	sh->env = ft_new_envv_int(sh->env, "$", sh->pid, false);
-	sh->env = ft_new_envv(sh->env, "CDPATH", "", false);
-	sh->env = ft_new_envv(sh->env, "FCEDIT", "vim", false);
-	sh->env = ft_new_envv(sh->env, "PS1", PS1, false);
-	sh->env = ft_new_envv(sh->env, "PS2", PS2, false);
+	ft_intern_var(sh);
 	if ((usr = getpwnam(getlogin())))
 	{
 		sh->env = ft_new_envv_int(sh->env, "EUID", usr->pw_uid, false);

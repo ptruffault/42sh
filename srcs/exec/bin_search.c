@@ -45,7 +45,7 @@ char		*absolute_path(char *input, t_envv *envv)
 		}
 	}
 	else if (!(path = ft_strdup(input)))
-			return (NULL);
+		return (NULL);
 	return (check_exe(path, inf));
 }
 
@@ -62,10 +62,7 @@ char		*search_in_envv(char *input, t_envv *envv)
 	while (path[i])
 	{
 		if (!(bin_path = ft_new_path(path[i], input)))
-		{
-			ft_freestrarr(&path);
-			return (NULL);
-		}
+			return (ft_delstrarr(&path));
 		if (lstat(bin_path, &inf) == -1)
 			ft_strdel(&bin_path);
 		else
@@ -75,8 +72,7 @@ char		*search_in_envv(char *input, t_envv *envv)
 		}
 		i++;
 	}
-	ft_freestrarr(&path);
-	return (NULL);
+	return (ft_delstrarr(&path));
 }
 
 char		*get_bin_path(char *input, t_envv *envv)

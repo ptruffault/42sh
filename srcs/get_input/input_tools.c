@@ -21,8 +21,7 @@ int			ft_add_char(char buf, t_edit *e)
 	if ((!ft_isprint(buf) || !e->hist->s) && buf != 9)
 		return (SUCCESS);
 	tmp = e->hist->s;
-	if (!(e->hist->s = ft_strsub(tmp, 0, (size_t)e->curr)))
-		e->hist->s = tmp;
+	e->hist->s = ft_strsub(tmp, 0, (size_t)e->curr);
 	e->hist->s = ft_strinsert_char(&e->hist->s, buf, tmp + e->curr);
 	ft_strdel(&tmp);
 	e->curr++;

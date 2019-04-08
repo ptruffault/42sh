@@ -15,6 +15,7 @@
 int			fill_tabl_files(DIR *fd, char ***tabl, char *value, int *j)
 {
 	struct dirent	*dir;
+	char			*tmp;
 
 	while (fd && (dir = readdir(fd)))
 	{
@@ -22,7 +23,17 @@ int			fill_tabl_files(DIR *fd, char ***tabl, char *value, int *j)
 			|| (ft_strlen(value) > 0 && (ft_str_startwith(dir->d_name, value))))
 		{
 			*j += 1;
-			if (add_to_tabl(tabl, dir->d_name, *j))
+			if (dir->d_type == DT_DIR)
+			{
+				tmp = ft_strjoin(dir->d_name, "/");
+				if (add_to_tabl(tabl, tmp, *j))
+				{
+					ft_strdel(&tmp);
+					return (-1);
+				}
+				ft_strdel(&tmp);
+			}
+			else if (add_to_tabl(tabl, dir->d_name, *j))
 				return (-1);
 		}
 	}
@@ -32,13 +43,24 @@ int			fill_tabl_files(DIR *fd, char ***tabl, char *value, int *j)
 int			fill_tabl_all_files(DIR *fd, char ***tabl, int *j)
 {
 	struct dirent	*dir;
+	char			*tmp;
 
 	while (fd && (dir = readdir(fd)))
 	{
 		if (!(ft_strnequ(dir->d_name, ".", 1)))
 		{
 			*j += 1;
-			if (add_to_tabl(tabl, dir->d_name, *j))
+			if (dir->d_type == DT_DIR)
+			{
+				tmp = ft_strjoin(dir->d_name, "/");
+				if (add_to_tabl(tabl, tmp, *j))
+				{
+					ft_strdel(&tmp);
+					return (-1);
+				}
+				ft_strdel(&tmp);
+			}
+			else if (add_to_tabl(tabl, dir->d_name, *j))
 				return (-1);
 		}
 	}

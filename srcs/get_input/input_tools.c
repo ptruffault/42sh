@@ -126,6 +126,7 @@ void		delete_on(t_edit *e)
 	j = 0;
 	if (!(tmp = ft_strnew(size - 1)))
 		return ;
+	ft_delete_line(e);
 	while (e->hist->s[j])
 	{
 		if (j != e->curr)
@@ -135,5 +136,6 @@ void		delete_on(t_edit *e)
 	tmp[i] = '\0';
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
+	ft_print_fast(e);
 	return ;
 }

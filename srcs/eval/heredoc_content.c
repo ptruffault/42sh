@@ -19,24 +19,37 @@ static char		*ft_heredoc_clear(char *in, char *ret)
 	return (NULL);
 }
 
+char	*ft_strappend_fr(char **str, char **end)
+{
+	char	*rtn;
+
+	rtn = ft_strjoin(*str, *end);
+	ft_strdel(str);
+	ft_strdel(end);
+	*str = rtn;
+	return (rtn);
+}
+
+
 static char		*heredoc_get_input(char *eoi, t_shell *sh)
 {
 	char	*ret;
 	char	*in;
 	int		d;
 
-	ret = NULL;
+	if (!(ret = ft_strnew(0)))
+		return (NULL);
 	in = NULL;
 	d = 0;
-	ft_putstr("\033[00;34mheredoc>\n\033[00m");
+	ft_others_prompt(sh, "heredoc");
 	if ((d = get_input(&in)) != 4)
 	{
 		while (!ft_strequ(in, eoi) && sh->heredoc == 1)
 		{
 			if (!(in = ft_stradd(&in, "\n"))
-				|| !(ret = ft_stradd(&ret, in)))
+				|| !(ret = ft_strappend_fr(&ret, &in)))
 				break ;
-			ft_putstr("\033[00;34mheredoc>\n\033[00m");
+			ft_others_prompt(sh, "heredoc");
 			if ((d = get_input(&in)) == 4)
 				return (ft_heredoc_clear(in, ret));
 		}

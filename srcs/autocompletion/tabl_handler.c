@@ -83,6 +83,8 @@ int		add_to_tabl(char ***tabl, char *value, int j)
 	size_t	i;
 
 	i = 1;
+	if (!value)
+		return (1);
 	if (!(retabl = (char**)malloc(sizeof(char*) * (j + 2))))
 		return (1);
 	set_null_tabl(retabl, j + 1);

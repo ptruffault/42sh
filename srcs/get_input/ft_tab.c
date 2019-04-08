@@ -41,22 +41,14 @@ int		autocompletion_adding(t_edit *e, char **tabl)
 	size_t	x;
 	char	*tmp;
 
-	x = 1;
-	while (!ft_str_startwith(tabl[0], e->hist->s + e->curr - x) && e->curr - x > 0)
+	x = 0;
+	while (e->curr - x  > 0 && !(ft_strchr(" /;", e->hist->s[e->curr - x - 1])))
 		++x;
-	if (e->curr - x == 0)
-	{
-		if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr, -1, tabl[0])))
-			return (FAILURE);
-	}
-	else if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr - x, x - 1, tabl[0])))
+	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr - x, x - 1, tabl[0])))
 		return (FAILURE);
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
-	if (e->curr - x > 0)
-		e->curr = (e->curr - x) + ft_strlen(tabl[0]);
-	else
-		e->curr += ft_strlen(tabl[0]);
+	e->curr += ft_strlen(tabl[0]) - x;
 	return (SUCCESS);
 }
 

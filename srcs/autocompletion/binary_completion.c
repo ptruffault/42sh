@@ -100,15 +100,18 @@ int			fill_tabl_builtin(char ***tabl, char *value, bool all, int *j)
 	return (*j);
 }
 
-char		**get_binary(char **path, char *value, bool all, int *total)
+char		**get_binary(t_shell *sh, char *value, bool all, int *total)
 {
 	int				i;
 	int				j;
 	char			**tabl;
+	char			**path;
 
 	i = -1;
 	j = 0;
 	if (!(tabl = (char**)malloc(sizeof(char*) * 2)))
+		return (NULL);
+	if (!(path = ft_strsplit(get_tenvv_val(sh->env, "PATH"), ':')))
 		return (NULL);
 	set_null_tabl(tabl, 2);
 	while (path[++i])
@@ -121,5 +124,6 @@ char		**get_binary(char **path, char *value, bool all, int *total)
 	if (j == -1 || (fill_tabl_builtin(&tabl, value, all, &j)) == -1)
 		ft_arrdel(&tabl);
 	*total = j;
+	ft_arrdel(&path);
 	return (tabl);
 }

@@ -49,7 +49,7 @@ void	ft_arrdel(char ***arr)
 	*arr = NULL;
 }
 
-char	**get_tabl_others(char **path, char *value, int pos, int *total)
+char	**get_tabl_others(char *value, int pos, int *total)
 {
 	char	**tabl;
 	char	*tmp;
@@ -62,7 +62,7 @@ char	**get_tabl_others(char **path, char *value, int pos, int *total)
 	all = (ft_strlen(tmp) == 0) ? true : false;
 	if (pos == 0 && !startwith)
 	{
-		tabl = get_binary(path, tmp, all, total);
+		tabl = get_binary(ft_get_set_shell(NULL) ,tmp, all, total);
 		if (*total == 0)
 			ft_arrdel(&tabl);
 	}
@@ -89,7 +89,6 @@ char	**get_tabl_expansion(char *value, int *total)
 char		**check_line(int *max_len, int *total, t_edit *e)
 {
 	char	*value;
-	char	**path;
 	char	**tabl;
 	t_shell	*sh;
 	int		pos;
@@ -102,17 +101,16 @@ char		**check_line(int *max_len, int *total, t_edit *e)
 		return (NULL);
 	if (!(value = get_word_cursor(e->hist->s, &pos)))
 		return (NULL);
-	if (!(path = ft_strsplit(get_tenvv_val(sh->env, "PATH"), ':')))
+	if (!(value = check_tilde(value)))
 		return (NULL);
 	if (value[0] != '$')
-		tabl = get_tabl_others(path, value, pos, total);
+		tabl = get_tabl_others(value, pos, total);
 	else
 		tabl = get_tabl_expansion(value + 1, total);
 	if (tabl != NULL && (*total <= 0))
 		ft_arrdel(&tabl);
 	else
 		ft_sort_table(tabl, max_len);
-	ft_freestrarr(&path);
 	ft_strdel(&value);
 	return (tabl);
 }

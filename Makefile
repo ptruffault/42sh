@@ -86,6 +86,7 @@ SRC		=	\
 	get_input/prompt.c			\
 	\
 	autocompletion/check_line.c			\
+	autocompletion/utility_handler.c	\
 	autocompletion/tabl_handler.c		\
 	autocompletion/binary_completion.c	\
 	autocompletion/files_completion.c	\

@@ -14,13 +14,13 @@
 
 void	setup_key(char *error[7], t_edit *e)
 {
-	error[0] = "cmdand";
-	error[1] = "cmdor";
-	error[2] = "pipe";
-	error[3] = "quote";
-	error[4] = "dquote";
-	error[5] = "backslash";
-	error[6] = "parenth";
+	error[0] = "\ncmdand";
+	error[1] = "\ncmdor";
+	error[2] = "\npipe";
+	error[3] = "\nquote";
+	error[4] = "\ndquote";
+	error[5] = "\nbackslash";
+	error[6] = "\nparenth";
 	if (e->tmp == NULL)
 		e->tmp = e->hist->s;
 	else
@@ -46,7 +46,7 @@ void	entry_key(t_edit *e)
 		e->select = -1;
 		e->select_pos = 0;
 		e->hist->s = ft_strnew(3);
-		eval.err = (eval.err > 2) ? eval.err - 2 : eval.err;
+		eval.err = (eval.err >= 2) ? eval.err - 2 : eval.err;
 		ft_others_prompt(ft_get_set_shell(NULL), error[eval.err]);
 	}
 	else

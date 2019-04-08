@@ -160,7 +160,7 @@ char		*trim_path(char *path);
 char		*try_cdpath(char *cdpath, char *path, bool *pwd_f, unsigned int *opts);
 char		**check_line(int *max_len, int *total, t_edit *e);
 int			add_to_tabl(char ***tabl, char *value, int j);
-char		**get_binary(char **path, char *value, bool all, int *total);
+char		**get_binary(t_shell *sh, char *value, bool all, int *total);
 char		**get_files(char *value, bool all, int *total);
 void		ft_arrdel(char ***arr);
 void		set_null_tabl(char **tabl, int len_env);
@@ -168,4 +168,5 @@ char		**get_environ_match(char *value, int *total, bool all);
 int			check_exec(char *file, char *path);
 void		ft_sort_table(char **tabl, int *max_len);
 void		ft_others_prompt(t_shell *sh, const char *prompt_txt);
+char		*check_tilde(char *value);
 #endif

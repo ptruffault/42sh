@@ -96,7 +96,6 @@ t_shell		*ft_get_set_shell(t_shell *sh);
 int			init_shell(t_shell *sh, char **envv, char **argv);
 void		set_signals(void);
 void		set_signals_ni(void);
-void		ft_execve(t_process *p, t_shell *sh);
 t_process	*ft_exec_process(t_process *p, t_shell *sh, t_tree *t);
 int 		ft_get_pgid(int pgid, t_process *p, t_process *prev);
 t_tree		*exec_pipe(t_tree *t, t_process *p, t_shell *sh);

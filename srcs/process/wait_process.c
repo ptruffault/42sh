@@ -27,7 +27,7 @@ static void	ft_eval_status(t_process *p, t_shell *sh)
 	}
 	else if (WIFEXITED(p->ret))
 	{
-		p->ret =  WEXITSTATUS(p->ret);
+		p->ret = WEXITSTATUS(p->ret);
 		p->status = DONE;
 	}
 	else if (p->status == RUNNING_BG || p->status == RUNNING_FG)

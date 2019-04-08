@@ -12,13 +12,6 @@
 
 #include "shell42.h"
 
-void			ft_exit_son(t_shell *sh, int exit_code)
-{
-	ft_free_tshell(sh);
-	ft_free_tree(ft_get_set_tree(NULL));
-	exit(exit_code);
-}
-
 static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 {
 	if (p->builtins == TRUE)
@@ -28,7 +21,7 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 			p->pid = getpid();
 			p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
 			if (setpgid(p->pid, p->pgid) < 0)
-				error("can't set group (son)" , p->cmd);
+				error("can't set group", p->cmd);
 		}
 		p->ret = run_builtin(t, p->argv, sh);
 		if (sh->pid != getpid())
@@ -38,19 +31,36 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 	return (0);
 }
 
-void		ft_execve(t_process *p, t_shell *sh)
+static void		ft_execve(t_process *p, t_shell *sh)
 {
 	if (sh->interactive == TRUE)
 	{
 		p->pid = getpid();
 		p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
 		if (setpgid(p->pid, p->pgid) < 0)
-			error("can't set group (son)" , p->cmd);
+			error("can't set groupmake", p->cmd);
 	}
 	set_son_signal();
 	execve(p->cmd, p->argv, p->env);
 	error("execve fucked up", p->cmd);
-	ft_exit_son(sh, 1);	
+	ft_exit_son(sh, 1);
+}
+
+static void		ft_groups_stuff(t_shell *sh, t_process *p)
+{
+	if (sh->interactive == TRUE && sh->pid == getpid())
+	{
+		p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
+		if (setpgid(p->pid, p->pgid) < 0)
+			error("can't set group (parent)", p->cmd);
+	}
+}
+
+void			ft_exit_son(t_shell *sh, int exit_code)
+{
+	ft_free_tshell(sh);
+	ft_free_tree(ft_get_set_tree(NULL));
+	exit(exit_code);
 }
 
 t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
@@ -62,18 +72,14 @@ t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 			if (sh->pid == getpid())
 			{
 				p->next = sh->process;
-				sh->process = p; 
+				sh->process = p;
 			}
-			if (!ft_builtins(sh, p, t) && (sh->pid != getpid() || (p->pid = fork()) == 0))
+			if (!ft_builtins(sh, p, t) && (sh->pid != getpid()
+				|| (p->pid = fork()) == 0))
 				ft_execve(p, sh);
 			else if (p->pid < 0)
 				error("fork fucked up", p->cmd);
-			if (sh->interactive == TRUE && sh->pid == getpid())
-			{
-				p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
-				if (setpgid(p->pid, p->pgid) < 0)
-					error("can't set group (parent)", p->cmd);
-			}
+			ft_groups_stuff(sh, p);
 		}
 		else if (sh->pid == getpid())
 		{
@@ -83,5 +89,4 @@ t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 	}
 	ft_get_envv_back(sh, p, t);
 	return (p);
-
 }

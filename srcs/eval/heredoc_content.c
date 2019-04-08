@@ -72,7 +72,7 @@ t_redirect		*parse_heredoc(t_redirect *ret, t_word *w)
 	sh = ft_get_set_shell(NULL);
 	if (w->next && w->next->word)
 	{
-		if (!(ret->path = ft_strdup(w->next->word)))
+		if (!(ret->path = ft_strdup_trim(w->next->word)))
 			return (ft_free_redirection(ret));
 		sh->heredoc = 1;
 		if (sh->interactive == TRUE)

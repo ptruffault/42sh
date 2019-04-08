@@ -194,4 +194,5 @@ char	*ft_strjoin_add(char **s1, char **s2, const char *add);
 char	*ft_strappend(char **str, const char *end);
 char	*ft_strappend_fr(char **str, char **end);
 char	*ft_strinsert_char(char **str, char c, char *end);
+char	*ft_strdup_trim(char *value);
 #endif

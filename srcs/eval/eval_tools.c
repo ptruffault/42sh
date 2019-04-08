@@ -40,23 +40,6 @@ void		ft_delete_char(t_eval *e)
 	e->s[i] = '\0';
 }
 
-char		ft_parse_back(char c)
-{
-	if (c == 'n')
-		return ('\n');
-	if (c == 't')
-		return ('\t');
-	if (c == 'a')
-		return ('\a');
-	if (c == 'f')
-		return ('\f');
-	if (c == 'r')
-		return ('\r');
-	if (c == 'v')
-		return ('\v');
-	return (c);
-}
-
 char		**ft_twordto_arr(t_word *w)
 {
 	char	**arr;

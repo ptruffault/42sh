@@ -71,11 +71,7 @@ void	ft_lex_dquote(t_eval *e)
 	while (e->s[e->curr] && e->s[e->curr] != '"')
 	{
 		if (e->s[e->curr] == '\\' && e->s[e->curr + 1])
-		{
-			ft_delete_char(e);
-			if (e->s[e->curr])
-				e->s[e->curr] = ft_parse_back(e->s[e->curr]);
-		}
+			e->eval[e->curr++] = 'q';
 		e->eval[e->curr++] = 'q';
 	}
 	if (!e->s[e->curr])

@@ -42,7 +42,7 @@ int		autocompletion_adding(t_edit *e, char **tabl)
 	char	*tmp;
 
 	x = 0;
-	while (e->curr - x  > 0 && !(ft_strchr(" /;", e->hist->s[e->curr - x - 1])))
+	while (e->curr - x  > 0 && !(ft_strchr(" /;{$", e->hist->s[e->curr - x - 1])))
 		++x;
 	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr - x, x - 1, tabl[0])))
 		return (FAILURE);

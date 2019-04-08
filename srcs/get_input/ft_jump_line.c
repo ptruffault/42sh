@@ -39,7 +39,7 @@ void	ft_jump_line_down(t_edit *e)
 	width = e->width;
 	if (ft_strlen(e->hist->s) - e->curr >= e->width)
 		while (width-- > 0)
-			curr_move_left(e);
+			curr_move_right(e);
 }
 
 void	ft_select_line_down(t_edit *e)

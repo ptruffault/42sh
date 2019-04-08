@@ -14,24 +14,17 @@
 
 int			ft_add_char(char buf, t_edit *e)
 {
-	size_t	i;
-	size_t	size;
+	char	*tmp;
 
 	if (e->select != -1)
 		delete_left(e);
 	if ((!ft_isprint(buf) || !e->hist->s) && buf != 9)
 		return (SUCCESS);
-	i = (int)ft_strlen(e->hist->s);
-	size = i + 1;
-	while (i > 1 && i > e->curr)
-	{
-		e->hist->s[i] = e->hist->s[i - 1];
-		i--;
-	}
-	e->hist->s[e->curr] = buf;
-	if (!(e->hist->s = ft_realloc(e->hist->s, size, size + 1)))
-		return (FAILURE);
-	e->hist->s[size] = '\0';
+	tmp = e->hist->s;
+	if (!(e->hist->s = ft_strsub(tmp, 0, (size_t)e->curr)))
+		e->hist->s = tmp;
+	e->hist->s = ft_strinsert_char(&e->hist->s, buf, tmp + e->curr);
+	ft_strdel(&tmp);
 	e->curr++;
 	if (e->max_char < e->pos + 1)
 	{

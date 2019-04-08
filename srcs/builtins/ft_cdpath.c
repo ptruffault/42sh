@@ -17,7 +17,7 @@ char		*try_cdpath(char *cdpath, char *path, bool *pwd_f, t_opts *opts)
 	char		**tpath;
 	char		*res;
 	struct stat	dir;
-	int		i;
+	int			i;
 
 	i = -1;
 	if (path[0] != '/' && path[0] != '.' && (tpath = ft_strsplit(cdpath, ':')))

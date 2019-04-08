@@ -15,7 +15,7 @@ ft_putchar.c ft_putendl_fd.c ft_putendl.c ft_putnbr_fd.c \
 ft_putnbr.c ft_putstr_fd.c ft_putstr.c ft_putstrarr.c ft_write_in_file.c\
 ft_strclr.c ft_strequ.c ft_striter.c ft_search_tfile.c ft_get_prev_path.c \
 ft_striteri.c ft_strjoin.c ft_strmap.c ft_strmapi.c ft_strpull.c ft_open.c\
-ft_strnequ.c ft_strnew.c ft_strsplit.c ft_strsub.c \
+ft_strnequ.c ft_strnew.c ft_strsplit.c ft_strsub.c ft_strappend.c ft_strinsert_char.c \
 ft_strtrim.c ft_strsplit_word.c ft_isspace.c ft_count_word.c ft_delchar_n.c \
 ft_sqrt.c ft_strarrlen.c ft_strarrjoin.c ft_isempty.c ft_strchr_end.c\
 ft_realloc.c  ft_new_path.c ft_get_tfile.c ft_error.c ft_strndup.c\

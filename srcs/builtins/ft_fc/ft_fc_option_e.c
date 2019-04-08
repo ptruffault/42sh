@@ -48,11 +48,8 @@ void		ft_fc_option_e(t_fc *fc, int pos)
 	editor = NULL;
 	if (fc->av[pos] && !ft_isdigit(fc->av[pos][0]) && fc->av[pos][0] != '-')
 		editor = fc->av[pos];
-	else if (!(editor = get_tenvv_val(fc->shell->env, "FCEDIT")))
+	else if (!(editor = ft_strdup(get_tenvv_val(fc->shell->env, "FCEDIT"))) || (editor == NULL && !(editor = ft_strdup("ed"))))
 		return ;
-	else if (editor == NULL)
-		if (!(editor = ft_strdup("ed")))
-			return ;
 	if (search_in_hist_parser(fc, 3) == FAILURE)
 		return ;
 	if (!(tmp = ft_strjoin(editor, " /tmp/fc____42sh")))
@@ -67,8 +64,6 @@ void		ft_fc_option_e(t_fc *fc, int pos)
 	fc->shell->hist->s = editor;
 	if ((t = get_tree(editor)))
 		ft_free_tree(exec_tree(t, fc->shell));
-	fd = open("/tmp/fc____42sh", O_RDWR, 0644);
-	exec_fd(fc->shell, fd);
+	exec_file("/tmp/fc____42sh", fc->shell);
 	unlink("/tmp/fc____42sh");
-	close(fd);
 }

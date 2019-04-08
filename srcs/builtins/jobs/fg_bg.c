@@ -27,10 +27,10 @@ void		ft_handle_jobs(t_process *p, unsigned int s, t_shell *sh)
 	}
 }
 
-int					ft_bg(t_shell *sh, char **argv)
+int			ft_bg(t_shell *sh, char **argv)
 {
-	t_jobs *j;
-	int i;
+	t_jobs	*j;
+	int		i;
 
 	i = 0;
 	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL)))
@@ -41,10 +41,10 @@ int					ft_bg(t_shell *sh, char **argv)
 	return (0);
 }
 
-int					ft_fg(t_shell *sh, char **argv)
+int			ft_fg(t_shell *sh, char **argv)
 {
-	t_jobs *j;
-	int i;
+	t_jobs	*j;
+	int		i;
 
 	i = 0;
 	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL)))

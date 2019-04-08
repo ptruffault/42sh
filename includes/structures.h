@@ -75,67 +75,66 @@ enum	e_error
 
 typedef unsigned int	t_opts;
 
-typedef struct s_sig_msg
+typedef struct			s_sig_msg
 {
-	pid_t		sig;
-	const char	*msg;
-}				t_sig_msg;
+	pid_t				sig;
+	const char			*msg;
+}						t_sig_msg;
 
-typedef struct	s_hist
+typedef struct			s_hist
 {
-	char			*s;
-	int				nb;
-	struct s_hist	*next;
-	struct s_hist	*prev;
-}				t_hist;
+	char				*s;
+	int					nb;
+	struct s_hist		*next;
+	struct s_hist		*prev;
+}						t_hist;
 
-
-typedef struct	s_hash
+typedef struct			s_hash
 {
-	size_t			hit;
-	char			*command;
-	char			path[1024];
-	struct s_hash	*next;
-}				t_hash;
+	size_t				hit;
+	char				*command;
+	char				path[1024];
+	struct s_hash		*next;
+}						t_hash;
 
-typedef struct	s_edit
+typedef struct			s_edit
 {
-	t_bool			edited;
-	size_t			curr;
-	size_t			pos;
-	size_t			width;
-	size_t			tall;
-	size_t			select_pos;
-	size_t			max_char;
-	int				pos_z;
-	int				pos_y;
-	int				hist_size;
-	short			select;
-	char			*tmp;
-	unsigned short	mode;
-	unsigned long	kval[NUMBER_OF_KEYS];
-	void			(*ft_tab[NUMBER_OF_KEYS])(struct s_edit *e);
-	void			(*print_modes[NUMBER_OF_PRINT_MODES])(struct s_edit *e);
-	t_hist			*hist;
-}				t_edit;
+	t_bool				edited;
+	size_t				curr;
+	size_t				pos;
+	size_t				width;
+	size_t				tall;
+	size_t				select_pos;
+	size_t				max_char;
+	int					pos_z;
+	int					pos_y;
+	int					hist_size;
+	short				select;
+	char				*tmp;
+	unsigned short		mode;
+	unsigned long		kval[NUMBER_OF_KEYS];
+	void				(*ft_tab[NUMBER_OF_KEYS])(struct s_edit *e);
+	void				(*print_modes[NUMBER_OF_PRINT_MODES])(struct s_edit *e);
+	t_hist				*hist;
+}						t_edit;
 
-typedef struct	s_eval
+typedef struct			s_eval
 {
-	char			*s;
-	char			*eval;
-	enum e_error	err;
-	char			c;
-	int				curr;
-}				t_eval;
+	char				*s;
+	char				*eval;
+	enum e_error		err;
+	char				c;
+	int					curr;
+}						t_eval;
 
-typedef struct	s_word
+typedef struct			s_word
 {
-	enum e_wtype	type;
-	char			*word;
-	struct s_word	*next;
-}				t_word;
+	enum e_wtype		type;
+	char				*word;
+	struct s_word		*next;
+}						t_word;
 
-typedef struct	s_redirect
+typedef struct			s_redirect
 {
 	enum e_rtype		t;
 	char				*path;
@@ -143,19 +142,19 @@ typedef struct	s_redirect
 	int					to;
 	char				*heredoc;
 	struct s_redirect	*next;
-}				t_redirect;
+}						t_redirect;
 
-typedef struct	s_tree
+typedef struct			s_tree
 {
-	t_word			*cmd;
-	t_redirect		*r;
-	t_envv			*assign;
-	int				ret;
-	enum e_otype	o_type;
-	struct s_tree	*next;
-}				t_tree;
+	t_word				*cmd;
+	t_redirect			*r;
+	t_envv				*assign;
+	int					ret;
+	enum e_otype		o_type;
+	struct s_tree		*next;
+}						t_tree;
 
-typedef struct	s_process
+typedef struct			s_process
 {
 	t_envv				*saved_env;
 	char				**env;
@@ -173,49 +172,49 @@ typedef struct	s_process
 	int					pipe[2];
 	struct s_process	*grp;
 	struct s_process	*next;
-}				t_process;
+}						t_process;
 
-typedef struct 			s_jobs
+typedef struct			s_jobs
 {
 	t_process			*p;
 	int					id;
 	struct s_jobs		*next;
 }						t_jobs;
 
-typedef struct		s_shell
+typedef struct			s_shell
 {
-	pid_t			pid;
-	pid_t			pgid;
-	int				std[3];
-	t_bool			interactive;
-	char			*txt;
-	char			*builtins[17];
-	int				fd;
-	int				heredoc;
-	t_envv			*env;
-	t_envv			*alias;
-	t_hist			*hist;
-	t_process		*process;
-	t_jobs			*jobs;
-	t_edit			e;
-	char			*clipboard;
-	t_hash			**htable;
-	struct termios	term;
-	struct termios	saved_term;
-}					t_shell;
+	pid_t				pid;
+	pid_t				pgid;
+	int					std[3];
+	t_bool				interactive;
+	char				*txt;
+	char				*builtins[17];
+	int					fd;
+	int					heredoc;
+	t_envv				*env;
+	t_envv				*alias;
+	t_hist				*hist;
+	t_process			*process;
+	t_jobs				*jobs;
+	t_edit				e;
+	char				*clipboard;
+	t_hash				**htable;
+	struct termios		term;
+	struct termios		saved_term;
+}						t_shell;
 
-typedef struct	s_fc
+typedef struct			s_fc
 {
-	char		**av;
-	t_hist		*hist;
-	t_shell		*shell;
-	int			first;
-	int			last;
-	char		*first_;
-	char		*last_;
-	t_hist		*hist_first;
-	t_hist		*hist_last;
-	char		flags[6];
-}				t_fc;
+	char				**av;
+	t_hist				*hist;
+	t_shell				*shell;
+	int					first;
+	int					last;
+	char				*first_;
+	char				*last_;
+	t_hist				*hist_first;
+	t_hist				*hist_last;
+	char				flags[6];
+}						t_fc;
 
 #endif

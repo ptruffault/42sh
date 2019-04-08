@@ -89,8 +89,8 @@ void			ft_select_left(t_edit *e);
 void			ft_select_end(t_edit *e);
 void			ft_select_home(t_edit *e);
 void			ft_home_key(t_edit *e);
-void            ft_select_line_down(t_edit *e);
-void            ft_select_line_up(t_edit *e);
+void			ft_select_line_down(t_edit *e);
+void			ft_select_line_up(t_edit *e);
 
 void			ft_jump_line_down(t_edit *e);
 void			ft_jump_line_up(t_edit *e);
@@ -109,12 +109,12 @@ void			ft_jp_word_left(t_edit *e);
 int				term_actions(char *cmd);
 int				term_goto(char *cmd, int row, int col);
 
-void            ft_print_fast(t_edit *e);
-void            ft_print_edited(t_edit *e);
+void			ft_print_fast(t_edit *e);
+void			ft_print_edited(t_edit *e);
 void			ft_print_line(t_edit *e);
 void			ft_delete_line(t_edit *e);
 
-int             ft_get_hist_size(void);
+int				ft_get_hist_size(void);
 int				init_tedit(t_shell *sh);
 
 int				tab_handle(t_edit *e);

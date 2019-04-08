@@ -14,8 +14,8 @@
 
 static void	ft_job_prompt(t_jobs *j, int opts)
 {
-	char *stat[6];
-	int i;
+	char	*stat[6];
+	int		i;
 
 	i = 0;
 	ft_process_tab_status(stat);
@@ -23,7 +23,7 @@ static void	ft_job_prompt(t_jobs *j, int opts)
 		ft_putnbr(j->p->pid);
 	else
 	{
-		ft_printf("[%i] ",j->id);
+		ft_printf("[%i] ", j->id);
 		if (!j->next)
 			ft_printf(" + ");
 		else if (j && j->next && !j->next->next)
@@ -35,16 +35,14 @@ static void	ft_job_prompt(t_jobs *j, int opts)
 		ft_printf("%s ", stat[j->p->status]);
 		while (j->p->argv[i])
 			ft_printf("%s ", j->p->argv[i++]);
-
 	}
 	ft_putchar('\n');
 }
 
-
-static void ft_print_coresspond_jobs(t_jobs *j, char *str, int opts)
+static void	ft_print_coresspond_jobs(t_jobs *j, char *str, int opts)
 {
-	t_jobs *tmp;
-	t_jobs *jobs;
+	t_jobs	*tmp;
+	t_jobs	*jobs;
 	int		err;
 
 	err = 0;
@@ -61,7 +59,7 @@ static void ft_print_coresspond_jobs(t_jobs *j, char *str, int opts)
 		error("no such jobs", str);
 }
 
-static int ft_init_opts(int ret, char *str)
+static int	ft_init_opts(int ret, char *str)
 {
 	int i;
 
@@ -78,7 +76,7 @@ static int ft_init_opts(int ret, char *str)
 	return (ret);
 }
 
-static int ft_read_opts(char **argv, t_shell *sh)
+static int	ft_read_opts(char **argv, t_shell *sh)
 {
 	int i;
 	int ret;
@@ -100,11 +98,10 @@ static int ft_read_opts(char **argv, t_shell *sh)
 	return ((!n ? ret : n));
 }
 
-
 int			ft_jobs(t_shell *sh, char **argv)
 {
 	t_jobs		*tmp;
-	int 		aff;
+	int			aff;
 
 	tmp = sh->jobs;
 	aff = ft_read_opts(argv, sh);

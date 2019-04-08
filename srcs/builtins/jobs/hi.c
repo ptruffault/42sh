@@ -12,15 +12,15 @@
 
 #include "shell42.h"
 
-static void 	ft_putpid_ret(t_process *p)
+static void		ft_putpid_ret(t_process *p)
 {
 	t_shell *sh;
 
 	if (p->pid > 0)
 		ft_printf("\x1B[00;34m{\x1B[00m%i\x1B[00;34m}\x1B[00m ", p->pid);
 	else if ((sh = ft_get_set_shell(NULL)))
-		ft_printf("\x1B[00;34m{\x1B[01;36m%i\x1B[00m\x1B[00;34m}\x1B[00m ", sh->pid);
-
+		ft_printf("\x1B[00;34m{\x1B[01;36m%i\x1B[00m\x1B[00;34m}\x1B[00m "
+		, sh->pid);
 	if (p->status == DONE || p->status == SUSPENDED || p->status == KILLED)
 	{
 		if (p->ret == 0)
@@ -32,8 +32,7 @@ static void 	ft_putpid_ret(t_process *p)
 		ft_printf("      ");
 }
 
-
-static void ft_hi_prompt(t_process *tmp, int id)
+static void		ft_hi_prompt(t_process *tmp, int id)
 {
 	t_process *grp;
 
@@ -54,7 +53,7 @@ static void ft_hi_prompt(t_process *tmp, int id)
 	}
 }
 
-void ft_process_tab_status(char *stat[6])
+void			ft_process_tab_status(char *stat[6])
 {
 	stat[0] = "\x1b[1;34;41minitialised\x1B[00m";
 	stat[1] = "\x1b[1;34;44mrunning fg \x1B[00m";
@@ -64,15 +63,13 @@ void ft_process_tab_status(char *stat[6])
 	stat[5] = "\x1b[1;34;41m  killed   \x1B[00m";
 }
 
-
-void	ft_put_process(t_process *p)
-{	
+void			ft_put_process(t_process *p)
+{
 	char *stat[6];
 
 	ft_process_tab_status(stat);
 	ft_putpid_ret(p);
 	ft_printf("%-25s", stat[p->status]);
-
 	if (p->builtins == TRUE)
 		ft_printf(" \x1B[1;36m%-17s\x1B[00;31m", p->cmd);
 	else
@@ -81,7 +78,7 @@ void	ft_put_process(t_process *p)
 	ft_putstr("\x1B[00m\n");
 }
 
-int		ft_hi(t_shell *sh)
+int				ft_hi(t_shell *sh)
 {
 	t_process	*tmp;
 	int			id;

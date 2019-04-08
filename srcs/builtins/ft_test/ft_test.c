@@ -82,7 +82,6 @@ int		compare_argv(char **argv)
 		return (return_fnc("test: unknown condition:\n", 2));
 }
 
-
 int		test_builtin(char **argv)
 {
 	if (*argv && argv[0][0] == '-')

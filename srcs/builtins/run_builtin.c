@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static int 	job_control(char **argv, t_shell *sh)
+static int	job_control(char **argv, t_shell *sh)
 {
 	if (sh->interactive == TRUE && sh->process->background == FALSE
 	&& sh->pid == getpid())

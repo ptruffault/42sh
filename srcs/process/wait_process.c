@@ -41,7 +41,7 @@ int			ft_wait(t_process *p, t_shell *sh)
 	ret = 0;
 	while (p)
 	{
-		if ((p->builtins == TRUE && (p->status == RUNNING_FG
+		if ((p->pid == 0 && (p->status == RUNNING_FG
 			|| p->status == RUNNING_BG))
 			|| (p->status == RUNNING_FG
 			&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)

@@ -20,7 +20,7 @@ void	ft_strdel(char **as)
 	*as = 0;
 }
 
-char 	*ft_strdell(char **as)
+char	*ft_strdell(char **as)
 {
 	ft_strdel(as);
 	return (NULL);

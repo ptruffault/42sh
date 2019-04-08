@@ -70,7 +70,7 @@ int			ft_fc(t_shell *shell, char **argv)
 	if (fc->flags[0] == 'e' && fc->av[i]
 	&& ft_isdigit(fc->av[i][0]) == 0 && fc->av[i][0] != '-')
 		fc_init_first_last(fc, i + 1);
-	if (fc->flags[0] == 's' && fc->av[i] && ft_strchr(fc->av[i], '='))
+	else if (fc->flags[0] == 's' && fc->av[i] && ft_strchr(fc->av[i], '='))
 		fc_init_first_last(fc, i + 1);
 	else
 		fc_init_first_last(fc, i);

@@ -22,6 +22,7 @@ void	ft_deload_hist_in_file(t_shell *sh)
 		hist = hist->next;
 	if (!(path = get_tenvv_val(sh->env, "HISTFILE")))
 		return ;
+	unlink(path);
 	while (hist)
 	{
 			ft_write_in_file(path, hist->s);

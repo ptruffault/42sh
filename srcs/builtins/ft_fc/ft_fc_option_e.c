@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-void	ft_fc_write_in_file(t_fc *fc, int fd)
+static void	ft_fc_write_in_file(t_fc *fc, int fd)
 {
 	t_hist	*tmp;
 	int		way;
@@ -38,10 +38,11 @@ void	ft_fc_write_in_file(t_fc *fc, int fd)
 		}
 }
 
-void	ft_fc_option_e(t_fc *fc, int pos)
+void		ft_fc_option_e(t_fc *fc, int pos)
 {
 	char	*editor;
 	int		fd;
+	char	*tmp;
 	t_tree	*t;
 
 	editor = NULL;
@@ -50,11 +51,14 @@ void	ft_fc_option_e(t_fc *fc, int pos)
 	else if (!(editor = get_tenvv_val(fc->shell->env, "FCEDIT")))
 		return ;
 	else if (editor == NULL)
-		editor = "ed";
+		if (!(editor = ft_strdup("ed")))
+			return ;
 	if (search_in_hist_parser(fc, 3) == FAILURE)
 		return ;
-	if (!(editor = ft_strjoin(editor, " /tmp/fc____42sh")))
+	if (!(tmp = ft_strjoin(editor, " /tmp/fc____42sh")))
 		return ;
+	ft_strdel(&editor);
+	editor = tmp;
 	if ((fd = open("/tmp/fc____42sh", O_CREAT | O_RDWR, 0644)) == -1)
 		return ;
 	ft_fc_write_in_file(fc, fd);

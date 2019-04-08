@@ -29,6 +29,7 @@ static void	print_background(t_edit *e, int pos, int size)
 
 void		ft_print_edited(t_edit *e)
 {
+	ft_delete_line(e);
 	e->curr = ft_strlen(e->hist->s);
 	ft_putstr("\x1B[33m");
 	write(1, e->hist->s, e->curr);

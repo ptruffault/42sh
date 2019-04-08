@@ -24,13 +24,13 @@ static void	autocompletion_printing(t_edit *e, char **tabl, int max_len)
 	nb = e->width / (max_len + 1);
 	while (tabl[++x])
 	{
+		--nb;
 		ft_printf("%*-s", max_len + 1, tabl[x]);
 		if (nb == 0)
 		{
 			ft_putstr("\n");
 			nb = e->width / (max_len + 1);
 		}
-		--nb;
 	}
 	ft_putstr("\n");
 	ft_disp(sh);

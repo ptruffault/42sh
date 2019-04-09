@@ -27,6 +27,8 @@
 # include "tenvv.h"
 # include "ft_printf.h"
 
+void			ft_job_prompt(t_jobs *j, int opts);
+t_jobs			*ft_get_jobs_pid(t_jobs *j, int pid);
 void			ft_link_process_to_term(t_process *p, t_shell *sh);
 t_jobs			*ft_search_jobs(t_jobs *j, char *s);
 void			ft_update_status(t_process *p, unsigned int status);

@@ -14,15 +14,16 @@
 
 static void	ft_eval_status(t_process *p, t_shell *sh)
 {
+	t_jobs *j;
+
 	if (WIFCONTINUED(p->ret) && p->status == RUNNING_FG
 		&& p->builtins == FALSE)
 		ft_wait(p, sh);
-	else if (WIFSTOPPED(p->ret) && p->builtins == FALSE)
-		p->status = SUSPENDED;
-	else if (WIFSIGNALED(p->ret) && p->builtins == FALSE)
+	else if ((WIFSIGNALED(p->ret) || WIFSTOPPED(p->ret))
+	&& p->builtins == FALSE)
 	{
-		p->status = KILLED;
-		p->sig = WTERMSIG(p->ret);
+		p->status = (WIFSTOPPED(p->ret) ? SUSPENDED : KILLED);
+		p->sig = (WIFSTOPPED(p->ret) ? SIGTSTP : WTERMSIG(p->ret));
 		p->ret = p->sig + 128;
 	}
 	else if (WIFEXITED(p->ret))
@@ -30,8 +31,9 @@ static void	ft_eval_status(t_process *p, t_shell *sh)
 		p->ret = WEXITSTATUS(p->ret);
 		p->status = DONE;
 	}
-	else if (p->status == RUNNING_BG || p->status == RUNNING_FG)
-		p->status = DONE;
+	if ((p->status != DONE || p->background == TRUE)
+	&& (j = ft_get_jobs_pid(sh->jobs, p->pid)))
+		ft_job_prompt(j, 0);
 }
 
 int			ft_wait(t_process *p, t_shell *sh)
@@ -49,8 +51,6 @@ int			ft_wait(t_process *p, t_shell *sh)
 			&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0))
 		{
 			ft_eval_status(p, sh);
-			if (p->status != DONE || p->background == TRUE)
-				ft_put_process(p);
 			if (p->status == DONE || p->status == KILLED)
 				ft_remove_jobs(p->pid, sh);
 			sh->env = ft_new_envv_int(sh->env, "?", p->ret, false);

@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static void	ft_job_prompt(t_jobs *j, int opts)
+void		ft_job_prompt(t_jobs *j, int opts)
 {
 	char	*stat[6];
 	int		i;
@@ -23,7 +23,7 @@ static void	ft_job_prompt(t_jobs *j, int opts)
 		ft_putnbr(j->p->pid);
 	else
 	{
-		ft_printf("[%i] ", j->id);
+		ft_printf("\x1B[00;34m[\x1B[00m%i\x1B[00;34m]\x1B[00m ", j->id);
 		if (!j->next)
 			ft_printf(" + ");
 		else if (j && j->next && !j->next->next)
@@ -32,11 +32,11 @@ static void	ft_job_prompt(t_jobs *j, int opts)
 			ft_printf("   ");
 		if (opts == 2)
 			ft_printf(" %i ", j->p->pid);
-		ft_printf("%s ", stat[j->p->status]);
+		ft_printf("%s \x1B[1;39m", stat[j->p->status]);
 		while (j->p->argv[i])
 			ft_printf("%s ", j->p->argv[i++]);
 	}
-	ft_putchar('\n');
+	ft_putstr("\x1B[00m\n");
 }
 
 static void	ft_print_coresspond_jobs(t_jobs *j, char *str, int opts)

@@ -21,7 +21,7 @@ static void		ft_putpid_ret(t_process *p)
 	else if ((sh = ft_get_set_shell(NULL)))
 		ft_printf("\x1B[00;34m{\x1B[01;36m%i\x1B[00m\x1B[00;34m}\x1B[00m "
 		, sh->pid);
-	if (p->status == DONE || p->status == SUSPENDED || p->status == KILLED)
+	if (p->status != RUNNING_FG && p->status != RUNNING_BG)
 	{
 		if (p->ret == 0)
 			ft_printf("\x1b[1;32;42m  0  \x1B[00m ", p->ret);

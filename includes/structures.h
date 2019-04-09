@@ -161,7 +161,6 @@ typedef struct			s_process
 	int					fd[3];
 	t_bool				builtins;
 	t_bool				background;
-	char				*line;
 	int					sig;
 	char				*cmd;
 	enum e_pstatus		status;
@@ -184,6 +183,7 @@ typedef struct			s_jobs
 typedef struct			s_shell
 {
 	pid_t				pid;
+	int					err;
 	pid_t				pgid;
 	int					std[3];
 	t_bool				interactive;

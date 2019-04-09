@@ -12,21 +12,6 @@
 
 #include "shell42.h"
 
-static char	*check_exe(char *bin_path, struct stat inf)
-{
-	if (inf.st_mode & S_IFREG)
-	{
-		if (inf.st_mode & S_IXUSR)
-			return (bin_path);
-		else
-			error("permission denied", bin_path);
-	}
-	else
-		error("not an executable", bin_path);
-	ft_strdel(&bin_path);
-	return (NULL);
-}
-
 char		*absolute_path(char *input, t_envv *envv)
 {
 	char		*path;
@@ -39,14 +24,9 @@ char		*absolute_path(char *input, t_envv *envv)
 		if ((pwd = get_tenvv_val(envv, "PWD"))
 			&& (path = ft_new_path(pwd, input))
 			&& (lstat(path, &inf) == -1))
-		{
-			ft_strdel(&path);
 			return (NULL);
-		}
 	}
-	else if (!(path = ft_strdup(input)))
-		return (NULL);
-	return (check_exe(path, inf));
+	return (ft_strdup(input));
 }
 
 char		*search_in_envv(char *input, t_envv *envv)
@@ -68,7 +48,7 @@ char		*search_in_envv(char *input, t_envv *envv)
 		else
 		{
 			ft_freestrarr(&path);
-			return (check_exe(bin_path, inf));
+			return (bin_path);
 		}
 		i++;
 	}

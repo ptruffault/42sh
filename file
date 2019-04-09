@@ -1,0 +1,16 @@
+/bin/cat = 1
+/bin/cat = 1
+/bin/ls = 1
+42sh
+42sh.dSYM
+Makefile
+auteur
+bin
+file
+file2
+includes
+lib
+srcs
+sys
+t
+test

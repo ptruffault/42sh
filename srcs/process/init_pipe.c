@@ -39,7 +39,16 @@ static void			ft_update_bg(t_process *p, t_bool val)
 	}
 }
 
-static t_process	*ft_init_pi(t_process *tmp, t_tree *t, t_shell *sh)
+static void			ft_update_valid(t_process *p)
+{
+	while (p)
+	{
+		p->valid = 0;
+		p = p->grp;
+	}
+}
+
+static t_process	*ft_init_pi(t_process *tmp, t_tree *t, t_shell *sh, int *v)
 {
 	t_process *head;
 
@@ -59,7 +68,7 @@ static t_process	*ft_init_pi(t_process *tmp, t_tree *t, t_shell *sh)
 					return (ft_abort(head, "broken pipe", tmp));
 			}
 			else
-				return (ft_abort(head, "command not found", tmp));
+				*v = 0;
 		}
 	}
 	return (tmp);
@@ -67,20 +76,24 @@ static t_process	*ft_init_pi(t_process *tmp, t_tree *t, t_shell *sh)
 
 t_process			*init_pipe_process(t_tree *t, t_shell *sh)
 {
-	t_process *head;
-	t_process *tmp;
+	t_process 	*head;
+	t_process 	*tmp;
+	int 		valid_pipe;
 
 	head = NULL;
 	tmp = NULL;
+	valid_pipe = 1;
 	if ((head = init_process(t, sh)) && !pipe(head->pipe))
 	{
 		if (!head->cmd)
-			return (ft_abort(head, "command not found", head));
+			valid_pipe = 0;
 		tmp = head;
-		if (!(tmp = ft_init_pi(tmp, t, sh)))
+		if (!(tmp = ft_init_pi(tmp, t, sh, &valid_pipe)))
 			return (NULL);
 		head->next = sh->process;
 		sh->process = head;
 	}
+	if (!valid_pipe)
+		ft_update_valid(head);
 	return (head);
 }

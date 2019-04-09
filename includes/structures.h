@@ -159,6 +159,7 @@ typedef struct			s_process
 	t_envv				*saved_env;
 	char				**env;
 	int					fd[3];
+	int					valid;
 	t_bool				builtins;
 	t_bool				background;
 	int					sig;

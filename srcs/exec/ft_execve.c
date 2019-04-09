@@ -91,20 +91,21 @@ t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 		{
 			if (p->builtins == TRUE || check_exe(p->cmd))
 			{
-				if (!ft_builtins(sh, p, t) && (sh->pid != getpid()
+				if (p->valid && !ft_builtins(sh, p, t) && (sh->pid != getpid()
 					|| (p->pid = fork()) == 0))
 					ft_execve(p, sh);
 				else if (p->pid < 0)
 					error("fork fucked up", p->cmd);
-				ft_groups_stuff(sh, p);
+				else
+					ft_groups_stuff(sh, p);
 			}
-			else if (sh->pid == getpid())
+			else
 			{
 				error("permission denied", p->cmd);
 				p->ret = 126;
 			}
 		}
-		else if (sh->pid == getpid())
+		else
 		{
 			error("command not found", *p->argv);
 			p->ret = 127;

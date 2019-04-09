@@ -59,7 +59,7 @@ char		*get_bin_path(char *input, t_envv *envv)
 {
 	if (!ft_isempty(input) && ft_check_ascii(input))
 	{
-		if (ft_str_startwith(input, "./") || *input == '/')
+		if (ft_str_startwith(input, "./") || ft_strchr(input, '/'))
 			return (absolute_path(input, envv));
 		return (search_in_envv(input, envv));
 	}

@@ -24,8 +24,29 @@ void	setup_key(char *error[7], t_edit *e)
 	if (e->tmp == NULL)
 		e->tmp = e->hist->s;
 	else
-		e->tmp = ft_strjoin_add(&e->tmp, &e->hist->s, "\n");
+		e->tmp = ft_strjoin_add_if(&e->tmp, &e->hist->s, "\n");
 	e->hist->s = e->tmp;
+}
+
+int		check_eval(char *str)
+{
+	char	*tmp;
+
+	if ((tmp = ft_strchr(str, 'o')))
+	{
+		if (ft_strchr(tmp + 1, 'o') - tmp + 1 == 3)
+			return (0);
+		if (ft_strstr(tmp + 1, "oo") - tmp + 1 == 4)
+			return (0);
+	}
+	if ((tmp = ft_strstr(str, "oo")))
+	{
+		if (ft_strstr(tmp + 1, "oo") - tmp + 1 == 4)
+			return (0);
+		if (ft_strchr(tmp + 1, 'o') - tmp + 1 == 3)
+			return (0);
+	}
+	return (1);
 }
 
 void	entry_key(t_edit *e)
@@ -37,9 +58,7 @@ void	entry_key(t_edit *e)
 	sh = ft_get_set_shell(NULL);
 	setup_key(error, e);
 	lexer(&eval, e->hist->s);
-	ft_strdel(&eval.eval);
-	ft_strdel(&eval.s);
-	if (sh->heredoc == 0 && eval.err > 1)
+	if (check_eval(eval.eval) && sh->heredoc == 0 && eval.err > 1)
 	{
 		e->curr = 0;
 		e->pos = 0;
@@ -54,6 +73,8 @@ void	entry_key(t_edit *e)
 		e->tmp = NULL;
 		e->edited = TRUE;
 	}
+	ft_strdel(&eval.eval);
+	ft_strdel(&eval.s);
 }
 
 void	clear_term(t_edit *e)

@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static void	ft_write_special(char s, char c, int *i)
+static void	ft_write_special(char c, int *i)
 {
 	*i += 1;
 	if (c == 't')
@@ -34,10 +34,7 @@ static void	ft_write_special(char s, char c, int *i)
 	else if (c == '\\')
 		write(1, "\\", 1);
 	else
-	{
-		write(1, &s, 1);
-		*i -= 1;
-	}
+		write(1, &c, 1);
 }
 
 static void	ft_putstr_echo(char *s)
@@ -47,11 +44,11 @@ static void	ft_putstr_echo(char *s)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == 92)
+		if (s[i] == '\\')
 		{
 			if (s[i + 1] == 92)
 				i++;
-			ft_write_special(s[i], s[i + 1], &i);
+			ft_write_special(s[i + 1], &i);
 			i++;
 		}
 		else

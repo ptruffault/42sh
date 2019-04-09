@@ -1,4 +1,4 @@
 echo \
 	; ls \
-			;; pwd \
+			; pwd \
 		; cd ; pwd

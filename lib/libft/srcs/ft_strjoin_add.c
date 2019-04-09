@@ -12,6 +12,28 @@
 
 #include "libft.h"
 
+char	*ft_strjoin_add_if(char **s1, char **s2, const char *add)
+{
+	char	*ret;
+	char	*tmp;
+
+	tmp = *s1;
+	if (tmp && tmp[ft_strlen(tmp) - 1] != '\\')
+	{
+		if (!(*s1 = ft_stradd(s1, add)))
+		{
+			ft_strdel(s2);
+			return (NULL);
+		}
+	}
+	else if (tmp)
+		tmp[ft_strlen(tmp) - 1] = '\0';
+	ret = ft_strjoin(*s1, *s2);
+	ft_strdel(s1);
+	ft_strdel(s2);
+	return (ret);
+}
+
 char	*ft_strjoin_add(char **s1, char **s2, const char *add)
 {
 	char	*ret;

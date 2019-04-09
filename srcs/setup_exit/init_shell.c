@@ -90,8 +90,7 @@ int			init_shell(t_shell *sh, char **envv, char **argv)
 		return (0);
 	}
 	sh->interactive = TRUE;
-	if (!ft_init_groups(sh)
-	|| !init_termcaps(sh))
+	if (!ft_init_groups(sh) || !init_termcaps(sh))
 		return (0);
 	set_signals();
 	return (1);

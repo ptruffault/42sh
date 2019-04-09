@@ -25,10 +25,10 @@ if [ $1 ]
 then
 	NAME=$1
 else
-	NAME='../21sh'
+	NAME='../42sh'
 fi
 
-VALGRIND=true
+VALGRIND=false
 TEST_SHELL='bash'
 
 # List of all files in which test are stored
@@ -75,23 +75,27 @@ do
 	SHORTFILE=$(echo $FILE | sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')
 	echo ${YELLOW}[...]${COLRESET}"	: "${SHORTFILE}${MOVELINE}
 
+	CMPFILE="res/"$(echo ${FILE}| sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')"_cmp1.tmp"
+	CMPFILE2="res"/$(echo ${FILE}| sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')"_cmp2.tmp"
 	# Test what result the reference shell gives
-	$TEST_SHELL <$FILE 1>$TCSH_OUT 2>$TCSH_ERR
+	$TEST_SHELL <$FILE 1>&- 2>&-
 	TCSH_RTN=$?
 
+	OUTFILE="res/"$(echo ${FILE}| sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')"_res1.tmp"
+	OUTFILE2="res"/$(echo ${FILE}| sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')"_res2.tmp"
 	# Test what our shell gives
 	if [ $VALGRIND ]
 	then
-		valgrind $LOG_OPT $NAME <$FILE 1>$FTSH_OUT 2>$FTSH_ERR
+		valgrind $LOG_OPT $NAME <$FILE 1>$OUTFILE 2>$OUTFILE2
 		FTSH_RTN=$?
 	else
-		$NAME <$FILE 1>$FTSH_OUT 2>$FTSH_ERR
+		$NAME <$FILE 1>$OUTFILE 2>$OUTFILE
 		FTSH_RTN=$?
 	fi
 
 	# If anything is diffrent
-	if diff -q $TCSH_OUT $FTSH_OUT > /dev/null \
-			&& diff -q $TCSH_ERR $FTSH_ERR > /dev/null \
+	if diff -q $CMPFILE $OUTFILE > /dev/null \
+			&& diff -q $CMPFILE2 $OUTFILE2 > /dev/null \
 			&& test $TCSH_RTN == $FTSH_RTN \
 			&& test ! -s $FTSH_LOG
 	then
@@ -102,9 +106,9 @@ do
 		cat $FILE | sed -e "s/^/    /g"
 
 		printf ${GREY}
-			diff $TCSH_OUT $FTSH_OUT | sed -e "s/^/    /g"
+			diff $CMPFILE $OUTFILE | sed -e "s/^/    /g"
 		printf ${PURPLE}
-			diff $TCSH_ERR $FTSH_ERR | sed -e "s/^/    /g"
+			diff $CMPFILE2 $OUTFILE2 | sed -e "s/^/    /g"
 		printf ${CYAN}
 			if [ $TCSH_RTN != $FTSH_RTN ]
 			then

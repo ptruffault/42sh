@@ -32,7 +32,7 @@ char	*get_word_cursor(char *str, int *pos)
 	while (p > 0 && str[p] == ' ')
 		p--;
 	if (p > 0)
-	p = (ft_strchr("|&;",str[p]) && str[p - 1] != '\\') ? 0 : p;
+		p = (ft_strchr("|&;", str[p]) && str[p - 1] != '\\') ? 0 : p;
 	*pos = p;
 	return (ret);
 }

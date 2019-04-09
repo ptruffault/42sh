@@ -15,8 +15,8 @@
 static void	autocompletion_printing(t_edit *e, char **tabl, int max_len)
 {
 	int		x;
-	t_shell *sh;
-	int nb;
+	t_shell	*sh;
+	int		nb;
 
 	x = -1;
 	sh = ft_get_set_shell(NULL);
@@ -36,31 +36,32 @@ static void	autocompletion_printing(t_edit *e, char **tabl, int max_len)
 	ft_disp(sh);
 }
 
-int		autocompletion_adding(t_edit *e, char **tabl)
+int			autocompletion_adding(t_edit *e, char **t)
 {
 	size_t	x;
 	char	*tmp;
 
 	x = 0;
-	while (e->curr - x  > 0 && !(ft_strchr(" /;{$|&", e->hist->s[e->curr - x - 1])))
+	while (e->curr - x > 0
+		&& !(ft_strchr(" /;{$|&", e->hist->s[e->curr - x - 1])))
 		++x;
-	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr - x, x - 1, tabl[0])))
+	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr - x, x - 1, t[0])))
 		return (FAILURE);
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
-	e->curr += ft_strlen(tabl[0]) - x;
+	e->curr += ft_strlen(t[0]) - x;
 	return (SUCCESS);
 }
 
-int	tab_handle(t_edit *e)
+int			tab_handle(t_edit *e)
 {
 	char	**tabl;
 	int		max_len;
 	int		total;
+	t_shell	*sh;
 
 	max_len = 0;
 	total = 0;
-	t_shell	*sh;
 	sh = ft_get_set_shell(NULL);
 	if (sh->heredoc == 1)
 	{

@@ -1,5 +1,5 @@
 alias cl /usr/bin/clear
-alias la "ls -aG" ll "ls -lG" ls "ls -G" lR "ls -RG ~"
+alias la "/bin/ls -aG" ll "/bin/ls -lG" ls "/bin/ls -G" lR "/bin/ls -RG ~" /bin/ls="/bin/ls -G"
 alias ..='cd ..' ...='cd ../..' ....='cd ../../..'
 alias gitall "git add -A && git commit -m 'gitall' && git push"
 cat $SHELL_FOLD/sys/header

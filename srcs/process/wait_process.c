@@ -54,7 +54,7 @@ int			ft_wait(t_process *p, t_shell *sh)
 			if (p->status == DONE || p->status == KILLED)
 				ft_remove_jobs(p->pid, sh);
 			sh->env = ft_new_envv_int(sh->env, "?", p->ret, false);
-			ret = ret + p->ret;
+			ret = p->ret;
 		}
 		p = p->grp;
 	}

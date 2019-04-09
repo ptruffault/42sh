@@ -13,16 +13,16 @@
 #include "shell42.h"
 
 static const char	*g_colors[] = {
-		BLEUCLAIR,
-		ROUGE,
-		BLEU,
-		SOULIGNE,
-		NORMAL,
-		VERT,
-		CYAN,
-		MAGENTA,
-		JAUNE,
-		"\0",
+	BLEUCLAIR,
+	ROUGE,
+	BLEU,
+	SOULIGNE,
+	NORMAL,
+	VERT,
+	CYAN,
+	MAGENTA,
+	JAUNE,
+	"\0",
 };
 
 static char	*ft_replace_home(char *path, char *home)

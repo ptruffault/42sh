@@ -44,7 +44,6 @@ void	curr_move_left(t_edit *e)
 	}
 	if (e->curr > 0)
 		e->curr--;
-
 }
 
 void	curr_go_last(t_edit *e)

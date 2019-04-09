@@ -93,7 +93,7 @@ static int		ft_init_input_link(t_shell *sh, t_hist *tmp)
 	return (SUCCESS);
 }
 
-int ft_get_hist_size(void)
+int				ft_get_hist_size(void)
 {
 	t_shell	*sh;
 	char	*line;

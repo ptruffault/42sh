@@ -62,7 +62,7 @@ static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *param)
 		ft_strdel(&val1);
 		ft_strdel(&val2);
 	}
-	return (ft_strdup(val));
+	return (val);
 }
 
 static char	*ft_get_param_value(t_shell *sh, char *parenth)
@@ -89,16 +89,13 @@ static char	*ft_get_param_value(t_shell *sh, char *parenth)
 	return (val);
 }
 
-char		*ft_exp_param(char *ret, t_shell *sh, int *i)
+char		*ft_exp_param(char *ret, char *ptr, t_shell *sh)
 {
-	char	*ptr;
 	char	*value;
 	char	*parenth;
 	int		len;
 
 	value = NULL;
-	ptr = &ret[*i];
-	*i = -1;
 	parenth = ft_strsub(ret, ptr - ret + 2, get_content_size(ptr));
 	if (!parenth || *parenth == '$' || ft_isempty(parenth))
 	{
@@ -109,6 +106,5 @@ char		*ft_exp_param(char *ret, t_shell *sh, int *i)
 	len = (*parenth == '#' ? 1 : 0);
 	value = ft_get_param_value(sh, &parenth[len]);
 	value = (len == 1 ? ft_get_len(value) : value);
-	ft_strdel(&parenth);
 	return (ft_exp_end(ret, ptr, value, parenth));
 }

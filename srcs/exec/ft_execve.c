@@ -63,28 +63,51 @@ void			ft_exit_son(t_shell *sh, int exit_code)
 	exit(exit_code);
 }
 
+int check_exe(char *bin_path)
+{
+	struct stat inf;
+
+	if (lstat(bin_path, &inf) != -1 && inf.st_mode & S_IFREG)
+	{
+		if (inf.st_mode & S_IXUSR)
+			return (1);
+		else
+			return (0);
+	}
+	else
+		return (0);
+}
+
 t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 {
-	if (p && (!t->r || ft_redirect_builtin(t, p, sh)))
+	if (sh->pid == getpid())
+	{
+		p->next = sh->process;
+		sh->process = p;
+	}
+	if (!t->r || ft_redirect_builtin(t, p, sh))
 	{
 		if (p->cmd && !ft_isempty(p->cmd))
 		{
-			if (sh->pid == getpid())
+			if (p->builtins == TRUE || check_exe(p->cmd))
 			{
-				p->next = sh->process;
-				sh->process = p;
+				if (!ft_builtins(sh, p, t) && (sh->pid != getpid()
+					|| (p->pid = fork()) == 0))
+					ft_execve(p, sh);
+				else if (p->pid < 0)
+					error("fork fucked up", p->cmd);
+				ft_groups_stuff(sh, p);
 			}
-			if (!ft_builtins(sh, p, t) && (sh->pid != getpid()
-				|| (p->pid = fork()) == 0))
-				ft_execve(p, sh);
-			else if (p->pid < 0)
-				error("fork fucked up", p->cmd);
-			ft_groups_stuff(sh, p);
+			else if (sh->pid == getpid())
+			{
+				error("permission denied", p->cmd);
+				p->ret = 126;
+			}
 		}
 		else if (sh->pid == getpid())
 		{
 			error("command not found", *p->argv);
-			return (ft_free_tprocess(p));
+			p->ret = 127;
 		}
 	}
 	ft_get_envv_back(sh, p, t);

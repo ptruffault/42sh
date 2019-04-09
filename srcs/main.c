@@ -22,6 +22,7 @@ int			main(int argc, char **argv, char **envv)
 		return (ft_quit(1, &sh));
 	while (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))
 	{
+		sh.err = 0;
 		ft_disp(&sh);
 		if (!(get_input(&sh.txt)))
 			return (ft_quit(1, &sh));

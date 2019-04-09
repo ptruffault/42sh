@@ -14,7 +14,6 @@
 
 static t_process	*ft_process_null(t_process *ret)
 {
-	ret->line = NULL;
 	ret->argv = NULL;
 	ret->grp = NULL;
 	ret->next = NULL;
@@ -79,7 +78,11 @@ static	t_process	*ft_init_cmd(t_process *ret, t_tree *t, t_shell *sh)
 	else if (hash_or_path(ret, sh))
 	{
 		sh->env = ft_new_envv(sh->env, "_", ret->argv[0], true);
-		ret->env = tenvv_to_tab(sh->env);
+		if (!(ret->env = tenvv_to_tab(sh->env)))
+		{
+			ft_get_envv_back(sh, ret, t);
+			return (ft_free_tprocess(ret));
+		}
 	}
 	return (ret);
 }
@@ -93,8 +96,7 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 		ft_setup_localenv(ret, sh, t);
 		ret->background = (t->o_type == O_BACK ? TRUE : FALSE);
 		ret->status = (ret->background == TRUE ? RUNNING_BG : RUNNING_FG);
-		if (!(ret->argv = ft_twordto_arr(t->cmd))
-		|| !(ret->line = ft_strdup(sh->txt)))
+		if (!(ret->argv = ft_twordto_arr(t->cmd)))
 		{
 			ft_get_envv_back(sh, ret, t);
 			return (ft_free_tprocess(ret));

@@ -81,7 +81,6 @@ t_process	*ft_free_tprocess(t_process *p)
 	{
 		tmp = p->next;
 		ft_strdel(&p->cmd);
-		ft_strdel(&p->line);
 		ft_freestrarr(&p->argv);
 		ft_freestrarr(&p->env);
 		ft_free_tenvv(p->saved_env);

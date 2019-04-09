@@ -84,7 +84,7 @@ int			init_intern(t_shell *sh)
 
 	hostname = NULL;
 	ft_intern_var(sh);
-	if ((usr = getpwnam(getlogin())))
+	if (isatty(0) && (usr = getpwnam(getlogin())))
 	{
 		sh->env = ft_new_envv_int(sh->env, "EUID", usr->pw_uid, false);
 		sh->env = ft_new_envv_int(sh->env, "GROUPS", usr->pw_gid, false);
@@ -95,7 +95,7 @@ int			init_intern(t_shell *sh)
 			ft_strdel(&hi_path);
 		}
 	}
-	if ((hostname = ft_strnew(255)))
+	if (isatty(0) && (hostname = ft_strnew(255)))
 		if (!(gethostname(hostname, 254)))
 			sh->env = ft_new_envv(sh->env, "HOSTNAME", hostname, false);
 	ft_strdel(&hostname);

@@ -74,7 +74,7 @@ int		ft_echo(char **input)
 	while (input && input[i])
 	{
 		if (i > opts_n)
-			ft_putstr("    ");
+			ft_putchar(' ');
 		ft_putstr_echo(input[i++]);
 	}
 	if (opts_n == 0)

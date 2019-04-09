@@ -62,7 +62,6 @@ static char	*ft_update_pwd(t_shell *sh)
 		if (sh)
 		{
 			sh->env = ft_new_envv(sh->env, "PWD", pwd, true);
-			retrieve_path(sh);
 			return (get_tenvv_val(sh->env, "PWD"));
 		}
 		return (pwd);
@@ -75,7 +74,7 @@ static void	ft_setup_environ(t_shell *sh, char *shell_fold)
 	struct passwd	*usr;
 	char			*rc_path;
 
-	if (!(usr = getpwnam(getlogin())))
+	if (!isatty(0) || !(usr = getpwnam(getlogin())))
 		return ;
 	sh->env = ft_new_envv(sh->env, "LOGNAME", usr->pw_name, true);
 	sh->env = ft_new_envv(sh->env, "HOME", usr->pw_dir, true);
@@ -99,6 +98,7 @@ int			init_env(t_shell *sh, char **argv, char **envv)
 	{
 		sh->env = ft_new_envv(sh->env, "SHELL", shell_path, true);
 		shell_fold = ft_get_prev_path(shell_path);
+		retrieve_path(sh);
 		init_intern(sh);
 		ft_setup_environ(sh, shell_fold);
 		ft_strdel(&shell_path);

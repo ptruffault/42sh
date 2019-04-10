@@ -17,12 +17,14 @@ static t_redirect	*parse_right_redirect(t_redirect *ret, t_word *w)
 	char	*ptr;
 
 	ret->from = (ft_isdigit(w->word[0]) ? ft_atoi(w->word) : 1);
-	if ((ptr = ft_strchr(w->word, '&')))
+	if ((ptr = ft_strchr(w->word, '&')) && ptr + 1)
 	{
 		if (ft_isdigit(*(ptr + 1)))
 			ret->to = ft_atoi(ptr + 1);
 		else if (*(ptr + 1) == '-')
 			ret->to = -1;
+		else
+			ret->path = ft_strdup(ptr + 1);
 		return (ret);
 	}
 	else if (w->next && w->next->word
@@ -38,7 +40,7 @@ static t_redirect	*parse_left_redirect(t_redirect *ret, t_word *w)
 	ret->from = STDIN_FILENO;
 	if (ret->t == R_DLEFT)
 		return (parse_heredoc(ret, w));
-	else if ((ptr = ft_strchr(w->word, '&')) && ft_isdigit(ptr[1]))
+	else if ((ptr = ft_strchr(w->word, '&')) && ft_isdigit(*(ptr + 1)))
 		ret->to = ft_atoi(ptr + 1);
 	else if ((ptr = ft_strchr(w->word, '&')) && *(ptr + 1) == '-')
 		ret->to = -1;

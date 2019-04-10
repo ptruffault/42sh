@@ -20,17 +20,17 @@ void	ft_lex_redirect(t_eval *e)
 	while (j > 0 && ft_isdigit(e->s[j - 1]))
 		e->eval[--j] = 'r';
 	e->eval[e->curr++] = 'r';
-	if (e->s[e->curr] == '&' && e->s[e->curr + 1]
-		&& (ft_isdigit(e->s[e->curr + 1]) || e->s[e->curr + 1] == '-'))
+	if (e->s[e->curr] == '&' && e->s[e->curr + 1])
 	{
 		e->eval[e->curr++] = 'r';
 		if (e->s[e->curr] == '-')
 			e->eval[e->curr++] = 'r';
-		else
-		{
+		else if (ft_isdigit(e->s[e->curr]))
 			while (ft_isdigit(e->s[e->curr]))
 				e->eval[e->curr++] = 'r';
-		}
+		else
+			while(e->s[e->curr] && !ft_isspace(e->s[e->curr]))
+				e->eval[e->curr++] = 'r';
 	}
 }
 
@@ -74,8 +74,6 @@ void	ft_lexword(t_eval *e)
 	else if (e->s[e->curr] == '&'
 		|| e->s[e->curr] == '|' || e->s[e->curr] == ';')
 		ft_lex_operateur(e);
-	else if (e->s[e->curr] == '$' || e->s[e->curr] == '~')
-		ft_lex_var(e);
 	else if (e->s[e->curr] == '>' || e->s[e->curr] == '<')
 		ft_lex_redirect(e);
 	else if (e->s[e->curr])

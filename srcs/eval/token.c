@@ -22,8 +22,6 @@ static t_word	*find_type(t_word *w, char c, int *pos)
 		w->type = DQUOTE;
 	else if (c == 's' || c == 'B')
 		w->type = QUOTE;
-	else if (c == 'v')
-		w->type = VAR;
 	else if (c == 'e' || c == '.')
 	{
 		if (*pos == 0)
@@ -44,19 +42,12 @@ static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 
 	begin = *i;
 	c = e->eval[*i];
-	if (e->eval[*i] == 'o' || e->eval[*i] == 'r')
-	{
-		if (e->eval[*i] == 'o')
-			*pos = 0;
-		while (e->eval[*i] && e->eval[*i] == c)
-			*i = *i + 1;
-	}
-	else
-	{
-		while (e->eval[*i] && e->eval[*i] != ' '
-				&& e->eval[*i] != 'o' && e->eval[*i] != 'r')
-			*i = *i + 1;
-	}
+	if (e->eval[*i] == 'o')
+		*pos = 0;
+	while (e->eval[*i] && e->eval[*i] == c)
+		*i = *i + 1;
+	if ((c == 'q' || c == 's') && !ft_isspace(e->eval[*i]))
+		w->paste = TRUE;
 	if (!(w->word = ft_strndup(e->s + begin, *i - begin)))
 		return (NULL);
 	return (find_type(w, c, pos));
@@ -100,14 +91,13 @@ t_word			*eval_line(char *input)
 	if (!input || !*input || ft_isempty(input))
 		return (NULL);
 	lexer(&e, input);
-	if (e.s && e.eval && (head = ft_get_words(&e)))
-		head = ft_check_alias(head, sh);
-	ft_strdel(&e.eval);
-	ft_strdel(&e.s);
-	if (head && head->type == OPERATEUR)
+	if (e.s && e.eval && (head = ft_get_words(&e))
+	 && (head = ft_check_alias(head, sh)) && head->type == OPERATEUR)
 	{
 		error("syntax error near", head->word);
 		return (ft_free_tword(head));
 	}
+	ft_strdel(&e.eval);
+	ft_strdel(&e.s);
 	return (head);
 }

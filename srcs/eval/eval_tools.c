@@ -56,14 +56,20 @@ char		**ft_twordto_arr(t_word *w)
 			&& (arr[i] = ft_strnew(0)))
 			i++;
 		else if (w->word && (arr[i] = ft_strdup(w->word)))
+		{
+			while (w->paste == TRUE && w->next && w->next->word)
+			{
+				w = w->next;
+				arr[i] = ft_strappend(&arr[i], w->word);
+			}
 			i++;
-		w = w->next;
+		}
+		if (w)
+			w = w->next;
 	}
 	if (i == 0)
-	{
-		free(arr);
-		return (NULL);
-	}
-	arr[i] = NULL;
+		ft_arrdel(&arr);
+	if (arr)
+		arr[i] = NULL;
 	return (arr);
 }

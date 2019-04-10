@@ -46,7 +46,7 @@ static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 		*pos = 0;
 	while (e->eval[*i] && e->eval[*i] == c)
 		*i = *i + 1;
-	if ((c == 'q' || c == 's') && !ft_isspace(e->eval[*i]))
+	if (!ft_isspace(e->eval[*i]) && (c == 'q' || c != 's' || e->eval[*i] == 'q' || e->eval[*i] == 's'))
 		w->paste = TRUE;
 	if (!(w->word = ft_strndup(e->s + begin, *i - begin)))
 		return (NULL);

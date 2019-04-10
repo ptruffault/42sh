@@ -1,1 +1,1 @@
-zsh: command not found: echo coucou
+bash: line 1: echo coucou: command not found

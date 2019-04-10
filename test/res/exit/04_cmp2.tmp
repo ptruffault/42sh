@@ -1,1 +1,1 @@
-zsh: bad math expression: operator expected at `zaz'
+bash: line 1: exit: 0zaz: numeric argument required

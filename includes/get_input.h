@@ -119,6 +119,11 @@ int				init_tedit(t_shell *sh);
 
 int				tab_handle(t_edit *e);
 
+int				check_for_hist_exp(t_edit *e);
+
+int				seek_n_repl_str(t_edit *e, size_t x, char *word, size_t i);
+int				seek_n_repl_nb(t_edit *e, size_t x, int nb, size_t size);
+
 void			ft_delete_line(t_edit *e);
 void			curr_go_last(t_edit *e);
 void			hist_move_do(t_edit *e);

@@ -29,7 +29,7 @@ else
 fi
 
 VALGRIND=0
-TEST_SHELL='bash'
+TEST_SHELL='bash --posix'
 
 # List of all files in which test are stored
 TEST_FILES=$(find cmd -name '*.cmd')

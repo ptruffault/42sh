@@ -36,6 +36,7 @@ t_hist	*search_by_number_from_last(t_hist *first, int nb)
 		hist = hist->next;
 	if (hist && hist->nb != nb)
 	{
+		ft_putstr("\n");
 		error("fc: history specification is out of range", "Number too little");
 		return (NULL);
 	}
@@ -51,6 +52,7 @@ t_hist	*search_by_occurence(t_hist *first, char *to_search)
 		hist = hist->next;
 	if (hist && ft_str_startwith(hist->s, to_search) == 1)
 		return (hist);
+	ft_putstr("\n");
 	error("fc: history specification is out of range", to_search);
 	return (NULL);
 }

@@ -1,1 +1,2 @@
-zsh: parse error near `|'
+bash: line 1: syntax error near unexpected token `|'
+bash: line 1: `| grep'

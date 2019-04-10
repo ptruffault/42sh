@@ -59,10 +59,10 @@ int			ft_fc(t_shell *shell, char **argv)
 
 	if ((!shell->hist || !shell->hist->next)
 	|| !(fc = malloc(sizeof(t_fc) * 1)))
-		return (-1);
+		return (0);
 	fc->av = argv;
 	if ((i = flags_gestion(fc->flags, fc->av, 0)) == 1)
-		return (-1);
+		return (0);
 	set_struct_fc(fc, shell);
 	if (fc->flags[0] == 'e' && fc->av[i]
 	&& ft_isdigit(fc->av[i][0]) == 0 && fc->av[i][0] != '-')

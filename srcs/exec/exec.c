@@ -60,7 +60,7 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	}
 	else if ((p = init_process(t, sh)))
 		p = ft_exec_process(p, sh, t);
-	t->ret = p->ret;
+	t->ret = (p ? p->ret : 1);
 	if (t->ret == -1 || (p && p->builtins == TRUE))
 	{
 		ft_add_jobs(p, sh);

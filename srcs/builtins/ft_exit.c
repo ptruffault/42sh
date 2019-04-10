@@ -12,10 +12,15 @@
 
 #include "shell42.h"
 
+
+
+
 int		ft_quit(int exit_code, t_shell *sh)
 {
-	if (exit_code == -1 && sh->process)
-		exit_code = sh->process->ret;
+	if (exit_code == -1)
+	{
+		exit_code = ft_atoi(get_tenvv_val(sh->env, "?"));
+	}
 	kill_process(sh->process, SIGHUP, SUSPENDED);
 	kill_process(sh->process, SIGHUP, RUNNING_FG);
 	kill_process(sh->process, SIGHUP, RUNNING_BG);

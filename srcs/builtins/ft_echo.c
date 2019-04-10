@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "shell42.h"
-/*
+
 static void	ft_write_special(char s, char c, int *i)
 {
 	*i += 1;
@@ -61,7 +61,7 @@ static void	ft_putstr_echo(char *s)
 			i++;
 		}
 	}
-}*/
+}
 
 int		ft_echo(char **input)
 {
@@ -74,10 +74,9 @@ int		ft_echo(char **input)
 		opts_n = 1;
 	while (input && input[i])
 	{
-		ft_printf("|%s|\n", input[i++]);
 		if (i > opts_n)
 			ft_putchar(' ');
-		//ft_putstr_echo(input[i++]);
+		ft_putstr_echo(input[i++]);
 	}
 	if (opts_n == 0)
 		ft_putchar('\n');

@@ -47,6 +47,7 @@ int		exec_fd(t_shell *sh, int fd)
 		}
 	}
 	ft_strdel(&sh->txt);
+	ft_strdel(&tmp);
 	return (i);
 }
 

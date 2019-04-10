@@ -46,9 +46,10 @@ static void	ft_putstr_echo(char *s)
 	{
 		if (s[i] == '\\')
 		{
-			if (s[i + 1] == 92)
+			if (s[i + 1] == 92 && s[i + 1] != '\0')
 				i++;
-			ft_write_special(s[i + 1], &i);
+			if (s[i + 1] != '\0')
+				ft_write_special(s[i + 1], &i);
 			i++;
 		}
 		else

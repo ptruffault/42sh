@@ -29,12 +29,13 @@ static void	ft_write_special(char s, char c, int *i)
 		write(1, "\a", 1);
 	else if (c == '\\')
 		write(1, "\\", 1);
-	else if (c == '\'')
-		write(1, "\'", 1);
 	else if (c == '\"')
 		write(1, "\"", 1);
 	else
+	{
+		*i -=1;
 		write(1, &s, 1);
+	}
 }
 
 static void	ft_putstr_echo(char *s)
@@ -46,6 +47,8 @@ static void	ft_putstr_echo(char *s)
 	{
 		if (s[i] == '\\')
 		{
+			if (s[i + 1] == '\\')
+				i++;
 			if (s[i + 1] != '\0')
 				ft_write_special(s[i], s[i + 1], &i);
 			else
@@ -69,7 +72,6 @@ int		ft_echo(char **input)
 	opts_n = 0;
 	if (*input && ft_strequ(input[i], "-n"))
 		opts_n = 1;
-	ft_printf("|%s\n|", *input);
 	while (input && input[i])
 	{
 		if (i > opts_n)

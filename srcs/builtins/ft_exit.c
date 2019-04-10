@@ -38,13 +38,18 @@ int			ft_quit(int exit_code, t_shell *sh)
 	return (exit_code);
 }
 
-void		ft_exit(char *nbr, t_shell *sh)
+void		ft_exit(char **nbr, t_shell *sh)
 {
 	int ret;
 
 	ret = 0;
-	if (nbr && (!ft_check_alpha(nbr)
-		|| (ret = ft_atoi(nbr)) < 0))
-			ret = 255;
+	if (nbr[1])
+	{
+		error("too many arguments", NULL);
+		ret = 1;
+	}
+	else if (nbr && *nbr && (!ft_check_alpha(*nbr)
+		|| (ret = ft_atoi(*nbr)) < 0))
+		ret = 255;
 	exit(ft_quit(ret, sh));
 }

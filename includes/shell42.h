@@ -121,7 +121,7 @@ int				check_builtin(char *input);
 t_envv			*ft_cd(char **input, t_envv *envv);
 t_envv			*change_dir(char *path, t_envv *envv, unsigned int opts);
 int				ft_echo(char **input);
-void			ft_exit(char *nbr, t_shell *sh);
+void			ft_exit(char **nbr, t_shell *sh);
 t_envv			*ft_export(t_shell *sh, char **argv);
 void			ft_alias(t_shell *sh, char **argv);
 int				ft_jobs(t_shell *sh, char **argv);

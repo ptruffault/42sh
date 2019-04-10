@@ -19,7 +19,7 @@ int			main(int argc, char **argv, char **envv)
 
 	(void)argc;
 	if (!init_shell(&sh, envv, argv))
-		return (ft_quit(1, &sh));
+		return (ft_quit(-1, &sh));
 	while (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))
 	{
 		sh.err = 0;

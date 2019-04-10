@@ -60,7 +60,8 @@ static void	ft_putstr_echo(char *s)
 			write(1, &s[i], 1);
 			i++;
 		}
-		i++;
+		else
+			i++;
 	}
 }
 

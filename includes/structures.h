@@ -216,6 +216,7 @@ typedef struct			s_fc
 	t_hist				*hist_first;
 	t_hist				*hist_last;
 	char				flags[6];
+	int					hist_size;
 }						t_fc;
 
 #endif

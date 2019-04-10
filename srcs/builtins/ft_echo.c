@@ -55,11 +55,12 @@ static void	ft_putstr_echo(char *s)
 				write(1, "\\", 1);
 			i++;
 		}
-		else
+		else if (s[i] != '`')
 		{
 			write(1, &s[i], 1);
 			i++;
 		}
+		i++;
 	}
 }
 

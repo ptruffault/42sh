@@ -38,6 +38,61 @@ static void	ft_fc_write_in_file(t_fc *fc, int fd)
 		}
 }
 
+int add_to_hist(char *line, t_shell *sh, int hist_size)
+{
+	t_hist *hist;
+
+	if (sh->hist && hist_size <= sh->hist->nb)
+	{
+		hist = sh->hist;
+		while (hist->next)
+			hist = hist->next;
+		hist->prev->next = NULL;
+		hist->prev = NULL;
+		hist->next = sh->hist;
+		sh->hist->prev = hist;
+		hist->nb = sh->hist->nb + 1;
+		hist->s = line;
+		return (SUCCESS);
+	}
+	if (!(hist = new_hist()))
+	{
+		free(hist);
+		return (FAILURE);
+	}
+	if (sh->hist)
+		sh->hist->prev = hist;
+	hist->next = sh->hist ? sh->hist : NULL;
+	hist->s = line;
+	sh->hist = hist;
+	return (SUCCESS);
+}
+
+int read_from_add_hist(char *file, t_shell *sh, t_fc *fc)
+{
+	int		fd;
+	char	*line;
+	int		x;
+
+	if ((fd = open(file, O_RDONLY)) == -1)
+		return (error("Could not open the file", file));
+	fc->hist_size = ft_get_hist_size();
+	x = 0;
+	while (get_next_line(fd, &line) > 0)
+	{
+		if (x == 0)
+		{
+			ft_strdel(&sh->hist->s);
+			sh->hist->s = line;
+		}
+		else if (x != 0 && add_to_hist(line, sh, fc->hist_size) == FAILURE)
+			return (FAILURE);
+		line = NULL;
+		++x;
+	}
+	return (SUCCESS);
+}
+
 void		ft_fc_option_e(t_fc *fc, int pos)
 {
 	char	*editor;
@@ -47,23 +102,26 @@ void		ft_fc_option_e(t_fc *fc, int pos)
 
 	editor = NULL;
 	if (fc->av[pos] && !ft_isdigit(fc->av[pos][0]) && fc->av[pos][0] != '-')
-		editor = fc->av[pos];
-	else if (!(editor = ft_strdup(get_tenvv_val(fc->shell->env, "FCEDIT"))) || (editor == NULL && !(editor = ft_strdup("ed"))))
+		editor = ft_strdup(fc->av[pos]);
+	else if (!(editor = ft_strdup(get_tenvv_val(fc->shell->env, "FCEDIT")))
+			|| (editor == NULL && !(editor = ft_strdup("ed"))))
 		return ;
 	if (search_in_hist_parser(fc, 3) == FAILURE)
 		return ;
 	if (!(tmp = ft_strjoin(editor, " /tmp/fc____42sh")))
 		return ;
 	ft_strdel(&editor);
-	editor = tmp;
 	if ((fd = open("/tmp/fc____42sh", O_CREAT | O_RDWR, 0644)) == -1)
 		return ;
 	ft_fc_write_in_file(fc, fd);
-	ft_strdel(&fc->shell->hist->s);
 	close(fd);
-	fc->shell->hist->s = editor;
-	if ((t = get_tree(editor)))
+	if ((t = get_tree(tmp)))
 		ft_free_tree(exec_tree(t, fc->shell));
+	ft_strdel(&tmp);
+	if (fc->shell->txt)
+		ft_printf("\n%s\n", fc->shell->txt);
+	ft_strdel(&fc->shell->txt);
 	exec_file("/tmp/fc____42sh", fc->shell);
+	read_from_add_hist("/tmp/fc____42sh", fc->shell, fc);
 	unlink("/tmp/fc____42sh");
 }

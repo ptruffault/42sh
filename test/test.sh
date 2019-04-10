@@ -31,8 +31,13 @@ fi
 VALGRIND=0
 TEST_SHELL='bash --posix'
 
+if [ $2 ]
+then
 # List of all files in which test are stored
+TEST_FILES=$(find cmd/$2 -name '*.cmd')
+else
 TEST_FILES=$(find cmd -name '*.cmd')
+fi
 
 # Temporary files for storing results
 TCSH_OUT="tcsh_out.tmp"

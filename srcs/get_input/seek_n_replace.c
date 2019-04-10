@@ -46,10 +46,7 @@ int		seek_n_repl_nb(t_edit *e, size_t x, int nb, size_t size)
 	while (hist->prev)
 		hist = hist->prev;
 	if (!hist->next)
-	{
-		error("No history", NULL);
-		return (FAILURE);
-	}
+		return (error("No history", NULL) == FAILURE ? FAILURE : FAILURE);
 	hist = hist->next;
 	if (nb < 0)
 		hist = search_by_number_from_first(hist, nb);
@@ -58,10 +55,7 @@ int		seek_n_repl_nb(t_edit *e, size_t x, int nb, size_t size)
 	if (!hist)
 		return (FAILURE);
 	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + x, size, hist->s)))
-	{
-		error("Memory allocation failed", NULL);
-		return (FAILURE);
-	}
+		return (error("Memory allocation failed", NULL));
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
 	curr_go_last(e);

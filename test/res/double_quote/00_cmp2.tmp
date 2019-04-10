@@ -1,1 +1,1 @@
-zsh: command not found:  ls
+bash: line 1:  ls: command not found

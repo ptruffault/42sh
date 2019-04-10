@@ -1,1 +1,1 @@
-zsh: command not found: unknowcmd
+bash: line 1: unknowcmd: command not found

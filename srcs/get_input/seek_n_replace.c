@@ -33,6 +33,7 @@ int		seek_n_repl_str(t_edit *e, size_t x, char *word, size_t i)
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
 	curr_go_last(e);
+	ft_delete_line(e);
 	return (SUCCESS);
 }
 
@@ -64,5 +65,6 @@ int		seek_n_repl_nb(t_edit *e, size_t x, int nb, size_t size)
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
 	curr_go_last(e);
+	ft_delete_line(e);
 	return (SUCCESS);
 }

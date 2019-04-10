@@ -43,7 +43,9 @@ void		ft_exit(char *nbr, t_shell *sh)
 	int ret;
 
 	ret = 0;
-	if (ft_check_alpha(nbr) || (ret = ft_atoi(nbr) < 0))
+	if (ft_check_alpha(nbr))
+		ret = 255;
+	else if ((ret = ft_atoi(nbr) < 0))
 		ret = 255;
 	exit(ft_quit(ret, sh));
 }

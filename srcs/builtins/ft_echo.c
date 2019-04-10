@@ -69,7 +69,6 @@ int		ft_echo(char **input)
 	opts_n = 0;
 	if (*input && ft_strequ(input[i], "-n"))
 		opts_n = 1;
-	ft_printf("|%s\n|", *input);
 	while (input && input[i])
 	{
 		if (i > opts_n)

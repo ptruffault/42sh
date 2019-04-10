@@ -1,4 +1,3 @@
-[04m[00;31mError: [00mcommand not found [1;32m([00mec[1;32m)[00m
-[04m[00;31mError: [00mcommand not found [1;32m([00m	exit[1;32m)[00m
-[04m[00;31mError: [00mcommand not found [1;32m([00m[1;32m)[00m
+[04m[00;31mError: [00mcommand not found [1;32m([00m	[1;32m)[00m
+[04m[00;31mError: [00mcommand not found
 ls: sdfqsdfqsdf: No such file or directory

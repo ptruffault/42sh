@@ -95,7 +95,7 @@ do
 
 	# If anything is diffrent
 	if diff -q $CMPFILE $OUTFILE > /dev/null \
-			&& diff -q $CMPFILE2 $OUTFILE2 > /dev/null \
+			&& test -f $CMPFILE2 && test -f $OUTFILE2 \
 			&& test $TCSH_RTN == $FTSH_RTN \
 			&& test ! -s $FTSH_LOG
 	then

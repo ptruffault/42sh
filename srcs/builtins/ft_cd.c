@@ -19,7 +19,7 @@ t_envv			*change_dir(char *path, t_envv *envv, t_opts opts)
 
 	if (!chdir(path))
 	{
-		cwd = ft_strdup(path);
+		cwd = ft_strdup_path(path);
 		if (opts & 0x04)
 			ft_printf("%s\n", cwd);
 		envv = ft_new_envv(envv, "OLDPWD", get_tenvv_val(envv, "PWD"), true);

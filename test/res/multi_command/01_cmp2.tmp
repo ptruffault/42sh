@@ -1,2 +1,1 @@
-bash: line 1: syntax error near unexpected token `;;'
-bash: line 1: `echo coucou; echo cest moi;;;caca'
+bash: line 1: caca: command not found

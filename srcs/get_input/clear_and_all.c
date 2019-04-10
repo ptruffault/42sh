@@ -32,19 +32,23 @@ int		check_eval(char *str)
 {
 	char	*tmp;
 
-	if ((tmp = ft_strchr(str, 'o')))
+	tmp = str;
+	while ((tmp = ft_strchr(tmp, 'o')))
 	{
 		if (ft_strchr(tmp + 1, 'o') - tmp + 1 == 3)
 			return (0);
 		if (ft_strstr(tmp + 1, "oo") - tmp + 1 == 4)
 			return (0);
+		tmp++;
 	}
-	if ((tmp = ft_strstr(str, "oo")))
+	tmp = str;
+	while ((tmp = ft_strstr(tmp, "oo")))
 	{
 		if (ft_strstr(tmp + 1, "oo") - tmp + 1 == 4)
 			return (0);
 		if (ft_strchr(tmp + 1, 'o') - tmp + 1 == 3)
 			return (0);
+		tmp++;
 	}
 	return (1);
 }

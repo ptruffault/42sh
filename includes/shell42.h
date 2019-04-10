@@ -178,4 +178,5 @@ unsigned int	ft_hash(const char *str);
 int				ft_test(char **argv);
 int				check_integer_tab(char *argv);
 int				return_fnc(char *str, int ret);
+char			*ft_strdup_path(char *src);
 #endif

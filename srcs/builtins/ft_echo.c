@@ -50,6 +50,8 @@ static void	ft_putstr_echo(char *s)
 				i++;
 			if (s[i + 1] != '\0')
 				ft_write_special(s[i + 1], &i);
+			else
+				write(1, "\\", 1);
 			i++;
 		}
 		else

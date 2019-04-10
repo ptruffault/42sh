@@ -12,6 +12,30 @@
 
 #include "shell42.h"
 
+char		*ft_strdup_path(char *src)
+{
+	size_t	l;
+	size_t	i;
+	char	*res;
+
+	i = 0;
+	l = ft_strlen((char*)src);
+	if (src[l - 1] == '/')
+	{
+		src[l - 1] = '\0';
+		l -= 1;
+	}
+	if (!(res = (char *)malloc(sizeof(char) * (l + 1))))
+		return (0);
+	while (src[i] != '\0')
+	{
+		res[i] = src[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}
+
 char		*try_cdpath(char *cdpath, char *path, bool *pwd_f, t_opts *opts)
 {
 	char		**tpath;

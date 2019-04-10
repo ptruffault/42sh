@@ -1,2 +1,2 @@
 bash: line 1: syntax error near unexpected token `;'
-bash: line 1: `; ; echo coucou;ls;ls'
+bash: line 1: `; echo coucou;ls;ls'

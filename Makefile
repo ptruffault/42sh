@@ -89,6 +89,8 @@ SRC		=	\
 	get_input/ft_jump_line.c	\
 	get_input/ft_tab.c			\
 	get_input/prompt.c			\
+	get_input/hist_expanse.c	\
+	get_input/seek_n_replace.c	\
 	\
 	autocompletion/check_line.c			\
 	autocompletion/utility_handler.c	\

@@ -47,7 +47,7 @@ static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 	c = e->eval[begin];
 	if (e->eval[*i] == 'o')
 		*pos = 0;
-	while (e->eval[*i] && e->eval[*i] == c)
+	while (e->eval[*i] && (e->eval[*i] == c || e->eval[*i] == 'B'))
 		*i = *i + 1;
 	if (e->eval[*i] == '*' && !ft_isspace(e->eval[*i + 1]))
 		w->paste = TRUE;

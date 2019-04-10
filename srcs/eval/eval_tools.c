@@ -64,8 +64,7 @@ char		**ft_twordto_arr(t_word *w)
 			}
 			i++;
 		}
-		if (w)
-			w = w->next;
+		w = (w ? w->next : w);
 	}
 	if (i == 0)
 		ft_arrdel(&arr);

@@ -71,7 +71,7 @@ char		*ft_exp_var(char *ret, t_shell *sh)
 	i = -1;
 	while (ret && *ret && ret[++i])
 	{
-		if (ret[i] == '$' && (i == 0 || ret[i - 1] != '\\'))
+		if (ret[i] == '$' && ret[i + 1] && (i == 0 || ret[i - 1] != '\\'))
 		{
 			if (ret[i + 1] == '{')
 			{

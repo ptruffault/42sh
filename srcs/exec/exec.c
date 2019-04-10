@@ -69,7 +69,7 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 		if (sh->interactive == TRUE && p)
 			ft_tcsetpgrp(STDIN_FILENO, sh->pgid);
 	}
-	else
+	else if (p)
 		p->status = INIT;
 	sh->env = ft_new_envv_int(sh->env, "?", t->ret, false);
 	ft_reset_fd(sh);

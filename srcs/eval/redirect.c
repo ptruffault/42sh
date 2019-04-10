@@ -38,7 +38,7 @@ static t_redirect	*parse_left_redirect(t_redirect *ret, t_word *w)
 	ret->from = STDIN_FILENO;
 	if (ret->t == R_DLEFT)
 		return (parse_heredoc(ret, w));
-	else if ((ptr = ft_strchr(w->word, '&')) && ft_isdigit(*(ptr + 1)))
+	else if ((ptr = ft_strchr(w->word, '&')) && ft_isdigit(ptr[1]))
 		ret->to = ft_atoi(ptr + 1);
 	else if ((ptr = ft_strchr(w->word, '&')) && *(ptr + 1) == '-')
 		ret->to = -1;

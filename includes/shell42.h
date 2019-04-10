@@ -50,6 +50,7 @@ t_hist			*search_by_occurence(t_hist *first, char *to_search);
 void			ft_fc_option_l(t_fc *fc);
 void			ft_fc_option_e(t_fc *fc, int pos);
 void			ft_fc_option_s(t_fc *fc, int pos);
+int				ft_get_hist_size(void);
 
 void			ft_deload_hist_in_file(t_shell *sh);
 

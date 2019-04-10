@@ -21,10 +21,15 @@ char		*absolute_path(char *input, t_envv *envv)
 	path = NULL;
 	if (lstat(input, &inf) == -1)
 	{
-		if ((pwd = get_tenvv_val(envv, "PWD"))
-			&& (path = ft_new_path(pwd, input))
-			&& (lstat(path, &inf) == -1))
-			return (NULL);
+		if ((pwd = get_tenvv_val(envv, "PWD")))
+		{
+			path = ft_new_path(pwd, input);
+			if (!path || (lstat(path, &inf) == -1))
+				ft_strdel(&path);
+			else
+				return (path);
+		}
+		return (NULL);
 	}
 	return (ft_strdup(input));
 }

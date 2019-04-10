@@ -57,6 +57,7 @@ int			ft_fc(t_shell *shell, char **argv)
 	t_fc	*fc;
 	int		i;
 
+	ft_printf("\n%s\n", shell->txt);
 	if ((!shell->hist || !shell->hist->next)
 	|| !(fc = malloc(sizeof(t_fc) * 1)))
 		return (0);

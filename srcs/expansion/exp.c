@@ -47,14 +47,14 @@ static char	*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 	return (ret);
 }
 
-static char	*ft_exp_home_var(char *ret, char *ptr, t_envv *envv)
+char	*ft_exp_home_var(char *ret, t_envv *envv)
 {
 	char	*tmp;
 	char	*val;
 
 	tmp = NULL;
 	if ((val = get_tenvv_val(envv, "HOME"))
-	&& (tmp = ft_strpull(ret, ptr, 0, val)))
+	&& (tmp = ft_strpull(ret, ret, 0, val)))
 	{
 		ft_strdel(&ret);
 		return (tmp);
@@ -65,19 +65,23 @@ static char	*ft_exp_home_var(char *ret, char *ptr, t_envv *envv)
 
 char		*ft_exp_var(char *ret, t_shell *sh)
 {
+	// ((ret && ret[i] == '~' && !(ret = ft_exp_home_var(ret, &ret[i], sh->env)))
 	int i;
 
 	i = -1;
 	while (ret && *ret && ret[++i])
 	{
-		if ((i == 0 || ret[i - 1] != '\\')
-		&& ((ret && ret[i] == '~'
-		&& !(ret = ft_exp_home_var(ret, &ret[i], sh->env)))
-		|| (ret && ret[i] == '$' && ret[i + 1] == '{'
-		&& !(ret = ft_exp_param(ret, sh, &i)))
-		|| (ret && ret[i] == '$' && ret[i + 1] && ret[i + 1] != '{'
-		&& !(ret = ft_exp_envv_var(ret, &ret[i], sh)))))
-			return (NULL);
+		if (ret[i] == '$' && (i == 0 || ret[i - 1] != '\\'))
+		{
+			if (ret[i + 1] == '{')
+			{
+				if (!(ret = ft_exp_param(ret, &ret[i], sh)))
+					return (NULL);
+				i = 0;
+			} 
+			else if (ret[i + 1] != '{' && !(ret = ft_exp_envv_var(ret, &ret[i], sh)))
+				return (NULL);
+		}
 	}
 	return (ret);
 }
@@ -92,6 +96,8 @@ t_word		*ft_expention(t_word *w)
 		return (head);
 	while (w)
 	{
+		if (1 <= w->type && w->type <= 3 && *w->word ==  '~')
+			w->word = ft_exp_home_var(w->word, sh->env);
 		if (IS_EXP(w->type) && w->word)
 			w->word = ft_exp_var(w->word, sh);
 		w = w->next;

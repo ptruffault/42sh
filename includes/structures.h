@@ -44,8 +44,8 @@ enum	e_wtype{
 	undef = 0,
 	CMD = 1,
 	ARG = 2,
-	DQUOTE = 3,
-	VAR = 4,
+	VAR = 3,
+	DQUOTE = 4,
 	QUOTE = 5,
 	REDIRECT = 6,
 	OPERATEUR = 7

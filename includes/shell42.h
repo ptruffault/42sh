@@ -84,7 +84,7 @@ t_word			*ft_expention(t_word *w);
 char			*ft_get_cutted_value(char *p, t_shell *sh, char *val, int *i);
 char			*ft_exp_var(char *ret, t_shell *sh);
 int				get_content_size(char *s);
-char			*ft_exp_param(char *ret, t_shell *sh, int *i);
+char			*ft_exp_param(char *ret, char *ptr, t_shell *sh);
 char			*ft_get_secondvalue(char *src);
 t_tree			*get_tree(char *input);
 t_tree			*ft_free_tree(t_tree *t);

@@ -77,6 +77,11 @@ void	entry_key(t_edit *e)
 		e->tmp = NULL;
 		e->edited = TRUE;
 	}
+	if (check_for_hist_exp(e) == SUCCESS)
+	{
+		e->tmp = NULL;
+		e->edited = FALSE;
+	}
 	ft_strdel(&eval.eval);
 	ft_strdel(&eval.s);
 }

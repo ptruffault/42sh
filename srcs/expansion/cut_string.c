@@ -55,14 +55,22 @@ static char	*ft_cut_end(char *val, char *pat)
 static char	*ft_cut_string(char *parenth, char *val, int *curr)
 {
 	char	*pattern;
+	char	*tmp;
 	char	*op;
+	t_shell	*sh;
 
+	sh = ft_get_set_shell(NULL);
 	if ((op = ft_get_op(parenth, curr)))
 	{
 		if (parenth[*curr] && parenth[*curr] != '}'
 		&& (pattern = ft_get_secondvalue(&parenth[*curr])))
 		{
 			*curr = *curr + ft_strlen(pattern) - 1;
+			if (*pattern == '$' && (tmp = get_tenvv_val(sh->env, pattern + 1)))
+			{
+				ft_strdel(&pattern);
+				pattern = ft_strdup(tmp);
+			}
 			if (ft_strequ(op, "##"))
 				while (val && ft_str_startwith(val, pattern))
 					val = ft_cut_begin(val, pattern);

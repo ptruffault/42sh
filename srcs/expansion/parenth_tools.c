@@ -17,9 +17,11 @@ char	*ft_get_secondvalue(char *src)
 	char	*cpy;
 	char	*ret;
 	int		i;
+	t_shell	*sh;
 
 	i = 0;
 	ret = NULL;
+	sh = ft_get_set_shell(NULL);
 	if (src && (cpy = ft_strdup(src)))
 	{
 		while (cpy && cpy[i] && cpy[i] != '#' && cpy[i] != '%' &&

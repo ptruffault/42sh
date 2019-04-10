@@ -1,1 +1,2 @@
-bash: line 2: syntax error: unexpected end of file
+bash: line 2: syntax error near unexpected token `|'
+bash: line 2: `|'

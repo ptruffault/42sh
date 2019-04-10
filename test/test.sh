@@ -28,7 +28,7 @@ else
 	NAME='../42sh'
 fi
 
-VALGRIND=false
+VALGRIND=0
 TEST_SHELL='bash'
 
 # List of all files in which test are stored
@@ -78,7 +78,7 @@ do
 	CMPFILE="res/"$(echo ${FILE}| sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')"_cmp1.tmp"
 	CMPFILE2="res"/$(echo ${FILE}| sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')"_cmp2.tmp"
 	# Test what result the reference shell gives
-	$TEST_SHELL <$FILE 1>$CMPFILE 2>&$CMPFILE2
+	$TEST_SHELL <$FILE 1>$CMPFILE 2>$CMPFILE2
 	TCSH_RTN=$?
 
 	OUTFILE="res/"$(echo ${FILE}| sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')"_res1.tmp"

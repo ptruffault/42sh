@@ -1,1 +1,1 @@
-[04m[00;31mError: [00mno such file or directory:  [1;32m([00m/Users/stdenis/Documents/42/42sh/42sh/test/coucou[1;32m)[00m
+bash: line 1: cd: coucou: No such file or directory

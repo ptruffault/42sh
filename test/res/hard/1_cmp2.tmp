@@ -1,3 +1,3 @@
-bash: line 1: 	exit: command not found
-bash: line 1: : command not found
+zsh: command not found: \texit
+zsh: permission denied: 
 ls: sdfqsdfqsdf: No such file or directory

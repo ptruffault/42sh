@@ -1,2 +1,1 @@
-bash: line 2: syntax error near unexpected token `|'
-bash: line 2: `|'
+zsh: parse error near `|'

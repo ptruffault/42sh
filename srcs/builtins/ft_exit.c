@@ -17,7 +17,7 @@ static int	ft_check_alpha(char *input)
 	int i;
 
 	i = 0;
-	while (input[i])
+	while (input && input[i])
 		if (!ft_isalpha(input[i++]))
 			return (0);
 	return (1);
@@ -43,9 +43,7 @@ void		ft_exit(char *nbr, t_shell *sh)
 	int ret;
 
 	ret = 0;
-	if (ft_check_alpha(nbr))
-		ret = 255;
-	else if ((ret = ft_atoi(nbr) < 0))
+	if (ft_check_alpha(nbr) || (ret = ft_atoi(nbr) < 0))
 		ret = 255;
 	exit(ft_quit(ret, sh));
 }

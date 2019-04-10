@@ -44,7 +44,7 @@ static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 	exept = (e->eval[*i] == '*' ? 1 : 0);
 	*i = *i + exept;
 	begin = *i;
-	c = e->eval[begin];
+	c = (e->eval[begin] == 'B' ? 'e' : e->eval[begin]);
 	if (e->eval[*i] == 'o')
 		*pos = 0;
 	while (e->eval[*i] && (e->eval[*i] == c || e->eval[*i] == 'B'))
@@ -78,7 +78,7 @@ t_word			*ft_get_words(t_eval *e)
 			i++;
 		if (!(tmp_w = g_n_w(tmp_w, e, &i, &pos)))
 			return (ft_free_tword(head));
-		if (e->eval[i] != '\0' && !(tmp_w->next = new_tword()))
+		if (e->eval && !(tmp_w->next = new_tword()))
 			return (ft_free_tword(head));
 		tmp_w = tmp_w->next;
 	}
@@ -99,6 +99,8 @@ t_word			*eval_line(char *input)
 	if (e.s && e.eval && (head = ft_get_words(&e))
 	 && (head = ft_check_alias(head, sh)) && head->type == OPERATEUR)
 	{
+		ft_strdel(&e.eval);
+		ft_strdel(&e.s);
 		error("syntax error near", head->word);
 		return (ft_free_tword(head));
 	}

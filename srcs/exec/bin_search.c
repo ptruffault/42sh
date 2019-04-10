@@ -22,9 +22,12 @@ char		*absolute_path(char *input, t_envv *envv)
 	if (lstat(input, &inf) == -1)
 	{
 		if ((pwd = get_tenvv_val(envv, "PWD"))
-			&& (path = ft_new_path(pwd, input))
-			&& (lstat(path, &inf) == -1))
+			&& !(path = ft_new_path(pwd, input)))
 			return (NULL);
+		if (lstat(path, &inf) != -1)
+			return (path);
+		ft_strdel(&path);
+		return (NULL);
 	}
 	return (ft_strdup(input));
 }

@@ -24,7 +24,7 @@ static t_word	*find_type(t_word *w, char c, int *pos)
 		w->type = QUOTE;
 	else if (c == 'v')
 		w->type = VAR;
-	else if (c == 'e')
+	else if (c == 'e' || c == '.')
 	{
 		if (*pos == 0)
 			w->type = CMD;
@@ -100,6 +100,7 @@ t_word			*eval_line(char *input)
 	if (!input || !*input || ft_isempty(input))
 		return (NULL);
 	lexer(&e, input);
+			ft_printf("%s\n", e.eval);
 	if (e.s && e.eval && (head = ft_get_words(&e)))
 		head = ft_check_alias(head, sh);
 	ft_strdel(&e.eval);

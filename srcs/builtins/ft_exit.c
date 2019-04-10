@@ -43,7 +43,7 @@ void		ft_exit(char **nbr, t_shell *sh)
 	int ret;
 
 	ret = 0;
-	if (nbr[1])
+	if (nbr && nbr[1])
 	{
 		error("too many arguments", NULL);
 		ret = 1;

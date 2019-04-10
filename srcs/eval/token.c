@@ -55,7 +55,7 @@ static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 		return (NULL);
 	if (exept)
 		*i = *i + 1;
-	return (find_type(w, c, pos));
+	return (find_type(w, e->eval[begin], pos));
 }
 
 t_word			*ft_get_words(t_eval *e)

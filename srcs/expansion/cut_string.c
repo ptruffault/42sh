@@ -75,7 +75,7 @@ static char	*ft_cut_string(char *parenth, char *val, int *curr)
 				while (val && ft_str_startwith(val, pattern))
 					val = ft_cut_begin(val, pattern);
 			else if (ft_strequ(op, "%%"))
-				while (val && ft_str_endwith(val, pattern))
+				while (val && *val && ft_str_endwith(val, pattern))
 					val = ft_cut_end(val, pattern);
 			else if (*op == '#')
 				val = ft_cut_begin(val, pattern);

@@ -20,6 +20,8 @@ t_envv	*ft_export(t_shell *sh, char **argv)
 	int		i;
 
 	i = -1;
+	if (!*argv)
+		ft_puttenvv(sh->env, true);
 	while (argv[++i])
 	{
 		if (ft_isequal(argv[i]))

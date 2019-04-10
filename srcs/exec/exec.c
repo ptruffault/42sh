@@ -40,7 +40,7 @@ static t_tree	*next_instruction(t_tree *t)
 void			ft_link_process_to_term(t_process *p, t_shell *sh)
 {
 	if (sh->interactive == TRUE && p && p->background == FALSE && p->pid != 0)
-		ft_tcsetpgrp(STDIN_FILENO, p->pgid);
+		ft_tcsetpgrp(sh->std[0], p->pgid);
 	else if (sh->interactive == TRUE && p && p->background == TRUE)
 		sh->env = ft_new_envv_int(sh->env, "!", p->pid, false);
 }
@@ -67,7 +67,7 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 		ft_link_process_to_term(p, sh);
 		t->ret = ft_wait(p, sh);
 		if (sh->interactive == TRUE && p)
-			ft_tcsetpgrp(STDIN_FILENO, sh->pgid);
+			ft_tcsetpgrp(sh->std[0], sh->pgid);
 	}
 	else if (p)
 		p->status = INIT;

@@ -52,7 +52,7 @@ char		**ft_twordto_arr(t_word *w)
 		return (NULL);
 	while (w)
 	{
-		if (w->word && *w->word == 6 && w->word[1] == 0
+		if (w->word && ft_strchr(w->word, 6)
 			&& (arr[i] = ft_strnew(0)))
 			i++;
 		else if (w->word && (arr[i] = ft_strdup(w->word)))

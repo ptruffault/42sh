@@ -76,7 +76,7 @@ char		*ft_exp_var(char *ret, t_shell *sh)
 			{
 				if (!(ret = ft_exp_param(ret, &ret[i], sh)))
 					return (NULL);
-				i = 0;
+				i = -1;
 			} 
 			else if (ret[i + 1] != '{' && !(ret = ft_exp_envv_var(ret, &ret[i], sh)))
 				return (NULL);

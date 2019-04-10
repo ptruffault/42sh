@@ -14,7 +14,13 @@
 
 t_word			*ft_deltword(t_word *prev, t_word *src)
 {
-	if (src && prev)
+	if (!prev)
+	{
+		prev = src->next;
+		src->next = NULL;
+		src = ft_free_tword(src);
+	}
+	else if (src && prev)
 	{
 		prev->next = src->next;
 		src->next = NULL;
@@ -30,6 +36,7 @@ t_word			*new_tword(void)
 	if (!(n = (t_word *)malloc(sizeof(t_word))))
 		return (NULL);
 	n->word = NULL;
+	n->paste = FALSE;
 	n->type = undef;
 	n->next = NULL;
 	return (n);
@@ -42,6 +49,7 @@ static t_word	*ft_cpytword(t_word *src)
 	if (!(ret = new_tword()))
 		return (NULL);
 	ret->type = src->type;
+	ret->paste = src->paste;
 	if (!(ret->word = ft_strdup(src->word)))
 	{
 		free(ret);

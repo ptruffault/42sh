@@ -41,7 +41,6 @@ pid_t		ft_tcgetpgrp(int fd)
 	if (ioctl(fd, TIOCGPGRP, &pgrp) < 0)
 	{
 		error("can't get pgid", "tcgetpgrp");
-		perror(NULL);
 		return (-1);
 	}
 	return (pgrp);
@@ -54,10 +53,7 @@ int			ft_tcsetpgrp(int fd, pid_t pgrp)
 
 	pgrp_int = pgrp;
 	if ((ret = ioctl(fd, TIOCSPGRP, &pgrp_int)) < 0)
-	{
 		error("can't put process in forground", "tcgetpgrp");
-		perror(NULL);
-	}
 	return (ret);
 }
 

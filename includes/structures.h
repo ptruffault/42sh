@@ -16,8 +16,8 @@
 # include "tenvv.h"
 
 # define IS_STD(x) (0 <= x && x <= 2)
-# define IS_CMD(x) (1 <= x && x <= 5)
-# define IS_EXP(x) (1 <= x && x <= 4)
+# define IS_CMD(x) (1 <= x && x <= 4)
+# define IS_EXP(x) (1 <= x && x <= 3)
 # define IS_RUNNING(x) (x == RUNNING_FG || x == RUNNING_BG)
 # define NUMBER_OF_KEYS 23
 # define NUMBER_OF_PRINT_MODES 2
@@ -44,11 +44,10 @@ enum	e_wtype{
 	undef = 0,
 	CMD = 1,
 	ARG = 2,
-	VAR = 3,
-	DQUOTE = 4,
-	QUOTE = 5,
-	REDIRECT = 6,
-	OPERATEUR = 7
+	DQUOTE = 3,
+	QUOTE = 4,
+	REDIRECT = 5,
+	OPERATEUR = 6
 };
 
 enum	e_pstatus{
@@ -131,6 +130,7 @@ typedef struct			s_word
 {
 	enum e_wtype		type;
 	char				*word;
+	t_bool				paste;
 	struct s_word		*next;
 }						t_word;
 

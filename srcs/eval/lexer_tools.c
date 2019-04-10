@@ -67,7 +67,7 @@ void	ft_lex_var(t_eval *e)
 
 void	ft_lex_dquote(t_eval *e)
 {
-	ft_delete_char(e);
+	e->eval[e->curr++] = '*';
 	if (e->s[e->curr] == '"')
 	{
 		e->s[e->curr] = 6;
@@ -87,13 +87,13 @@ void	ft_lex_dquote(t_eval *e)
 			e->c = '"';
 		}
 		else
-			ft_delete_char(e);
+			e->eval[e->curr++] = '*';
 	}
 }
 
 void	ft_lex_quote(t_eval *e)
 {
-	ft_delete_char(e);
+	e->eval[e->curr++] = '*';
 	if (e->s[e->curr] == '\'')
 	{
 		e->s[e->curr] = 6;
@@ -109,6 +109,6 @@ void	ft_lex_quote(t_eval *e)
 			e->c = '\'';
 		}
 		else
-			ft_delete_char(e);
+			e->eval[e->curr++] = '*';
 	}
 }

@@ -72,10 +72,10 @@ int check_exe(char *bin_path)
 		if (inf.st_mode & S_IXUSR)
 			return (1);
 		else
-			return (0);
+			return (error("permission denied", bin_path));
 	}
 	else
-		return (0);
+		return (error("not an executable", bin_path));
 }
 
 t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
@@ -100,10 +100,7 @@ t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 					ft_groups_stuff(sh, p);
 			}
 			else
-			{
-				error("permission denied", p->cmd);
 				p->ret = 126;
-			}
 		}
 		else
 		{

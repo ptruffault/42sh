@@ -39,17 +39,22 @@ static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 {
 	char	c;
 	int		begin;
+	int 	exept;
 
+	exept = (e->eval[*i] == '*' ? 1 : 0);
+	*i = *i + exept;
 	begin = *i;
-	c = e->eval[*i];
+	c = e->eval[begin];
 	if (e->eval[*i] == 'o')
 		*pos = 0;
 	while (e->eval[*i] && e->eval[*i] == c)
 		*i = *i + 1;
-	if (!ft_isspace(e->eval[*i]) && (c == 'q' || c != 's' || e->eval[*i] == 'q' || e->eval[*i] == 's'))
+	if (e->eval[*i] == '*' && !ft_isspace(e->eval[*i + 1]))
 		w->paste = TRUE;
 	if (!(w->word = ft_strndup(e->s + begin, *i - begin)))
 		return (NULL);
+	if (exept)
+		*i = *i + 1;
 	return (find_type(w, c, pos));
 }
 

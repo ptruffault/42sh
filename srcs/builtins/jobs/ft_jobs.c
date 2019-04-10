@@ -32,9 +32,12 @@ void		ft_job_prompt(t_jobs *j, int opts)
 			ft_printf("   ");
 		if (opts == 2)
 			ft_printf(" %i ", j->p->pid);
-		ft_printf("%s \x1B[1;39m", stat[j->p->status]);
+		if (j->p->status != DONE)
+			ft_signal_check(j->p);
+		else
+			ft_printf(" %s \x1B[1;39m", stat[j->p->status]);
 		while (j->p->argv[i])
-			ft_printf("%s ", j->p->argv[i++]);
+			ft_printf(" %s ", j->p->argv[i++]);
 	}
 	ft_putstr("\x1B[00m\n");
 }

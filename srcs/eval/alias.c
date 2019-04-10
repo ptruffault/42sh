@@ -41,7 +41,6 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val)
 	t_eval	e_alias;
 
 	w_alias = NULL;
-	ft_printf("ALIAS ~> %s\n",val);
 	lexer(&e_alias, val);
 	if (e_alias.s && e_alias.eval)
 		w_alias = ft_get_words(&e_alias);

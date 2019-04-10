@@ -60,7 +60,7 @@ void			ft_process_tab_status(char *stat[6])
 	stat[2] = "\x1b[1;34;44mrunning bg \x1B[00m";
 	stat[3] = "\x1b[1;32;42m   done    \x1B[00m";
 	stat[4] = "\x1b[1;36;46m suspended \x1B[00m";
-	stat[5] = "\x1b[1;34;41m  killed   \x1B[00m";
+	stat[5] = "\x1b[1;34;41m   done    \x1B[00m";
 }
 
 void			ft_put_process(t_process *p)

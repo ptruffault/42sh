@@ -12,21 +12,22 @@
 
 #include "shell42.h"
 
-void		ft_handle_jobs(t_process *p, unsigned int s, t_shell *sh)
+static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 {
-	if (p->status == SUSPENDED)
+	if (j->p->status == SUSPENDED)
 	{
-		p->sig = SIGCONT;
-		kill(-p->pid, SIGCONT);
+		j->p->sig = SIGCONT;
+		kill(-j->p->pid, SIGCONT);
 	}
-	if (p->status == s)
-		error("jobs already in background", p->cmd);
+	if (j->p->status == s)
+		error("jobs already in background", j->p->cmd);
 	else
 	{
-		ft_update_status(p, s);
+		ft_update_status(j->p, s);
+		ft_job_prompt(j, 0);
 		if (s == RUNNING_FG)
-			ft_link_process_to_term(p, sh);
-		ft_wait(p, sh);
+			ft_link_process_to_term(j->p, sh);
+		ft_wait(j->p, sh);
 	}
 }
 
@@ -39,10 +40,10 @@ int			ft_bg(t_shell *sh, char **argv)
 	if (!sh->jobs)
 		return (error("no jobs", NULL));
 	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL)))
-		ft_handle_jobs(j->p, RUNNING_BG, sh);
+		ft_handle_jobs(j, RUNNING_BG, sh);
 	while (argv[++i])
 		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i])))
-			ft_handle_jobs(j->p, RUNNING_BG, sh);
+			ft_handle_jobs(j, RUNNING_BG, sh);
 	while (i <= 999999)
 		i++;
 	return (0);
@@ -57,9 +58,9 @@ int			ft_fg(t_shell *sh, char **argv)
 	if (!sh->jobs)
 		return (error("no jobs", NULL));
 	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL)))
-		ft_handle_jobs(j->p, RUNNING_FG, sh);
+		ft_handle_jobs(j, RUNNING_FG, sh);
 	while (argv[++i])
 		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i])))
-			ft_handle_jobs(j->p, RUNNING_FG, sh);
+			ft_handle_jobs(j, RUNNING_FG, sh);
 	return (0);
 }

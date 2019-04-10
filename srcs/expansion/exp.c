@@ -65,7 +65,6 @@ char	*ft_exp_home_var(char *ret, t_envv *envv)
 
 char		*ft_exp_var(char *ret, t_shell *sh)
 {
-	// ((ret && ret[i] == '~' && !(ret = ft_exp_home_var(ret, &ret[i], sh->env)))
 	int i;
 
 	i = -1;
@@ -96,7 +95,7 @@ t_word		*ft_expention(t_word *w)
 		return (head);
 	while (w)
 	{
-		if (1 <= w->type && w->type <= 3 && *w->word ==  '~')
+		if (1 <= w->type && w->type <= 2 && *w->word ==  '~')
 			w->word = ft_exp_home_var(w->word, sh->env);
 		if (IS_EXP(w->type) && w->word)
 			w->word = ft_exp_var(w->word, sh);

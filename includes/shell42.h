@@ -28,6 +28,7 @@
 # include "ft_printf.h"
 
 void			ft_job_prompt(t_jobs *j, int opts);
+int				ft_job_is_over(t_jobs *j);
 t_jobs			*ft_get_jobs_pid(t_jobs *j, int pid);
 void			ft_link_process_to_term(t_process *p, t_shell *sh);
 t_jobs			*ft_search_jobs(t_jobs *j, char *s);
@@ -37,7 +38,7 @@ pid_t			ft_tcgetpgrp(int fd);
 void			set_son_signal(void);
 int				ft_init_groups(t_shell *sh);
 int				ft_signal_check(t_process *p);
-void			ft_add_jobs(t_process *p, t_shell *sh);
+t_jobs			*ft_add_jobs(t_process *p, t_shell *sh);
 void			ft_remove_jobs(int pid, t_shell *sh);
 t_jobs			*ft_free_tjobs(t_jobs *j);
 
@@ -61,7 +62,7 @@ void			ft_kill(t_process *p, int sig);
 void			ft_killgrp(t_process *p, int sig);
 void			ft_sigcont(t_process *tmp);
 void			ft_wait_background(t_shell *sh);
-int				ft_wait(t_process *p, t_shell *sh);
+int				ft_wait(t_jobs *j, t_shell *sh);
 int				ft_bg(t_shell *sh, char **argv);
 int				ft_fg(t_shell *sh, char **argv);
 int				ft_hi(t_shell *sh);

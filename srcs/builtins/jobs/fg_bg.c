@@ -27,7 +27,7 @@ static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 		ft_job_prompt(j, 0);
 		if (s == RUNNING_FG)
 			ft_link_process_to_term(j->p, sh);
-		ft_wait(j->p, sh);
+		ft_wait(j, sh);
 	}
 }
 

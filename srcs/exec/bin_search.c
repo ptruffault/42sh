@@ -45,7 +45,10 @@ char		*search_in_envv(char *input, t_envv *envv)
 	while (path[i])
 	{
 		if (!(bin_path = ft_new_path(path[i], input)))
-			return (ft_delstrarr(&path));
+		{
+			ft_freestrarr(&path);
+			return (NULL);
+		}
 		if (lstat(bin_path, &inf) == -1)
 			ft_strdel(&bin_path);
 		else
@@ -55,7 +58,8 @@ char		*search_in_envv(char *input, t_envv *envv)
 		}
 		i++;
 	}
-	return (ft_delstrarr(&path));
+	ft_freestrarr(&path);
+	return (NULL);
 }
 
 char		*get_bin_path(char *input, t_envv *envv)

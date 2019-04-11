@@ -32,6 +32,22 @@ int				ft_get_new_id(t_jobs *j)
 	return (ret);
 }
 
+int				ft_job_is_over(t_jobs *j)
+{
+	t_process *tmp;
+
+	tmp = j->p;
+	while (tmp && tmp->cmd)
+	{
+		if (tmp && (tmp->status == RUNNING_FG
+		|| tmp->status == RUNNING_BG
+		|| tmp->status == SUSPENDED))
+			return (0);
+		tmp = tmp->grp;
+	}
+	return (1);
+}
+
 void			ft_remove_jobs(int pid, t_shell *sh)
 {
 	t_jobs *tmp;
@@ -61,7 +77,7 @@ void			ft_remove_jobs(int pid, t_shell *sh)
 	}
 }
 
-void			ft_add_jobs(t_process *p, t_shell *sh)
+t_jobs			*ft_add_jobs(t_process *p, t_shell *sh)
 {
 	t_jobs	*n;
 	t_jobs	*tmp;
@@ -84,4 +100,5 @@ void			ft_add_jobs(t_process *p, t_shell *sh)
 		else
 			sh->jobs = n;
 	}
+	return (n);
 }

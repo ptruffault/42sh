@@ -12,6 +12,20 @@
 
 #include "shell42.h"
 
+void		ft_put_cmd(t_process *p)
+{
+	int i;
+
+	while (p)
+	{
+		i = 0;
+		while (p->argv[i])
+			ft_printf(" %s ", p->argv[i++]);
+		if ((p = p->grp))
+			ft_printf(" | ");
+	}
+}
+
 void		ft_job_prompt(t_jobs *j, int opts)
 {
 	char	*stat[6];
@@ -36,8 +50,7 @@ void		ft_job_prompt(t_jobs *j, int opts)
 			ft_signal_check(j->p);
 		else
 			ft_printf(" %s \x1B[1;39m", stat[j->p->status]);
-		while (j->p->argv[i])
-			ft_printf(" %s ", j->p->argv[i++]);
+		ft_put_cmd(j->p);
 	}
 	ft_putstr("\x1B[00m\n");
 }

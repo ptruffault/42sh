@@ -46,7 +46,8 @@ void		ft_job_prompt(t_jobs *j, int opts)
 			ft_printf("   ");
 		if (opts == 2)
 			ft_printf(" %i ", j->p->pid);
-		if (j->p->status != DONE)
+		if (j->p->status != DONE && j->p->status != RUNNING_FG
+			&& j->p->status != RUNNING_BG)
 			ft_signal_check(j->p);
 		else
 			ft_printf(" %s \x1B[1;39m", stat[j->p->status]);

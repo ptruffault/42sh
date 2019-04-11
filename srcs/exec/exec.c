@@ -63,7 +63,8 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	else if ((p = init_process(t, sh)))
 		p = ft_exec_process(p, sh, t);
 	t->ret = (p ? p->ret : 1);
-	if (t->ret == -1 || (p && p->builtins == TRUE))
+	ft_printf("~> %s %i\n", p->cmd, p->ret);
+	if (t->ret == -1 || (p && p->builtins == TRUE && p->ret == 0))
 	{
 		j = ft_add_jobs(p, sh);
 		ft_link_process_to_term(p, sh);

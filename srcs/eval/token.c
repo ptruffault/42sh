@@ -49,7 +49,8 @@ static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 		*pos = 0;
 	while (e->eval[*i] && (e->eval[*i] == c))
 		*i = *i + 1;
-	if ((e->eval[*i] == '*' || c == 'B') && !ft_isspace(e->eval[*i + 1]))
+	if ((e->eval[*i] == '*' && !ft_isspace(e->eval[*i + 1]))
+		|| (c == 'B' && !ft_isspace(e->eval[*i])) || (e->eval[*i] == 'B'))
 		w->paste = TRUE;
 	if (!(w->word = ft_strndup(e->s + begin, *i - begin)))
 		return (NULL);
@@ -96,6 +97,7 @@ t_word			*eval_line(char *input)
 	if (!input || !*input || ft_isempty(input))
 		return (NULL);
 	lexer(&e, input);
+	//ft_putendl(e.eval);
 	if (e.s && e.eval && (head = ft_get_words(&e))
 	 && (head = ft_check_alias(head, sh)) && head->type == OPERATEUR)
 	{

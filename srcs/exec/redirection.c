@@ -25,7 +25,7 @@ int			check_fd(t_process *p, int fd)
 	return (fd);
 }
 
-int			fd_dup(int fd1, int fd2, t_process *p, int close)
+int			fd_dup(int fd1, int fd2, t_process *p)
 {
 	int ret;
 
@@ -36,9 +36,12 @@ int			fd_dup(int fd1, int fd2, t_process *p, int close)
 		fd1 = ft_open("/dev/null", O_RDWR | O_TRUNC | O_CREAT, S_IWUSR);
 	if (fd1 != -1)
 	{
-		ret = dup2(fd1, fd2);
-		if (close && !IS_STD(fd1))
+		if ((ret = dup2(fd1, fd2)) < 0)
+			error_i("duplicate file descriptor fucked up", fd1);
+		if (!IS_STD(fd1))
 			ft_close(fd1);
+		if (!IS_STD(fd2))
+			ft_close(fd2);
 	}
 	return (ret);
 }

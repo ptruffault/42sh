@@ -45,7 +45,7 @@ t_envv		*ft_push_tenvv(t_envv *dest, const t_envv *src)
 {
 	while (src)
 	{
-		dest = ft_new_envv(dest, src->name, src->value, src->exported);
+		dest = ft_new_envv(dest, src->name, src->value, TRUE);
 		src = src->next;
 	}
 	return (dest);

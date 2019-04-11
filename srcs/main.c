@@ -20,7 +20,7 @@ int			main(int argc, char **argv, char **envv)
 	(void)argc;
 	if (!init_shell(&sh, envv, argv))
 		return (ft_quit(-1, &sh));
-	while (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))
+	while (isatty(STDIN_FILENO))
 	{
 		sh.err = 0;
 		ft_disp(&sh);

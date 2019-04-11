@@ -93,7 +93,7 @@ int				ft_redirect(t_tree *t);
 int				ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh);
 int				get_destination_fd(t_redirect *r);
 void			ft_reset_fd(t_shell *sh);
-int				fd_dup(int fd1, int fd2, t_process *p, int close);
+int				fd_dup(int fd1, int fd2, t_process *p);
 t_shell			*ft_get_set_shell(t_shell *sh);
 int				init_shell(t_shell *sh, char **envv, char **argv);
 void			set_signals(void);

@@ -63,6 +63,8 @@ int			tab_handle(t_edit *e)
 	max_len = 0;
 	total = 0;
 	sh = ft_get_set_shell(NULL);
+	if (e->mode == 2)
+		return (SUCCESS);
 	if (sh->heredoc == 1)
 	{
 		ft_add_char('\t', e);

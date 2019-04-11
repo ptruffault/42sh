@@ -28,7 +28,7 @@ void	ft_freestrarr(char ***arr)
 	*arr = NULL;
 }
 
-char	*ft_delstrarr(char ***arr)
+char	**ft_delstrarr(char ***arr)
 {
 	ft_freestrarr(arr);
 	return (NULL);

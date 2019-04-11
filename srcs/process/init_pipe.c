@@ -30,15 +30,6 @@ static t_process	*ft_abort(t_process *p, char *err, t_process *tmp)
 	return (ft_free_tprocess(head));
 }
 
-static void			ft_update_bg(t_process *p, t_bool val)
-{
-	while (p)
-	{
-		p->background = val;
-		p = p->grp;
-	}
-}
-
 static void			ft_update_valid(t_process *p)
 {
 	while (p)
@@ -60,7 +51,7 @@ static t_process	*ft_init_pi(t_process *tmp, t_tree *t, t_shell *sh, int *v)
 		{
 			tmp = tmp->grp;
 			if (tmp->background == TRUE)
-				ft_update_bg(head, TRUE);
+				ft_update_status(head, RUNNING_BG);
 			if (tmp->cmd)
 			{
 				if (t->o_type == O_PIPE && t->next

@@ -54,7 +54,6 @@ t_tree				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 	tmp = p;
 	while (tmp)
 	{
-		tmp->status = RUNNING_FG;
 		if ((tmp->pid = fork()) == 0)
 		{
 			if ((prev && !ft_link_stdin(prev->pipe))

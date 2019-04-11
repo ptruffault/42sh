@@ -48,8 +48,10 @@ void			ft_link_process_to_term(t_process *p, t_shell *sh)
 static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 {
 	t_process	*p;
+	t_jobs		*j;
 
 	p = NULL;
+	j = NULL;
 	if (t->o_type == O_PIPE)
 	{
 		if (t->next && (p = init_pipe_process(t, sh)))
@@ -63,9 +65,9 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	t->ret = (p ? p->ret : 1);
 	if (t->ret == -1 || (p && p->builtins == TRUE))
 	{
-		ft_add_jobs(p, sh);
+		j = ft_add_jobs(p, sh);
 		ft_link_process_to_term(p, sh);
-		t->ret = ft_wait(p, sh);
+		t->ret = ft_wait(j, sh);
 		if (sh->interactive == TRUE && p)
 			ft_tcsetpgrp(sh->std[0], sh->pgid);
 	}

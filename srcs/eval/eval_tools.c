@@ -60,14 +60,18 @@ char		**ft_twordto_arr(t_word *w)
 			while (w->paste == TRUE && w->next && w->next->word)
 			{
 				w = w->next;
-				arr[i] = ft_strappend(&arr[i], w->word);
+				if (!(arr[i] = ft_strappend(&arr[i], w->word)))
+					return (ft_delstrarr(&arr));
 			}
 			i++;
 		}
 		w = (w ? w->next : w);
 	}
 	if (i == 0)
-		ft_arrdel(&arr);
+	{
+		free(arr);
+		return (NULL);
+	}
 	if (arr)
 		arr[i] = NULL;
 	return (arr);

@@ -27,14 +27,14 @@ static int		print_htable(t_shell *sh)
 			while (value != NULL)
 			{
 				if (!first)
-					ft_printf("%4s    %s\n", "hits", "command");
-				ft_printf("%4d    %s\n", value->hit, value->path);
+					ft_printf("%4s\t%s\n", "hits", "command");
+				ft_printf("%4d\t%s\n", value->hit, value->path);
 				value = value->next;
 				first = true;
 			}
 		}
 	}
-	if (!first)
+	if (!first && sh->interactive == TRUE)
 		ft_printf("hash: hash table empty\n");
 	return (0);
 }
@@ -44,7 +44,7 @@ t_hash			*search_in_htable(const char *str, t_shell *sh)
 	unsigned int	hash;
 	t_hash			*value;
 
-	if (str == NULL)
+	if (str == NULL || str[0] == '/')
 		return (NULL);
 	hash = ft_hash(str);
 	if (!(value = sh->htable[hash]))
@@ -59,7 +59,7 @@ int				add_in_htable(const char *str, const char *path, t_shell *sh)
 	unsigned int	hash;
 	t_hash			*value;
 
-	if (path == NULL || str == NULL)
+	if (path == NULL || str == NULL || str[0] == '/')
 		return (1);
 	hash = ft_hash(str);
 	if (!(value = (t_hash*)malloc(sizeof(t_hash))))
@@ -89,7 +89,7 @@ int				cleaning_htable(char *cmd, t_shell *sh)
 	if (cmd != NULL && !(ft_strequ(cmd, "-r")))
 	{
 		error("hash: bad option :", &cmd[1]);
-		return (1);
+		return (2);
 	}
 	while (++i < HASHTABLE_SIZE)
 	{
@@ -117,16 +117,17 @@ int				builtin_htable(char **cmd, t_shell *sh)
 		return (print_htable(sh));
 	else if (ft_str_startwith(*cmd, "-"))
 		return (cleaning_htable(*cmd, sh));
+	path = NULL;
 	while (*cmd)
 	{
 		if (!(path = get_bin_path(*cmd, sh->env)))
 			error("hash: no such command:", *cmd);
-		else
+		else if (!check_builtin(*cmd))
 		{
 			if (!(value = search_in_htable(*cmd, sh)))
 				add_in_htable(*cmd, path, sh);
-			ft_strdel(&path);
 		}
+		ft_strdel(&path);
 		++cmd;
 	}
 	return (0);

@@ -13,19 +13,6 @@
 #include <dirent.h>
 #include "shell42.h"
 
-static int	check_notb(char *name)
-{
-	t_shell	*sh;
-	int		i;
-
-	i = -1;
-	sh = ft_get_set_shell(NULL);
-	while (sh->builtins[++i])
-		if (ft_strequ(sh->builtins[i], name))
-			return (0);
-	return (1);
-}
-
 int			fill_tabl_binary(int *j, char ***tabl, char *value, char *path)
 {
 	DIR				*fd;
@@ -38,7 +25,7 @@ int			fill_tabl_binary(int *j, char ***tabl, char *value, char *path)
 			&& !(ft_strequ(dir->d_name, "..")))
 		{
 			if ((ft_str_startwith(dir->d_name, value))
-				&& check_exec(dir->d_name, path) && check_notb(dir->d_name))
+				&& check_exec(dir->d_name, path) && !check_builtin(dir->d_name))
 			{
 				*j += 1;
 				if (add_to_tabl(tabl, dir->d_name, *j) && !closedir(fd))
@@ -62,7 +49,7 @@ int			fill_tabl_all_bin(int *j, char ***tabl, char *path)
 		if (!(ft_strequ(dir->d_name, "."))
 			&& !(ft_strequ(dir->d_name, "..")))
 		{
-			if (check_exec(dir->d_name, path) && check_notb(dir->d_name))
+			if (check_exec(dir->d_name, path) && !check_builtin(dir->d_name))
 			{
 				*j += 1;
 				if (add_to_tabl(tabl, dir->d_name, *j) && !closedir(fd))

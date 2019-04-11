@@ -59,6 +59,8 @@ void	entry_key(t_edit *e)
 	t_shell	*sh;
 	char	*error[7];
 
+	if (e->mode == 2 && ft_incr_add(e) == SUCCESS)
+		return ;
 	sh = ft_get_set_shell(NULL);
 	setup_key(error, e);
 	lexer(&eval, e->hist->s);

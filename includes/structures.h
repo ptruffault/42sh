@@ -189,6 +189,7 @@ typedef struct			s_shell
 	pid_t				pgid;
 	int					std[3];
 	t_bool				interactive;
+	t_bool				fc;
 	char				*txt;
 	char				*builtins[17];
 	int					fd;

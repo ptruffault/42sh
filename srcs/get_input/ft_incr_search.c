@@ -71,6 +71,7 @@ void	ft_incremental_search(t_edit *e)
 	else
 	{
 		ft_printf("\n(Incremental search: no result found)");
+		e->incr_search = NULL;
 		e->pos += 37 + e->width;
 	}
 }

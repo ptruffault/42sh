@@ -124,6 +124,7 @@ int				init_tedit(t_shell *sh)
 	sh->e.select_pos = 0;
 	sh->e.mode = 0;
 	sh->e.hist = NULL;
+	sh->e.incr_search = NULL;
 	if (sh->hist && sh->e.hist_size <= sh->hist->nb)
 	{
 		tmp = sh->hist;

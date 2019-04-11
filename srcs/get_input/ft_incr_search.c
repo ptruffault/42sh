@@ -52,6 +52,7 @@ void	ft_incremental_search(t_edit *e)
 	while (hist->prev)
 		hist = hist->prev;
 	ft_print_fast(e);
+	term_actions("vi");
 	if (!hist->next)
 	{
 		e->mode = 0;

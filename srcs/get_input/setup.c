@@ -111,8 +111,8 @@ int				init_tedit(t_shell *sh)
 {
 	t_hist *tmp;
 
-	ft_update_windows(&sh->e);
 	ft_init_inputs_tab(&sh->e, 0);
+	ft_update_windows(&sh->e);
 	sh->e.edited = FALSE;
 	sh->e.hist_size = ft_get_hist_size();
 	sh->e.curr = 0;

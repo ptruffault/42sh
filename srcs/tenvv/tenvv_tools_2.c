@@ -11,80 +11,60 @@
 /* ************************************************************************** */
 
 #include "tenvv.h"
+#include "shell42.h"
 
-t_envv		*ft_tenvv_cpy(t_envv *src, bool exp)
+t_envv		*ft_save_tenvv(t_envv *envv, t_envv *tmp)
 {
-	t_envv *tmp;
-	t_envv *ret;
-
-	if (!(ret = new_tenvv(exp)))
-		return (NULL);
-	tmp = ret;
-	while (src)
-	{
-		while (src && !(src->exported == exp))
-			src = src->next;
-		if (!src)
-			return (ret);
-		if (!(tmp->name = ft_strdup(src->name))
-			|| (src->value && !(tmp->value = ft_strdup(src->value))))
-			return (ft_free_tenvv(ret));
-		src = src->next;
-		while (src && !(src->exported == exp))
-			src = src->next;
-		if (src)
-		{
-			tmp->next = new_tenvv(exp);
-			tmp = tmp->next;
-		}
-	}
-	return (ret);
-}
-
-t_envv		*ft_push_tenvv(t_envv *dest, const t_envv *src)
-{
-	while (src)
-	{
-		dest = ft_new_envv(dest, src->name, src->value, TRUE);
-		src = src->next;
-	}
-	return (dest);
-}
-
-static void	ft_shitty_norme(t_envv **prev, t_envv **tmp)
-{
-	t_envv *t;
-
-	t = *tmp;
-	*prev = t;
-	*tmp = t->next;
-}
-
-t_envv		*ft_pull_tenvv(t_envv *dest, const t_envv *src)
-{
-	t_envv	*tmp;
-	t_envv	*prev;
 	t_envv	*save;
+	t_envv	*org;
 
-	while (src && src->name)
+	org = envv;
+	save = NULL;
+	while (tmp && tmp->name)
 	{
-		tmp = dest;
-		prev = NULL;
-		while (tmp)
+		while (org)
 		{
-			if (ft_strequ(tmp->name, src->name))
-			{
-				save = tmp->next;
-				del_tenvv(tmp);
-				if (prev)
-					prev->next = save;
-				else
-					dest = save;
-				break ;
-			}
-			ft_shitty_norme(&prev, &tmp);
+			if (tmp->name && ft_strequ(tmp->name, org->name))
+				save = ft_new_envv(save, org->name, org->value, org->status);
+			org = org->next;
 		}
+		tmp = tmp->next;
+	}
+	return (save);
+}
+
+t_envv		*ft_push_tenvv(t_envv *dest, const t_envv *src, short status)
+{
+	while (src)
+	{
+		dest = ft_new_envv(dest, src->name, src->value, status);
 		src = src->next;
 	}
 	return (dest);
+}
+
+t_envv		*ft_remove_tmp(t_envv *src)
+{
+	t_envv	*next;
+	t_envv	*dest;
+	t_envv	*prev;
+
+	prev = NULL;
+	dest = src;
+	while (dest)
+	{
+		if (dest->status == TMP)
+		{
+			next = dest->next;
+			del_tenvv(dest);
+			dest = next;
+			if (prev)
+				prev->next = dest;
+			else
+				src = dest;
+		}
+		prev = dest;
+		dest = dest->next;
+	}
+	return (src);
 }

@@ -16,6 +16,7 @@ static	void	ft_init_print_modes(t_edit *e, int x)
 {
 	e->print_modes[x++] = ft_print_fast;
 	e->print_modes[x++] = ft_print_edited;
+	e->print_modes[x++] = ft_incremental_search;
 }
 
 static	void	ft_init_inputs_kval(t_edit *e, int x)
@@ -43,6 +44,7 @@ static	void	ft_init_inputs_kval(t_edit *e, int x)
 	e->kval[x++] = KEY_SHIFT_ARROW_RIGHT;
 	e->kval[x++] = KEY_SHIFT_HOME;
 	e->kval[x++] = KEY_SHIFT_END;
+	e->kval[x++] = KEY_CTRL_R;
 }
 
 static	void	ft_init_inputs_tab(t_edit *e, int x)
@@ -72,6 +74,7 @@ static	void	ft_init_inputs_tab(t_edit *e, int x)
 	e->ft_tab[x++] = ft_select_right;
 	e->ft_tab[x++] = ft_select_home;
 	e->ft_tab[x++] = ft_select_end;
+	e->ft_tab[x++] = ft_incr_search;
 }
 
 static int		ft_init_input_link(t_shell *sh, t_hist *tmp)
@@ -108,8 +111,8 @@ int				init_tedit(t_shell *sh)
 {
 	t_hist *tmp;
 
-	ft_update_windows(&sh->e);
 	ft_init_inputs_tab(&sh->e, 0);
+	ft_update_windows(&sh->e);
 	sh->e.edited = FALSE;
 	sh->e.hist_size = ft_get_hist_size();
 	sh->e.curr = 0;
@@ -121,6 +124,7 @@ int				init_tedit(t_shell *sh)
 	sh->e.select_pos = 0;
 	sh->e.mode = 0;
 	sh->e.hist = NULL;
+	sh->e.incr_search = NULL;
 	if (sh->hist && sh->e.hist_size <= sh->hist->nb)
 	{
 		tmp = sh->hist;

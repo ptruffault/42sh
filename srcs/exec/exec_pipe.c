@@ -41,7 +41,10 @@ static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 	else
 		tmp->pgid = tmp->pid;
 	if (sh->interactive == TRUE && setpgid(tmp->pid, tmp->pgid) < 0)
+	{
 		error("can't set group", tmp->cmd);
+		tmp->ret = 1;
+	}
 	return (tmp);
 }
 
@@ -65,7 +68,10 @@ t_jobs			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 			ft_exit_son(sh, tmp->ret);
 		}
 		else if (tmp->pid < 0)
+		{
 			error("fork fucked up", tmp->cmd);
+			p->ret = 1;
+		}
 		else
 			prev = ft_stuff(prev, tmp, sh);
 		if ((tmp = tmp->grp))

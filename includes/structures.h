@@ -19,8 +19,8 @@
 # define IS_CMD(x) (1 <= x && x <= 4)
 # define IS_EXP(x) (1 <= x && x <= 3)
 # define IS_RUNNING(x) (x == RUNNING_FG || x == RUNNING_BG)
-# define NUMBER_OF_KEYS 23
-# define NUMBER_OF_PRINT_MODES 2
+# define NUMBER_OF_KEYS 24
+# define NUMBER_OF_PRINT_MODES 3
 # define HASHTABLE_SIZE 150
 
 enum	e_rtype{
@@ -47,7 +47,8 @@ enum	e_wtype{
 	DQUOTE = 3,
 	QUOTE = 4,
 	REDIRECT = 5,
-	OPERATEUR = 6
+	OPERATEUR = 6,
+	NUL = 7
 };
 
 enum	e_pstatus{
@@ -110,6 +111,7 @@ typedef struct			s_edit
 	int					hist_size;
 	short				select;
 	char				*tmp;
+	char				*incr_search;
 	unsigned short		mode;
 	unsigned long		kval[NUMBER_OF_KEYS];
 	void				(*ft_tab[NUMBER_OF_KEYS])(struct s_edit *e);
@@ -189,6 +191,7 @@ typedef struct			s_shell
 	pid_t				pgid;
 	int					std[3];
 	t_bool				interactive;
+	t_bool				fc;
 	char				*txt;
 	char				*builtins[17];
 	int					fd;

@@ -21,16 +21,16 @@ t_envv	*ft_export(t_shell *sh, char **argv)
 
 	i = -1;
 	if (!*argv)
-		ft_puttenvv(sh->env, true);
+		ft_puttenvv(sh->env, EXP);
 	while (argv[++i])
 	{
 		if (ft_isequal(argv[i]))
 		{
 			name = ft_split_equal(argv[i], &val);
-			sh->env = ft_new_envv(sh->env, name, val, true);
+			sh->env = ft_new_envv(sh->env, name, val, EXP);
 		}
 		else if (sh->env && (tmp = get_tenvv(sh->env, argv[i])))
-			tmp->exported = true;
+			tmp->status = EXP;
 	}
 	return (sh->env);
 }

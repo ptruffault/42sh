@@ -59,10 +59,13 @@ void	entry_key(t_edit *e)
 	t_shell	*sh;
 	char	*error[7];
 
+	if (e->mode == 2 && ft_incr_add(e) == SUCCESS)
+		return ;
 	sh = ft_get_set_shell(NULL);
 	setup_key(error, e);
 	lexer(&eval, e->hist->s);
-	if (eval.eval != NULL && check_eval(eval.eval) && sh->heredoc == 0 && eval.err > 1)
+	if (eval.eval != NULL && check_eval(eval.eval)
+		&& sh->heredoc == 0 && eval.err > 1)
 	{
 		e->curr = 0;
 		e->pos = 0;

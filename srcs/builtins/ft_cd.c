@@ -22,11 +22,11 @@ int			change_dir(char *path, t_shell *sh, t_opts opts)
 		cwd = ft_strdup_path(path);
 		if (opts & 0x04)
 			ft_printf("%s\n", cwd);
-		sh->env = ft_new_envv(sh->env, "OLDPWD", get_tenvv_val(sh->env, "PWD"), true);
+		sh->env = ft_new_envv(sh->env, "OLDPWD", get_tenvv_val(sh->env, "PWD"), EXP);
 		if ((opts & 0x02))
-			sh->env = ft_new_envv(sh->env, "PWD", getcwd(buff, 4096), true);
+			sh->env = ft_new_envv(sh->env, "PWD", getcwd(buff, 4096), EXP);
 		else
-			sh->env = ft_new_envv(sh->env, "PWD", cwd, true);
+			sh->env = ft_new_envv(sh->env, "PWD", cwd, EXP);
 		ft_strdel(&cwd);
 		return (0);
 	}

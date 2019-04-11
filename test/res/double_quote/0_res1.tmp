@@ -1,4 +1,3 @@
-&
 42sh_log.tmp
 Makefile
 add_cmd.sh
@@ -11,4 +10,3 @@ k.tmp
 osxerr.supp
 res
 test.sh
-tmpdir

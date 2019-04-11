@@ -30,6 +30,8 @@ static t_word	*find_type(t_word *w, char c, int *pos)
 			w->type = ARG;
 		*pos = *pos + 1;
 	}
+	else if (c == '*')
+		w->type = NUL;
 	else
 		w->type = 0;
 	return (w);
@@ -54,10 +56,9 @@ static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 		|| (e->eval[begin] == 'B' && !ft_isspace(e->eval[begin + 1]))
 		|| (e->eval[*i] == 'B' && !ft_isspace(e->eval[*i + 1])))
 		w->paste = TRUE;
-	if (!(w->word = ft_strndup(e->s + begin, *i - begin)))
+	if ((c == '*' && !(w->word = ft_strdup(" ")))
+	|| (c != '*' && !(w->word = ft_strndup(e->s + begin, *i - begin))))
 		return (NULL);
-	if (exept)
-		*i = *i + 1;
 	return (find_type(w, c, pos));
 }
 
@@ -103,6 +104,7 @@ t_word			*eval_line(char *input)
 	if (e.s && e.eval && (head = ft_get_words(&e))
 	 && !(head = ft_check_alias(head, sh)))
 	{
+		ft_printf("ERROR\n");
 		ft_strdel(&e.eval);
 		ft_strdel(&e.s);
 		return (ft_free_tword(head));

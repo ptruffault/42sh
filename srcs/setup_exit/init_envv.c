@@ -49,7 +49,7 @@ static void	ft_update_shelvl(t_shell *sh)
 		lvl = ft_atoi(shell_lvl->value);
 	else
 		lvl = 0;
-	sh->env = ft_new_envv_int(sh->env, "SHLVL", lvl + 1, true);
+	sh->env = ft_new_envv_int(sh->env, "SHLVL", lvl + 1, EXP);
 }
 
 static char	*ft_update_pwd(t_shell *sh)
@@ -61,7 +61,7 @@ static char	*ft_update_pwd(t_shell *sh)
 	{
 		if (sh)
 		{
-			sh->env = ft_new_envv(sh->env, "PWD", pwd, true);
+			sh->env = ft_new_envv(sh->env, "PWD", pwd, EXP);
 			return (get_tenvv_val(sh->env, "PWD"));
 		}
 		return (pwd);
@@ -76,10 +76,10 @@ static void	ft_setup_environ(t_shell *sh, char *shell_fold)
 
 	if (!isatty(0) || !(usr = getpwnam(getlogin())))
 		return ;
-	sh->env = ft_new_envv(sh->env, "LOGNAME", usr->pw_name, true);
-	sh->env = ft_new_envv(sh->env, "HOME", usr->pw_dir, true);
+	sh->env = ft_new_envv(sh->env, "LOGNAME", usr->pw_name, EXP);
+	sh->env = ft_new_envv(sh->env, "HOME", usr->pw_dir, EXP);
 	ft_update_shelvl(sh);
-	sh->env = ft_new_envv(sh->env, "SHELL_FOLD", shell_fold, false);
+	sh->env = ft_new_envv(sh->env, "SHELL_FOLD", shell_fold, IN);
 	if (isatty(0) && (rc_path = ft_strjoin(shell_fold, "/sys/.42shrc")))
 	{
 		exec_file(rc_path, sh);
@@ -92,12 +92,12 @@ int			init_env(t_shell *sh, char **argv, char **envv)
 	char *shell_fold;
 	char *shell_path;
 
-	sh->env = ft_setenv(sh->env, envv, 0, true);
+	sh->env = ft_setenv(sh->env, envv, 0, EXP);
 	ft_update_pwd(sh);
 	ft_init_builtins_tab(sh);
 	if ((shell_path = get_shell_path(*argv)))
 	{
-		sh->env = ft_new_envv(sh->env, "SHELL", shell_path, true);
+		sh->env = ft_new_envv(sh->env, "SHELL", shell_path, EXP);
 		shell_fold = ft_get_prev_path(shell_path);
 		retrieve_path(sh);
 		init_intern(sh);

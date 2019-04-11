@@ -51,7 +51,7 @@ void	curr_go_last(t_edit *e)
 	e->curr = ft_strlen(e->hist->s);
 	e->pos_y = 0;
 	if (e->curr > e->max_char)
-		e->pos_z = e->curr - e->width;
+		e->pos_z = e->curr - e->max_char;
 	else
 		e->pos_z = 0;
 }
@@ -61,7 +61,7 @@ void	ft_home_key(t_edit *e)
 	e->curr = 0;
 	e->pos_z = 0;
 	if (ft_strlen(e->hist->s) > e->max_char)
-		e->pos_y = ft_strlen(e->hist->s) - e->width;
+		e->pos_y = ft_strlen(e->hist->s) - e->max_char;
 	else
 		e->pos_y = 0;
 }

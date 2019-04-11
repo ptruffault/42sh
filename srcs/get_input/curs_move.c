@@ -31,6 +31,7 @@ size_t	how_much_cr(t_edit *e)
 void	curs_reset(t_edit *e)
 {
 	size_t	y;
+	size_t	total;
 	int		count;
 
 	count = how_much_cr(e);
@@ -39,7 +40,10 @@ void	curs_reset(t_edit *e)
 	if (e->pos_z == 0 && e->pos_y == 0)
 		y = e->pos;
 	else
-		y = e->width;
+	{
+		total = (e->pos - e->pos_z - e->pos_y);
+		y = (total >= e->width) ? total : e->width;
+	}
 	if (e->width != 0)
 	{
 		while (y > e->width)

@@ -24,13 +24,13 @@ static void	ft_fc_write_in_file(t_fc *fc, int fd)
 		fc->hist_last = tmp;
 	}
 	way = fc->hist_first->nb < fc->hist_last->nb ? 1 : 0;
-	if (way == 0)
+	if (way == 0 && fc->hist_first && fc->hist_last)
 		while (fc->hist_first->nb >= fc->hist_last->nb)
 		{
 			ft_putendl_fd(fc->hist_first->s, fd);
 			fc->hist_first = fc->hist_first->next;
 		}
-	else if (way == 1)
+	else if (way == 1 && fc->hist_first && fc->hist_last)
 		while (fc->hist_first->nb <= fc->hist_last->nb)
 		{
 			ft_putendl_fd(fc->hist_first->s, fd);
@@ -64,6 +64,7 @@ int add_to_hist(char *line, t_shell *sh, int hist_size)
 		sh->hist->prev = hist;
 	hist->next = sh->hist ? sh->hist : NULL;
 	hist->s = line;
+	hist->nb = sh->hist ? sh->hist->nb + 1 : 1;
 	sh->hist = hist;
 	return (SUCCESS);
 }
@@ -121,7 +122,9 @@ void		ft_fc_option_e(t_fc *fc, int pos)
 	if (fc->shell->txt)
 		ft_printf("\n%s\n", fc->shell->txt);
 	ft_strdel(&fc->shell->txt);
+	fc->shell->interactive = FALSE;
 	exec_file("/tmp/fc____42sh", fc->shell);
+	fc->shell->interactive = TRUE;
 	read_from_add_hist("/tmp/fc____42sh", fc->shell, fc);
 	unlink("/tmp/fc____42sh");
 }

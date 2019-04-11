@@ -36,15 +36,16 @@ int				ft_job_is_over(t_jobs *j)
 {
 	t_process *tmp;
 
-	if (!j || !(tmp = j->p))
-		return (1);
-	while (tmp && tmp->cmd)
+	if (j && (tmp = j->p))
 	{
-		if (tmp && (tmp->status == RUNNING_FG
-		|| tmp->status == RUNNING_BG
-		|| tmp->status == SUSPENDED))
-			return (0);
-		tmp = tmp->grp;
+		while (tmp && tmp->cmd)
+		{
+			if (tmp && (tmp->status == RUNNING_FG
+			|| tmp->status == RUNNING_BG
+			|| tmp->status == SUSPENDED))
+				return (0);
+			tmp = tmp->grp;
+		}
 	}
 	return (1);
 }

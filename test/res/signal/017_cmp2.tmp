@@ -1,1 +1,1 @@
-bash: line 1: 72350 Floating point exception: 8   bin/sig8fpe
+bash: line 1: 64705 Floating point exception: 8   bin/sig8fpe

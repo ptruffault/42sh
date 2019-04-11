@@ -27,7 +27,7 @@ static t_word	*get_argv(t_tree *t, t_word *w)
 	return (w);
 }
 
-static t_tree	*built_tree(t_tree *head, t_word *w)
+static t_tree	*built_tree(t_tree *head, t_word *w, t_shell *sh)
 {
 	t_word	*tmp;
 	t_tree	*tree;
@@ -43,6 +43,7 @@ static t_tree	*built_tree(t_tree *head, t_word *w)
 			|| (tmp->type == OPERATEUR && !(tree = add_newttree(tree, tmp)))))
 		{
 			error("syntax error", NULL);
+			sh->env = ft_new_envv_int(sh->env, "?", 2, false);
 			return (ft_free_tree(head));
 		}
 		if (tmp)
@@ -51,25 +52,34 @@ static t_tree	*built_tree(t_tree *head, t_word *w)
 	return (head);
 }
 
-int				ft_check_grammar(t_word *w)
+int				ft_check_grammar(t_word *w, t_shell *sh)
 {
 	int cmd;
 
 	cmd = 0;
+	t_word *head;
+	head = w;
 	while (w)
 	{
-		if ((w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
+		if (head->type == OPERATEUR ||
+			(w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
 			|| (w->type == OPERATEUR && ft_strlen(w->word) > 2)
 			|| (w->type == OPERATEUR && *w->word == ';'
 			&& ft_strlen(w->word) > 1) || (w->type == REDIRECT
 			&& ft_strchr(w->word, '<') && ft_strchr(w->word, '>')))
+		{
+			sh->env = ft_new_envv_int(sh->env, "?", 2, false);
 			return (error("syntax error near", w->word));
+		}
 		if (IS_CMD(w->type))
 			cmd++;
 		w = w->next;
 	}
 	if (!cmd)
+	{
+		sh->env = ft_new_envv_int(sh->env, "?", 2, false);
 		return (warning("nothing to do", NULL));
+	}
 	return (1);
 }
 
@@ -84,7 +94,7 @@ int				ft_check_redirect(t_tree *t)
 	return (1);
 }
 
-t_tree			*get_tree(char *input)
+t_tree			*get_tree(char *input, t_shell *sh)
 {
 	t_tree	*head;
 	t_word	*w;
@@ -94,7 +104,7 @@ t_tree			*get_tree(char *input)
 		return (NULL);
 	if (!(head = new_tree()))
 		return (NULL);
-	if (ft_check_grammar(w) && (head = built_tree(head, w)))
+	if (ft_check_grammar(w, sh) && (head = built_tree(head, w, sh)))
 	{
 		if (!ft_check_redirect(head))
 		{

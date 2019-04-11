@@ -78,12 +78,16 @@ int check_exe(char *bin_path)
 		return (error("not an executable", bin_path));
 }
 
-t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
+t_jobs		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 {
+	t_jobs *ret;
+
+	ret = NULL;
 	if (sh->pid == getpid())
 	{
 		p->next = sh->process;
 		sh->process = p;
+		ret = ft_add_jobs(p, sh);
 	}
 	if (!t->r || ft_redirect_builtin(t, p, sh))
 	{
@@ -109,5 +113,5 @@ t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 		}
 	}
 	ft_get_envv_back(sh, p, t);
-	return (p);
+	return (ret);
 }

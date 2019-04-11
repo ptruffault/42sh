@@ -36,7 +36,8 @@ int				ft_job_is_over(t_jobs *j)
 {
 	t_process *tmp;
 
-	tmp = j->p;
+	if (!j || !(tmp = j->p))
+		return (1);
 	while (tmp && tmp->cmd)
 	{
 		if (tmp && (tmp->status == RUNNING_FG

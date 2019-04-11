@@ -52,21 +52,9 @@ char		**ft_twordto_arr(t_word *w)
 		return (NULL);
 	while (w)
 	{
-		if (w->word && ft_strchr(w->word, 6)
-			&& (arr[i] = ft_strnew(0)))
+		if (w->word && (arr[i] = ft_strdup(w->word)))
 			i++;
-		else if (w->word && (arr[i] = ft_strdup(w->word)))
-		{
-			while (w->paste == TRUE && w->next && w->next->word)
-			{
-				w = w->next;
-				if (w->word && !ft_strchr(w->word, 6)
-				&& !(arr[i] = ft_strappend(&arr[i], w->word)))
-					return (ft_delstrarr(&arr));
-			}
-			i++;
-		}
-		w = (w ? w->next : w);
+		w = w->next;
 	}
 	if (i == 0)
 	{

@@ -39,7 +39,7 @@ int		exec_fd(t_shell *sh, int fd)
 		ft_strdel(&eval.s);
 		if (eval.err == 0)
 		{
-			if (*sh->txt != '#' && (t = get_tree(sh->txt)))
+			if (*sh->txt != '#' && (t = get_tree(sh->txt, sh)))
 				ft_free_tree(exec_tree(t, sh));
 			ft_strdel(&sh->txt);
 			tmp = NULL;

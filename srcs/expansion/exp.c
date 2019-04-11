@@ -70,7 +70,7 @@ char		*ft_exp_var(char *ret, t_shell *sh)
 	i = -1;
 	while (ret && *ret && ret[++i])
 	{
-		if (ret[i] == '$' && ret[i + 1] && (i == 0 || ret[i - 1] != '\\'))
+		if (ret[i] == '$' && ret[i + 1])
 		{
 			if (ret[i + 1] == '{')
 			{
@@ -95,11 +95,20 @@ t_word		*ft_expention(t_word *w)
 		return (head);
 	while (w)
 	{
-		if (1 <= w->type && w->type <= 2 && *w->word ==  '~')
+		while (w->paste && w->next && w->next->word)
+		{
+			if (!ft_strchr(w->next->word, 6))
+			{
+				w->word = ft_strappend(&w->word, w->next->word);
+				w->paste = w->next->paste;
+				w = ft_deltword(w, w->next);
+			}
+		}
+		if (w && 1 <= w->type && w->type <= 2 && *w->word ==  '~')
 			w->word = ft_exp_home_var(w->word, sh->env);
-		if (IS_EXP(w->type) && w->word)
+		if (w && IS_EXP(w->type) && w->word)
 			w->word = ft_exp_var(w->word, sh);
-		w = w->next;
+		w = (w ? w->next : w);
 	}
 	return (head);
 }

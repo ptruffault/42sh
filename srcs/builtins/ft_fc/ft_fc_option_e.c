@@ -115,7 +115,7 @@ void		ft_fc_option_e(t_fc *fc, int pos)
 		return ;
 	ft_fc_write_in_file(fc, fd);
 	close(fd);
-	if ((t = get_tree(tmp)))
+	if ((t = get_tree(tmp, ft_get_set_shell(NULL))))
 		ft_free_tree(exec_tree(t, fc->shell));
 	ft_strdel(&tmp);
 	if (fc->shell->txt)

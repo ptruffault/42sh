@@ -21,6 +21,7 @@ void	ft_lex_backslash(t_eval *e)
 	{
 		e->err = B_MISS;
 		e->c = '\\';
+		return ;
 	}
 }
 
@@ -71,7 +72,7 @@ void	ft_lex_dquote(t_eval *e)
 	if (e->s[e->curr] == '"')
 	{
 		e->s[e->curr] = 6;
-		e->eval[e->curr++] = '.';
+		e->eval[e->curr++] = '*';
 	}
 	else
 	{
@@ -97,7 +98,7 @@ void	ft_lex_quote(t_eval *e)
 	if (e->s[e->curr] == '\'')
 	{
 		e->s[e->curr] = 6;
-		e->eval[e->curr++] = '.';
+		e->eval[e->curr++] = '*';
 	}
 	else
 	{

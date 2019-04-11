@@ -45,13 +45,15 @@ static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 	return (tmp);
 }
 
-t_tree				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
+t_jobs			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 {
 	t_process	*prev;
 	t_process	*tmp;
+	t_jobs		*ret;
 
 	prev = NULL;
 	tmp = p;
+	ret = ft_add_jobs(p, sh);
 	while (tmp)
 	{
 		if ((tmp->pid = fork()) == 0)
@@ -72,5 +74,5 @@ t_tree				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 			t = t->next;
 		}
 	}
-	return (t);
+	return (ret);
 }

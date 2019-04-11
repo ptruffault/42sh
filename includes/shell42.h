@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/*t ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
@@ -88,7 +88,7 @@ char			*ft_exp_var(char *ret, t_shell *sh);
 int				get_content_size(char *s);
 char			*ft_exp_param(char *ret, char *ptr, t_shell *sh);
 char			*ft_get_secondvalue(char *src);
-t_tree			*get_tree(char *input);
+t_tree			*get_tree(char *input, t_shell *sh);
 t_tree			*ft_free_tree(t_tree *t);
 int				ft_redirect(t_tree *t);
 int				ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh);
@@ -99,9 +99,9 @@ t_shell			*ft_get_set_shell(t_shell *sh);
 int				init_shell(t_shell *sh, char **envv, char **argv);
 void			set_signals(void);
 void			set_signals_ni(void);
-t_process		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t);
+t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t);
 int				ft_get_pgid(int pgid, t_process *p, t_process *prev);
-t_tree			*exec_pipe(t_tree *t, t_process *p, t_shell *sh);
+t_jobs 			*exec_pipe(t_tree *t, t_process *p, t_shell *sh);
 int				run_builtin(t_tree *t, char **argv, t_shell *sh);
 t_tree			*exec_tree(t_tree *t, t_shell *sh);
 int				exec_file(char *path, t_shell *sh);

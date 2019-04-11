@@ -26,7 +26,7 @@ int			main(int argc, char **argv, char **envv)
 		ft_disp(&sh);
 		if (!(get_input(&sh.txt)))
 			return (ft_quit(1, &sh));
-		if ((t = get_tree(sh.txt)))
+		if ((t = get_tree(sh.txt, &sh)))
 			ft_free_tree(exec_tree(t, &sh));
 		ft_strdel(&sh.txt);
 	}

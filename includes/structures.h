@@ -124,6 +124,7 @@ typedef struct			s_eval
 	enum e_error		err;
 	char				c;
 	int					curr;
+	int 				correc;
 }						t_eval;
 
 typedef struct			s_word

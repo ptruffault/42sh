@@ -16,6 +16,7 @@ void	ft_deload_hist_in_file(t_shell *sh)
 {
 	t_hist	*hist;
 	char	*path;
+	int fd;
 
 	hist = sh->hist;
 	if (hist)
@@ -25,10 +26,13 @@ void	ft_deload_hist_in_file(t_shell *sh)
 		if (!(path = get_tenvv_val(sh->env, "HISTFILE")))
 			return ;
 		unlink(path);
+		if ((fd = ft_open(path, O_RDWR | O_CREAT | O_NOFOLLOW, 0644)) < 0)
+			return ;
 		while (hist)
 		{
-			ft_write_in_file(path, hist->s);
+			ft_putendl_fd(hist->s, fd);
 			hist = hist->prev;
 		}
+		ft_close(fd);
 	}
 }

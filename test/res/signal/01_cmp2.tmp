@@ -1,1 +1,1 @@
-bash: line 1:  2951 Bus error: 10           bin/sig10bus
+bash: line 1: 12947 Bus error: 10           bin/sig10bus

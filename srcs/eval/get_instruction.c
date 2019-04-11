@@ -16,7 +16,7 @@ static t_word	*get_argv(t_tree *t, t_word *w)
 {
 	while (w && w->word && ft_isequal(w->word))
 	{
-		t->assign = ft_new_envv_equ(t->assign, w->word, false);
+		t->assign = ft_new_envv_equ(t->assign, w->word, IN);
 		w = w->next;
 	}
 	while (w && w->word && IS_CMD(w->type))

@@ -15,14 +15,14 @@
 
 static void	ft_intern_var(t_shell *sh)
 {
-	sh->env = ft_new_envv(sh->env, "HISTSIZE", "500", false);
-	sh->env = ft_new_envv(sh->env, "!", "0", false);
-	sh->env = ft_new_envv(sh->env, "?", "0", false);
-	sh->env = ft_new_envv_int(sh->env, "$", sh->pid, false);
-	sh->env = ft_new_envv(sh->env, "CDPATH", "", false);
-	sh->env = ft_new_envv(sh->env, "FCEDIT", "vim", false);
-	sh->env = ft_new_envv(sh->env, "PS1", PS1, false);
-	sh->env = ft_new_envv(sh->env, "PS2", PS2, false);
+	sh->env = ft_new_envv(sh->env, "HISTSIZE", "500", IN);
+	sh->env = ft_new_envv(sh->env, "!", "0", IN);
+	sh->env = ft_new_envv(sh->env, "?", "0", IN);
+	sh->env = ft_new_envv_int(sh->env, "$", sh->pid, IN);
+	sh->env = ft_new_envv(sh->env, "CDPATH", "", IN);
+	sh->env = ft_new_envv(sh->env, "FCEDIT", "vim", IN);
+	sh->env = ft_new_envv(sh->env, "PS1", PS1, IN);
+	sh->env = ft_new_envv(sh->env, "PS2", PS2, IN);
 }
 
 void		ft_init_builtins_tab(t_shell *sh)
@@ -91,7 +91,7 @@ void		retrieve_path(t_shell *sh)
 			}
 			ft_close(fd);
 			if (path)
-				sh->env = ft_new_envv(sh->env, "PATH", path, true);
+				sh->env = ft_new_envv(sh->env, "PATH", path, EXP);
 			ft_strdel(&path);
 		}
 	}
@@ -107,10 +107,10 @@ int			init_intern(t_shell *sh)
 	ft_intern_var(sh);
 	if (isatty(0) && (usr = getpwnam(getlogin())))
 	{
-		sh->env = ft_new_envv_int(sh->env, "EUID", usr->pw_uid, false);
-		sh->env = ft_new_envv_int(sh->env, "GROUPS", usr->pw_gid, false);
+		sh->env = ft_new_envv_int(sh->env, "EUID", usr->pw_uid, IN);
+		sh->env = ft_new_envv_int(sh->env, "GROUPS", usr->pw_gid, IN);
 		if ((hi_path = ft_strjoin(usr->pw_dir, "/.42history"))
-			&& (sh->env = ft_new_envv(sh->env, "HISTFILE", hi_path, false)))
+			&& (sh->env = ft_new_envv(sh->env, "HISTFILE", hi_path, IN)))
 		{
 			sh->hist = init_hist(hi_path);
 			ft_strdel(&hi_path);
@@ -118,7 +118,7 @@ int			init_intern(t_shell *sh)
 	}
 	if (isatty(0) && (hostname = ft_strnew(255)))
 		if (!(gethostname(hostname, 254)))
-			sh->env = ft_new_envv(sh->env, "HOSTNAME", hostname, false);
+			sh->env = ft_new_envv(sh->env, "HOSTNAME", hostname, IN);
 	ft_strdel(&hostname);
 	return (0);
 }

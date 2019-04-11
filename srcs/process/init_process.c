@@ -78,7 +78,7 @@ static	t_process	*ft_init_cmd(t_process *ret, t_tree *t, t_shell *sh)
 	}
 	else if (hash_or_path(ret, sh))
 	{
-		sh->env = ft_new_envv(sh->env, "_", ret->argv[0], true);
+		sh->env = ft_new_envv(sh->env, "_", ret->argv[0], EXP);
 		if (!(ret->env = tenvv_to_tab(sh->env)))
 		{
 			ft_get_envv_back(sh, ret, t);

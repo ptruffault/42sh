@@ -42,7 +42,7 @@ void			ft_link_process_to_term(t_process *p, t_shell *sh)
 	if (sh->interactive == TRUE && p && p->background == FALSE && p->pid != 0)
 		ft_tcsetpgrp(sh->std[0], p->pgid);
 	else if (sh->interactive == TRUE && p && p->background == TRUE)
-		sh->env = ft_new_envv_int(sh->env, "!", p->pid, false);
+		sh->env = ft_new_envv_int(sh->env, "!", p->pid, IN);
 }
 
 static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
@@ -74,7 +74,7 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	}
 	else if (p)
 		p->status = INIT;
-	sh->env = ft_new_envv_int(sh->env, "?", t->ret, false);
+	sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
 	ft_reset_fd(sh);
 	return (t);
 }
@@ -89,8 +89,8 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 		if (!tmp->cmd || !tmp->cmd->word)
 		{
 			if (t->assign)
-				sh->env = ft_push_tenvv(sh->env, t->assign);
-			if (tmp->o_type == O_SEP || tmp->o_type == 0
+				sh->env = ft_push_tenvv(sh->env, t->assign, IN);
+			else if (tmp->o_type == O_SEP || tmp->o_type == 0
 				|| tmp->o_type == O_BACK)
 				tmp = tmp->next;
 			else

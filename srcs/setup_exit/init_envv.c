@@ -94,6 +94,7 @@ int			init_env(t_shell *sh, char **argv, char **envv)
 
 	sh->env = ft_setenv(sh->env, envv, 0, true);
 	ft_update_pwd(sh);
+	ft_init_builtins_tab(sh);
 	if ((shell_path = get_shell_path(*argv)))
 	{
 		sh->env = ft_new_envv(sh->env, "SHELL", shell_path, true);

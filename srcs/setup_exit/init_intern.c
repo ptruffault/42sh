@@ -25,6 +25,27 @@ static void	ft_intern_var(t_shell *sh)
 	sh->env = ft_new_envv(sh->env, "PS2", PS2, false);
 }
 
+void		ft_init_builtins_tab(t_shell *sh)
+{
+	sh->builtins[0] = "exit";
+	sh->builtins[1] = "cd";
+	sh->builtins[2] = "export";
+	sh->builtins[3] = "unset";
+	sh->builtins[4] = "alias";
+	sh->builtins[5] = "unalias";
+	sh->builtins[6] = "echo";
+	sh->builtins[7] = "set";
+	sh->builtins[8] = "type";
+	sh->builtins[9] = "jobs";
+	sh->builtins[10] = "hi";
+	sh->builtins[11] = "fg";
+	sh->builtins[12] = "bg";
+	sh->builtins[13] = "fc";
+	sh->builtins[14] = "hash";
+	sh->builtins[15] = "test";
+	sh->builtins[16] = NULL;
+}
+
 char		*trim_path(char *path)
 {
 	int		i;

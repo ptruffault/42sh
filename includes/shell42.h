@@ -180,4 +180,5 @@ int				ft_test(char **argv);
 int				check_integer_tab(char *argv);
 int				return_fnc(char *str, int ret);
 char			*ft_strdup_path(char *src);
+void			ft_init_builtins_tab(t_shell *sh);
 #endif

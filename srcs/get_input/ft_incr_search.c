@@ -61,6 +61,7 @@ void	ft_print_search(t_edit *e, t_hist *hist)
 	else
 	{
 		e->pos += val + 38;
+		e->incr_search = NULL;
 		ft_printf("\n(Incremental search: no result found)");
 	}
 }

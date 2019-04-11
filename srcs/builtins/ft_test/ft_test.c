@@ -40,9 +40,11 @@ int		check_arg_files(char **argv)
 	if (argv[1] == 0)
 		return (0);
 	else if (argv[1] != 0 && argv[2] != 0)
-		return (return_fnc("test: too many arguments\n", 1));
+		return (return_fnc("test: too many arguments\n", 2));
 	else if (argv[0][1] != '\0' && argv[0][2] != '\0')
 		return (return_fnc("test: unknown condition:\n", 2));
+	if (ft_strchr("bcdefgLprSsuwx", argv[0][1]) == NULL)
+		return (return_fnc("test: unary operator expected\n", 2));
 	if ((lstat(argv[1], &file)) < 0)
 		return (1);
 	if (argv[0][1] == 'b')
@@ -63,7 +65,7 @@ int		check_arg_files(char **argv)
 int		compare_argv(char **argv)
 {
 	if (argv[3] != 0)
-		return (return_fnc("test: too many arguments\n", 1));
+		return (return_fnc("test: too many arguments\n", 2));
 	if (check_integer_tab(argv[0]) || check_integer_tab(argv[2]))
 		return (return_fnc("test: integer expression expected\n", 2));
 	if (!(ft_strcmp(argv[1], "-eq")))
@@ -96,7 +98,7 @@ int		test_builtin(char **argv)
 		if (*argv && argv[1] != 0 && argv[2] != 0)
 			return (compare_argv(argv));
 		else if (*argv && argv[1] != 0)
-			return (return_fnc("test: parse error: condition expected.\n", 1));
+			return (return_fnc("test: parse error: condition expected.\n", 2));
 	}
 	return (0);
 }

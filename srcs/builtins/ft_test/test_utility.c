@@ -14,7 +14,7 @@
 
 int		return_fnc(char *str, int ret)
 {
-	printf("%s", str);
+	ft_putstr_fd(str, 2);
 	return (ret);
 }
 

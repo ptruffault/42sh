@@ -1,1 +1,1 @@
-fc -e vim
+fc -e vim f5sd6 fds564

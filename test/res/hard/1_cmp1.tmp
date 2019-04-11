@@ -12,7 +12,6 @@ k.tmp
 osxerr.supp
 res
 test.sh
-tmpdir
 &
 42sh_log.tmp
 Makefile
@@ -26,4 +25,3 @@ k.tmp
 osxerr.supp
 res
 test.sh
-tmpdir

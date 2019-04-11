@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-t_envv			*change_dir(char *path, t_envv *envv, t_opts opts)
+int			change_dir(char *path, t_shell *sh, t_opts opts)
 {
 	char	buff[4097];
 	char	*cwd;
@@ -22,67 +22,46 @@ t_envv			*change_dir(char *path, t_envv *envv, t_opts opts)
 		cwd = ft_strdup_path(path);
 		if (opts & 0x04)
 			ft_printf("%s\n", cwd);
-		envv = ft_new_envv(envv, "OLDPWD", get_tenvv_val(envv, "PWD"), true);
+		sh->env = ft_new_envv(sh->env, "OLDPWD", get_tenvv_val(sh->env, "PWD"), true);
 		if ((opts & 0x02))
-			envv = ft_new_envv(envv, "PWD", getcwd(buff, 4096), true);
+			sh->env = ft_new_envv(sh->env, "PWD", getcwd(buff, 4096), true);
 		else
-			envv = ft_new_envv(envv, "PWD", cwd, true);
+			sh->env = ft_new_envv(sh->env, "PWD", cwd, true);
 		ft_strdel(&cwd);
+		return (0);
 	}
+	if (access(path, F_OK) == -1)
+		error("no such file or directory: ", path);
+	else if (access(path, R_OK) == -1)
+		error("permission denied: ", path);
 	else
-	{
-		if (access(path, F_OK) == -1)
-			error("no such file or directory: ", path);
-		else if (access(path, R_OK) == -1)
-			error("permission denied: ", path);
-		else
-			error("not a directory: ", path);
-	}
-	return (envv);
+		error("not a directory: ", path);
+	return (1);
 }
 
-char			*concat_pwd(t_envv *envv, char *path, bool *pwd_f)
-{
-	char		*pwd;
-	char		buff[4097];
-
-	if (!(pwd = get_tenvv_val(envv, "PWD")))
-		pwd = getcwd(buff, 4096);
-	if (!(pwd = ft_strdup(pwd)))
-		return (path);
-	if (pwd[ft_strlen(pwd) - 1] != '/')
-		pwd = ft_stradd(&pwd, "/");
-	pwd = ft_stradd(&pwd, path);
-	*pwd_f = true;
-	return (pwd);
-}
-
-t_envv			*get_path_cd(char *path, t_envv *envv, t_opts opts, bool pwd_f)
+int			get_path_cd(char *path, t_shell *sh, t_opts opts)
 {
 	char	*curpath;
-	char	*cdpath;
+	bool	pwd_f;
+	int		ret;
 
 	curpath = NULL;
+	pwd_f = false;
 	if ((opts & 0x02) && (path[0] == '/' || path[0] == '.'))
-		return (change_dir(path, envv, opts));
-	if ((cdpath = get_tenvv_val(envv, "CDPATH")) && ft_strlen(cdpath) > 0)
-		curpath = try_cdpath(cdpath, path, &pwd_f, &opts);
-	if (!curpath && path[0] != '/')
-		curpath = concat_pwd(envv, path, &pwd_f);
-	else if (!curpath)
-		curpath = path;
+		return (change_dir(path, sh, opts));
+	curpath = transform_cdpath(path, sh, &pwd_f, &opts);
 	while (ft_strstr(curpath, "..") || ft_strstr(curpath, "//")
 			|| ft_strstr(curpath, "./") || ft_strstr(curpath, "/."))
 		trim_path(curpath);
 	if (ft_strlen(curpath) == 0)
 		ft_strcpy(curpath, "/");
 	if (ft_strlen(curpath) > PATH_MAX)
-		envv = change_dir(path, envv, (opts | 0x02));
+		ret = change_dir(path, sh, (opts | 0x02));
 	else
-		envv = change_dir(curpath, envv, opts);
+		ret = change_dir(curpath, sh, opts);
 	if (pwd_f)
 		ft_strdel(&curpath);
-	return (envv);
+	return (ret);
 }
 
 static t_opts	get_options_cd(char **input, size_t *tabl)
@@ -110,7 +89,7 @@ static t_opts	get_options_cd(char **input, size_t *tabl)
 	return (opts);
 }
 
-t_envv			*ft_cd(char **input, t_envv *envv)
+int			ft_cd(char **input, t_shell *sh)
 {
 	char			*val;
 	t_opts			opts;
@@ -122,19 +101,19 @@ t_envv			*ft_cd(char **input, t_envv *envv)
 		error("cd: invalid option", input[tabl - 1]);
 	else if (!(input[1]))
 	{
-		if ((val = get_tenvv_val(envv, "HOME")))
-			return (get_path_cd(val, envv, opts, false));
+		if ((val = get_tenvv_val(sh->env, "HOME")))
+			return (get_path_cd(val, sh, opts));
 		else
 			error("UNSET VAR", "HOME");
 	}
 	else if (input[1][0] == '-' && input[1][1] == '\0')
 	{
-		if ((val = get_tenvv_val(envv, "OLDPWD")))
-			return (get_path_cd(val, envv, (opts | 0x04), false));
+		if ((val = get_tenvv_val(sh->env, "OLDPWD")))
+			return (get_path_cd(val, sh, (opts | 0x04)));
 		else
 			error("UNSET VAR", "OLDPWD");
 	}
 	else if (input[tabl])
-		return (get_path_cd(input[tabl], envv, opts, false));
-	return (envv);
+		return (get_path_cd(input[tabl], sh, opts));
+	return (1);
 }

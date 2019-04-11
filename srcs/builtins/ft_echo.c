@@ -76,6 +76,7 @@ int		ft_echo(char **input)
 		opts_n = 1;
 	while (input && input[i])
 	{
+		//ft_printf("\nInput = |%s|\n", input[i]);
 		if (i > opts_n)
 			ft_putchar(' ');
 		ft_putstr_echo(input[i++]);

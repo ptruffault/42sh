@@ -52,18 +52,36 @@ static void	set_struct_fc(t_fc *fc, t_shell *shell)
 	fc->last_ = NULL;
 }
 
+static int		init_fc(t_fc *fc, t_shell *shell, int *i)
+{
+	if ((*i = flags_gestion(fc->flags, fc->av, 0)) == 1)
+	{
+		free(fc);
+		return (2);
+	}
+	if (fc->flags[0] != 'e' && (!shell->hist || !shell->hist->next))
+	{
+		free(fc);
+		return (1);
+	}
+	else if ((!shell->hist || !shell->hist->next))
+	{
+		free(fc);
+		return (0);
+	}
+	return (3);
+}
 int			ft_fc(t_shell *shell, char **argv)
 {
 	t_fc	*fc;
 	int		i;
+	int		ret;
 
-	ft_printf("\n%s\n", shell->txt);
-	if ((!shell->hist || !shell->hist->next)
-	|| !(fc = malloc(sizeof(t_fc) * 1)))
-		return (0);
+	if (!(fc = malloc(sizeof(t_fc) * 1)))
+		return (1);
 	fc->av = argv;
-	if ((i = flags_gestion(fc->flags, fc->av, 0)) == 1)
-		return (0);
+	if ((ret = init_fc(fc, shell, &i)) <= 2)
+		return (ret);
 	set_struct_fc(fc, shell);
 	if (fc->flags[0] == 'e' && fc->av[i]
 	&& ft_isdigit(fc->av[i][0]) == 0 && fc->av[i][0] != '-')

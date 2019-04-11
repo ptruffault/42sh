@@ -12,6 +12,22 @@
 
 #include "shell42.h"
 
+static char		*concat_pwd(t_shell *sh, char *path, bool *pwd_f)
+{
+	char		*pwd;
+	char		buff[4097];
+
+	if (!(pwd = get_tenvv_val(sh->env, "PWD")))
+		pwd = getcwd(buff, 4096);
+	if (!(pwd = ft_strdup(pwd)))
+		return (path);
+	if (pwd[ft_strlen(pwd) - 1] != '/')
+		pwd = ft_stradd(&pwd, "/");
+	pwd = ft_stradd(&pwd, path);
+	*pwd_f = true;
+	return (pwd);
+}
+
 char		*ft_strdup_path(char *src)
 {
 	size_t	l;
@@ -20,7 +36,7 @@ char		*ft_strdup_path(char *src)
 
 	i = 0;
 	l = ft_strlen((char*)src);
-	if (src[l - 1] == '/')
+	if (l > 2 && src[l - 1] == '/')
 	{
 		src[l - 1] = '\0';
 		l -= 1;
@@ -34,6 +50,21 @@ char		*ft_strdup_path(char *src)
 	}
 	res[i] = '\0';
 	return (res);
+}
+
+char		*transform_cdpath(char *path, t_shell *sh, bool *pwd_f, t_opts *opts)
+{
+	char	*cdpath;
+	char	*curpath;
+
+	curpath = NULL;
+	if ((cdpath = get_tenvv_val(sh->env, "CDPATH")) && ft_strlen(cdpath) > 0)
+		curpath = try_cdpath(cdpath, path, pwd_f, opts);
+	if (!curpath && path[0] != '/')
+		curpath = concat_pwd(sh, path, pwd_f);
+	else if (!curpath)
+		curpath = path;
+	return (curpath);
 }
 
 char		*try_cdpath(char *cdpath, char *path, bool *pwd_f, t_opts *opts)

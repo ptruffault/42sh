@@ -56,7 +56,7 @@ int		ft_signal_check(t_process *p)
 	{
 		if (g_signal_msg[i].sig == p->sig)
 		{
-			ft_putstr(g_signal_msg[i].msg);
+			ft_putstr_fd(g_signal_msg[i].msg, 2);
 			return (1);
 		}
 		i++;

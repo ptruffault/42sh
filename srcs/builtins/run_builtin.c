@@ -23,7 +23,7 @@ static int	job_control(char **argv, t_shell *sh)
 			return (ft_bg(sh, argv));
 	}
 	error("no job control", NULL);
-	return (-1);
+	return (1);
 }
 
 static int	change_envv(char **argv, t_shell *sh)

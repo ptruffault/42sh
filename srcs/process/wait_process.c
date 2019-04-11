@@ -19,6 +19,8 @@ static void	ft_eval_status(t_process *p)
 	{
 		p->status = (WIFSTOPPED(p->ret) || p->sig == SIGTSTP ? SUSPENDED : KILLED);
 		p->sig = (WIFSTOPPED(p->ret) ? SIGTSTP : WTERMSIG(p->ret));
+		if (ft_signal_check(p) && p->background == FALSE)
+			ft_putchar_fd('\n', 2);
 		p->ret = p->sig + 128;	
 	}
 	else if (WIFEXITED(p->ret))

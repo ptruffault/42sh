@@ -60,7 +60,8 @@ char		**ft_twordto_arr(t_word *w)
 			while (w->paste == TRUE && w->next && w->next->word)
 			{
 				w = w->next;
-				if (!(arr[i] = ft_strappend(&arr[i], w->word)))
+				if (w->word && !ft_strchr(w->word, 6)
+				&& !(arr[i] = ft_strappend(&arr[i], w->word)))
 					return (ft_delstrarr(&arr));
 			}
 			i++;

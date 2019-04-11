@@ -73,13 +73,16 @@ int				ft_type(t_word *w)
 	char	opts[4];
 
 	if (!w || !w->word || !(w = init_opts(opts, w)))
-		return (-1);
+		return (1);
 	ret = 0;
 	sh = ft_get_set_shell(NULL);
 	while (w)
 	{
-		if (w->word && !handle_opts(w, opts, sh) && --ret)
+		if (w->word && !handle_opts(w, opts, sh))
+		{
+			ret = 1;
 			warning("not found", w->word);
+		}
 		w = w->next;
 	}
 	return (ret);

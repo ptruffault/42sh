@@ -91,6 +91,7 @@ SRC		=	\
 	get_input/prompt.c			\
 	get_input/hist_expanse.c	\
 	get_input/seek_n_replace.c	\
+	get_input/ft_incr_search.c	\
 	\
 	autocompletion/check_line.c			\
 	autocompletion/utility_handler.c	\

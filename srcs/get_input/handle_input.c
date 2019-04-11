@@ -12,6 +12,11 @@
 
 #include <get_input.h>
 
+void	ft_incr_search(t_edit *e)
+{
+	e->mode = 2;
+}
+
 int		handle_input(unsigned long buf, t_edit *e)
 {
 	int				x;

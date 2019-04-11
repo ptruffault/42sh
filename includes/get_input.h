@@ -16,6 +16,7 @@
 
 # define FAILURE 0
 # define SUCCESS 1
+
 # define KEY_ENTER 0xA
 # define KEY_TAB 9
 
@@ -37,6 +38,7 @@
 # define KEY_CTRL_C 3
 # define KEY_CTRL_D 4
 # define KEY_CTRL_L 12
+# define KEY_CTRL_R 18
 
 # define KEY_HOME 4741915
 # define KEY_END 4610843
@@ -80,10 +82,17 @@ typedef enum	e_colors
 	YELLOW
 }				t_colors;
 
+
+/*
+** file: srcs/get_input/arrow_move.c
+*/
 void			curr_move_right(t_edit *e);
 void			curr_move_left(t_edit *e);
 void			curs_go_last(t_edit *e);
 
+/*
+**
+*/
 void			ft_select_right(t_edit *e);
 void			ft_select_left(t_edit *e);
 void			ft_select_end(t_edit *e);
@@ -92,37 +101,80 @@ void			ft_home_key(t_edit *e);
 void			ft_select_line_down(t_edit *e);
 void			ft_select_line_up(t_edit *e);
 
+/*
+**
+*/
 void			ft_jump_line_down(t_edit *e);
 void			ft_jump_line_up(t_edit *e);
 
+/*
+**
+*/
 void			entry_key(t_edit *e);
 void			clear_term(t_edit *e);
 void			reset_get_input(t_edit *e);
 void			just_exit(t_edit *e);
 
+/*
+**
+*/
 void			ft_copy(t_edit *e);
 void			ft_paste(t_edit *e);
 
+/*
+**
+*/
 void			ft_jp_word_right(t_edit *e);
 void			ft_jp_word_left(t_edit *e);
 
+/*
+**
+*/
 int				term_actions(char *cmd);
 int				term_goto(char *cmd, int row, int col);
 
+/*
+**
+*/
 void			ft_print_fast(t_edit *e);
 void			ft_print_edited(t_edit *e);
 void			ft_print_line(t_edit *e);
 void			ft_delete_line(t_edit *e);
 
+
+/*
+**
+*/
+void			ft_incremental_search(t_edit *e);
+int				ft_incr_add(t_edit *e);
+
+/*
+** bonjour
+*/
 int				ft_get_hist_size(void);
 int				init_tedit(t_shell *sh);
 
+/*
+**
+*/
 int				tab_handle(t_edit *e);
 
+/*
+**
+*/
 int				check_for_hist_exp(t_edit *e);
 
+/*
+**
+*/
 int				seek_n_repl_str(t_edit *e, size_t x, char *word, size_t i);
 int				seek_n_repl_nb(t_edit *e, size_t x, int nb, size_t size);
+
+/*
+**
+*/
+int				handle_input(unsigned long buf, t_edit *e);
+void			ft_incr_search(t_edit *e);
 
 void			ft_delete_line(t_edit *e);
 void			curr_go_last(t_edit *e);
@@ -139,7 +191,6 @@ void			curs_gotoend(t_edit *e);
 void			curs_reset(t_edit *e);
 void			ft_clear(t_edit *e);
 void			add_to_file(char *path, char *s);
-int				handle_input(unsigned long buf, t_edit *e);
 t_edit			*get_set_edit(t_edit *new_ed);
 void			free_tedit(t_edit *e);
 void			get_hist_path(t_edit *e);

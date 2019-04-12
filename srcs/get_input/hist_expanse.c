@@ -34,7 +34,7 @@ int		get_nb_of_hist(t_edit *e, size_t x)
 			++i;
 		size = i - x - 1;
 	}
-	if (seek_n_repl_nb(e, x, nb, i - x - 1) == FAILURE)
+	if (seek_n_repl_nb(e, x, nb, size) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }

@@ -18,6 +18,7 @@ static void	ft_null(t_shell *sh)
 	sh->pid = getpid();
 	sh->heredoc = 0;
 	sh->fd = 0;
+	sh->fc = FALSE;
 	sh->err = 0;
 	sh->jobs = NULL;
 	sh->interactive = FALSE;

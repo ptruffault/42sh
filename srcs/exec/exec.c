@@ -89,16 +89,23 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 		if (!tmp->cmd || !tmp->cmd->word)
 		{
 			if (t->assign)
+			{
 				sh->env = ft_push_tenvv(sh->env, t->assign, IN);
+				tmp = next_instruction(tmp);
+			}
 			else if (tmp->o_type == O_SEP || tmp->o_type == 0
 				|| tmp->o_type == O_BACK)
 				tmp = tmp->next;
 			else
 				break ;
 		}
-		else if (!(tmp = exec_instruction(tmp, sh)))
+		else if (((tmp = ft_expention(tmp))))
+		{
+			if ((tmp = exec_instruction(tmp, sh)))
+				tmp = next_instruction(tmp);
+		}
+		else
 			break ;
-		tmp = next_instruction(tmp);
 	}
 	return (t);
 }

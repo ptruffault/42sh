@@ -95,51 +95,64 @@ void ft_putword(t_word *w)
 {
 	while (w)
 	{
-		ft_printf("{%s}\n", w->word);
-		w =w->next;
+		if (w->word)
+			ft_printf("{%s}\n", w->word);
+		w = w->next;
 	}
 }
 
-t_word 		*ft_word_paste(t_word *head)
+t_tree *ft_word_paste(t_tree *t)
 {
-	t_word *w;
+	t_word *head;
+	t_word *new;
 	t_word *tmp;
 
-	w = head;
-	tmp = NULL;
-	while (w)
+	tmp = t->cmd;
+	head = NULL;
+	while (tmp)
 	{
-		tmp = w;
-		while (w && w->paste && w->next && w->next->word)
+		if (tmp->type == NUL && tmp->paste)
+			tmp = tmp->next;
+		else if (tmp->paste && tmp->next && tmp->next->word)
 		{
-			if ((tmp->word = ft_strappend(&tmp->word, w->next->word)))
+			if ((new = new_tword()))
 			{
-				tmp->paste = w->next->paste;
-				tmp = ft_deltword(w, w->next);
+				new->word = ft_strdup(tmp->word);
+				while (tmp && tmp->paste && tmp->next && tmp->next->word)
+				{
+					new->word = ft_strappend(&new->word, tmp->next->word);
+					tmp = tmp->next;
+				}
+				tmp = tmp->next;
+				head = ft_addtword(head, new);
+				ft_free_tword(new);
 			}
 		}
-		w = (w ? w->next : w);
+		else
+		{
+			head = ft_addtword(head, tmp);
+			tmp = tmp->next;
+		}
 	}
-	return (head);
+	t->cmd = ft_free_tword(t->cmd);
+	t->cmd = head;
+	return (t);
 }
 
-t_word		*ft_expention(t_word *w)
+t_tree *ft_expention(t_tree *t)
 {
 	t_shell	*sh;
-	t_word	*head;
+	t_word	*w;
 
-	head = w;
-	if (!(sh = ft_get_set_shell(NULL)))
-		return (head);
+	w = t->cmd;
+	sh = ft_get_set_shell(NULL);
 	while (w)
 	{
 		if (w && IS_EXP(w->type) && w->word)
 			w->word = ft_exp_var(w->word, sh);
 		w = (w ? w->next : w);
 	}
-	if (head && ((!(head = ft_word_paste(head)))
-		|| !(head = ft_exp_home_var(head, sh->env))))
-		return (NULL);
-	//ft_putword(head);
-	return (head);
+	t = ft_word_paste(t);
+	t->cmd = ft_exp_home_var(t->cmd, sh->env);
+	return (t);
 }

@@ -79,7 +79,7 @@ int				ft_check_grammar(t_word *w, t_shell *sh)
 	}
 	if (!cmd)
 	{
-		sh->env = ft_new_envv_int(sh->env, "?", 2, false);
+		sh->env = ft_new_envv_int(sh->env, "?", 1, false);
 		return (warning("nothing to do", NULL));
 	}
 	return (1);

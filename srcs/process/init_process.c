@@ -103,6 +103,7 @@ t_process			*init_process(t_tree *t, t_shell *sh)
 			return (ft_free_tprocess(ret));
 		}
 		return (ft_init_cmd(ret, t, sh));
+		ft_putstrarr(ret->argv);
 	}
 	return (NULL);
 }

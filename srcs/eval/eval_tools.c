@@ -46,9 +46,7 @@ char		**ft_twordto_arr(t_word *w)
 	int		i;
 
 	i = 0;
-	if (!w || !(w = ft_expention(w)))
-		return (NULL);
-	if (!(arr = malloc(sizeof(char *) * (ft_twordlen(w) + 1))))
+	if (!w || !(arr = malloc(sizeof(char *) * (ft_twordlen(w) + 1))))
 		return (NULL);
 	while (w)
 	{

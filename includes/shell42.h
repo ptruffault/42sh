@@ -27,6 +27,7 @@
 # include "tenvv.h"
 # include "ft_printf.h"
 
+void ft_putword(t_word *w);
 void			ft_job_prompt(t_jobs *j, int opts);
 int				ft_job_is_over(t_jobs *j);
 t_jobs			*ft_get_jobs_pid(t_jobs *j, int pid);
@@ -82,7 +83,7 @@ void			ft_free_tshell(t_shell *sh);
 void			ft_disp(t_shell *sh);
 int				get_input(char	**line);
 char			**ft_twordto_arr(t_word *w);
-t_word			*ft_expention(t_word *w);
+t_tree			*ft_expention(t_tree *t);
 char			*ft_get_cutted_value(char *p, t_shell *sh, char *val, int *i);
 char			*ft_exp_var(char *ret, t_shell *sh);
 int				get_content_size(char *s);

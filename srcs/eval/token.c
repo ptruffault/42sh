@@ -54,12 +54,12 @@ static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 	if ((e->eval[*i] == '*' && !ft_isspace(e->eval[*i + 1]))
 		|| (e->eval[begin] == 'B' && !ft_isspace(e->eval[begin + 1]))
 		|| (e->eval[*i] == 'B' && !ft_isspace(e->eval[*i + 1]))
-		|| e->eval[*i] == 'B')
+		|| (c == 'B' && !ft_isspace(e->eval[*i])))
 		w->paste = TRUE;
-	if ((c == '*' && !(w->word = ft_strnew(1)))
+	if ((c == '*' && !(w->word = ft_strdup(" ")))
 	|| (c != '*' && !(w->word = ft_strndup(e->s + begin, *i - begin))))
 		return (NULL);
-	//ft_printf("[%c] {%s} %i \n", c, w->word , w->paste);
+//	ft_printf("[%c] {%s} (%c) %i \n", c, w->word , e->eval[*i],  w->paste);
 	if (exept && e->eval[*i] == '*')
 		*i = *i + 1;
 	return (find_type(w, c, pos));
@@ -103,6 +103,7 @@ t_word			*eval_line(char *input)
 	if (!input || !*input || ft_isempty(input))
 		return (NULL);
 	lexer(&e, input);
+	//ft_putendl(e.eval);
 	if (e.s && e.eval && (head = ft_get_words(&e))
 	 && !(head = ft_check_alias(head, sh)))
 	{

@@ -111,8 +111,10 @@ t_tree *ft_word_paste(t_tree *t)
 	head = NULL;
 	while (tmp)
 	{
-		if (tmp->type == NUL && tmp->paste)
+		if (tmp->type == NUL && tmp->paste == TRUE)
+		{
 			tmp = tmp->next;
+		}
 		else if (tmp->paste && tmp->next && tmp->next->word)
 		{
 			if ((new = new_tword()))
@@ -154,5 +156,6 @@ t_tree *ft_expention(t_tree *t)
 	}
 	t = ft_word_paste(t);
 	t->cmd = ft_exp_home_var(t->cmd, sh->env);
+	//ft_putword(t->cmd);
 	return (t);
 }

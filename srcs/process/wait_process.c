@@ -36,7 +36,7 @@ int			ft_wait(t_jobs *j, t_shell *sh)
 	t_process *p;
 
 	ret = 0;
-	p = j->p;
+	p = (j ? j->p : NULL);
 	while (p)
 	{
 		if ((p->pid == 0 && p->status != SUSPENDED && p->status != DONE 

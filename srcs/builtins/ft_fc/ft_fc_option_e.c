@@ -69,28 +69,26 @@ int add_to_hist(char *line, t_shell *sh, int hist_size)
 	return (SUCCESS);
 }
 
-int read_from_add_hist(char *file, t_shell *sh, t_fc *fc)
+int read_from_add_hist(t_shell *sh, char *line, int x)
 {
-	int		fd;
-	char	*line;
-	int		x;
+	int nb;
 
-	if ((fd = open(file, O_RDONLY)) == -1)
-		return (error("Could not open the file", file));
-	fc->hist_size = ft_get_hist_size();
-	x = 0;
-	while (get_next_line(fd, &line) > 0)
+	nb = ft_get_hist_size();
+	if (x == 0)
 	{
-		if (x == 0)
+		ft_strdel(&sh->hist->s);
+		if (!(sh->hist->s = ft_strdup(line)))
 		{
-			ft_strdel(&sh->hist->s);
-			sh->hist->s = line;
-		}
-		else if (x != 0 && add_to_hist(line, sh, fc->hist_size) == FAILURE)
+			if (sh->hist->next)
+			{
+				sh->hist = sh->hist->next;
+				free(sh->hist->prev);
+			}
 			return (FAILURE);
-		line = NULL;
-		++x;
+		}
 	}
+	else if (x != 0 && add_to_hist(line, sh, nb) == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }
 
@@ -122,9 +120,11 @@ void		ft_fc_option_e(t_fc *fc, int pos)
 	if (fc->shell->txt)
 		ft_printf("\n%s\n", fc->shell->txt);
 	ft_strdel(&fc->shell->txt);
+	fc->shell->fc = TRUE;
 	fc->shell->interactive = FALSE;
 	exec_file("/tmp/fc____42sh", fc->shell);
 	fc->shell->interactive = TRUE;
+	fc->shell->fc = FALSE;
 	read_from_add_hist("/tmp/fc____42sh", fc->shell, fc);
 	unlink("/tmp/fc____42sh");
 }

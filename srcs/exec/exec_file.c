@@ -21,16 +21,27 @@ char	*join_or_save_txt(char *tmp, t_shell *sh)
 	return (tmp);
 }
 
+static void	tree_fill(t_shell *sh, int x)
+{
+	t_tree *t;
+	if (*sh->txt != '#' && (t = get_tree(sh->txt)))
+		ft_free_tree(exec_tree(t, sh));
+	if (sh->fc == TRUE)
+		read_from_add_to_hist(sh, sh->txt, x);
+	ft_strdel(&sh->txt);
+}
+
 int		exec_fd(t_shell *sh, int fd)
 {
 	int		i;
-	t_tree	*t;
 	t_eval	eval;
 	char	*tmp;
+	int		x;
 
 	i = 0;
 	tmp = NULL;
 	sh->fd = fd;
+	x = 0;
 	while (get_next_line(sh->fd, &sh->txt) == 1 && !ft_isempty(sh->txt))
 	{
 		tmp = join_or_save_txt(tmp, sh);
@@ -39,9 +50,7 @@ int		exec_fd(t_shell *sh, int fd)
 		ft_strdel(&eval.s);
 		if (eval.err == 0)
 		{
-			if (*sh->txt != '#' && (t = get_tree(sh->txt)))
-				ft_free_tree(exec_tree(t, sh));
-			ft_strdel(&sh->txt);
+			tree_fill(sh, x++);
 			tmp = NULL;
 		}
 		i++;

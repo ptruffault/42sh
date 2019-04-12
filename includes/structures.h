@@ -47,7 +47,8 @@ enum	e_wtype{
 	DQUOTE = 3,
 	QUOTE = 4,
 	REDIRECT = 5,
-	OPERATEUR = 6
+	OPERATEUR = 6,
+	NUL = 7
 };
 
 enum	e_pstatus{
@@ -125,6 +126,7 @@ typedef struct			s_eval
 	enum e_error		err;
 	char				c;
 	int					curr;
+	int 				correc;
 }						t_eval;
 
 typedef struct			s_word

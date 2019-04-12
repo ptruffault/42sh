@@ -114,7 +114,7 @@ void		ft_fc_option_e(t_fc *fc, int pos)
 		return ;
 	ft_fc_write_in_file(fc, fd);
 	close(fd);
-	if ((t = get_tree(tmp)))
+	if ((t = get_tree(tmp, ft_get_set_shell(NULL))))
 		ft_free_tree(exec_tree(t, fc->shell));
 	ft_strdel(&tmp);
 	if (fc->shell->txt)
@@ -125,6 +125,5 @@ void		ft_fc_option_e(t_fc *fc, int pos)
 	exec_file("/tmp/fc____42sh", fc->shell);
 	fc->shell->interactive = TRUE;
 	fc->shell->fc = FALSE;
-	read_from_add_hist("/tmp/fc____42sh", fc->shell, fc);
 	unlink("/tmp/fc____42sh");
 }

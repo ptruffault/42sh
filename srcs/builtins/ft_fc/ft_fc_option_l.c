@@ -44,9 +44,9 @@ void		ft_fc_option_l(t_fc *fc)
 
 	if (search_in_hist_parser(fc, 3) == FAILURE)
 		return ;
-	/*tmp = fc->hist_first;
+	tmp = fc->hist_first;
 	fc->hist_first = fc->hist_last;
-	fc->hist_last = tmp;*/
+	fc->hist_last = tmp;
 	if (ft_strchr(fc->flags, 'r'))
 	{
 		tmp = fc->hist_first;

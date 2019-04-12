@@ -55,25 +55,25 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	if (t->o_type == O_PIPE)
 	{
 		if (t->next && (p = init_pipe_process(t, sh)))
-			t = exec_pipe(t, p, sh);
-		else
-			while (t->o_type == O_PIPE)
-				t = t->next;
+			j = exec_pipe(t, p, sh);
+		while (t->o_type == O_PIPE)
+			t = t->next;
 	}
 	else if ((p = init_process(t, sh)))
-		p = ft_exec_process(p, sh, t);
+		j = ft_exec_process(p, sh, t);
 	t->ret = (p ? p->ret : 1);
-	ft_printf("~> %s %i\n", p->cmd, p->ret);
-	if (t->ret == -1 || (p && p->builtins == TRUE && p->ret == 0))
+	if (j && (t->ret == -1 || (p && p->builtins == TRUE && p->ret == 0)))
 	{
-		j = ft_add_jobs(p, sh);
 		ft_link_process_to_term(p, sh);
 		t->ret = ft_wait(j, sh);
 		if (sh->interactive == TRUE && p)
 			ft_tcsetpgrp(sh->std[0], sh->pgid);
 	}
 	else if (p)
+	{
 		p->status = INIT;
+		ft_remove_jobs(p->pid, sh);
+	}
 	sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
 	ft_reset_fd(sh);
 	return (t);

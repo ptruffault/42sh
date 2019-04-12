@@ -1,5 +1,4 @@
 
-&
 42sh_log.tmp
 Makefile
 add_cmd.sh
@@ -12,5 +11,5 @@ k.tmp
 osxerr.supp
 res
 test.sh
-/Users/stdenis/Documents/42/42sh/42sh/test
-/Users/stdenis
+/Users/ptruffau/42sh/test
+/Users/ptruffau

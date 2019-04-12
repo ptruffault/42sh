@@ -24,10 +24,10 @@ char	*join_or_save_txt(char *tmp, t_shell *sh)
 static void	tree_fill(t_shell *sh, int x)
 {
 	t_tree *t;
-	if (*sh->txt != '#' && (t = get_tree(sh->txt)))
+	if (*sh->txt != '#' && (t = get_tree(sh->txt, sh)))
 		ft_free_tree(exec_tree(t, sh));
 	if (sh->fc == TRUE)
-		read_from_add_to_hist(sh, sh->txt, x);
+		read_from_add_hist(sh, sh->txt, x);
 	ft_strdel(&sh->txt);
 }
 
@@ -42,7 +42,9 @@ int		exec_fd(t_shell *sh, int fd)
 	tmp = NULL;
 	sh->fd = fd;
 	x = 0;
-	while (get_next_line(sh->fd, &sh->txt) == 1 && !ft_isempty(sh->txt))
+	while (get_next_line(sh->fd, &sh->txt) == 1 && !ft_isempty(sh->txt)
+		&& !(ft_strequ(get_tenvv_val(sh->env, "?"), "2"))
+		&& !(ft_strequ(get_tenvv_val(sh->env, "?"), "1")))
 	{
 		tmp = join_or_save_txt(tmp, sh);
 		lexer(&eval, sh->txt);

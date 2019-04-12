@@ -12,15 +12,9 @@
 
 #include "shell42.h"
 
-t_word			*ft_deltword(t_word *prev, t_word *src)
+t_word *ft_deltword(t_word *prev, t_word *src)
 {
-	if (!prev)
-	{
-		prev = src->next;
-		src->next = NULL;
-		src = ft_free_tword(src);
-	}
-	else if (src && prev)
+	if (src && prev)
 	{
 		prev->next = src->next;
 		src->next = NULL;

@@ -44,6 +44,28 @@ int		ft_incr_add(t_edit *e)
 	return (SUCCESS);
 }
 
+void	ft_print_search(t_edit *e, t_hist *hist)
+{
+	size_t		val;
+
+	val = ft_strlen(e->hist->s);
+	while (val > e->width)
+		val -= e->width;
+	val = e->width - val;
+	if (hist && hist->nb != e->hist->nb)
+	{
+		e->incr_search = hist->s;
+		e->pos += val + 16 + ft_strlen(hist->s);
+		ft_printf("\n(Incr' search):%s", hist->s);
+	}
+	else
+	{
+		e->pos += val + 38;
+		e->incr_search = NULL;
+		ft_printf("\n(Incremental search: no result found)");
+	}
+}
+
 void	ft_incremental_search(t_edit *e)
 {
 	t_hist *hist;
@@ -62,16 +84,5 @@ void	ft_incremental_search(t_edit *e)
 	hist = incr_search_by_occurence(hist, e->hist->s);
 	if (hist && e->hist->nb == hist->nb && e->hist->next)
 		hist = incr_search_by_occurence(e->hist, e->hist->s);
-	if (hist && hist->nb != e->hist->nb)
-	{
-		e->incr_search = hist->s;
-		ft_printf("\n(Incr' search):%s", hist->s);
-		e->pos = (e->width - ft_strlen(e->hist->s)) + 15 + ft_strlen(hist->s);
-	}
-	else
-	{
-		ft_printf("\n(Incremental search: no result found)");
-		e->incr_search = NULL;
-		e->pos += 37 + e->width;
-	}
+	ft_print_search(e, hist);
 }

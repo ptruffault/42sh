@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   wait_process.c                                     :+:      :+:    :+:   */
@@ -19,7 +19,7 @@ static void	ft_eval_status(t_process *p)
 	{
 		p->status = (WIFSTOPPED(p->ret) || p->sig == SIGTSTP ? SUSPENDED : KILLED);
 		p->sig = (WIFSTOPPED(p->ret) ? SIGTSTP : WTERMSIG(p->ret));
-		if (ft_signal_check(p) && p->background == FALSE)
+		if (ft_signal_check(p) && p->background == FALSE && p->status != SUSPENDED)
 			ft_putchar_fd('\n', 2);
 		p->ret = p->sig + 128;	
 	}
@@ -51,11 +51,8 @@ int			ft_wait(t_jobs *j, t_shell *sh)
 			ft_eval_status(p);
 			ret = p->ret;
 			if (j && ft_job_is_over(j))
-			{
-				ft_remove_jobs(j->p->pid, sh);
-				return (ret);
-			}
-			if (j && j->p->background == TRUE && p->pid == j->p->pid)
+				ft_remove_jobs(p->pid, sh);
+			else if (j && j->p->background == TRUE && p->pid == j->p->pid)
 				ft_job_prompt(j, 0);
 		}
 		p = p->grp;

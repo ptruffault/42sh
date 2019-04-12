@@ -47,20 +47,26 @@ static char	*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 	return (ret);
 }
 
-char	*ft_exp_home_var(char *ret, t_envv *envv)
+t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 {
 	char	*tmp;
 	char	*val;
+	t_word *w;
 
 	tmp = NULL;
-	if ((val = get_tenvv_val(envv, "HOME"))
-	&& (tmp = ft_strpull(ret, ret, 0, val)))
+	w = head;
+	while (w)
 	{
-		ft_strdel(&ret);
-		return (tmp);
+		if (w->word && *w->word == '~' && 0 < w->type && w->type <= 2
+		&& (val = get_tenvv_val(envv, "HOME"))
+		&& (tmp = ft_strpull(w->word, w->word, 0, val)))
+		{
+			ft_strdel(&w->word);
+			w->word = tmp;
+		}
+		w = w->next;
 	}
-	ft_strdel(&ret);
-	return (NULL);
+	return (head);
 }
 
 char		*ft_exp_var(char *ret, t_shell *sh)
@@ -70,7 +76,7 @@ char		*ft_exp_var(char *ret, t_shell *sh)
 	i = -1;
 	while (ret && *ret && ret[++i])
 	{
-		if (ret[i] == '$' && ret[i + 1] && (i == 0 || ret[i - 1] != '\\'))
+		if (ret[i] == '$' && ret[i + 1])
 		{
 			if (ret[i + 1] == '{')
 			{
@@ -85,6 +91,38 @@ char		*ft_exp_var(char *ret, t_shell *sh)
 	return (ret);
 }
 
+void ft_putword(t_word *w)
+{
+	while (w)
+	{
+		ft_printf("{%s}\n", w->word);
+		w =w->next;
+	}
+}
+
+t_word 		*ft_word_paste(t_word *head)
+{
+	t_word *w;
+	t_word *tmp;
+
+	w = head;
+	tmp = NULL;
+	while (w)
+	{
+		tmp = w;
+		while (w && w->paste && w->next && w->next->word)
+		{
+			if ((tmp->word = ft_strappend(&tmp->word, w->next->word)))
+			{
+				tmp->paste = w->next->paste;
+				tmp = ft_deltword(w, w->next);
+			}
+		}
+		w = (w ? w->next : w);
+	}
+	return (head);
+}
+
 t_word		*ft_expention(t_word *w)
 {
 	t_shell	*sh;
@@ -95,11 +133,13 @@ t_word		*ft_expention(t_word *w)
 		return (head);
 	while (w)
 	{
-		if (1 <= w->type && w->type <= 2 && *w->word ==  '~')
-			w->word = ft_exp_home_var(w->word, sh->env);
-		if (IS_EXP(w->type) && w->word)
+		if (w && IS_EXP(w->type) && w->word)
 			w->word = ft_exp_var(w->word, sh);
-		w = w->next;
+		w = (w ? w->next : w);
 	}
+	if (head && ((!(head = ft_word_paste(head)))
+		|| !(head = ft_exp_home_var(head, sh->env))))
+		return (NULL);
+	//ft_putword(head);
 	return (head);
 }

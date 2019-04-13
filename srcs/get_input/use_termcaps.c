@@ -12,18 +12,52 @@
 
 #include <get_input.h>
 
-int	term_actions(const char *cmd)
+static int	execute_tputs(int c)
 {
-	if (!(cmd = (tgetstr((char*)cmd, NULL))))
-		return (FAILURE);
-	ft_putstr(cmd);
+	write(0, &c, 1);
+	return (0);
+}
+
+static char	*get_tgetstr(const char *id, char **area)
+{
+	char	*rtn;
+	char	*tmp;
+
+	tmp = ft_strdup(id);
+	if (tmp == NULL)
+		return (NULL);
+	rtn = tgetstr(tmp, area);
+	ft_strdel(&tmp);
+	return (rtn);
+}
+
+static int	do_tputs(const char *str, int affcnt, int (*putc)(int))
+{
+	if (str != NULL)
+		return (tputs(str, affcnt, putc));
+	return (-1);
+}
+
+int			term_actions(const char *id)
+{
+	char	*str;
+
+	str = get_tgetstr(id, NULL);
+	if (str)
+		do_tputs(str, 1, execute_tputs);
 	return (SUCCESS);
 }
 
-int	term_goto(char *cmd, int row, int col)
+int			term_goto(char *cmd, int row, int col)
 {
-	if (!(cmd = tgetstr(cmd, NULL)))
-		return (FAILURE);
-	ft_putstr(tgoto(cmd, row, col));
+	char	*str;
+	char	*go;
+
+	go = NULL;
+	str = get_tgetstr(cmd, NULL);
+	if (str)
+		go = tgoto(str, row, col);
+	if (go)
+		do_tputs(go, 1, execute_tputs);
 	return (SUCCESS);
 }

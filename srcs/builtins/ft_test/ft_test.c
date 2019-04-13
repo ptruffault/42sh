@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-int		more_check_file(char **argv, struct stat *file)
+static int		more_check_file(char **argv, struct stat *file)
 {
 	if (argv[0][1] == 'L' || argv[0][1] == 'h')
 		return (S_ISLNK(file->st_mode) ? 0 : 1);
@@ -33,7 +33,7 @@ int		more_check_file(char **argv, struct stat *file)
 	return (2);
 }
 
-int		check_arg_files(char **argv)
+static int		check_arg_files(char **argv)
 {
 	struct stat	file;
 
@@ -62,7 +62,7 @@ int		check_arg_files(char **argv)
 	return (more_check_file(argv, &file));
 }
 
-int		compare_argv(char **argv)
+static int		compare_argv(char **argv)
 {
 	if (argv[3] != 0)
 		return (return_fnc("test: too many arguments\n", 2));
@@ -84,7 +84,7 @@ int		compare_argv(char **argv)
 		return (return_fnc("test: unknown condition:\n", 2));
 }
 
-int		test_builtin(char **argv)
+static int		test_builtin(char **argv)
 {
 	if (*argv && argv[0][0] == '-')
 	{
@@ -103,7 +103,7 @@ int		test_builtin(char **argv)
 	return (0);
 }
 
-int		ft_test(char **argv)
+int				ft_test(char **argv)
 {
 	int		ret;
 

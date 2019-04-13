@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-char	*get_word_cursor(char *str, int *pos)
+static char	*get_word_cursor(char *str, int *pos)
 {
 	char	*ret;
 	int		i;
@@ -37,21 +37,7 @@ char	*get_word_cursor(char *str, int *pos)
 	return (ret);
 }
 
-void	ft_arrdel(char ***arr)
-{
-	size_t	i;
-
-	i = 0;
-	while ((*arr)[i] != NULL)
-	{
-		free((*arr)[i]);
-		i++;
-	}
-	free(*arr);
-	*arr = NULL;
-}
-
-char	**get_tabl_others(char *value, int pos, int *total)
+static char	**get_tabl_others(char *value, int pos, int *total)
 {
 	char	**tabl;
 	char	*tmp;
@@ -73,7 +59,7 @@ char	**get_tabl_others(char *value, int pos, int *total)
 	return (tabl);
 }
 
-char	**get_tabl_expansion(char *value, int *total)
+static char	**get_tabl_expansion(char *value, int *total)
 {
 	char	**tabl;
 	bool	all;
@@ -88,7 +74,21 @@ char	**get_tabl_expansion(char *value, int *total)
 	return (tabl);
 }
 
-char	**check_line(int *max_len, int *total, t_edit *e)
+void	ft_arrdel(char ***arr)
+{
+	size_t	i;
+
+	i = 0;
+	while ((*arr)[i] != NULL)
+	{
+		free((*arr)[i]);
+		i++;
+	}
+	free(*arr);
+	*arr = NULL;
+}
+
+char		**check_line(int *max_len, int *total, t_edit *e)
 {
 	char	*value;
 	char	**tabl;
@@ -109,7 +109,7 @@ char	**check_line(int *max_len, int *total, t_edit *e)
 		tabl = get_tabl_expansion(value + 1, total);
 	if (tabl != NULL && (*total <= 0))
 		ft_arrdel(&tabl);
-	else
+	else if (tabl != NULL)
 		ft_sort_table(tabl, max_len);
 	ft_strdel(&value);
 	return (tabl);

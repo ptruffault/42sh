@@ -12,48 +12,6 @@
 
 #include "shell42.h"
 
-void		ft_put_cmd(t_process *p)
-{
-	int i;
-
-	while (p)
-	{
-		i = 0;
-		while (p->argv[i])
-			ft_printf(" %s ", p->argv[i++]);
-		if ((p = p->grp))
-			ft_printf(" | ");
-	}
-}
-
-void		ft_job_prompt(t_jobs *j, int opts)
-{
-	char	*stat[6];
-
-	ft_process_tab_status(stat);
-	if (opts == 1)
-		ft_putnbr(j->p->pid);
-	else
-	{
-		ft_printf("\x1B[00;34m[\x1B[00m%i\x1B[00;34m]\x1B[00m ", j->id);
-		if (!j->next)
-			ft_printf(" + ");
-		else if (j && j->next && !j->next->next)
-			ft_printf(" - ");
-		else
-			ft_printf("   ");
-		if (opts == 2)
-			ft_printf(" %i ", j->p->pid);
-		if (j->p->status != DONE && j->p->status != RUNNING_FG
-			&& j->p->status != RUNNING_BG)
-			ft_signal_check(j->p);
-		else
-			ft_printf(" %s \x1B[1;39m", stat[j->p->status]);
-		ft_put_cmd(j->p);
-	}
-	ft_putstr("\x1B[00m\n");
-}
-
 static void	ft_print_coresspond_jobs(t_jobs *j, char *str, int opts)
 {
 	t_jobs	*tmp;
@@ -111,6 +69,33 @@ static int	ft_read_opts(char **argv, t_shell *sh)
 		}
 	}
 	return ((!n ? ret : n));
+}
+
+void		ft_job_prompt(t_jobs *j, int opts)
+{
+	char	*stat[6];
+
+	ft_process_tab_status(stat);
+	if (opts == 1)
+		ft_putnbr(j->p->pid);
+	else
+	{
+		ft_printf("\x1B[00;34m[\x1B[00m%i\x1B[00;34m]\x1B[00m ", j->id);
+		if (!j->next)
+			ft_printf(" + ");
+		else if (j && j->next && !j->next->next)
+			ft_printf(" - ");
+		else
+			ft_printf("   ");
+		if (opts == 2)
+			ft_printf(" %i ", j->p->pid);
+		if (j->p->status != DONE && j->p->status != RUNNING_FG
+			&& j->p->status != RUNNING_BG)
+			ft_signal_check(j->p);
+		else
+			ft_printf(" %s \x1B[1;39m", stat[j->p->status]);
+	}
+	ft_putstr("\x1B[00m\n");
 }
 
 int			ft_jobs(t_shell *sh, char **argv)

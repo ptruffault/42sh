@@ -25,7 +25,7 @@ static int	environ_len(t_envv *envv)
 	return (i);
 }
 
-int			copy_env_tab(char *value, char **tabl, t_envv *envv, bool all)
+static int	copy_env_tab(char *value, char **tabl, t_envv *envv, bool all)
 {
 	int		i;
 

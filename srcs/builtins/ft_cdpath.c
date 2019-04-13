@@ -52,7 +52,7 @@ char		*ft_strdup_path(char *src)
 	return (res);
 }
 
-char		*transform_cdpath(char *path, t_shell *sh, bool *pwd_f, t_opts *opts)
+char		*trans_cdpath(char *path, t_shell *sh, bool *pwd_f, t_opts *opts)
 {
 	char	*cdpath;
 	char	*curpath;

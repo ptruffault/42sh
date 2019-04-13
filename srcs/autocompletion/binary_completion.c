@@ -13,7 +13,7 @@
 #include <dirent.h>
 #include "shell42.h"
 
-int			fill_tabl_binary(int *j, char ***tabl, char *value, char *path)
+static int	fill_tabl_binary(int *j, char ***tabl, char *value, char *path)
 {
 	DIR				*fd;
 	struct dirent	*dir;
@@ -38,7 +38,7 @@ int			fill_tabl_binary(int *j, char ***tabl, char *value, char *path)
 	return (*j);
 }
 
-int			fill_tabl_all_bin(int *j, char ***tabl, char *path)
+static int	fill_tabl_all_bin(int *j, char ***tabl, char *path)
 {
 	DIR				*fd;
 	struct dirent	*dir;
@@ -62,7 +62,7 @@ int			fill_tabl_all_bin(int *j, char ***tabl, char *path)
 	return (*j);
 }
 
-int			fill_tabl_builtin(char ***tabl, char *value, bool all, int *j)
+static int	fill_tabl_builtin(char ***tabl, char *value, bool all, int *j)
 {
 	int			i;
 	t_shell		*sh;
@@ -98,8 +98,9 @@ char		**get_binary(t_shell *sh, char *value, bool all, int *total)
 	j = 0;
 	if (!(tabl = (char**)malloc(sizeof(char*) * 2)))
 		return (NULL);
+	tabl[0] = NULL;
 	if (!(path = ft_strsplit(get_tenvv_val(sh->env, "PATH"), ':')))
-		return (NULL);
+		return (tabl);
 	set_null_tabl(tabl, 2);
 	while (path[++i])
 	{

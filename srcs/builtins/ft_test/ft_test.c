@@ -69,17 +69,17 @@ static int		compare_argv(char **argv)
 	if (check_integer_tab(argv[0]) || check_integer_tab(argv[2]))
 		return (return_fnc("test: integer expression expected\n", 2));
 	if (!(ft_strcmp(argv[1], "-eq")))
-		return ((atoi(argv[0]) == atoi(argv[2]) ? 0 : 1));
+		return ((ft_atoi(argv[0]) == ft_atoi(argv[2]) ? 0 : 1));
 	else if (!(ft_strcmp(argv[1], "-ne")))
-		return ((atoi(argv[0]) == atoi(argv[2]) ? 1 : 0));
+		return ((ft_atoi(argv[0]) == ft_atoi(argv[2]) ? 1 : 0));
 	else if (!(ft_strcmp(argv[1], "-gt")))
-		return ((atoi(argv[0]) > atoi(argv[2]) ? 0 : 1));
+		return ((ft_atoi(argv[0]) > ft_atoi(argv[2]) ? 0 : 1));
 	else if (!(ft_strcmp(argv[1], "-ge")))
-		return ((atoi(argv[0]) >= atoi(argv[2]) ? 0 : 1));
+		return ((ft_atoi(argv[0]) >= ft_atoi(argv[2]) ? 0 : 1));
 	else if (!(ft_strcmp(argv[1], "-lt")))
-		return ((atoi(argv[0]) < atoi(argv[2]) ? 0 : 1));
+		return ((ft_atoi(argv[0]) < ft_atoi(argv[2]) ? 0 : 1));
 	else if (!(ft_strcmp(argv[1], "-le")))
-		return ((atoi(argv[0]) <= atoi(argv[2]) ? 0 : 1));
+		return ((ft_atoi(argv[0]) <= ft_atoi(argv[2]) ? 0 : 1));
 	else
 		return (return_fnc("test: unknown condition:\n", 2));
 }
@@ -89,7 +89,7 @@ static int		test_builtin(char **argv)
 	if (*argv && argv[0][0] == '-')
 	{
 		if (argv[0][1] == 'z')
-			return ((argv[1] && strlen(argv[1]) > 0) ? 0 : 1);
+			return ((argv[1] && ft_strlen(argv[1]) > 0) ? 0 : 1);
 		else
 			return (check_arg_files(argv));
 	}

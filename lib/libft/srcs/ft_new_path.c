@@ -12,6 +12,25 @@
 
 #include <libft.h>
 
+char	*ft_get_prev_path(char *path)
+{
+	char	*ret;
+	int		len;
+	int		i;
+
+	ret = NULL;
+	if (ft_strchr(path, '/'))
+	{
+		len = ft_strlen(path);
+		i = len - 1;
+		while (i > 0 && path[i] != '/')
+			i--;
+		path[i] = '\0';
+		ret = path;
+	}
+	return (ret);
+}
+
 char	*ft_new_path(char *s1, char *s2)
 {
 	char	*new_path;

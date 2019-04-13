@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "tenvv.h"
 
 char	*ft_split_equal(char *str, char **aft)

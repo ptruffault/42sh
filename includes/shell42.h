@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <sys/ioctl.h>
+# include <dirent.h>
 # include <pwd.h>
 # include <term.h>
 # include <limits.h>

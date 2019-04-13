@@ -122,7 +122,7 @@ int				ft_test(char **argv);
 ** builtins/ft_test/test_utility.c
 */
 int				check_integer_tab(char *argv);
-int				return_fnc(char *str, int ret);
+int				return_fnc(const char *str, int ret);
 
 /*
 ** builtins/jobs/fg_bg.c
@@ -279,7 +279,7 @@ void			ft_link_process_to_term(t_process *p, t_shell *sh);
 /*
 ** exec/exec_file.c
 */
-int				exec_file(char *path, t_shell *sh);
+int				exec_file(const char *path, t_shell *sh);
 int				exec_fd(t_shell *sh, int fd);
 
 /*
@@ -657,7 +657,6 @@ int				ft_get_pgid(int pgid, t_process *p, t_process *prev);
 t_jobs 			*exec_pipe(t_tree *t, t_process *p, t_shell *sh);
 int				run_builtin(t_tree *t, char **argv, t_shell *sh);
 t_tree			*exec_tree(t_tree *t, t_shell *sh);
-int				exec_file(char *path, t_shell *sh);
 int				exec_fd(t_shell *sh, int fd);
 t_tree			*ft_get_set_tree(t_tree *new_t);
 int				new_process(t_process *new, t_tree *t, t_shell *sh);
@@ -730,7 +729,6 @@ int				add_in_htable(const char *str, const char *path, t_shell *sh);
 unsigned int	ft_hash(const char *str);
 int				ft_test(char **argv);
 int				check_integer_tab(char *argv);
-int				return_fnc(char *str, int ret);
 char			*ft_strdup_path(char *src);
 void			ft_init_builtins_tab(t_shell *sh);
 int				check_eval(char *str);

@@ -40,7 +40,7 @@ void		hist_move_up(t_edit *e)
 	e->curr = ft_strlen(e->hist->s);
 	e->pos_y = 0;
 	if (e->curr > e->max_char)
-		e->pos_z = e->curr - e->width + 2;
+		e->pos_z = (int)(e->curr - e->width + 2);
 	else
 		e->pos_z = 0;
 	e->select = -1;
@@ -56,7 +56,7 @@ void		hist_move_do(t_edit *e)
 	e->curr = ft_strlen(e->hist->s);
 	e->pos_y = 0;
 	if (e->curr > e->max_char)
-		e->pos_z = e->curr - e->width + 2;
+		e->pos_z = (int)(e->curr - e->width + 2);
 	else
 		e->pos_z = 0;
 	e->select = -1;

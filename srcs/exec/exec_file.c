@@ -61,7 +61,7 @@ int			exec_fd(t_shell *sh, int fd)
 	return (i);
 }
 
-int			exec_file(char *path, t_shell *sh)
+int			exec_file(const char *path, t_shell *sh)
 {
 	int fd;
 

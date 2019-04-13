@@ -39,7 +39,7 @@ static int	delete_simple_left(t_edit *e)
 	return (SUCCESS);
 }
 
-static int	delete_multiple_left(t_edit *e, int stop)
+static int	delete_multiple_left(t_edit *e, size_t stop)
 {
 	char	*tmp;
 	size_t	i;

@@ -21,7 +21,7 @@ static void	autocompletion_printing(t_edit *e, char **tabl, int max_len)
 	x = -1;
 	sh = ft_get_set_shell(NULL);
 	ft_putstr("\n");
-	nb = e->width / (max_len + 1);
+	nb = (int)e->width / (max_len + 1);
 	while (tabl[++x])
 	{
 		--nb;
@@ -29,7 +29,7 @@ static void	autocompletion_printing(t_edit *e, char **tabl, int max_len)
 		if (nb == 0)
 		{
 			ft_putstr("\n");
-			nb = e->width / (max_len + 1);
+			nb = (int)e->width / (max_len + 1);
 		}
 	}
 	ft_putstr("\n");
@@ -45,7 +45,7 @@ static int	autocompletion_adding(t_edit *e, char **t)
 	while (e->curr - x > 0
 		&& !(ft_strchr(" /;{$|&", e->hist->s[e->curr - x - 1])))
 		++x;
-	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr - x, x - 1, t[0])))
+	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr - x, (int)(x - 1), t[0])))
 		return (FAILURE);
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;

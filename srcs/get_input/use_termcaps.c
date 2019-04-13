@@ -12,7 +12,7 @@
 
 #include <get_input.h>
 
-int	term_actions(const char *cmd)
+int	term_actions(char *cmd)
 {
 	if (!(cmd = (tgetstr((char*)cmd, NULL))))
 		return (FAILURE);

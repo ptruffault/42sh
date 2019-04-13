@@ -12,7 +12,7 @@
 
 #include <get_input.h>
 
-static void	print_background(t_edit *e, int pos, int size)
+static void	print_background(t_edit *e, size_t pos, size_t size)
 {
 	ft_putstr(JAUNE);
 	term_actions("mr");
@@ -57,10 +57,10 @@ void		ft_print_fast(t_edit *e)
 		else
 			size += e->curr - e->select_pos;
 	}
-	write(1, e->hist->s + (e->pos_z), (pos - (e->pos_z)));
+	write(1, e->hist->s + (e->pos_z), (pos - ((size_t)e->pos_z)));
 	print_background(e, pos, size);
 	if (e->curr != i && e->select_pos != i)
-		write(1, e->hist->s + pos + size, i - pos - size - e->pos_y);
+		write(1, e->hist->s + pos + size, i - pos - size - (size_t)e->pos_y);
 	e->pos = i;
 }
 

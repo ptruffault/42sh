@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-int		return_fnc(char *str, int ret)
+int		return_fnc(const char *str, int ret)
 {
 	ft_putstr_fd(str, 2);
 	return (ret);

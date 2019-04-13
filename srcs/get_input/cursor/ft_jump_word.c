@@ -14,7 +14,7 @@
 
 void	ft_jp_word_right(t_edit *e)
 {
-	int	x;
+	size_t	x;
 
 	x = e->curr;
 	while (e->hist->s[x] && ft_isspace(e->hist->s[x]) == 1)
@@ -26,7 +26,7 @@ void	ft_jp_word_right(t_edit *e)
 
 void	ft_jp_word_left(t_edit *e)
 {
-	int	x;
+	size_t	x;
 
 	x = e->curr;
 	while (x > 0 && ft_isspace(e->hist->s[x]) == 1)

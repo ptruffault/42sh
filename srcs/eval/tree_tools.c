@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static int	find_operateur(char *op)
+static unsigned int	find_operateur(char *op)
 {
 	char	*operateur[5];
 	int		i;

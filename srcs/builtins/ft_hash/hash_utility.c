@@ -31,7 +31,7 @@ unsigned int	ft_hash(const char *str)
 	unsigned int	c;
 
 	hashval = 0;
-	while ((c = *((unsigned char *)str++)))
+	while ((c = (unsigned int)*(str++)))
 		hashval += (hashval << 5) + c;
 	return (hashval % HASHTABLE_SIZE);
 }

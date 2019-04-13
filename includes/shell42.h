@@ -27,7 +27,180 @@
 # include "tenvv.h"
 # include "ft_printf.h"
 
-void ft_putword(t_word *w);
+/*
+** autocompletion/binary_completion.c
+*/
+char			**get_binary(t_shell *sh, char *value, bool all, int *total);
+
+/*
+** autocompletion/check_line.c
+*/
+char			**check_line(int *max_len, int *total, t_edit *e);
+void			ft_arrdel(char ***arr);
+
+/*
+** autocompletion/environ_completion.c
+*/
+char			**get_environ_match(char *value, int *total, bool all);
+
+/*
+** autocompletion/files_completion.c
+*/
+char			**get_files(char *value, bool all, int *total);
+
+/*
+** autocompletion/tabl_handler.c
+*/
+int				add_to_tabl(char ***tabl, char *value, int j);
+void			ft_sort_table(char **tabl, int *max_len);
+int				check_exec(char *file, char *path);
+void			set_null_tabl(char **tabl, int len_env);
+
+/*
+** autocompletion/utility_handler.c
+*/
+char			*check_tilde(char *value);
+
+/*
+** builtins/ft_fc/flags_lexer.c
+*/
+int				flags_gestion(char *flags, char **av, int x);
+
+/*
+** builtins/ft_fc/fc_fc.c
+*/
+int				ft_fc(t_shell *shell, char **argv);
+
+/*
+** builtins/ft_fc/fc_fc_option_e.c
+*/
+void			ft_fc_option_e(t_fc *fc, int pos);
+int				read_from_add_hist(t_shell *sh, char *line, int x);
+
+/*
+** builtins/ft_fc/fc_fc_option_l.c
+*/
+void			ft_fc_option_l(t_fc *fc);
+
+/*
+** builtins/ft_fc/fc_fc_option_s.c
+*/
+void			ft_fc_option_s(t_fc *fc, int pos);
+
+/*
+** builtins/ft_fc/fc_fc_search_hist.c
+*/
+t_hist			*search_by_occurence(t_hist *first, char *to_search);
+t_hist			*search_by_number_from_last(t_hist *first, int nb);
+t_hist			*search_by_number_from_first(t_hist *first, int nb);
+
+/*
+** builtins/ft_fc/fc_fc_search_hist_parser.c
+*/
+int				search_in_hist_parser(t_fc *fc, short i);
+
+/*
+** builtins/ft_hash/ft_hash.c
+*/
+int				builtin_htable(char **cmd, t_shell *sh);
+int				cleaning_htable(char *cmd, t_shell *sh);
+int				add_in_htable(const char *str, const char *path, t_shell *sh);
+t_hash			*search_in_htable(const char *str, t_shell *sh);
+
+/*
+** builtins/ft_hash/hash_utility.c
+*/
+t_hash			**init_htable(void);
+unsigned int	ft_hash(const char *str);
+
+/*
+** builtins/ft_test/ft_test.c
+*/
+int				ft_test(char **argv);
+
+/*
+** builtins/ft_test/test_utility.c
+*/
+int				check_integer_tab(char *argv);
+int				return_fnc(char *str, int ret);
+
+/*
+** builtins/jobs/fg_bg.c
+*/
+int				ft_fg(t_shell *sh, char **argv);
+int				ft_bg(t_shell *sh, char **argv);
+
+/*
+** builtins/jobs/ft_jobs.c
+*/
+int				ft_jobs(t_shell *sh, char **argv);
+void			ft_job_prompt(t_jobs *j, int opts);
+
+/*
+** builtins/jobs/hi.c
+*/
+int				ft_hi(t_shell *sh);
+void			ft_put_process(t_process *p);
+void			ft_process_tab_status(char *stat[6]);
+
+/*
+** builtins/check_builtins.c
+*/
+int				check_builtin(char *input);
+
+/*
+** builtins/ft_alias.c
+*/
+void			ft_alias(t_shell *sh, char **argv);
+
+/*
+** builtins/ft_cd.c
+*/
+int				ft_cd(char **input, t_shell *sh);
+
+/*
+** builtins/ft_cdpath.c
+*/
+char			*ft_strdup_path(char *src);
+char			*trans_cdpath(char *path, t_shell *sh, bool *pwd_f, t_opts *opts);
+char			*try_cdpath(char *cdpath, char *path, bool *pwd_f, t_opts *opts);
+
+/*
+** builtins/ft_echo.c
+*/
+int				ft_echo(char **input);
+
+/*
+** builtins/ft_exit.c
+*/
+int				ft_quit(int exit_code, t_shell *sh);
+void			ft_exit(char **nbr, t_shell *sh);
+
+/*
+** builtins/ft_export.c
+*/
+t_envv			*ft_export(t_shell *sh, char **argv);
+
+/*
+** builtins/ft_type.c
+*/
+int				ft_type(t_word *w);
+
+/*
+** builtins/run_builtin.c
+*/
+int				run_builtin(t_tree *t, char **argv, t_shell *sh);
+
+/*
+** builtins/type_tools.c
+*/
+int				putalias(t_word *w, t_envv *alias, int t);
+int				putbuiltin(t_word *w, int t);
+int				putcmd(t_word *w, t_envv *env, int t);
+int				putfile(t_word *w, t_envv *env, int t);
+int				putword(t_word *w, int t);
+
+
 void			ft_job_prompt(t_jobs *j, int opts);
 int				ft_job_is_over(t_jobs *j);
 t_jobs			*ft_get_jobs_pid(t_jobs *j, int pid);
@@ -123,7 +296,6 @@ void			ft_update_windows(t_edit *e);
 int				init_termcaps(t_shell *sh);
 int				check_builtin(char *input);
 int				ft_cd(char **input, t_shell *sh);
-int				change_dir(char *path, t_shell *sh, unsigned int opts);
 int				ft_echo(char **input);
 void			ft_exit(char **nbr, t_shell *sh);
 t_envv			*ft_export(t_shell *sh, char **argv);
@@ -163,9 +335,8 @@ void			retrieve_path(t_shell *sh);
 char			*trim_path(char *path);
 char			*try_cdpath(char *cd_p, char *p, bool *pwd_f, t_opts *opts);
 char			*transform_cdpath(char *path, t_shell *sh, bool *pwd_f, t_opts *opts);
-char			**check_line(int *max_len, int *total, t_edit *e);
+
 int				add_to_tabl(char ***tabl, char *value, int j);
-char			**get_binary(t_shell *sh, char *value, bool all, int *total);
 char			**get_files(char *value, bool all, int *total);
 void			ft_arrdel(char ***arr);
 void			set_null_tabl(char **tabl, int len_env);

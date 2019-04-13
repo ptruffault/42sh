@@ -38,7 +38,7 @@ static char	*ft_replace_home(char *path, char *home)
 	return (path);
 }
 
-void		ft_print_colors(char *str, int *ptr)
+static void		ft_print_colors(char *str, int *ptr)
 {
 	int					i;
 	const char *const	colors[] = {
@@ -61,7 +61,7 @@ void		ft_print_colors(char *str, int *ptr)
 	ft_putstr(g_colors[i]);
 }
 
-void		ft_print_var(t_shell *sh, char *str, int *ptr)
+static void		ft_print_var(t_shell *sh, char *str, int *ptr)
 {
 	int		i;
 	char	*val;

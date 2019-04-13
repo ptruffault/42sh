@@ -50,6 +50,7 @@ int		init_termcaps(t_shell *sh)
 int		ft_setup_edit_term(t_shell *sh)
 {
 	char *term;
+	unsigned long set;
 
 	term = NULL;
 	if (((term = get_tenvv_val(sh->env, "TERM")) && !tgetent(NULL, term)))
@@ -58,8 +59,8 @@ int		ft_setup_edit_term(t_shell *sh)
 		|| !(tgetstr("cd", NULL)) || !(tgetstr("up", NULL)))
 		return (error("term doesn't support necassary termcaps", term));
 	ft_memcpy(&sh->term, &sh->saved_term, sizeof(struct termios));
-	sh->term.c_lflag &= ~(ICANON | ECHO | ECHOK | ECHOKE
-			| ECHONL | ECHOCTL | ISIG);
+	set = ICANON | ECHO | ECHOK | ECHOKE | ECHONL | ECHOCTL | ISIG;
+	sh->term.c_lflag &= ~(set);
 	sh->term.c_cc[VMIN] = 1;
 	sh->term.c_cc[VTIME] = 0;
 	sh->term.c_cc[VINTR] = 3;

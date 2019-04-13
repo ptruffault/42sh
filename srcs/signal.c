@@ -45,6 +45,17 @@ static const t_sig_msg	g_signal_msg[] = {
 	{.msg = NULL}
 };
 
+static void	sig_handler(int sig)
+{
+	t_shell		*sh;
+
+	sh = ft_get_set_shell(NULL);
+	if (sig == SIGCHLD)
+		ft_wait_background(sh);
+	else if (sig == SIGWINCH)
+		ft_update_windows(&sh->e);
+}
+
 int		ft_signal_check(t_process *p)
 {
 	int i;
@@ -62,17 +73,6 @@ int		ft_signal_check(t_process *p)
 		i++;
 	}
 	return (0);
-}
-
-void	sig_handler(int sig)
-{
-	t_shell		*sh;
-
-	sh = ft_get_set_shell(NULL);
-	if (sig == SIGCHLD)
-		ft_wait_background(sh);
-	else if (sig == SIGWINCH)
-		ft_update_windows(&sh->e);
 }
 
 void	set_son_signal(void)

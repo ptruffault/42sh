@@ -107,8 +107,8 @@ int			init_intern(t_shell *sh)
 	ft_intern_var(sh);
 	if (isatty(0) && (usr = getpwnam(getlogin())))
 	{
-		sh->env = ft_new_envv_int(sh->env, "EUID", usr->pw_uid, IN);
-		sh->env = ft_new_envv_int(sh->env, "GROUPS", usr->pw_gid, IN);
+		sh->env = ft_new_envv_int(sh->env, "EUID", (int)usr->pw_uid, IN);
+		sh->env = ft_new_envv_int(sh->env, "GROUPS", (int)usr->pw_gid, IN);
 		if ((hi_path = ft_strjoin(usr->pw_dir, "/.42history"))
 			&& (sh->env = ft_new_envv(sh->env, "HISTFILE", hi_path, IN)))
 		{

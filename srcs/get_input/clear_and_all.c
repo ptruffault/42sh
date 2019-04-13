@@ -12,7 +12,7 @@
 
 #include <get_input.h>
 
-void	setup_key(char *error[7], t_edit *e)
+static void	setup_key(char *error[7], t_edit *e)
 {
 	error[0] = "\ncmdand";
 	error[1] = "\ncmdor";

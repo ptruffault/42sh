@@ -30,7 +30,7 @@ static int	replace_first_link(t_shell *sh)
 	return (SUCCESS);
 }
 
-int			ft_update_hist(t_shell *sh)
+static int			ft_update_hist(t_shell *sh)
 {
 	if (sh->e.hist && sh->e.hist->s && sh->e.hist->s[0] != '\0')
 	{
@@ -67,7 +67,7 @@ int			get_input(char **line)
 	buf = 0;
 	while (sh->e.edited == FALSE && read(0, &buf, 8) > 0)
 	{
-		buf = handle_input(buf, &sh->e);
+		buf = (unsigned int)handle_input(buf, &sh->e);
 		if (buf == 9)
 			return (ft_set_old_term(sh, 4));
 		else if (buf == 10 && (!sh->e.hist

@@ -39,7 +39,7 @@ int		handle_input(unsigned long buf, t_edit *e)
 	}
 	if (x == NUMBER_OF_KEYS && buf == 9 && e->hist)
 		return (tab_handle(e));
-	if (x == NUMBER_OF_KEYS && ft_isascii(buf) && e->hist)
+	if (x == NUMBER_OF_KEYS && ft_isascii((int)buf) && e->hist)
 		if (!(ft_add_char((char)buf, e)))
 			return (9);
 	return (x);

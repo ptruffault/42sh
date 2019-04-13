@@ -69,7 +69,7 @@ t_word			*ft_get_words(t_eval *e)
 	pos = 0;
 	if (!(head = new_tword()))
 		return (NULL);
-	len = ft_strlen(e->s);
+	len = (int)ft_strlen(e->s);
 	tmp_w = head;
 	while (e->eval && i < len && e->eval[i] != '\0')
 	{

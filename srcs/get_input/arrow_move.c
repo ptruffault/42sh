@@ -16,12 +16,12 @@ void	curr_move_right(t_edit *e)
 {
 	if (e->max_char < e->pos)
 	{
-		if (((e->curr + 1) - e->pos_z) == e->width)
+		if (((e->curr + 1) - (size_t)e->pos_z) == e->width)
 		{
 			if (e->pos_y > 0)
 			{
-				e->pos_z += (e->pos_y > (int)e->width) ? e->width : e->pos_y;
-				e->pos_y -= (e->pos_y > (int)e->width) ? e->width : e->pos_y;
+				e->pos_z += (e->pos_y > (int)e->width) ? (int)e->width : e->pos_y;
+				e->pos_y -= (e->pos_y > (int)e->width) ? (int)e->width : e->pos_y;
 			}
 		}
 	}
@@ -37,8 +37,8 @@ void	curr_move_left(t_edit *e)
 		{
 			if (e->pos_z > 0)
 			{
-				e->pos_y += (e->pos_z > (int)e->width) ? e->width : e->pos_z;
-				e->pos_z -= (e->pos_z > (int)e->width) ? e->width : e->pos_z;
+				e->pos_y += (e->pos_z > (int)e->width) ? (int)e->width : e->pos_z;
+				e->pos_z -= (e->pos_z > (int)e->width) ? (int)e->width : e->pos_z;
 			}
 		}
 	}
@@ -51,7 +51,7 @@ void	curr_go_last(t_edit *e)
 	e->curr = ft_strlen(e->hist->s);
 	e->pos_y = 0;
 	if (e->curr > e->max_char)
-		e->pos_z = e->curr - e->max_char;
+		e->pos_z = (int)e->curr - (int)e->max_char;
 	else
 		e->pos_z = 0;
 }
@@ -61,7 +61,7 @@ void	ft_home_key(t_edit *e)
 	e->curr = 0;
 	e->pos_z = 0;
 	if (ft_strlen(e->hist->s) > e->max_char)
-		e->pos_y = ft_strlen(e->hist->s) - e->max_char;
+		e->pos_y = (int)(ft_strlen(e->hist->s) - e->max_char);
 	else
 		e->pos_y = 0;
 }

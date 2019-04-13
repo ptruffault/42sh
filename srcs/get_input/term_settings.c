@@ -38,8 +38,8 @@ int		init_termcaps(t_shell *sh)
 		return (error("unset var", "TERM"));
 	if (((term = get_tenvv_val(sh->env, "TERM")) && !tgetent(NULL, term)))
 		return (error("can't retrieve terminal informations", term));
-	if (!(tgetstr("ch", NULL))
-		|| !(tgetstr("cd", NULL)) || !(tgetstr("up", NULL)))
+	if (!get_tgetstr("ch", NULL) || !get_tgetstr("cd", NULL)
+		|| !get_tgetstr("up", NULL))
 		return (error("term doesn't support necassary termcaps", term));
 	if (tcgetattr(0, &sh->saved_term) == -1)
 		return (error("can't save termios", term));

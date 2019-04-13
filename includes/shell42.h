@@ -455,6 +455,7 @@ void			ft_update_windows(t_edit *e);
 */
 int				term_goto(char *cmd, int row, int col);
 int				term_actions(const char *cmd);
+char			*get_tgetstr(const char *id, char **area);
 
 /*
 ** get_input/valid_line.c

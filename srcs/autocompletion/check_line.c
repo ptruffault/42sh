@@ -92,13 +92,11 @@ char	**check_line(int *max_len, int *total, t_edit *e)
 {
 	char	*value;
 	char	**tabl;
-	t_shell	*sh;
 	int		pos;
 
 	value = NULL;
 	pos = e->curr;
 	*total = 0;
-	sh = ft_get_set_shell(NULL);
 	if (!e->hist || !e->hist->s)
 		return (NULL);
 	if (!(value = get_word_cursor(e->hist->s, &pos)))

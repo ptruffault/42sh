@@ -28,7 +28,6 @@ static char		*heredoc_get_input(char *eoi, t_shell *sh)
 	if (!(ret = ft_strnew(0)))
 		return (NULL);
 	in = NULL;
-	d = 0;
 	ft_others_prompt(sh, "heredoc");
 	if ((d = get_input(&in)) != 4)
 	{

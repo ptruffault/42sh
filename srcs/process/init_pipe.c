@@ -44,7 +44,7 @@ static t_process	*ft_init_pi(t_process *tmp, t_tree *t, t_shell *sh, int *v)
 	t_process *head;
 
 	head = tmp;
-	while (t->o_type == O_PIPE)
+	while (t && t->o_type == O_PIPE)
 	{
 		t = t->next;
 		if (t && (tmp->grp = init_process(t, sh)))

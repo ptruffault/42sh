@@ -45,14 +45,11 @@ t_hist			*init_hist(char *hist)
 	tmp = NULL;
 	ret = NULL;
 	if ((fd = ft_open(hist, O_RDWR | O_CREAT | O_NOFOLLOW, 511)) >= 0)
-		while (get_next_line(fd, &line) == 1)
+		while (get_next_line(fd, &line) == 1 && line)
 		{
 			if (!(tmp = new_hist()))
 				return (ft_free_thist(ret));
-			if (line)
-				tmp->s = line;
-			else if (!(tmp->s = ft_strnew(0)))
-				return (ft_free_thist(ret));
+			tmp->s = line;
 			tmp->next = !ret ? NULL : ret;
 			tmp->nb = !ret ? 1 : ret->nb + 1;
 			if (tmp->next)

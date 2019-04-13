@@ -45,7 +45,6 @@ void		ft_print_fast(t_edit *e)
 	size_t i;
 
 	size = 1;
-	pos = 0;
 	i = ft_strlen(e->hist->s);
 	term_actions((e->curr == i) ? "ve" : "vi");
 	if (e->select == -1 || e->select_pos == e->curr)

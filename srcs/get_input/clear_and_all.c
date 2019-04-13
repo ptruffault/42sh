@@ -118,12 +118,15 @@ void	just_exit(t_edit *e)
 			sh->heredoc = 0;
 			sh->e.edited = TRUE;
 		}
-		while (e->hist->prev)
+		while (e->hist && e->hist->prev)
 			e->hist = e->hist->prev;
-		if (e->hist->next)
+		if (e->hist && e->hist->next)
 			e->hist->next->prev = NULL;
-		ft_strdel(&e->hist->s);
-		free(e->hist);
+		if (e->hist)
+		{
+			ft_strdel(&e->hist->s);
+			free(e->hist);
+		}
 		e->hist = NULL;
 	}
 }

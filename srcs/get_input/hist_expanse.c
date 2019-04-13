@@ -20,7 +20,6 @@ int		get_nb_of_hist(t_edit *e, size_t x)
 
 	nb = -1;
 	size = 0;
-	i = 1;
 	if (e->hist->s[x + 1] == '!')
 	{
 		nb = -1;

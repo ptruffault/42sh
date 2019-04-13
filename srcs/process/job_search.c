@@ -14,9 +14,6 @@
 
 static t_jobs	*ft_get_jobs_id(t_jobs *j, int id)
 {
-	int			i;
-
-	i = 1;
 	while (j)
 	{
 		if (j->id == id)
@@ -53,6 +50,7 @@ t_jobs			*ft_search_jobs(t_jobs *j, char *s)
 {
 	t_jobs *ret;
 
+	ret = NULL;
 	if (s && ((*s == '%' && ft_isdigit(s[1])
 		&& (ret = ft_get_jobs_id(j, ft_atoi(&s[1]))))
 		|| (ft_isdigit(s[0]) && ft_get_jobs_pid(j, ft_atoi(s)))

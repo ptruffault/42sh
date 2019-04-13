@@ -91,12 +91,10 @@ char		*which_file(char *value, DIR **fd)
 
 char		**get_files(char *value, bool all, int *total)
 {
-	int				i;
 	int				j;
 	char			**tabl;
 	DIR				*fd;
 
-	i = -1;
 	j = 0;
 	if (!(tabl = (char**)malloc(sizeof(char*) * 2)))
 		return (NULL);

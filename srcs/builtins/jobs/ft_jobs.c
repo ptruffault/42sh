@@ -29,9 +29,7 @@ void		ft_put_cmd(t_process *p)
 void		ft_job_prompt(t_jobs *j, int opts)
 {
 	char	*stat[6];
-	int		i;
 
-	i = 0;
 	ft_process_tab_status(stat);
 	if (opts == 1)
 		ft_putnbr(j->p->pid);

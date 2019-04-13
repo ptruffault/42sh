@@ -71,7 +71,7 @@ t_word			*ft_get_words(t_eval *e)
 		return (NULL);
 	len = ft_strlen(e->s);
 	tmp_w = head;
-	while (i < len && e->eval[i] != '\0')
+	while (e->eval && i < len && e->eval[i] != '\0')
 	{
 		while (e->eval[i] && e->eval[i] == ' ')
 			i++;
@@ -95,7 +95,6 @@ t_word			*eval_line(char *input)
 	if (!input || !*input || ft_isempty(input))
 		return (NULL);
 	lexer(&e, input);
-	//ft_putendl(e.eval);
 	if (e.s && e.eval && (head = ft_get_words(&e))
 	 && !(head = ft_check_alias(head, sh)))
 	{

@@ -85,10 +85,8 @@ t_jobs			*ft_add_jobs(t_process *p, t_shell *sh)
 {
 	t_jobs	*n;
 	t_jobs	*tmp;
-	int		id;
 
 	n = NULL;
-	id = 0;
 	if (p && (n = (t_jobs *)malloc(sizeof(t_jobs))))
 	{
 		n->p = p;

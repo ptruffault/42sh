@@ -12,35 +12,7 @@
 
 #include "shell42.h"
 
-void		fc_init_first_last(t_fc *fc, int pos)
-{
-	if (fc->av[pos])
-	{
-		if ((fc->av[pos][0] >= '0' && fc->av[pos][0] <= '9')
-			|| fc->av[pos][0] == '-')
-			fc->first = ft_atoi(fc->av[pos]) == 0 ? -1 : ft_atoi(fc->av[pos]);
-		else
-			fc->first_ = fc->av[pos];
-		if (fc->av[pos + 1])
-			if ((fc->av[pos + 1][0] >= '0' && fc->av[pos + 1][0] <= '9')
-			|| fc->av[pos + 1][0] == '-')
-				fc->last = ft_atoi(fc->av[pos + 1]) == 0 ? -1
-				: ft_atoi(fc->av[pos + 1]);
-			else
-				fc->last_ = fc->av[pos + 1];
-		else
-			fc->last = -1;
-	}
-	else
-	{
-		fc->first = -1;
-		fc->last = fc->flags[0] == 'e' ? -1 : -16;
-		fc->first_ = NULL;
-		fc->last_ = NULL;
-	}
-}
-
-static void	set_struct_fc(t_fc *fc, t_shell *shell)
+static void		set_struct_fc(t_fc *fc, t_shell *shell)
 {
 	fc->shell = shell;
 	fc->hist = shell->hist->next;
@@ -71,7 +43,36 @@ static int		init_fc(t_fc *fc, t_shell *shell, int *i)
 	}
 	return (3);
 }
-int			ft_fc(t_shell *shell, char **argv)
+
+static void		fc_init_first_last(t_fc *fc, int pos)
+{
+	if (fc->av[pos])
+	{
+		if ((fc->av[pos][0] >= '0' && fc->av[pos][0] <= '9')
+			|| fc->av[pos][0] == '-')
+			fc->first = ft_atoi(fc->av[pos]) == 0 ? -1 : ft_atoi(fc->av[pos]);
+		else
+			fc->first_ = fc->av[pos];
+		if (fc->av[pos + 1])
+			if ((fc->av[pos + 1][0] >= '0' && fc->av[pos + 1][0] <= '9')
+			|| fc->av[pos + 1][0] == '-')
+				fc->last = ft_atoi(fc->av[pos + 1]) == 0 ? -1
+				: ft_atoi(fc->av[pos + 1]);
+			else
+				fc->last_ = fc->av[pos + 1];
+		else
+			fc->last = -1;
+	}
+	else
+	{
+		fc->first = -1;
+		fc->last = fc->flags[0] == 'e' ? -1 : -16;
+		fc->first_ = NULL;
+		fc->last_ = NULL;
+	}
+}
+
+int				ft_fc(t_shell *shell, char **argv)
 {
 	t_fc	*fc;
 	int		i;

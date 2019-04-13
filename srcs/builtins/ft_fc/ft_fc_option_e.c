@@ -38,7 +38,7 @@ static void	ft_fc_write_in_file(t_fc *fc, int fd)
 		}
 }
 
-int add_to_hist(char *line, t_shell *sh, int hist_size)
+static int	add_to_hist(char *line, t_shell *sh, int hist_size)
 {
 	t_hist *hist;
 
@@ -69,7 +69,7 @@ int add_to_hist(char *line, t_shell *sh, int hist_size)
 	return (SUCCESS);
 }
 
-int read_from_add_hist(t_shell *sh, char *line, int x)
+int			read_from_add_hist(t_shell *sh, char *line, int x)
 {
 	int nb;
 

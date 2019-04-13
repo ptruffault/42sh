@@ -91,16 +91,6 @@ char		*ft_exp_var(char *ret, t_shell *sh)
 	return (ret);
 }
 
-void ft_putword(t_word *w)
-{
-	while (w)
-	{
-		if (w->word)
-			ft_printf("{%s}\n", w->word);
-		w = w->next;
-	}
-}
-
 t_tree *ft_word_paste(t_tree *t)
 {
 	t_word *head;

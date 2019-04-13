@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-char			*replace_occurances(char *old, char *new, char *str)
+static char		*replace_occurances(char *old, char *new, char *str)
 {
 	size_t	x;
 	char	*tmp;

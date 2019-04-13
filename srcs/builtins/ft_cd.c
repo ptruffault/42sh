@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-int			change_dir(char *path, t_shell *sh, t_opts opts)
+static int		change_dir(char *path, t_shell *sh, t_opts opts)
 {
 	char	buff[4097];
 	char	*cwd;
@@ -39,7 +39,7 @@ int			change_dir(char *path, t_shell *sh, t_opts opts)
 	return (1);
 }
 
-int			get_path_cd(char *path, t_shell *sh, t_opts opts)
+static int		get_path_cd(char *path, t_shell *sh, t_opts opts)
 {
 	char	*curpath;
 	bool	pwd_f;
@@ -49,7 +49,7 @@ int			get_path_cd(char *path, t_shell *sh, t_opts opts)
 	pwd_f = false;
 	if ((opts & 0x02) && (path[0] == '/' || path[0] == '.'))
 		return (change_dir(path, sh, opts));
-	curpath = transform_cdpath(path, sh, &pwd_f, &opts);
+	curpath = trans_cdpath(path, sh, &pwd_f, &opts);
 	while (ft_strstr(curpath, "..") || ft_strstr(curpath, "//")
 			|| ft_strstr(curpath, "./") || ft_strstr(curpath, "/."))
 		trim_path(curpath);
@@ -89,7 +89,7 @@ static t_opts	get_options_cd(char **input, size_t *tabl)
 	return (opts);
 }
 
-int			ft_cd(char **input, t_shell *sh)
+int				ft_cd(char **input, t_shell *sh)
 {
 	char			*val;
 	t_opts			opts;

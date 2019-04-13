@@ -18,7 +18,14 @@ static int	execute_tputs(int c)
 	return (0);
 }
 
-static char	*get_tgetstr(const char *id, char **area)
+static int	do_tputs(const char *str, int affcnt, int (*putc)(int))
+{
+	if (str != NULL)
+		return (tputs(str, affcnt, putc));
+	return (-1);
+}
+
+char	*get_tgetstr(const char *id, char **area)
 {
 	char	*rtn;
 	char	*tmp;
@@ -31,13 +38,6 @@ static char	*get_tgetstr(const char *id, char **area)
 	return (rtn);
 }
 
-static int	do_tputs(const char *str, int affcnt, int (*putc)(int))
-{
-	if (str != NULL)
-		return (tputs(str, affcnt, putc));
-	return (-1);
-}
-
 int			term_actions(const char *id)
 {
 	char	*str;
@@ -45,6 +45,8 @@ int			term_actions(const char *id)
 	str = get_tgetstr(id, NULL);
 	if (str)
 		do_tputs(str, 1, execute_tputs);
+	else
+		return (FAILURE);
 	return (SUCCESS);
 }
 

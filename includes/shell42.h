@@ -200,6 +200,111 @@ int				putcmd(t_word *w, t_envv *env, int t);
 int				putfile(t_word *w, t_envv *env, int t);
 int				putword(t_word *w, int t);
 
+
+/*
+** eval/alias.c
+*/
+t_word			*ft_check_alias(t_word *head, t_shell *sh);
+
+/*
+** eval/eval_tools.c
+*/
+char			**ft_twordto_arr(t_word *w);
+void			ft_delete_char(t_eval *e);
+
+/*
+** eval/get_instruction.c
+*/
+t_tree			*get_tree(char *input, t_shell *sh);
+int				ft_check_grammar(t_word *w, t_shell *sh);
+
+/*
+** eval/heredoc_content.c
+*/
+t_redirect		*parse_heredoc(t_redirect *ret, t_word *w);
+
+/*
+** eval/lexer.c
+*/
+void			lexer(t_eval *e, char *src);
+
+/*
+** eval/lexer_tools.c
+*/
+void			ft_lex_quote(t_eval *e);
+void			ft_lex_dquote(t_eval *e);
+void			ft_lex_var(t_eval *e);
+void			ft_lex_parenth(t_eval *e);
+void			ft_lex_backslash(t_eval *e);
+
+/*
+** eval/redirect.c
+*/
+t_word			*get_redirections(t_tree *t, t_word *w);
+
+/*
+** eval/t_word_tools.c
+*/
+t_word			*ft_addtword(t_word *head, t_word *ret);
+t_word			*ft_deltword(t_word *prev, t_word *src);
+t_word			*new_tword(void);
+
+/*
+** eval/token.c
+*/
+t_word			*eval_line(char *input);
+t_word			*ft_get_words(t_eval *e);
+
+/*
+** eval/tree_tools.c
+*/
+t_tree			*add_newttree(t_tree *tree, t_word *w);
+t_redirect		*new_redirection(void);
+t_tree			*new_tree(void);
+int				ft_check_ascii(char *input);
+
+/*
+** exec/bin_search.c
+*/
+char			*get_bin_path(char *input, t_envv *envv);
+char			*search_in_envv(char *input, t_envv *envv);
+char			*absolute_path(char *input, t_envv *envv);
+
+/*
+** exec/exec.c
+*/
+t_tree			*exec_tree(t_tree *t, t_shell *sh);
+void			ft_link_process_to_term(t_process *p, t_shell *sh);
+
+/*
+** exec/exec_file.c
+*/
+int				exec_file(char *path, t_shell *sh);
+int				exec_fd(t_shell *sh, int fd);
+
+/*
+** exec/exec_pipe.c
+*/
+t_jobs			*exec_pipe(t_tree *t, t_process *p, t_shell *sh);
+
+/*
+** exec/ft_execve.c
+*/
+t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t);
+void			ft_exit_son(t_shell *sh, int exit_code);
+
+/*
+** exec/redirect_builtins.c
+*/
+void			ft_reset_fd(t_shell *sh);
+int				ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh);
+
+/*
+** exec/redirection.c
+*/
+int				get_destination_fd(t_redirect *r);
+int				fd_dup(int fd1, int fd2, t_process *p);
+
 t_tree 			*ft_word_paste(t_tree *t);
 void			ft_job_prompt(t_jobs *j, int opts);
 int				ft_job_is_over(t_jobs *j);

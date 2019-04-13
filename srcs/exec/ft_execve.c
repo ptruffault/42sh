@@ -78,7 +78,7 @@ void			ft_exit_son(t_shell *sh, int exit_code)
 	exit(exit_code);
 }
 
-t_jobs		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
+t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 {
 	t_jobs *ret;
 

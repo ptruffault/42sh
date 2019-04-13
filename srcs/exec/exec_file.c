@@ -32,7 +32,7 @@ static void	tree_fill(t_shell *sh, int x, char **tmp)
 	*tmp = NULL;
 }
 
-int		exec_fd(t_shell *sh, int fd)
+int			exec_fd(t_shell *sh, int fd)
 {
 	int		i;
 	t_eval	eval;
@@ -61,7 +61,7 @@ int		exec_fd(t_shell *sh, int fd)
 	return (i);
 }
 
-int		exec_file(char *path, t_shell *sh)
+int			exec_file(char *path, t_shell *sh)
 {
 	int fd;
 

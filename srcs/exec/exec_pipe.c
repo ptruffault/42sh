@@ -48,7 +48,7 @@ static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 	return (tmp);
 }
 
-t_jobs			*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
+t_jobs				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 {
 	t_process	*prev;
 	t_process	*tmp;

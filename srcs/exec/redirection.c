@@ -25,6 +25,20 @@ static int			check_fd(t_process *p, int fd)
 	return (fd);
 }
 
+static void	ft_heredoc_content(t_redirect *r, t_shell *sh)
+{
+	int fd[2];
+
+	(void)sh;
+	if (pipe(fd) == 0)
+	{
+		ft_putstr_fd(r->heredoc, fd[1]);
+		ft_close(fd[1]);
+		r->to = fd[0];
+		r->from = STDIN_FILENO;
+	}
+}
+
 int			fd_dup(int fd1, int fd2, t_process *p)
 {
 	int ret;
@@ -46,29 +60,15 @@ int			fd_dup(int fd1, int fd2, t_process *p)
 	return (ret);
 }
 
-static void	ft_heredoc_content(t_redirect *r, t_shell *sh)
-{
-	int fd[2];
-
-	(void)sh;
-	if (pipe(fd) == 0)
-	{
-		ft_putstr_fd(r->heredoc, fd[1]);
-		ft_close(fd[1]);
-		r->to = fd[0];
-		r->from = STDIN_FILENO;
-	}
-}
-
 int			get_destination_fd(t_redirect *r)
 {
 	r->path = ft_exp_var(r->path, ft_get_set_shell(NULL));
 	if ((r->t == R_RIGHT && r->to == -2 && r->path
-		&& (r->to = ft_open(r->path, O_RDWR | O_TRUNC | O_CREAT, 0644)) < 0)
+			&& (r->to = ft_open(r->path, O_RDWR | O_TRUNC | O_CREAT, 0644)) < 0)
 		|| (r->t == R_DRIGHT && r->to == -2 && r->path
-		&& (r->to = ft_open(r->path, O_RDWR | O_APPEND | O_CREAT, 0644)) < 0)
+			&& (r->to = ft_open(r->path, O_RDWR | O_APPEND | O_CREAT, 0644)) < 0)
 		|| (r->t == R_LEFT && r->to == -2 && r->path
-		&& (r->to = ft_open(r->path, O_RDWR, 0644)) < 0))
+			&& (r->to = ft_open(r->path, O_RDWR, 0644)) < 0))
 		return (0);
 	else if (r->t == R_DLEFT)
 		ft_heredoc_content(r, ft_get_set_shell(NULL));

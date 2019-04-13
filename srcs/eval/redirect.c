@@ -50,7 +50,7 @@ static t_redirect	*parse_left_redirect(t_redirect *ret, t_word *w)
 	return (ret);
 }
 
-static unsigned int			ft_find_redirect_type(char *red)
+static unsigned int	ft_find_redirect_type(char *red)
 {
 	char	*ptr;
 

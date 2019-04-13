@@ -16,7 +16,7 @@ void	ft_lex_backslash(t_eval *e)
 {
 	ft_delete_char(e);
 	if (e->s[e->curr])
-			e->eval[e->curr++] = 'B';
+		e->eval[e->curr++] = 'B';
 	else
 	{
 		e->err = B_MISS;

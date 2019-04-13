@@ -16,7 +16,7 @@ void	ft_deload_hist_in_file(t_shell *sh)
 {
 	t_hist	*hist;
 	char	*path;
-	int fd;
+	int		fd;
 
 	hist = sh->hist;
 	if (hist)

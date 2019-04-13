@@ -67,9 +67,9 @@ static t_process	*ft_init_pi(t_process *tmp, t_tree *t, t_shell *sh, int *v)
 
 t_process			*init_pipe_process(t_tree *t, t_shell *sh)
 {
-	t_process 	*head;
-	t_process 	*tmp;
-	int 		valid_pipe;
+	t_process	*head;
+	t_process	*tmp;
+	int			valid_pipe;
 
 	head = NULL;
 	tmp = NULL;

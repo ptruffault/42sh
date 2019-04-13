@@ -46,7 +46,8 @@ static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 		*i = ++begin;
 	while (e->eval[*i] && e->eval[*i] == e->eval[begin])
 		*i = *i + 1;
-	if (e->eval[begin] != '*' && !(w->word = ft_strndup(&e->s[begin], *i - begin)))
+	if (e->eval[begin] != '*'
+		&& !(w->word = ft_strndup(&e->s[begin], *i - begin)))
 		return (NULL);
 	if (e->eval[begin] == '*' && !(w->word = ft_strdup("@")))
 		return (NULL);
@@ -96,7 +97,7 @@ t_word			*eval_line(char *input)
 		return (NULL);
 	lexer(&e, input);
 	if (e.s && e.eval && (head = ft_get_words(&e))
-	 && !(head = ft_check_alias(head, sh)))
+	&& !(head = ft_check_alias(head, sh)))
 	{
 		ft_printf("ERROR\n");
 		ft_strdel(&e.eval);

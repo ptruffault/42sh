@@ -27,7 +27,7 @@ static size_t	ft_twordlen(t_word *w)
 
 void			ft_delete_char(t_eval *e)
 {
-	size_t 	i;
+	size_t	i;
 	size_t	len;
 
 	i = (size_t)e->curr;

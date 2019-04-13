@@ -29,7 +29,7 @@ static void	ft_lex_redirect(t_eval *e)
 			while (ft_isdigit(e->s[e->curr]))
 				e->eval[e->curr++] = 'r';
 		else
-			while(e->s[e->curr] && !ft_isspace(e->s[e->curr]))
+			while (e->s[e->curr] && !ft_isspace(e->s[e->curr]))
 				e->eval[e->curr++] = 'r';
 	}
 }
@@ -80,7 +80,7 @@ static void	ft_lexword(t_eval *e)
 		e->eval[e->curr++] = 'e';
 }
 
-void	lexer(t_eval *e, char *src)
+void		lexer(t_eval *e, char *src)
 {
 	e->curr = 0;
 	e->err = OK;

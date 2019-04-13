@@ -54,7 +54,7 @@ t_envv	*ft_new_envv_int(t_envv *envv, const char *name, int val, short status)
 	return (ret);
 }
 
-t_envv	*ft_new_envv(t_envv *envv, const char *name, const char *value, short status)
+t_envv	*ft_new_envv(t_envv *envv, const char *name, const char *val, short s)
 {
 	t_envv	*ret;
 	t_envv	*tmp;
@@ -62,14 +62,14 @@ t_envv	*ft_new_envv(t_envv *envv, const char *name, const char *value, short sta
 	if (envv && name && (tmp = get_tenvv(envv, name)))
 	{
 		ft_strdel(&tmp->value);
-		if (value)
-			tmp->value = ft_strdup(value);
+		if (val)
+			tmp->value = ft_strdup(val);
 		return (envv);
 	}
-	if (!name || !(ret = new_tenvv(status)))
+	if (!name || !(ret = new_tenvv(s)))
 		return (envv);
 	if (!(ret->name = ft_strdup(name))
-		|| (value && !(ret->value = ft_strdup(value))))
+		|| (val && !(ret->value = ft_strdup(val))))
 	{
 		del_tenvv(ret);
 		return (envv);

@@ -64,7 +64,6 @@ t_jobs			*ft_remove_jobs(int pid, t_shell *sh)
 		j = ft_free_tjobs(j);
 	}
 	else if (j)
-	{
 		while (j->next)
 		{
 			if (j->next->p->pid == pid)
@@ -77,7 +76,6 @@ t_jobs			*ft_remove_jobs(int pid, t_shell *sh)
 			}
 			j = j->next;
 		}
-	}
 	return (sh->jobs);
 }
 

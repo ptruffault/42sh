@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static char	*get_equal(char *name, char *value)
+static char			*get_equal(char *name, char *value)
 {
 	char	*tmp;
 	char	*ret;
@@ -39,7 +39,7 @@ static unsigned int	envv_len(t_envv *envv)
 	return (i + 1);
 }
 
-char		**tenvv_to_tab(t_envv *envv)
+char				**tenvv_to_tab(t_envv *envv)
 {
 	char	**t;
 	int		i;
@@ -62,7 +62,7 @@ char		**tenvv_to_tab(t_envv *envv)
 	return (t);
 }
 
-void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t)
+void				ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t)
 {
 	if (t->assign)
 	{
@@ -75,7 +75,7 @@ void		ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t)
 	}
 }
 
-void		ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t)
+void				ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t)
 {
 	if (t->assign)
 	{

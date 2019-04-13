@@ -74,7 +74,7 @@ static char	**get_tabl_expansion(char *value, int *total)
 	return (tabl);
 }
 
-void	ft_arrdel(char ***arr)
+void		ft_arrdel(char ***arr)
 {
 	size_t	i;
 

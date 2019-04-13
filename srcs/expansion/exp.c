@@ -91,7 +91,7 @@ char		*ft_exp_var(char *ret, t_shell *sh)
 	return (ret);
 }
 
-t_tree *ft_expention(t_tree *t)
+t_tree		*ft_expention(t_tree *t)
 {
 	t_shell	*sh;
 	t_word	*w;

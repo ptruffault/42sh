@@ -48,7 +48,7 @@ int		get_content_size(char *s)
 	return (i - 2);
 }
 
-t_tree *ft_word_paste(t_tree *t)
+t_tree	*ft_word_paste(t_tree *t)
 {
 	t_word *head;
 	t_word *new;

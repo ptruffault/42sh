@@ -21,7 +21,7 @@ char	*join_or_save_txt(char *tmp, t_shell *sh)
 	return (tmp);
 }
 
-static void	tree_fill(t_shell *sh, int x)
+static void	tree_fill(t_shell *sh, int x, char **tmp)
 {
 	t_tree *t;
 	if (*sh->txt != '#' && (t = get_tree(sh->txt, sh)))
@@ -29,6 +29,7 @@ static void	tree_fill(t_shell *sh, int x)
 	if (sh->fc == TRUE)
 		read_from_add_hist(sh, sh->txt, x);
 	ft_strdel(&sh->txt);
+	*tmp = NULL;
 }
 
 int		exec_fd(t_shell *sh, int fd)
@@ -48,13 +49,11 @@ int		exec_fd(t_shell *sh, int fd)
 	{
 		tmp = join_or_save_txt(tmp, sh);
 		lexer(&eval, sh->txt);
+		if ((sh->heredoc == 0 && eval.err == 0)
+			|| (eval.eval != NULL && !check_eval(eval.eval)))
+			tree_fill(sh, x++, &tmp);
 		ft_strdel(&eval.eval);
 		ft_strdel(&eval.s);
-		if (eval.err == 0)
-		{
-			tree_fill(sh, x++);
-			tmp = NULL;
-		}
 		i++;
 	}
 	ft_strdel(&sh->txt);
@@ -70,8 +69,7 @@ int		exec_file(char *path, t_shell *sh)
 	{
 		exec_fd(sh, fd);
 		ft_close(fd);
+		return (0);
 	}
-	else
-		return (-1);
-	return (0);
+	return (-1);
 }

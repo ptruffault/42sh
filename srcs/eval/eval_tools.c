@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static size_t			ft_twordlen(t_word *w)
+static size_t	ft_twordlen(t_word *w)
 {
 	size_t	i;
 
@@ -25,7 +25,7 @@ static size_t			ft_twordlen(t_word *w)
 	return (i);
 }
 
-void		ft_delete_char(t_eval *e)
+void			ft_delete_char(t_eval *e)
 {
 	size_t 	i;
 	size_t	len;
@@ -40,7 +40,7 @@ void		ft_delete_char(t_eval *e)
 	e->s[i] = '\0';
 }
 
-char		**ft_twordto_arr(t_word *w)
+char			**ft_twordto_arr(t_word *w)
 {
 	char	**arr;
 	int		i;
@@ -51,7 +51,7 @@ char		**ft_twordto_arr(t_word *w)
 	while (w)
 	{
 		if (w->word && ((w->type != NUL && (arr[i] = ft_strdup(w->word)))
-			|| (w->type == NUL && (arr[i] = ft_strnew(1)))))
+				|| (w->type == NUL && (arr[i] = ft_strnew(1)))))
 			i++;
 		w = w->next;
 	}

@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-void	ft_lex_redirect(t_eval *e)
+static void	ft_lex_redirect(t_eval *e)
 {
 	int	j;
 
@@ -34,7 +34,7 @@ void	ft_lex_redirect(t_eval *e)
 	}
 }
 
-void	ft_lex_operateur(t_eval *e)
+static void	ft_lex_operateur(t_eval *e)
 {
 	int	i;
 
@@ -61,7 +61,7 @@ void	ft_lex_operateur(t_eval *e)
 		e->err = SYNTAX;
 }
 
-void	ft_lexword(t_eval *e)
+static void	ft_lexword(t_eval *e)
 {
 	while (ft_isspace(e->s[e->curr]))
 		e->eval[e->curr++] = ' ';

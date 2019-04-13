@@ -12,7 +12,23 @@
 
 #include "shell42.h"
 
-t_word *ft_deltword(t_word *prev, t_word *src)
+static t_word	*ft_cpytword(t_word *src)
+{
+	t_word	*ret;
+
+	if (!(ret = new_tword()))
+		return (NULL);
+	ret->type = src->type;
+	ret->paste = src->paste;
+	if (!(ret->word = ft_strdup(src->word)))
+	{
+		free(ret);
+		return (NULL);
+	}
+	return (ret);
+}
+
+t_word			*ft_deltword(t_word *prev, t_word *src)
 {
 	if (src && prev)
 	{
@@ -34,22 +50,6 @@ t_word			*new_tword(void)
 	n->type = undef;
 	n->next = NULL;
 	return (n);
-}
-
-static t_word	*ft_cpytword(t_word *src)
-{
-	t_word	*ret;
-
-	if (!(ret = new_tword()))
-		return (NULL);
-	ret->type = src->type;
-	ret->paste = src->paste;
-	if (!(ret->word = ft_strdup(src->word)))
-	{
-		free(ret);
-		return (NULL);
-	}
-	return (ret);
 }
 
 t_word			*ft_addtword(t_word *head, t_word *ret)

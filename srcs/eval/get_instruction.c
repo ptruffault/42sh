@@ -67,8 +67,8 @@ int				ft_check_grammar(t_word *w, t_shell *sh)
 			(w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
 			|| (w->type == OPERATEUR && ft_strlen(w->word) > 2)
 			|| (w->type == OPERATEUR && *w->word == ';'
-			&& ft_strlen(w->word) > 1) || (w && w->type == REDIRECT
-			&& ft_strchr(w->word, '<') && ft_strchr(w->word, '>')))
+				&& ft_strlen(w->word) > 1) || (w && w->type == REDIRECT
+				&& ft_strchr(w->word, '<') && ft_strchr(w->word, '>')))
 		{
 			sh->env = ft_new_envv_int(sh->env, "?", 2, false);
 			return (error("syntax error near", w->word));

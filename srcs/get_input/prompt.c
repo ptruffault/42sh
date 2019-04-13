@@ -118,7 +118,7 @@ void		ft_disp(t_shell *sh)
 	int		i;
 	char	*prompt;
 
-	if ((prompt = ft_strdup(get_tenvv_val(sh->env, "PS1"))))
+	if (!sh->heredoc && (prompt = ft_strdup(get_tenvv_val(sh->env, "PS1"))))
 	{
 		i = 0;
 		while (prompt[i])
@@ -134,5 +134,5 @@ void		ft_disp(t_shell *sh)
 		ft_strdel(&prompt);
 	}
 	else
-		ft_putendl("&>");
+		ft_putstr("&>");
 }

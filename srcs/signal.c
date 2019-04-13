@@ -53,7 +53,7 @@ static void	sig_handler(int sig)
 	if (sig == SIGCHLD)
 		ft_wait_background(sh);
 	else if (sig == SIGWINCH)
-		ft_update_windows(&sh->e);
+		ft_update_windows(&sh->e, true);
 }
 
 int		ft_signal_check(t_process *p)

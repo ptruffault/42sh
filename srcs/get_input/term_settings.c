@@ -12,7 +12,7 @@
 
 #include <get_input.h>
 
-void	ft_update_windows(t_edit *e)
+void	ft_update_windows(t_edit *e, bool print)
 {
 	struct winsize	window;
 
@@ -21,6 +21,14 @@ void	ft_update_windows(t_edit *e)
 		e->width = window.ws_col;
 		e->tall = window.ws_row;
 		e->max_char = (e->width * (e->tall - 1));
+		if (print)
+		{
+			ft_delete_line(e);
+			curr_go_last(e);
+			if (e->pos_z > 0 || e->pos_y > 0)
+				ft_disp(ft_get_set_shell(NULL));
+			ft_print_fast(e);
+		}
 	}
 	else
 	{
@@ -43,7 +51,7 @@ int		init_termcaps(t_shell *sh)
 		return (error("term doesn't support necassary termcaps", term));
 	if (tcgetattr(0, &sh->saved_term) == -1)
 		return (error("can't save termios", term));
-	ft_update_windows(&sh->e);
+	ft_update_windows(&sh->e, false);
 	return (1);
 }
 

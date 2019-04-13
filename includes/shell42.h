@@ -448,7 +448,7 @@ int				ft_get_hist_size(void);
 int				ft_set_old_term(t_shell *sh, int error);
 int				ft_setup_edit_term(t_shell *sh);
 int				init_termcaps(t_shell *sh);
-void			ft_update_windows(t_edit *e);
+void			ft_update_windows(t_edit *e, bool print);
 
 /*
 ** get_input/use_termcaps.c

@@ -51,7 +51,10 @@ int			ft_wait(t_jobs *j, t_shell *sh)
 			ft_eval_status(p);
 			ret = p->ret;
 			if (j && ft_job_is_over(j))
-				ft_remove_jobs(p->pid, sh);
+			{
+				sh->jobs = ft_remove_jobs(p->pid, sh);
+				break ;
+			}
 			else if (j && j->p->background == TRUE && p->pid == j->p->pid)
 				ft_job_prompt(j, 0);
 		}

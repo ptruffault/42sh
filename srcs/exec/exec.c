@@ -56,13 +56,13 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	{
 		if (t->next && (p = init_pipe_process(t, sh)))
 			j = exec_pipe(t, p, sh);
-		while (t->o_type == O_PIPE)
+		while (t->o_type == O_PIPE && t->next)
 			t = t->next;
 	}
 	else if ((p = init_process(t, sh)))
 		j = ft_exec_process(p, sh, t);
 	t->ret = (p ? p->ret : 1);
-	if (j && (t->ret == -1 || (p && p->builtins == TRUE && p->ret == 0)))
+	if (p && j && (t->ret == -1 || (p && p->builtins == TRUE && p->ret == 0)))
 	{
 		ft_link_process_to_term(p, sh);
 		t->ret = ft_wait(j, sh);
@@ -72,7 +72,7 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	else if (p)
 	{
 		p->status = INIT;
-		ft_remove_jobs(p->pid, sh);
+		sh->jobs = ft_remove_jobs(p->pid, sh);
 	}
 	sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
 	ft_reset_fd(sh);

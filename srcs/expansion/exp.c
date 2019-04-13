@@ -145,17 +145,22 @@ t_tree *ft_expention(t_tree *t)
 {
 	t_shell	*sh;
 	t_word	*w;
+	t_tree *tmp;
 
-	w = t->cmd;
+	tmp = t;
 	sh = ft_get_set_shell(NULL);
-	while (w)
+	while (tmp)
 	{
-		if (w && IS_EXP(w->type) && w->word)
-			w->word = ft_exp_var(w->word, sh);
-		w = (w ? w->next : w);
+		w = t->cmd;
+		while (w)
+		{
+			if (w && IS_EXP(w->type) && w->word)
+				w->word = ft_exp_var(w->word, sh);
+			w = (w ? w->next : w);
+		}
+		tmp = ft_word_paste(tmp);
+		tmp->cmd = ft_exp_home_var(tmp->cmd, sh->env);
+		tmp = (tmp->o_type == O_PIPE ? tmp->next : NULL);
 	}
-	t = ft_word_paste(t);
-	t->cmd = ft_exp_home_var(t->cmd, sh->env);
-	//ft_putword(t->cmd);
 	return (t);
 }

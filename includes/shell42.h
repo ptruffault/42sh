@@ -40,7 +40,7 @@ void			set_son_signal(void);
 int				ft_init_groups(t_shell *sh);
 int				ft_signal_check(t_process *p);
 t_jobs			*ft_add_jobs(t_process *p, t_shell *sh);
-void			ft_remove_jobs(int pid, t_shell *sh);
+t_jobs			*ft_remove_jobs(int pid, t_shell *sh);
 t_jobs			*ft_free_tjobs(t_jobs *j);
 
 int				ft_fc(t_shell *sh, char **argv);

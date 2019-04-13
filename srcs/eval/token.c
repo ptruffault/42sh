@@ -39,30 +39,22 @@ static t_word	*find_type(t_word *w, char c, int *pos)
 
 static t_word	*g_n_w(t_word *w, t_eval *e, int *i, int *pos)
 {
-	char	c;
-	int		begin;
-	int 	exept;
+	int begin;
 
-	exept = (e->eval[*i] == '*' ? 1 : 0);
-	*i = *i + exept;
 	begin = *i;
-	c = e->eval[begin];
-	if (e->eval[*i] == 'o')
-		*pos = 0;
-	while (c != '*' && e->eval[*i] && (e->eval[*i] == c))
+	if (e->eval[begin] == '*')
+		*i = ++begin;
+	while (e->eval[*i] && e->eval[*i] == e->eval[begin])
 		*i = *i + 1;
-	if ((e->eval[*i] == '*' && !ft_isspace(e->eval[*i + 1]))
-		|| (e->eval[begin] == 'B' && !ft_isspace(e->eval[begin + 1]))
-		|| (e->eval[*i] == 'B' && !ft_isspace(e->eval[*i + 1]))
-		|| (c == 'B' && !ft_isspace(e->eval[*i])))
-		w->paste = TRUE;
-	if ((c == '*' && !(w->word = ft_strdup(" ")))
-	|| (c != '*' && !(w->word = ft_strndup(e->s + begin, *i - begin))))
+	if (e->eval[begin] != '*' && !(w->word = ft_strndup(&e->s[begin], *i - begin)))
 		return (NULL);
-//	ft_printf("[%c] {%s} (%c) %i \n", c, w->word , e->eval[*i],  w->paste);
-	if (exept && e->eval[*i] == '*')
+	if (e->eval[begin] == '*' && !(w->word = ft_strdup("@")))
+		return (NULL);
+	while (e->eval[*i] == '*')
 		*i = *i + 1;
-	return (find_type(w, c, pos));
+	if (!ft_strchr("or ", e->eval[*i]))
+		w->paste = TRUE;
+	return (find_type(w, e->eval[begin], pos));
 }
 
 t_word			*ft_get_words(t_eval *e)

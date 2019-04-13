@@ -12,12 +12,6 @@
 
 #include <get_input.h>
 
-void		ft_delete_line(t_edit *e)
-{
-	curs_reset(e);
-	term_actions("cd");
-}
-
 static void	print_background(t_edit *e, int pos, int size)
 {
 	ft_putstr(JAUNE);
@@ -25,6 +19,12 @@ static void	print_background(t_edit *e, int pos, int size)
 	write(1, e->hist->s + pos, size);
 	ft_putstr(NORMAL);
 	term_actions("me");
+}
+
+void		ft_delete_line(t_edit *e)
+{
+	curs_reset(e);
+	term_actions("cd");
 }
 
 void		ft_print_edited(t_edit *e)

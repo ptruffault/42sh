@@ -305,6 +305,279 @@ int				ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh);
 int				get_destination_fd(t_redirect *r);
 int				fd_dup(int fd1, int fd2, t_process *p);
 
+/*
+** get_input/cursor/arrow_move.c
+*/
+void			ft_home_key(t_edit *e);
+void			curr_go_last(t_edit *e);
+void			curr_move_left(t_edit *e);
+void			curr_move_right(t_edit *e);
+
+/*
+** get_input/cursor/clear_and_all.c
+*/
+void			reset_tedit(t_edit *e);
+void			just_exit(t_edit *e);
+void			reset_get_input(t_edit *e);
+
+/*
+** get_input/cursor/curs_move.c
+*/
+void			curs_reset(t_edit *e);
+size_t			how_much_cr(t_edit *e);
+
+/*
+** get_input/cursor/ft_cop_pas.c
+*/
+void			ft_paste(t_edit *e);
+void			ft_copy(t_edit *e);
+
+/*
+** get_input/cursor/ft_jump_line.c
+*/
+void			ft_select_line_down(t_edit *e);
+void			ft_jump_line_down(t_edit *e);
+void			ft_select_line_up(t_edit *e);
+void			ft_jump_line_up(t_edit *e);
+
+/*
+** get_input/cursor/ft_jump_word.c
+*/
+void			ft_jp_word_left(t_edit *e);
+void			ft_jp_word_right(t_edit *e);
+
+/*
+** get_input/cursor/ft_select.c
+*/
+void			ft_select_home(t_edit *e);
+void			ft_select_end(t_edit *e);
+void			ft_select_left(t_edit *e);
+void			ft_select_right(t_edit *e);
+
+/*
+** get_input/history/ft_incr_search.c
+*/
+int				ft_incr_add(t_edit *e);
+void			ft_incremental_search(t_edit *e);
+
+/*
+** get_input/history/hist_expanse.c
+*/
+int				check_for_hist_exp(t_edit *e);
+
+/*
+** get_input/history/history.c
+*/
+void			hist_move_up(t_edit *e);
+void			hist_move_do(t_edit *e);
+
+/*
+** get_input/history/seek_n_replace.c
+*/
+int				seek_n_repl_nb(t_edit *e, size_t x, int nb, size_t size);
+int				seek_n_repl_str(t_edit *e, size_t x, char *word, size_t i);
+
+/*
+** get_input/ft_tab.c
+*/
+int				tab_handle(t_edit *e);
+
+/*
+** get_input/get_input.c
+*/
+int				get_input(char **line);
+int				ft_update_hist(t_shell *sh);
+
+/*
+** get_input/handler_input.c
+*/
+int				handle_input(unsigned long buf, t_edit *e);
+void			ft_incr_search(t_edit *e);
+
+/*
+** get_input/input_tools.c
+*/
+void			delete_on(t_edit *e);
+void			delete_left(t_edit *e);
+int				ft_add_char(char buf, t_edit *e);
+
+/*
+** get_input/print_line.c
+*/
+void			ft_print_line(t_edit *e);
+void			ft_print_fast(t_edit *e);
+void			ft_print_edited(t_edit *e);
+void			ft_delete_line(t_edit *e);
+
+/*
+** get_input/prompt.c
+*/
+void			ft_disp(t_shell *sh);
+void			ft_others_prompt(t_shell *sh, const char *prompt_txt);
+
+/*
+** get_input/setup.c
+*/
+int				init_tedit(t_shell *sh);
+int				ft_get_hist_size(void);
+
+/*
+** get_input/term_settings.c
+*/
+int				ft_set_old_term(t_shell *sh, int error);
+int				ft_setup_edit_term(t_shell *sh);
+int				init_termcaps(t_shell *sh);
+void			ft_update_windows(t_edit *e);
+
+/*
+** get_input/use_termcaps.c
+*/
+int				term_goto(char *cmd, int row, int col);
+int				term_actions(const char *cmd);
+
+/*
+** get_input/valid_line.c
+*/
+void			entry_key(t_edit *e);
+int				check_eval(char *str);
+
+/*
+** history/deload_history.c
+*/
+void			ft_deload_hist_in_file(t_shell *sh);
+
+/*
+** history/get_history.c
+*/
+t_hist			*init_hist(char *hist);
+t_hist			*new_hist(void);
+int				ft_isparenth(char c);
+
+/*
+** process/ft_kill.c
+*/
+int				kill_process(t_process *p, int sig, unsigned int status);
+void			ft_update_status(t_process *p, unsigned int status);
+
+/*
+** process/init_pipe.c
+*/
+t_process		*init_pipe_process(t_tree *t, t_shell *sh);
+
+/*
+** process/init_process.c
+*/
+t_process		*init_process(t_tree *t, t_shell *sh);
+
+/*
+** process/jobs_search.c
+*/
+t_jobs			*ft_search_jobs(t_jobs *j, char *s);
+t_jobs			*ft_get_jobs_pid(t_jobs *j, int pid);
+
+/*
+** process/jobs_tools.c
+*/
+t_jobs			*ft_add_jobs(t_process *p, t_shell *sh);
+t_jobs			*ft_remove_jobs(int pid, t_shell *sh);
+int				ft_job_is_over(t_jobs *j);
+
+/*
+** process/wait_process.c
+*/
+void			ft_wait_background(t_shell *sh);
+int				ft_wait(t_jobs *j, t_shell *sh);
+
+
+/*
+** setup_exit/free_tools.c
+*/
+t_process		*ft_free_tprocess(t_process *p);
+t_hist			*ft_free_thist(t_hist *h);
+t_tree			*ft_free_tree(t_tree *t);
+t_redirect		*ft_free_redirection(t_redirect *r);
+t_word			*ft_free_tword(t_word *w);
+
+/*
+** setup_exit/free_tools_shell.c
+*/
+void			ft_free_tshell(t_shell *sh);
+t_jobs			*ft_free_tjobs(t_jobs *j);
+
+/*
+** setup_exit/init_envv.c
+*/
+int				init_env(t_shell *sh, char **argv, char **envv);
+
+/*
+** setup_exit/init_intern.c
+*/
+void			ft_init_builtins_tab(t_shell *sh);
+char			*trim_path(char *path);
+void			retrieve_path(t_shell *sh);
+int				init_intern(t_shell *sh);
+
+/*
+** setup_exit/init_shell.c
+*/
+int				init_shell(t_shell *sh, char **envv, char **argv);
+int				ft_init_groups(t_shell *sh);
+int				ft_tcsetpgrp(int fd, pid_t pgrp);
+pid_t			ft_tcgetpgrp(int fd);
+
+/*
+** tenvv/ft_setenv.c
+*/
+t_envv			*ft_setenv(t_envv *envv, char **t, int mode, short status);
+t_envv			*ft_new_envv_equ(t_envv *envv, char *eq, short status);
+t_envv			*ft_new_envv(t_envv *envv, const char *name, const char *value, short status);
+t_envv			*ft_new_envv_int(t_envv *envv, const char *name, int val, short status);
+char			*ft_split_equal(char *str, char **aft);
+
+/*
+** tenvv/ft_unsetenv.c
+*/
+t_envv			*ft_unsetenv(t_envv *envv, char **t);
+t_envv			*ft_del_envv(t_envv *envv, char *name);
+t_envv			*ft_free_tenvv(t_envv *envv);
+t_envv			*del_tenvv(t_envv *envv);
+
+/*
+** tenvv/tenvv_to_tab.c
+*/
+void			ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t);
+void			ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t);
+char			**tenvv_to_tab(t_envv *envv);
+
+/*
+** tenvv/tenvv_tools.c
+*/
+int				ft_puttenvv(t_envv *t, short status);
+char			*get_tenvv_val(t_envv *envv, const char *name);
+t_envv			*get_tenvv(t_envv *envv, const char *name);
+t_envv			*new_tenvv(short status);
+
+/*
+** tenvv/tenvv_tools_tmp.c
+*/
+t_envv			*ft_save_tenvv(t_envv *envv, t_envv *tmp);
+t_envv			*ft_push_tenvv(t_envv *dest, const t_envv *src, short status);
+t_envv			*ft_remove_tmp(t_envv *src);
+
+/*
+** ft_get_set.c
+*/
+t_shell			*ft_get_set_shell(t_shell *sh);
+t_tree			*ft_get_set_tree(t_tree *new_t);
+
+/*
+** signal.c
+*/
+void			set_signals(void);
+void			set_son_signal(void);
+void			sig_handler(int sig);
+int				ft_signal_check(t_process *p);
+
 t_tree 			*ft_word_paste(t_tree *t);
 void			ft_job_prompt(t_jobs *j, int opts);
 int				ft_job_is_over(t_jobs *j);

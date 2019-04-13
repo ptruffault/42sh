@@ -18,7 +18,7 @@ SRC		=	\
 	signal.c			\
 	ft_get_set.c 		\
 	\
-	setup_exit/free_tools2.c \
+	setup_exit/free_tools_shell.c \
 	setup_exit/init_envv.c		\
 	setup_exit/init_intern.c	\
 	setup_exit/init_shell.c		\
@@ -72,26 +72,29 @@ SRC		=	\
 	builtins/jobs/ft_jobs.c \
 	builtins/jobs/hi.c \
 	\
-	get_input/curs_move.c		\
+	get_input/cursor/curs_move.c		\
+	get_input/cursor/ft_cop_pas.c		\
+	get_input/cursor/ft_jump_word.c		\
+	get_input/cursor/arrow_move.c		\
+	get_input/cursor/ft_select.c		\
+	get_input/cursor/clear_and_all.c	\
+	get_input/cursor/ft_jump_line.c		\
+	\
+	get_input/history/history.c			\
+	get_input/history/hist_expanse.c	\
+	get_input/history/seek_n_replace.c	\
+	get_input/history/ft_incr_search.c	\
+	\
 	get_input/get_input.c		\
+	get_input/valid_line.c		\
 	get_input/handle_input.c	\
-	get_input/history.c			\
 	get_input/input_tools.c		\
 	get_input/print_line.c		\
 	get_input/setup.c			\
-	get_input/ft_cop_pas.c		\
-	get_input/ft_jump_word.c	\
-	get_input/arrow_move.c		\
-	get_input/ft_select.c		\
-	get_input/clear_and_all.c	\
 	get_input/use_termcaps.c	\
 	get_input/term_settings.c	\
-	get_input/ft_jump_line.c	\
 	get_input/ft_tab.c			\
 	get_input/prompt.c			\
-	get_input/hist_expanse.c	\
-	get_input/seek_n_replace.c	\
-	get_input/ft_incr_search.c	\
 	\
 	autocompletion/check_line.c			\
 	autocompletion/utility_handler.c	\
@@ -112,9 +115,8 @@ SRC		=	\
 	process/init_pipe.c			\
 	process/job_search.c 		\
 	\
-	tenvv/ft_get_set_envv.c		\
 	tenvv/tenvv_tools.c			\
-	tenvv/tenvv_tools_2.c		\
+	tenvv/tenvv_tools_tmp.c		\
 	tenvv/tenvv_to_tab.c		\
 	tenvv/ft_setenv.c			\
 	tenvv/ft_unsetenv.c			\

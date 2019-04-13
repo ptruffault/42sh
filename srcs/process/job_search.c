@@ -23,23 +23,23 @@ static t_jobs	*ft_get_jobs_id(t_jobs *j, int id)
 	return (NULL);
 }
 
-t_jobs	*ft_get_jobs_pid(t_jobs *j, int pid)
-{
-	while (j)
-	{
-		if (j->p->pid == pid)
-			return (j);
-		j = j->next;
-	}
-	return (NULL);
-}
-
 static t_jobs	*ft_get_jobs_name(t_jobs *j, char *name)
 {
 	while (j)
 	{
 		if (ft_strstr(*j->p->argv, name)
 		|| ft_strstr(j->p->cmd, name))
+			return (j);
+		j = j->next;
+	}
+	return (NULL);
+}
+
+t_jobs	*ft_get_jobs_pid(t_jobs *j, int pid)
+{
+	while (j)
+	{
+		if (j->p->pid == pid)
 			return (j);
 		j = j->next;
 	}

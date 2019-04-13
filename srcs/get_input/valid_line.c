@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_and_all.c                                    :+:      :+:    :+:   */
+/*   valid_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include <get_input.h>
 
-void	setup_key(char *error[7], t_edit *e)
+static void	setup_key(char *error[7], t_edit *e)
 {
 	error[0] = "\ncmdand";
 	error[1] = "\ncmdor";
@@ -28,7 +28,7 @@ void	setup_key(char *error[7], t_edit *e)
 	e->hist->s = e->tmp;
 }
 
-int		check_eval(char *str)
+int			check_eval(char *str)
 {
 	char	*tmp;
 
@@ -53,7 +53,7 @@ int		check_eval(char *str)
 	return (1);
 }
 
-void	entry_key(t_edit *e)
+void		entry_key(t_edit *e)
 {
 	t_eval	eval;
 	t_shell	*sh;
@@ -67,11 +67,7 @@ void	entry_key(t_edit *e)
 	if (eval.eval != NULL && check_eval(eval.eval)
 		&& sh->heredoc == 0 && eval.err > 1)
 	{
-		e->curr = 0;
-		e->pos = 0;
-		e->select = -1;
-		e->select_pos = 0;
-		e->hist->s = ft_strnew(3);
+		reset_tedit(e);
 		eval.err = (eval.err >= 2) ? eval.err - 2 : eval.err;
 		ft_others_prompt(ft_get_set_shell(NULL), error[eval.err]);
 	}
@@ -79,54 +75,9 @@ void	entry_key(t_edit *e)
 	{
 		e->tmp = NULL;
 		e->edited = TRUE;
-	}
-	if (check_for_hist_exp(e) == SUCCESS)
-	{
-		e->tmp = NULL;
-		e->edited = FALSE;
+		if (check_for_hist_exp(e) == SUCCESS)
+			e->edited = FALSE;
 	}
 	ft_strdel(&eval.eval);
 	ft_strdel(&eval.s);
-}
-
-void	clear_term(t_edit *e)
-{
-	term_actions(HOME_POS);
-	term_actions(CLEAR);
-	e->pos = 0;
-}
-
-void	reset_get_input(t_edit *e)
-{
-	while (e->hist->prev)
-		e->hist = e->hist->prev;
-	ft_strdel(&e->hist->s);
-	if (e->hist->next)
-		e->hist->next->prev = NULL;
-	free(e->hist);
-}
-
-void	just_exit(t_edit *e)
-{
-	t_shell *sh;
-
-	sh = ft_get_set_shell(NULL);
-	if (!e->hist || !e->hist->s || !*e->hist->s)
-	{
-		if (sh->heredoc == 1)
-		{
-			sh->heredoc = 0;
-			sh->e.edited = TRUE;
-		}
-		while (e->hist && e->hist->prev)
-			e->hist = e->hist->prev;
-		if (e->hist && e->hist->next)
-			e->hist->next->prev = NULL;
-		if (e->hist)
-		{
-			ft_strdel(&e->hist->s);
-			free(e->hist);
-		}
-		e->hist = NULL;
-	}
 }

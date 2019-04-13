@@ -36,7 +36,7 @@ static void	autocompletion_printing(t_edit *e, char **tabl, int max_len)
 	ft_disp(sh);
 }
 
-int			autocompletion_adding(t_edit *e, char **t)
+static int	autocompletion_adding(t_edit *e, char **t)
 {
 	size_t	x;
 	char	*tmp;

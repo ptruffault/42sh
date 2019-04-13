@@ -62,15 +62,3 @@ int		ft_puttenvv(t_envv *t, short status)
 	}
 	return (i);
 }
-
-t_envv	*ft_changetenvv_val(t_envv *envv, const char *name, const char *new_val)
-{
-	t_envv *tmp;
-
-	if ((tmp = get_tenvv(envv, name)))
-	{
-		ft_strdel(&tmp->value);
-		tmp->value = ft_strdup(new_val);
-	}
-	return (envv);
-}

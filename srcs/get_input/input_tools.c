@@ -12,31 +12,6 @@
 
 #include <get_input.h>
 
-int			ft_add_char(char buf, t_edit *e)
-{
-	char	*tmp;
-
-	if (e->select != -1)
-		delete_left(e);
-	if ((!ft_isprint(buf) || !e->hist->s) && buf != 9)
-		return (SUCCESS);
-	tmp = e->hist->s;
-	e->hist->s = ft_strsub(tmp, 0, (size_t)e->curr);
-	e->hist->s = ft_strinsert_char(&e->hist->s, buf, tmp + e->curr);
-	ft_strdel(&tmp);
-	e->curr++;
-	if (e->max_char < e->pos + 1)
-	{
-		if (e->curr > e->max_char)
-			e->pos_z += 1;
-		if (e->curr < e->max_char)
-			e->pos_y += 1;
-	}
-	if (e->select != -1)
-		e->select = -1;
-	return (SUCCESS);
-}
-
 static int	delete_simple_left(t_edit *e)
 {
 	size_t	i;
@@ -88,6 +63,32 @@ static int	delete_multiple_left(t_edit *e, int stop)
 	ft_print_fast(e);
 	return (SUCCESS);
 }
+
+int			ft_add_char(char buf, t_edit *e)
+{
+	char	*tmp;
+
+	if (e->select != -1)
+		delete_left(e);
+	if ((!ft_isprint(buf) || !e->hist->s) && buf != 9)
+		return (SUCCESS);
+	tmp = e->hist->s;
+	e->hist->s = ft_strsub(tmp, 0, (size_t)e->curr);
+	e->hist->s = ft_strinsert_char(&e->hist->s, buf, tmp + e->curr);
+	ft_strdel(&tmp);
+	e->curr++;
+	if (e->max_char < e->pos + 1)
+	{
+		if (e->curr > e->max_char)
+			e->pos_z += 1;
+		if (e->curr < e->max_char)
+			e->pos_y += 1;
+	}
+	if (e->select != -1)
+		e->select = -1;
+	return (SUCCESS);
+}
+
 
 void		delete_left(t_edit *e)
 {

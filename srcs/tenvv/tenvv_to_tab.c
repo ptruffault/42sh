@@ -25,9 +25,9 @@ static char	*get_equal(char *name, char *value)
 	return (ret);
 }
 
-static int	envv_len(t_envv *envv)
+static unsigned int	envv_len(t_envv *envv)
 {
-	int		i;
+	unsigned int	i;
 
 	i = 0;
 	while (envv)

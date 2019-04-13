@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static t_process	*ft_abort(t_process *p, char *err, t_process *tmp)
+static t_process	*ft_abort(t_process *p, const char *err, t_process *tmp)
 {
 	t_process *head;
 

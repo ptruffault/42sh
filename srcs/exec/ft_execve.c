@@ -12,6 +12,21 @@
 
 #include "shell42.h"
 
+static int 		check_exe(char *bin_path)
+{
+	struct stat inf;
+
+	if (lstat(bin_path, &inf) != -1 && inf.st_mode & S_IFREG)
+	{
+		if (inf.st_mode & S_IXUSR)
+			return (1);
+		else
+			return (error("permission denied", bin_path));
+	}
+	else
+		return (error("not an executable", bin_path));
+}
+
 static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 {
 	if (p->builtins == TRUE)
@@ -61,21 +76,6 @@ void			ft_exit_son(t_shell *sh, int exit_code)
 	ft_free_tshell(sh);
 	ft_free_tree(ft_get_set_tree(NULL));
 	exit(exit_code);
-}
-
-int check_exe(char *bin_path)
-{
-	struct stat inf;
-
-	if (lstat(bin_path, &inf) != -1 && inf.st_mode & S_IFREG)
-	{
-		if (inf.st_mode & S_IXUSR)
-			return (1);
-		else
-			return (error("permission denied", bin_path));
-	}
-	else
-		return (error("not an executable", bin_path));
 }
 
 t_jobs		*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)

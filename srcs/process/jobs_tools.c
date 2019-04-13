@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-int				ft_get_new_id(t_jobs *j)
+static int				ft_get_new_id(t_jobs *j)
 {
 	t_jobs	*head;
 	int		ret;

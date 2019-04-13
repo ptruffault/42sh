@@ -12,7 +12,7 @@
 
 #include <libft.h>
 
-int	error(char *descript, char *opts)
+int	error(const char *descript, const char *opts)
 {
 	ft_putstr_fd("\a\033[04m\033[00;31mError: \033[00m", STDERR_FILENO);
 	ft_putstr_fd(descript, STDERR_FILENO);
@@ -26,7 +26,7 @@ int	error(char *descript, char *opts)
 	return (0);
 }
 
-int	error_c(char *descript, char opts)
+int	error_c(const char *descript, const char opts)
 {
 	ft_putstr_fd("\a\033[04m\033[00;31mError: \033[00m", STDERR_FILENO);
 	ft_putstr_fd(descript, STDERR_FILENO);
@@ -36,7 +36,7 @@ int	error_c(char *descript, char opts)
 	return (0);
 }
 
-int	error_i(char *descript, int i)
+int	error_i(const char *descript, int i)
 {
 	ft_putstr_fd("\a\033[04m\033[00;31mError: \033[00m", STDERR_FILENO);
 	ft_putstr_fd(descript, STDERR_FILENO);
@@ -46,7 +46,7 @@ int	error_i(char *descript, int i)
 	return (0);
 }
 
-int	warning(char *descript, char *opts)
+int	warning(const char *descript, const char *opts)
 {
 	ft_putstr_fd("\a\033[04m\033[1;35mWarning: \033[00m", STDERR_FILENO);
 	ft_putstr_fd(descript, STDERR_FILENO);
@@ -60,7 +60,7 @@ int	warning(char *descript, char *opts)
 	return (0);
 }
 
-int	warning_c(char *descript, char opts)
+int	warning_c(const char *descript, const char opts)
 {
 	ft_putstr_fd("\a\033[04m\033[1;35mWarning: \033[00m", STDERR_FILENO);
 	ft_putstr_fd(descript, STDERR_FILENO);

@@ -26,7 +26,7 @@ t_envv	*new_tenvv(short status)
 	return (node);
 }
 
-t_envv	*get_tenvv(t_envv *envv, char *name)
+t_envv	*get_tenvv(t_envv *envv, const char *name)
 {
 	while (name && envv)
 	{
@@ -37,7 +37,7 @@ t_envv	*get_tenvv(t_envv *envv, char *name)
 	return (NULL);
 }
 
-char	*get_tenvv_val(const t_envv *envv, char *name)
+char	*get_tenvv_val(t_envv *envv, const char *name)
 {
 	t_envv *tmp;
 
@@ -46,7 +46,7 @@ char	*get_tenvv_val(const t_envv *envv, char *name)
 	return (NULL);
 }
 
-int		ft_puttenvv(const t_envv *t, short status)
+int		ft_puttenvv(t_envv *t, short status)
 {
 	int i;
 
@@ -63,7 +63,7 @@ int		ft_puttenvv(const t_envv *t, short status)
 	return (i);
 }
 
-t_envv	*ft_changetenvv_val(t_envv *envv, char *name, char *new_val)
+t_envv	*ft_changetenvv_val(t_envv *envv, const char *name, const char *new_val)
 {
 	t_envv *tmp;
 

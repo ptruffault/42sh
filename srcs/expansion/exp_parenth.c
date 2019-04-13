@@ -31,7 +31,7 @@ static char	*ft_get_len(char *value)
 {
 	char *tmp;
 
-	tmp = ft_itoa(ft_strlen(value));
+	tmp = ft_itoa((int)ft_strlen(value));
 	ft_strdel(&value);
 	return (tmp);
 }
@@ -44,7 +44,7 @@ static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *param)
 
 	val = NULL;
 	val2 = NULL;
-	if (parenth && (val1 = ft_strndup(parenth, ptr - parenth - 1)))
+	if (parenth && (val1 = ft_strndup(parenth, (int)(ptr - parenth - 1))))
 	{
 		if ((val2 = ft_strdup(param))
 		&& ((*ptr == '-' && !(get_tenvv(sh->env, val1)))
@@ -80,7 +80,7 @@ static char	*ft_get_param_value(t_shell *sh, char *parenth)
 		{
 			ft_strdel(&val);
 			val = handle_modifier(parenth, &parenth[i + 1], sh, param);
-			i = i + ft_strlen(param);
+			i = i + (int)ft_strlen(param);
 			ft_strdel(&param);
 		}
 		else if (parenth[i] == '#' || parenth[i] == '%')
@@ -97,7 +97,7 @@ char		*ft_exp_param(char *ret, char *ptr, t_shell *sh)
 	int		len;
 
 	value = NULL;
-	parenth = ft_strsub(ret, ptr - ret + 2, get_content_size(ptr));
+	parenth = ft_strsub(ret, (unsigned int)(ptr - ret + 2), (size_t)get_content_size(ptr));
 	if (!parenth || *parenth == '$' || ft_isempty(parenth))
 	{
 		ft_strdel(&parenth);

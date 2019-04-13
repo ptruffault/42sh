@@ -29,7 +29,7 @@ char	*ft_split_equal(char *str, char **aft)
 	return (str);
 }
 
-t_envv	*ft_new_envv_int(t_envv *envv, char *name, int val, short status)
+t_envv	*ft_new_envv_int(t_envv *envv, const char *name, int val, short status)
 {
 	t_envv	*ret;
 	t_envv	*tmp;
@@ -54,7 +54,7 @@ t_envv	*ft_new_envv_int(t_envv *envv, char *name, int val, short status)
 	return (ret);
 }
 
-t_envv	*ft_new_envv(t_envv *envv, char *name, char *value, short status)
+t_envv	*ft_new_envv(t_envv *envv, const char *name, const char *value, short status)
 {
 	t_envv	*ret;
 	t_envv	*tmp;

@@ -14,8 +14,24 @@
 
 void	ft_alias(t_shell *sh, char **argv)
 {
+	int i;
+
+	i = 1;
 	if (argv[1] == NULL)
 		ft_puttenvv(sh->alias, EXP);
 	else
-		sh->alias = ft_setenv(sh->alias, &argv[1], 1, EXP);
+	{
+		while (argv[i])
+		{
+			if (ft_isequal(argv[i]) 
+				&& !(ft_strchr(ft_strchr(argv[i], '='), '/')))
+				sh->alias = ft_new_envv_equ(sh->alias, argv[i], EXP);
+			else if (argv[i + 1] && !ft_strchr(argv[i + 1], '/'))
+			{
+				sh->alias = ft_new_envv(sh->alias, argv[i], argv[i + 1], EXP);
+				i++;
+			}
+			i++;
+		}
+	}
 }

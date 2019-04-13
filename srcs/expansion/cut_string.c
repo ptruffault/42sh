@@ -14,12 +14,12 @@
 
 static char	*ft_get_op(char *s, int *i)
 {
-	int	start;
+	unsigned int start;
 
-	start = *i;
+	start = (unsigned int)*i;
 	while (s && s[*i] && s[*i] == s[start])
 		*i = *i + 1;
-	return (ft_strsub(s, start, *i - start));
+	return (ft_strsub(s, start, (size_t)*i - start));
 }
 
 static char	*ft_cut_begin(char *val, char *pat)
@@ -42,10 +42,12 @@ static char	*ft_cut_begin(char *val, char *pat)
 static char	*ft_cut_end(char *val, char *pat)
 {
 	char	*new;
+	size_t	len;
 
 	if (val && pat && ft_str_endwith(val, pat))
 	{
-		new = ft_strndup(val, ft_strlen(val) - ft_strlen(pat));
+		len = ft_strlen(val) - ft_strlen(pat);
+		new = ft_strndup(val, (int)len);
 		ft_strdel(&val);
 		return (new);
 	}
@@ -65,7 +67,7 @@ static char	*ft_cut_string(char *parenth, char *val, int *curr)
 		if (parenth[*curr] && parenth[*curr] != '}'
 		&& (pattern = ft_get_secondvalue(&parenth[*curr])))
 		{
-			*curr = *curr + ft_strlen(pattern) - 1;
+			*curr = *curr + (int)ft_strlen(pattern) - 1;
 			if (*pattern == '$' && (tmp = get_tenvv_val(sh->env, pattern + 1)))
 			{
 				ft_strdel(&pattern);

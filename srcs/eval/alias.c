@@ -54,7 +54,7 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val)
 t_word			*ft_check_alias(t_word *head, t_shell *sh)
 {
 	t_word	*tmp_w;
-	t_word 	*prev;
+	t_word	*prev;
 	char	*val;
 	int		i;
 
@@ -66,7 +66,8 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 		if (tmp_w->type == OPERATEUR)
 			i = 0;
 		if (i == 1 && tmp_w && ft_strequ(tmp_w->word, "!")
-			&& IS_CMD(tmp_w->type) && tmp_w->type != QUOTE && tmp_w->type != DQUOTE)
+			&& IS_CMD(tmp_w->type) && tmp_w->type != QUOTE
+			&& tmp_w->type != DQUOTE)
 		{
 			tmp_w = ft_deltword(prev, tmp_w);
 			if (!prev)

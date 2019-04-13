@@ -1,10 +1,10 @@
-[1;32m[04mVALGRIND_STARTUP_PWD_82722_XYZZY[00m = /Users/ptruffau/42sh/test
+[1;32m[04mVALGRIND_STARTUP_PWD_65987_XYZZY[00m = /Users/ptruffau/42sh/test
 [1;32m[04m_[00m = /Users/ptruffau/.brew/bin/valgrind
 [1;32m[04mCOLORTERM[00m = truecolor
 [1;32m[04mLC_CTYPE[00m = en_US.UTF-8
 [1;32m[04mLOGNAME[00m = ptruffau
 [1;32m[04mLESS[00m = -R
-[1;32m[04mITERM_SESSION_ID[00m = w0t0p2:62F1FF96-EE6C-4133-BE14-94EFF040BE63
+[1;32m[04mITERM_SESSION_ID[00m = w0t0p0:56C9F395-FF0D-4BA4-84CA-E97BDE5B837C
 [1;32m[04mCOLORFGBG[00m = 7;0
 [1;32m[04mHOME[00m = /Users/ptruffau
 [1;32m[04mSHLVL[00m = 2
@@ -20,7 +20,7 @@
 [1;32m[04mSSH_AUTH_SOCK[00m = /private/tmp/com.apple.launchd.GTE2bxWwBx/Listeners
 [1;32m[04mUSER[00m = ptruffau
 [1;32m[04mZSH[00m = /Users/ptruffau/.oh-my-zsh
-[1;32m[04mTERM_SESSION_ID[00m = w0t0p2:62F1FF96-EE6C-4133-BE14-94EFF040BE63
+[1;32m[04mTERM_SESSION_ID[00m = w0t0p0:56C9F395-FF0D-4BA4-84CA-E97BDE5B837C
 [1;32m[04mTERM_PROGRAM_VERSION[00m = 3.2.3
 [1;32m[04mApple_PubSub_Socket_Render[00m = /private/tmp/com.apple.launchd.x6Bd2zYCRO/Render
 [1;32m[04mTMPDIR[00m = /var/folders/zz/zyxvpxvq6csfxvn_n00033qh000rxw/T/

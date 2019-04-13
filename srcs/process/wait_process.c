@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   wait_process.c                                     :+:      :+:    :+:   */
@@ -17,11 +17,12 @@ static void	ft_eval_status(t_process *p)
 	if ((WIFSIGNALED(p->ret) || WIFSTOPPED(p->ret))
 	&& p->builtins == FALSE)
 	{
-		p->status = (WIFSTOPPED(p->ret) || p->sig == SIGTSTP ? SUSPENDED : KILLED);
+		p->status = (WIFSTOPPED(p->ret) ? SUSPENDED : KILLED);
 		p->sig = (WIFSTOPPED(p->ret) ? SIGTSTP : WTERMSIG(p->ret));
-		if (ft_signal_check(p) && p->background == FALSE && p->status != SUSPENDED)
+		if (ft_signal_check(p) && p->background == FALSE
+			&& p->status != SUSPENDED)
 			ft_putchar_fd('\n', 2);
-		p->ret = p->sig + 128;	
+		p->ret = p->sig + 128;
 	}
 	else if (WIFEXITED(p->ret))
 	{
@@ -30,16 +31,28 @@ static void	ft_eval_status(t_process *p)
 	}
 }
 
+static int	ft_job_stuff(t_jobs *j, t_shell *sh, t_process *p)
+{
+	if (j && ft_job_is_over(j))
+	{
+		sh->jobs = ft_remove_jobs(p->pid, sh);
+		return (0);
+	}
+	else if (j && j->p->background == TRUE && p->pid == j->p->pid)
+		ft_job_prompt(j, 0);
+	return (1);
+}
+
 int			ft_wait(t_jobs *j, t_shell *sh)
 {
-	int ret;
-	t_process *p;
+	int			ret;
+	t_process	*p;
 
 	ret = 0;
 	p = (j ? j->p : NULL);
 	while (p)
 	{
-		if ((p->pid == 0 && p->status != SUSPENDED && p->status != DONE 
+		if ((p->pid == 0 && p->status != SUSPENDED && p->status != DONE
 				&& p->status != KILLED
 				&& (p->status == RUNNING_FG || p->status == RUNNING_BG))
 			|| (p->status == RUNNING_FG
@@ -49,13 +62,8 @@ int			ft_wait(t_jobs *j, t_shell *sh)
 		{
 			ft_eval_status(p);
 			ret = p->ret;
-			if (j && ft_job_is_over(j))
-			{
-				sh->jobs = ft_remove_jobs(p->pid, sh);
+			if (!ft_job_stuff(j, sh, p))
 				break ;
-			}
-			else if (j && j->p->background == TRUE && p->pid == j->p->pid)
-				ft_job_prompt(j, 0);
 		}
 		p = p->grp;
 	}

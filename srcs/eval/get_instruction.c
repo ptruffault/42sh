@@ -56,10 +56,10 @@ static t_tree	*built_tree(t_tree *head, t_word *w, t_shell *sh)
 
 int				ft_check_grammar(t_word *w, t_shell *sh)
 {
-	int cmd;
+	int		cmd;
+	t_word	*head;
 
 	cmd = 0;
-	t_word *head;
 	head = w;
 	while (w)
 	{

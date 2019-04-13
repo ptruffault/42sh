@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static char	*ft_get_varname(char *s)
+static char		*ft_get_varname(char *s)
 {
 	char	*ptr;
 	size_t	i;
@@ -27,7 +27,7 @@ static char	*ft_get_varname(char *s)
 	return (ft_strsub(s, (unsigned int)(ptr - s), i));
 }
 
-static char	*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
+static char		*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 {
 	char	*name;
 	char	*value;
@@ -51,7 +51,7 @@ static t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 {
 	char	*tmp;
 	char	*val;
-	t_word *w;
+	t_word	*w;
 
 	tmp = NULL;
 	w = head;
@@ -69,7 +69,7 @@ static t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 	return (head);
 }
 
-char		*ft_exp_var(char *ret, t_shell *sh)
+char			*ft_exp_var(char *ret, t_shell *sh)
 {
 	int i;
 
@@ -83,19 +83,20 @@ char		*ft_exp_var(char *ret, t_shell *sh)
 				if (!(ret = ft_exp_param(ret, &ret[i], sh)))
 					return (NULL);
 				i = -1;
-			} 
-			else if (ret[i + 1] != '{' && !(ret = ft_exp_envv_var(ret, &ret[i], sh)))
+			}
+			else if (ret[i + 1] != '{'
+				&& !(ret = ft_exp_envv_var(ret, &ret[i], sh)))
 				return (NULL);
 		}
 	}
 	return (ret);
 }
 
-t_tree		*ft_expention(t_tree *t)
+t_tree			*ft_expention(t_tree *t)
 {
 	t_shell	*sh;
 	t_word	*w;
-	t_tree *tmp;
+	t_tree	*tmp;
 
 	tmp = t;
 	sh = ft_get_set_shell(NULL);

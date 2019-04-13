@@ -33,7 +33,7 @@ static void	ft_write_special(char s, char c, int *i)
 		write(1, "\"", 1);
 	else
 	{
-		*i -=1;
+		*i -= 1;
 		write(1, &s, 1);
 	}
 }
@@ -65,7 +65,7 @@ static void	ft_putstr_echo(char *s)
 	}
 }
 
-int		ft_echo(char **input)
+int			ft_echo(char **input)
 {
 	int i;
 	int opts_n;

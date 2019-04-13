@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static char		*concat_pwd(t_shell *sh, char *path, bool *pwd_f)
+static char	*concat_pwd(t_shell *sh, char *path, bool *pwd_f)
 {
 	char		*pwd;
 	char		buff[4097];

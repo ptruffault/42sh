@@ -56,7 +56,7 @@ static void	sig_handler(int sig)
 		ft_update_windows(&sh->e, true);
 }
 
-int		ft_signal_check(t_process *p)
+int			ft_signal_check(t_process *p)
 {
 	int i;
 
@@ -75,7 +75,7 @@ int		ft_signal_check(t_process *p)
 	return (0);
 }
 
-void	set_son_signal(void)
+void		set_son_signal(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -86,7 +86,7 @@ void	set_son_signal(void)
 	signal(SIGWINCH, SIG_DFL);
 }
 
-void	set_signals(void)
+void		set_signals(void)
 {
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);

@@ -29,7 +29,7 @@ static unsigned int	find_operateur(char *op)
 	return (0);
 }
 
-int			ft_check_ascii(char *input)
+int					ft_check_ascii(char *input)
 {
 	int i;
 
@@ -40,7 +40,7 @@ int			ft_check_ascii(char *input)
 	return (1);
 }
 
-t_tree		*new_tree(void)
+t_tree				*new_tree(void)
 {
 	t_tree	*n;
 
@@ -55,7 +55,7 @@ t_tree		*new_tree(void)
 	return (n);
 }
 
-t_redirect	*new_redirection(void)
+t_redirect			*new_redirection(void)
 {
 	t_redirect	*ret;
 
@@ -70,7 +70,7 @@ t_redirect	*new_redirection(void)
 	return (ret);
 }
 
-t_tree		*add_newttree(t_tree *tree, t_word *w)
+t_tree				*add_newttree(t_tree *tree, t_word *w)
 {
 	tree->o_type = find_operateur(w->word);
 	if (w->type != 0)

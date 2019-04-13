@@ -97,7 +97,8 @@ char		*ft_exp_param(char *ret, char *ptr, t_shell *sh)
 	int		len;
 
 	value = NULL;
-	parenth = ft_strsub(ret, (unsigned int)(ptr - ret + 2), (size_t)get_content_size(ptr));
+	parenth = ft_strsub(ret, (unsigned int)(ptr - ret + 2),
+	(size_t)get_content_size(ptr));
 	if (!parenth || *parenth == '$' || ft_isempty(parenth))
 	{
 		ft_strdel(&parenth);

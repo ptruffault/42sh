@@ -23,7 +23,6 @@ static int	ft_check_alpha(char *input)
 	return (1);
 }
 
-
 int			ft_quit(int exit_code, t_shell *sh)
 {
 	if (exit_code == -1)

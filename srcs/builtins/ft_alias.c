@@ -23,7 +23,7 @@ void	ft_alias(t_shell *sh, char **argv)
 	{
 		while (argv[i])
 		{
-			if (ft_isequal(argv[i]) 
+			if (ft_isequal(argv[i])
 				&& !(ft_strchr(ft_strchr(argv[i], '='), '/')))
 				sh->alias = ft_new_envv_equ(sh->alias, argv[i], EXP);
 			else if (argv[i + 1] && !ft_strchr(argv[i + 1], '/'))

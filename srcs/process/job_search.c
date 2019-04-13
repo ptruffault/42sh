@@ -35,7 +35,7 @@ static t_jobs	*ft_get_jobs_name(t_jobs *j, char *name)
 	return (NULL);
 }
 
-t_jobs	*ft_get_jobs_pid(t_jobs *j, int pid)
+t_jobs			*ft_get_jobs_pid(t_jobs *j, int pid)
 {
 	while (j)
 	{

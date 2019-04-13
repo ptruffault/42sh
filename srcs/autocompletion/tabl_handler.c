@@ -12,7 +12,16 @@
 
 #include "shell42.h"
 
-int		check_exec(char *file, char *path)
+static void	ft_swap_strings(char **str, char **str2)
+{
+	char *swap;
+
+	swap = *str;
+	*str = *str2;
+	*str2 = swap;
+}
+
+int			check_exec(char *file, char *path)
 {
 	char		*tmp;
 	struct stat	file_stat;
@@ -35,7 +44,7 @@ int		check_exec(char *file, char *path)
 	return (0);
 }
 
-void	set_null_tabl(char **tabl, int len_env)
+void		set_null_tabl(char **tabl, int len_env)
 {
 	int i;
 
@@ -47,16 +56,7 @@ void	set_null_tabl(char **tabl, int len_env)
 	}
 }
 
-void	ft_swap_strings(char **str, char **str2)
-{
-	char *swap;
-
-	swap = *str;
-	*str = *str2;
-	*str2 = swap;
-}
-
-void	ft_sort_table(char **tabl, int *max_len)
+void		ft_sort_table(char **tabl, int *max_len)
 {
 	int		i;
 	int		j;
@@ -77,7 +77,7 @@ void	ft_sort_table(char **tabl, int *max_len)
 	}
 }
 
-int		add_to_tabl(char ***tabl, char *value, int j)
+int			add_to_tabl(char ***tabl, char *value, int j)
 {
 	char	**retabl;
 	size_t	i;
@@ -89,7 +89,10 @@ int		add_to_tabl(char ***tabl, char *value, int j)
 		return (1);
 	set_null_tabl(retabl, j + 1);
 	if (!(retabl[0] = ft_strdup(value)))
+	{
+		free(retabl);
 		return (1);
+	}
 	j = 0;
 	while ((*tabl)[j] != NULL)
 	{

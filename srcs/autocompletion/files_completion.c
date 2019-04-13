@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-int			fill_tabl_files(DIR *fd, char ***tabl, char *value, int *j)
+static int	fill_tabl_files(DIR *fd, char ***tabl, char *value, int *j)
 {
 	struct dirent	*dir;
 	char			*tmp;
@@ -40,7 +40,7 @@ int			fill_tabl_files(DIR *fd, char ***tabl, char *value, int *j)
 	return (*j);
 }
 
-int			fill_tabl_all_files(DIR *fd, char ***tabl, int *j)
+static int	fill_tabl_all_files(DIR *fd, char ***tabl, int *j)
 {
 	struct dirent	*dir;
 	char			*tmp;
@@ -67,7 +67,7 @@ int			fill_tabl_all_files(DIR *fd, char ***tabl, int *j)
 	return (*j);
 }
 
-char		*which_file(char *value, DIR **fd)
+static char	*which_file(char *value, DIR **fd)
 {
 	char			*tmp;
 

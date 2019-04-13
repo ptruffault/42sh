@@ -15,7 +15,7 @@
 static char	*ft_get_varname(char *s)
 {
 	char	*ptr;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	ptr = s + 1;
@@ -24,7 +24,7 @@ static char	*ft_get_varname(char *s)
 	while (ptr[i] && (ptr[i] == '_' || ft_isalpha(ptr[i])
 	|| ft_isdigit(ptr[i]) || ptr[i] == '~' || ptr[i] == '@'))
 		i++;
-	return (ft_strsub(s, ptr - s, i));
+	return (ft_strsub(s, (unsigned int)(ptr - s), i));
 }
 
 static char	*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
@@ -38,7 +38,7 @@ static char	*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 	if (!(name = ft_get_varname(ptr))
 	|| !(value = get_tenvv_val(sh->env, name)))
 		ft_strdel(&ret);
-	else if (name && (tmp = ft_strpull(ret, ptr, ft_strlen(name), value)))
+	else if (name && (tmp = ft_strpull(ret, ptr, (int)ft_strlen(name), value)))
 	{
 		ft_strdel(&ret);
 		ret = tmp;
@@ -47,7 +47,7 @@ static char	*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 	return (ret);
 }
 
-t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
+static t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 {
 	char	*tmp;
 	char	*val;
@@ -89,46 +89,6 @@ char		*ft_exp_var(char *ret, t_shell *sh)
 		}
 	}
 	return (ret);
-}
-
-t_tree *ft_word_paste(t_tree *t)
-{
-	t_word *head;
-	t_word *new;
-	t_word *tmp;
-
-	tmp = t->cmd;
-	head = NULL;
-	while (tmp)
-	{
-		if (tmp->type == NUL && tmp->paste == TRUE)
-		{
-			tmp = tmp->next;
-		}
-		else if (tmp->paste && tmp->next && tmp->next->word)
-		{
-			if ((new = new_tword()))
-			{
-				new->word = ft_strdup(tmp->word);
-				while (tmp && tmp->paste && tmp->next && tmp->next->word)
-				{
-					new->word = ft_strappend(&new->word, tmp->next->word);
-					tmp = tmp->next;
-				}
-				tmp = tmp->next;
-				head = ft_addtword(head, new);
-				ft_free_tword(new);
-			}
-		}
-		else
-		{
-			head = ft_addtword(head, tmp);
-			tmp = tmp->next;
-		}
-	}
-	t->cmd = ft_free_tword(t->cmd);
-	t->cmd = head;
-	return (t);
 }
 
 t_tree *ft_expention(t_tree *t)

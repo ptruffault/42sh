@@ -200,7 +200,7 @@ int				putcmd(t_word *w, t_envv *env, int t);
 int				putfile(t_word *w, t_envv *env, int t);
 int				putword(t_word *w, int t);
 
-
+t_tree 			*ft_word_paste(t_tree *t);
 void			ft_job_prompt(t_jobs *j, int opts);
 int				ft_job_is_over(t_jobs *j);
 t_jobs			*ft_get_jobs_pid(t_jobs *j, int pid);

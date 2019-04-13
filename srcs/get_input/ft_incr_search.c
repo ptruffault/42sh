@@ -12,7 +12,7 @@
 
 #include <get_input.h>
 
-t_hist	*incr_search_by_occurence(t_hist *first, char *to_search)
+static t_hist	*incr_search_by_occurence(t_hist *first, char *to_search)
 {
 	t_hist	*hist;
 
@@ -22,6 +22,28 @@ t_hist	*incr_search_by_occurence(t_hist *first, char *to_search)
 	if (hist && ft_str_startwith(hist->s, to_search) == 1)
 		return (hist);
 	return (NULL);
+}
+
+static void	ft_print_search(t_edit *e, t_hist *hist)
+{
+	size_t		val;
+
+	val = ft_strlen(e->hist->s);
+	while (val > e->width)
+		val -= e->width;
+	val = e->width - val;
+	if (hist && hist->nb != e->hist->nb)
+	{
+		e->incr_search = hist->s;
+		e->pos += val + 16 + ft_strlen(hist->s);
+		ft_printf("\n(Incr' search):%s", hist->s);
+	}
+	else
+	{
+		e->pos += val + 38;
+		e->incr_search = NULL;
+		ft_printf("\n(Incremental search: no result found)");
+	}
 }
 
 int		ft_incr_add(t_edit *e)
@@ -42,28 +64,6 @@ int		ft_incr_add(t_edit *e)
 	curr_go_last(e);
 	ft_print_fast(e);
 	return (SUCCESS);
-}
-
-void	ft_print_search(t_edit *e, t_hist *hist)
-{
-	size_t		val;
-
-	val = ft_strlen(e->hist->s);
-	while (val > e->width)
-		val -= e->width;
-	val = e->width - val;
-	if (hist && hist->nb != e->hist->nb)
-	{
-		e->incr_search = hist->s;
-		e->pos += val + 16 + ft_strlen(hist->s);
-		ft_printf("\n(Incr' search):%s", hist->s);
-	}
-	else
-	{
-		e->pos += val + 38;
-		e->incr_search = NULL;
-		ft_printf("\n(Incremental search: no result found)");
-	}
 }
 
 void	ft_incremental_search(t_edit *e)

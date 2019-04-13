@@ -12,9 +12,9 @@
 
 #include "shell42.h"
 
-int			ft_twordlen(t_word *w)
+static size_t			ft_twordlen(t_word *w)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (w)
@@ -27,10 +27,10 @@ int			ft_twordlen(t_word *w)
 
 void		ft_delete_char(t_eval *e)
 {
-	int i;
-	int len;
+	size_t 	i;
+	size_t	len;
 
-	i = e->curr;
+	i = (size_t)e->curr;
 	len = ft_strlen(e->s);
 	while (i < len && e->s[e->curr] && e->s[i + 1])
 	{

@@ -18,7 +18,7 @@ static void	ft_intern_var(t_shell *sh)
 	sh->env = ft_new_envv(sh->env, "HISTSIZE", "500", IN);
 	sh->env = ft_new_envv(sh->env, "!", "0", IN);
 	sh->env = ft_new_envv(sh->env, "?", "0", IN);
-	sh->env = ft_new_envv_int(sh->env, "$", sh->pid, IN);
+	sh->env = ft_new_envv_int(sh->env, "$", (int)sh->pid, IN);
 	sh->env = ft_new_envv(sh->env, "CDPATH", "", IN);
 	sh->env = ft_new_envv(sh->env, "FCEDIT", "vim", IN);
 	sh->env = ft_new_envv(sh->env, "PS1", PS1, IN);

@@ -95,7 +95,7 @@ char		**check_line(int *max_len, int *total, t_edit *e)
 	int		pos;
 
 	value = NULL;
-	pos = e->curr;
+	pos = (int)e->curr;
 	*total = 0;
 	if (!e->hist || !e->hist->s)
 		return (NULL);

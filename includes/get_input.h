@@ -130,7 +130,7 @@ void			ft_jp_word_left(t_edit *e);
 /*
 **
 */
-int				term_actions(char *cmd);
+int				term_actions(const char *cmd);
 int				term_goto(char *cmd, int row, int col);
 
 /*

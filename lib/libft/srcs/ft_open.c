@@ -12,7 +12,7 @@
 
 #include <libft.h>
 
-int	ft_open(char *path, int flag, mode_t mode)
+int	ft_open(const char *path, int flag, mode_t mode)
 {
 	int			fd;
 	struct stat	inf;

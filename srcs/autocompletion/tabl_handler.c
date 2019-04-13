@@ -85,7 +85,7 @@ int			add_to_tabl(char ***tabl, char *value, int j)
 	i = 1;
 	if (!value)
 		return (1);
-	if (!(retabl = (char**)malloc(sizeof(char*) * (j + 2))))
+	if (!(retabl = (char**)malloc(sizeof(char*) * (unsigned int)(j + 2))))
 		return (1);
 	set_null_tabl(retabl, j + 1);
 	if (!(retabl[0] = ft_strdup(value)))

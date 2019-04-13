@@ -12,7 +12,7 @@
 
 #include <libft.h>
 
-int		ft_str_startwith(char *s1, char *s2)
+int		ft_str_startwith(const char *s1, const char *s2)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ int		ft_str_startwith(char *s1, char *s2)
 	return (1);
 }
 
-int		ft_str_endwith(char *s1, char *s2)
+int		ft_str_endwith(const char *s1, const char *s2)
 {
 	int i;
 	int j;

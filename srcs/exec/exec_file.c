@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-char	*join_or_save_txt(char *tmp, t_shell *sh)
+static char	*join_or_save_txt(char *tmp, t_shell *sh)
 {
 	if (tmp == NULL)
 		return (sh->txt);

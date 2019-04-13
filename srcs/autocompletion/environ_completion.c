@@ -51,7 +51,7 @@ char		**get_environ_match(char *value, int *total, bool all)
 
 	sh = ft_get_set_shell(NULL);
 	len_env = environ_len(sh->env);
-	if (!(tabl = (char**)malloc(sizeof(char*) * (len_env + 1))))
+	if (!(tabl = (char**)malloc(sizeof(char*) * (unsigned int)(len_env + 1))))
 		return (NULL);
 	set_null_tabl(tabl, len_env);
 	tabl[len_env] = NULL;

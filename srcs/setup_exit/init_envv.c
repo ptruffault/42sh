@@ -80,7 +80,8 @@ static void	ft_setup_environ(t_shell *sh, char *shell_fold)
 	sh->env = ft_new_envv(sh->env, "HOME", usr->pw_dir, EXP);
 	ft_update_shelvl(sh);
 	sh->env = ft_new_envv(sh->env, "SHELL_FOLD", shell_fold, IN);
-	if (isatty(0) && (rc_path = ft_strjoin(shell_fold, "/sys/.42shrc")))
+	if (isatty(0) && isatty(1)
+		&& (rc_path = ft_strjoin(shell_fold, "/sys/.42shrc")))
 	{
 		exec_file(rc_path, sh);
 		ft_strdel(&rc_path);

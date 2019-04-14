@@ -53,7 +53,7 @@ t_envv		*ft_remove_tmp(t_envv *src)
 	dest = src;
 	while (dest)
 	{
-		if (dest->status == TMP)
+		if (dest->status & TMP)
 		{
 			next = dest->next;
 			del_tenvv(dest);
@@ -63,8 +63,11 @@ t_envv		*ft_remove_tmp(t_envv *src)
 			else
 				src = dest;
 		}
-		prev = dest;
-		dest = dest->next;
+		else
+		{
+			prev = dest;
+			dest = dest->next;
+		}
 	}
 	return (src);
 }

@@ -180,7 +180,8 @@ void			ft_exit(char **nbr, t_shell *sh);
 /*
 ** builtins/ft_export.c
 */
-t_envv			*ft_export(t_shell *sh, char **argv);
+int				ft_export(t_shell *sh, char **argv);
+int				check_name(const char *name);
 
 /*
 ** builtins/ft_type.c

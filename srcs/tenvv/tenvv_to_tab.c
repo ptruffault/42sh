@@ -32,7 +32,7 @@ static unsigned int	envv_len(t_envv *envv)
 	i = 0;
 	while (envv)
 	{
-		if (envv->status == EXP)
+		if (envv->status & EXP)
 			i++;
 		envv = envv->next;
 	}
@@ -49,7 +49,7 @@ char				**tenvv_to_tab(t_envv *envv)
 		return (NULL);
 	while (envv)
 	{
-		if (envv->status == EXP && (t[i] = get_equal(envv->name, envv->value)))
+		if ((envv->status & EXP) && (t[i] = get_equal(envv->name, envv->value)))
 			i++;
 		envv = envv->next;
 	}
@@ -81,6 +81,6 @@ void				ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t)
 	{
 		if (sh->env)
 			p->saved_env = ft_save_tenvv(sh->env, t->assign);
-		sh->env = ft_push_tenvv(sh->env, t->assign, TMP);
+		sh->env = ft_push_tenvv(sh->env, t->assign, (EXP | TMP));
 	}
 }

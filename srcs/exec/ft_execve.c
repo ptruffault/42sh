@@ -18,7 +18,7 @@ static int 		check_exe(char *bin_path)
 
 	if (lstat(bin_path, &inf) != -1 && inf.st_mode & S_IFREG)
 	{
-		if (inf.st_mode & S_IXUSR)
+		if (inf.st_mode & S_IXUSR && access(bin_path, X_OK) != -1)
 			return (1);
 		else
 			return (error("permission denied", bin_path));

@@ -35,7 +35,7 @@ int			check_exec(char *file, char *path)
 		ft_strdel(&tmp);
 		return (0);
 	}
-	if (file_stat.st_mode & S_IEXEC)
+	if (file_stat.st_mode & S_IEXEC && access(tmp, X_OK) != -1)
 	{
 		ft_strdel(&tmp);
 		return (1);

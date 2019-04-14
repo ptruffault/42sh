@@ -49,6 +49,9 @@ void		ft_exit(char **nbr, t_shell *sh)
 	}
 	else if (nbr && *nbr && (!ft_check_alpha(*nbr)
 		|| (ret = ft_atoi(*nbr)) < 0))
+	{
+		error("numeric argument required", NULL);
 		ret = 255;
+	}
 	exit(ft_quit(ret, sh));
 }

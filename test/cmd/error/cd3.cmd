@@ -1,2 +1,0 @@
-cd coucou
-pwd

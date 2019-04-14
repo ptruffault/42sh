@@ -84,6 +84,7 @@ int		ft_ismin(char c);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isequal(char *s);
+int		ft_isequal_env(char *s);
 int		ft_isempty(char *s);
 int		ft_isspace(int c);
 int		ft_isalnum(int c);
@@ -117,4 +118,5 @@ char	*ft_strappend(char **str, const char *end);
 char	*ft_strappend_fr(char **str, char **end);
 char	*ft_strinsert_char(char **str, char c, char *end);
 char	*ft_strdup_trim(char *value);
+char	*ft_strpull_exp(char *src, char *ptr, int len, char *value);
 #endif

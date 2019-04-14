@@ -4,4 +4,3 @@ alias ..='cd ..' ...='cd ../..' ....='cd ../../..'
 alias gitall "git add -A && git commit -m 'gitall' && git push"
 cat $SHELL_FOLD/sys/header
 cat $SHELL_FOLD/auteur
-#PS1='$[RED]${HOSTNAME} $[GREEN]${_}:$[MAGENTA]$[UNDERLINE]${PWD} 

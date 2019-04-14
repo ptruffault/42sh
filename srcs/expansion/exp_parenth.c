@@ -16,6 +16,7 @@ static char	*ft_exp_end(char *ret, char *ptr, char *value, char *parenth)
 {
 	char *tmp;
 
+	tmp = NULL;
 	if (value && ft_isempty(value))
 		ft_strdel(&value);
 	if ((tmp = ft_strpull(ret, ptr, get_content_size(ptr) + 2, value))
@@ -47,8 +48,8 @@ static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *param)
 	if (parenth && (val1 = ft_strndup(parenth, (int)(ptr - parenth - 1))))
 	{
 		if ((val2 = ft_strdup(param))
-		&& ((*ptr == '-' && !(get_tenvv(sh->env, val1)))
-		|| (*ptr == '+' && get_tenvv(sh->env, val1))))
+			&& ((*ptr == '-' && !(get_tenvv(sh->env, val1)))
+				|| (*ptr == '+' && get_tenvv(sh->env, val1))))
 			val = ft_strdup(val2);
 		else if (val2 && *ptr == '=' && !(get_tenvv(sh->env, val1)))
 		{

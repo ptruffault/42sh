@@ -12,6 +12,16 @@
 
 #include <libft.h>
 
+int	ft_isequal_env(char *s)
+{
+	char *ptr;
+
+	if (s && *s != '=' && (ptr = ft_strchr(s, '=')))
+		return (1);
+	return (0);
+}
+
+
 int	ft_isequal(char *s)
 {
 	char *ptr;

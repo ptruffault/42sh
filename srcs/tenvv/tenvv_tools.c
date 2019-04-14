@@ -54,10 +54,10 @@ int		ft_puttenvv(t_envv *t, short status)
 	i = -1;
 	while (t && t->name)
 	{
-		if (t->status == status)
+		if ((t->status & status))
 		{
 			i = 0;
-			ft_printf("\033[1;32m\033[04m%s\033[00m = %s\n", t->name, t->value);
+			ft_printf("\033[1;32m\033[04m%s\033[00m=%s\n", t->name, t->value);
 		}
 		t = t->next;
 	}

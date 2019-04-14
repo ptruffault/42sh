@@ -12,6 +12,20 @@
 
 #include "shell42.h"
 
+static char *check_without_path(char *input)
+{
+	struct stat	inf;
+	char		*bin_path;
+
+	if (!(bin_path = ft_new_path(".", input)))
+		return (NULL);
+	if (lstat(bin_path, &inf) == -1)
+		ft_strdel(&bin_path);
+	else
+		return (bin_path);
+	return (NULL);
+}
+
 char		*absolute_path(char *input, t_envv *envv)
 {
 	char		*path;
@@ -41,7 +55,7 @@ char		*search_in_envv(char *input, t_envv *envv)
 
 	i = 0;
 	if (!(path = ft_strsplit(get_tenvv_val(envv, "PATH"), ':')))
-		return (NULL);
+		return (check_without_path(input));
 	while (path[i])
 	{
 		if (!(bin_path = ft_new_path(path[i], input)))

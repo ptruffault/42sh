@@ -35,10 +35,11 @@ static char		*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 
 	name = NULL;
 	value = NULL;
-	if (!(name = ft_get_varname(ptr))
-	|| !(value = get_tenvv_val(sh->env, name)))
+	if (!(name = ft_get_varname(ptr)))
 		ft_strdel(&ret);
-	else if (name && (tmp = ft_strpull(ret, ptr, (int)ft_strlen(name), value)))
+	else if (!(value = get_tenvv_val(sh->env, name)))
+		value = "";
+	if ((tmp = ft_strpull_exp(ret, ptr, (int)ft_strlen(name), value)))
 	{
 		ft_strdel(&ret);
 		ret = tmp;
@@ -57,9 +58,10 @@ static t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 	w = head;
 	while (w)
 	{
-		if (w->word && *w->word == '~' && 0 < w->type && w->type <= 2
-		&& (val = get_tenvv_val(envv, "HOME"))
-		&& (tmp = ft_strpull(w->word, w->word, 0, val)))
+		if (w->word && *w->word == '~' && w->word[1] != '~'
+			&& 0 < w->type && w->type <= 2
+			&& (val = get_tenvv_val(envv, "HOME"))
+			&& (tmp = ft_strpull(w->word, w->word, 0, val)))
 		{
 			ft_strdel(&w->word);
 			w->word = tmp;
@@ -84,9 +86,12 @@ char			*ft_exp_var(char *ret, t_shell *sh)
 					return (NULL);
 				i = -1;
 			}
-			else if (ret[i + 1] != '{'
-				&& !(ret = ft_exp_envv_var(ret, &ret[i], sh)))
-				return (NULL);
+			else if (ret[i + 1] != '{')
+			{
+				if (!(ret = ft_exp_envv_var(ret, &ret[i], sh)))
+					return (NULL);
+				i = -1;
+			}
 		}
 	}
 	return (ret);

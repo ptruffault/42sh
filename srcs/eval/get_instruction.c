@@ -12,10 +12,33 @@
 
 #include "shell42.h"
 
+static t_word	*maybe_expand(t_word *w)
+{
+	t_shell	*sh;
+	char	*tmp;
+	char	*value;
+
+	sh = ft_get_set_shell(NULL);
+	if (w && (tmp = ft_strchr(w->word, '=')) && tmp[1] == '~')
+		if (tmp[2] == '\0' || tmp[2] == '/')
+			if ((value = get_tenvv_val(sh->env, "HOME")))
+			{
+				tmp = ft_strpull_exp(w->word, tmp, 0, value);
+				ft_strdel(&w->word);
+				w->word = tmp;
+			}
+	if (w && IS_EXP(w->type) && w->word)
+		w->word = ft_exp_var(w->word, sh);
+	return (w);
+}
+
 static t_word	*get_argv(t_tree *t, t_word *w)
 {
-	while (w && w->word && ft_isequal(w->word))
+	while (w && w->word && ft_isequal_env(w->word))
 	{
+		if (!check_name(w->word))
+			break ;
+		w = maybe_expand(w);
 		t->assign = ft_new_envv_equ(t->assign, w->word, IN);
 		w = w->next;
 	}

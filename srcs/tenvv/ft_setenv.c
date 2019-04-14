@@ -65,16 +65,21 @@ t_envv	*ft_new_envv(t_envv *envv, const char *name, const char *val, short s)
 		ft_strdel(&tmp->value);
 		if (val)
 			tmp->value = ft_strdup(val);
+		if (!tmp->value)
+			tmp->value = ft_strnew(0);
 		return (envv);
 	}
 	if (!name || !(ret = new_tenvv(s)))
 		return (envv);
-	if (!(ret->name = ft_strdup(name))
-		|| (val && !(ret->value = ft_strdup(val))))
+	if (!(ret->name = ft_strdup(name)))
 	{
 		del_tenvv(ret);
 		return (envv);
 	}
+	if (val)
+		ret->value = ft_strdup(val);
+	if (!ret->value)
+		ret->value = ft_strnew(0);
 	ret->next = envv;
 	return (ret);
 }
@@ -84,7 +89,7 @@ t_envv	*ft_new_envv_equ(t_envv *envv, char *eq, short status)
 	char *value;
 	char *name;
 
-	if (ft_isequal(eq))
+	if (ft_isequal_env(eq))
 	{
 		name = ft_split_equal(eq, &value);
 		return (ft_new_envv(envv, name, value, status));
@@ -99,7 +104,7 @@ t_envv	*ft_setenv(t_envv *envv, char **t, int mode, short status)
 	i = 0;
 	while (t[i])
 	{
-		if (ft_isequal(t[i]))
+		if (ft_isequal_env(t[i]))
 			envv = ft_new_envv_equ(envv, t[i], status);
 		else if (t[i + 1] && mode)
 		{

@@ -74,29 +74,28 @@ static void		fc_init_first_last(t_fc *fc, int pos)
 
 int				ft_fc(t_shell *shell, char **argv)
 {
-	t_fc	*fc;
+	t_fc	fc;
 	int		i;
 	int		ret;
 
-	if (!(fc = malloc(sizeof(t_fc) * 1)))
-		return (1);
-	fc->av = argv;
-	if ((ret = init_fc(fc, shell, &i)) <= 2)
+	fc.av = argv;
+	if ((ret = init_fc(&fc, shell, &i)) <= 2)
 		return (ret);
-	set_struct_fc(fc, shell);
-	if (fc->flags[0] == 'e' && fc->av[i]
-	&& ft_isdigit(fc->av[i][0]) == 0 && fc->av[i][0] != '-')
-		fc_init_first_last(fc, i + 1);
-	else if (fc->flags[0] == 's' && fc->av[i] && ft_strchr(fc->av[i], '='))
-		fc_init_first_last(fc, i + 1);
+	set_struct_fc(&fc, shell);
+	if (fc.flags[0] == 'e' && fc.av[i]
+	&& ft_isdigit(fc.av[i][0]) == 0 && fc.av[i][0] != '-')
+		fc_init_first_last(&fc, i + 1);
+	else if (fc.flags[0] == 's' && fc.av[i] && ft_strchr(fc.av[i], '='))
+		fc_init_first_last(&fc, i + 1);
 	else
-		fc_init_first_last(fc, i);
-	if (fc->flags[0] == 'l')
-		ft_fc_option_l(fc);
-	else if (fc->flags[0] == 'e')
-		ft_fc_option_e(fc, i);
-	else if (fc->flags[0] == 's')
-		ft_fc_option_s(fc, i);
-	free(fc);
+		fc_init_first_last(&fc, i);
+	if (fc.flags[0] == 'l')
+		ft_fc_option_l(&fc);
+	else if (fc.flags[0] == 'e')
+		ft_fc_option_e(&fc, i);
+	else if (fc.flags[0] == 's')
+		ft_fc_option_s(&fc, i);
+	if (fc.flags[0] == 'e' || fc.flags[0] == 's')
+		return (ft_atoi(get_tenvv_val(fc.shell->env, "?")));
 	return (0);
 }

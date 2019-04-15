@@ -175,7 +175,7 @@ int				ft_echo(char **input);
 ** builtins/ft_exit.c
 */
 int				ft_quit(int exit_code, t_shell *sh);
-void			ft_exit(char **nbr, t_shell *sh);
+int				ft_exit(char **nbr, t_shell *sh);
 
 /*
 ** builtins/ft_export.c

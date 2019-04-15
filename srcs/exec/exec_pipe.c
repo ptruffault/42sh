@@ -16,6 +16,7 @@ static int			ft_link_stdin(int pipe[2])
 {
 	if (dup2(pipe[0], STDIN_FILENO) < 0)
 		return (-1);
+	ft_close(pipe[0]);
 	return (ft_close(pipe[1]));
 }
 
@@ -23,6 +24,7 @@ static int			ft_link_stdout(int pipe[2])
 {
 	if (dup2(pipe[1], STDOUT_FILENO) < 0)
 		return (-1);
+	ft_close(pipe[1]);
 	return (ft_close(pipe[0]));
 }
 

@@ -65,6 +65,7 @@ static int			ft_update_hist(t_shell *sh)
 		{
 			ft_strdel(&sh->e.hist->s);
 			free(sh->e.hist);
+			sh->hist = NULL;
 		}
 	}
 	return (ft_set_old_term(sh, SUCCESS));

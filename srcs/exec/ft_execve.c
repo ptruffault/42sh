@@ -38,7 +38,7 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 			if (setpgid(p->pid, p->pgid) < 0)
 				error("can't set group", p->cmd);
 		}
-		p->ret = run_builtin(t, p->argv, sh);
+		p->ret = run_builtin(t, p, sh);
 		if (sh->pid != getpid())
 			ft_exit_son(sh, p->ret);
 		return (1);

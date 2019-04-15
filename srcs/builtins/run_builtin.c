@@ -43,12 +43,15 @@ static int	change_envv(char **argv, t_shell *sh)
 	return (0);
 }
 
-int			run_builtin(t_tree *t, char **argv, t_shell *sh)
+int			run_builtin(t_tree *t, t_process *p, t_shell *sh)
 {
+	char	**argv;
+
+	argv = p->argv;
 	if (ft_strequ(*argv, "exit"))
 		return (ft_exit(&argv[1], sh));
 	else if (ft_strequ(*argv, "echo"))
-		return (ft_echo(&argv[1]));
+		return (ft_echo(&argv[1], p));
 	else if (ft_strequ(*argv, "type"))
 		return (ft_type(t->cmd->next));
 	else if (ft_strequ(*argv, "jobs"))

@@ -59,7 +59,7 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 		if (j && (t->ret == -1 || (p && p->builtins == TRUE && p->ret == 0)))
 		{	
 			ft_link_process_to_term(p, sh);
-			t->ret = ft_wait(j, sh);
+			t->ret = ft_wait(j, sh, FALSE);
 			if (p->background == FALSE && sh->interactive == TRUE && p)
 				ft_tcsetpgrp(sh->std[0], sh->pgid);
 		}

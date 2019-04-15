@@ -509,7 +509,7 @@ int				ft_job_is_over(t_jobs *j);
 ** process/wait_process.c
 */
 void			ft_wait_background(t_shell *sh);
-int				ft_wait(t_jobs *j, t_shell *sh);
+int				ft_wait(t_jobs *j, t_shell *sh, t_bool bg);
 
 
 /*

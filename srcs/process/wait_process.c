@@ -15,7 +15,7 @@
 static void	ft_eval_status(t_jobs *j, t_shell *sh, t_process *p)
 {
 	if (WIFCONTINUED(p->ret))
-		ft_wait(j, sh);
+		ft_wait(j, sh, FALSE);
 	if ((WIFSIGNALED(p->ret) || WIFSTOPPED(p->ret))
 	&& p->builtins == FALSE)
 	{
@@ -35,17 +35,17 @@ static void	ft_eval_status(t_jobs *j, t_shell *sh, t_process *p)
 
 static int	ft_job_stuff(t_jobs *j, t_shell *sh, t_process *p)
 {
-	if (j && j->p->background == TRUE && p->pid == j->p->pid)
+	if (j && j->p->background == TRUE && p->pid != sh->pid)
 		ft_job_prompt(j, 0);
 	if (j && ft_job_is_over(j) && sh->fc == FALSE)
 	{
-		sh->jobs = ft_remove_jobs(p->pid, sh);
+		sh->jobs = ft_remove_jobs(j->p->pid, sh);
 		return (0);
 	}
 	return (1);
 }
 
-int			ft_wait(t_jobs *j, t_shell *sh)
+int			ft_wait(t_jobs *j, t_shell *sh, t_bool bg)
 {
 	int			ret;
 	t_process	*p;
@@ -57,10 +57,10 @@ int			ft_wait(t_jobs *j, t_shell *sh)
 		if ((p->pid == 0 && p->status != SUSPENDED && p->status != DONE
 				&& p->status != KILLED
 				&& (p->status == RUNNING_FG || p->status == RUNNING_BG))
-			|| (p->status == RUNNING_FG
-				&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)
+			|| (bg == FALSE && p->status == RUNNING_FG
+				&& waitpid(p->pid, &p->ret, WUNTRACED | WCONTINUED) > 0)
 			|| (p->status == RUNNING_BG
-				&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0))
+				&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG | WCONTINUED) > 0))
 		{
 			ft_eval_status(j, sh, p);
 			ret = p->ret;
@@ -81,8 +81,7 @@ void		ft_wait_background(t_shell *sh)
 	while (tmp)
 	{
 		s = tmp->next;
-		if (tmp->p->status == RUNNING_BG)
-			ft_wait(tmp, sh);
+		ft_wait(tmp, sh, TRUE);
 		tmp = s;
 	}
 }

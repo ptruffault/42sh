@@ -12,6 +12,17 @@
 
 #include "shell42.h"
 
+static int ft_is_jobs_empty(t_jobs *j)
+{
+	while (j)
+	{
+		if (j->p && j->p->status != RUNNING_FG)
+			return (0);
+		j = j->next;
+	}
+	return (1);
+}
+
 static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 {
 	int cont;
@@ -24,11 +35,7 @@ static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 		ft_update_status(j->p, s);
 		ft_job_prompt(j, 0);
 		if (s == RUNNING_FG)
-		{
-			ft_printf("LINKING\n");
 			ft_link_process_to_term(j->p, sh);
-
-		}
 		if (cont)
 		{
 			j->p->sig = SIGCONT;
@@ -44,12 +51,14 @@ int			ft_bg(t_shell *sh, char **argv)
 	int		i;
 
 	i = 0;
-	if (!sh->jobs)
+	if (ft_is_jobs_empty(sh->jobs))
 		return (error("no jobs", NULL));
-	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL)))
+	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL)) 
+		&& j->p->status != RUNNING_FG)
 		ft_handle_jobs(j, RUNNING_BG, sh);
 	while (argv[++i])
-		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i])))
+		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i]))
+			&& j->p->status != RUNNING_FG)
 			ft_handle_jobs(j, RUNNING_BG, sh);
 	while (i <= 999999)
 		i++;
@@ -62,12 +71,14 @@ int			ft_fg(t_shell *sh, char **argv)
 	int		i;
 
 	i = 0;
-	if (!sh->jobs)
+	if (ft_is_jobs_empty(sh->jobs))
 		return (error("no jobs", NULL));
-	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL)))
+	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL))
+		&& j->p->status != RUNNING_FG)
 		ft_handle_jobs(j, RUNNING_FG, sh);
 	while (argv[++i])
-		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i])))
+		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i]))
+			&& j->p->status != RUNNING_FG)
 			ft_handle_jobs(j, RUNNING_FG, sh);
 	return (0);
 }

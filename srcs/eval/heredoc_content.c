@@ -23,11 +23,13 @@ static char		*heredoc_get_input(char *eoi, t_shell *sh)
 {
 	char	*ret;
 	char	*in;
+	t_hist	*hist;
 	int		d;
 
 	if (!(ret = ft_strnew(0)))
 		return (NULL);
 	in = NULL;
+	hist = sh->e.hist;
 	ft_others_prompt(sh, "heredoc");
 	if ((d = get_input(&in)) != 4)
 	{
@@ -36,12 +38,14 @@ static char		*heredoc_get_input(char *eoi, t_shell *sh)
 			if (!(in = ft_stradd(&in, "\n"))
 				|| !(ret = ft_strappend_fr(&ret, &in)))
 				break ;
-			ft_others_prompt(sh, "heredoc");
+			ft_others_prompt(sh, "\nheredoc");
 			if ((d = get_input(&in)) == 4)
 				return (ft_heredoc_clear(in, ret));
 		}
 	}
 	ft_strdel(&in);
+	hist->s = ft_stradd_char(hist->s, '\n');
+	hist->s = ft_strappend(&hist->s, ret);
 	return (ret);
 }
 

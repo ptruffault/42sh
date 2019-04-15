@@ -16,6 +16,8 @@ static void	print_background(t_edit *e, size_t pos, size_t size)
 {
 	ft_putstr(JAUNE);
 	term_actions("mr");
+	if (e->hist->s[pos] == '\n')
+		ft_putstr("\x1B[7m ");
 	write(0, e->hist->s + pos, size);
 	ft_putstr(NORMAL);
 	term_actions("me");

@@ -54,20 +54,22 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	else if ((p = init_process(t, sh)))
 		j = ft_exec_process(p, sh, t);
 	t->ret = (p ? p->ret : 1);
-	if (p && j && (t->ret == -1 || (p && p->builtins == TRUE && p->ret == 0)))
+	if (p)
 	{
+		if (j && (t->ret == -1 || (p && p->builtins == TRUE && p->ret == 0)))
+		{	
 		ft_link_process_to_term(p, sh);
 		t->ret = ft_wait(j, sh);
 		if (sh->interactive == TRUE && p)
 			ft_tcsetpgrp(sh->std[0], sh->pgid);
-	}
-	else if (p)
-	{
-		p->status = INIT;
-		sh->jobs = ft_remove_jobs(p->pid, sh);
+		}
+		else
+		{
+			p->status = INIT;
+			sh->jobs = ft_remove_jobs(p->pid, sh);	
+		}
 	}
 	sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
-	ft_get_envv_back(sh, p, t);
 	ft_reset_fd(sh);
 	return (t);
 }

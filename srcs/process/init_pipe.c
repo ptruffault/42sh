@@ -60,6 +60,7 @@ static t_process	*ft_init_pi(t_process *tmp, t_tree *t, t_shell *sh, int *v)
 			}
 			else
 				*v = 0;
+			ft_get_envv_back(sh, tmp, t);
 		}
 	}
 	return (tmp);
@@ -84,6 +85,7 @@ t_process			*init_pipe_process(t_tree *t, t_shell *sh)
 		head->next = sh->process;
 		sh->process = head;
 	}
+	ft_get_envv_back(sh, head, t);
 	if (!valid_pipe)
 		ft_update_valid(head);
 	return (head);

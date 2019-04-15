@@ -67,6 +67,7 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 		sh->jobs = ft_remove_jobs(p->pid, sh);
 	}
 	sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
+	ft_get_envv_back(sh, p, t);
 	ft_reset_fd(sh);
 	return (t);
 }

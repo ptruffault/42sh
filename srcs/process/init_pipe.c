@@ -84,7 +84,6 @@ t_process			*init_pipe_process(t_tree *t, t_shell *sh)
 		head->next = sh->process;
 		sh->process = head;
 	}
-	ft_get_envv_back(sh, tmp, t);
 	if (!valid_pipe)
 		ft_update_valid(head);
 	return (head);

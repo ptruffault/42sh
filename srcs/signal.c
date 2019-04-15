@@ -25,7 +25,6 @@ static const t_sig_msg	g_signal_msg[] = {
 	{.sig = SIGBUS, .msg = "bus error"},
 	{.sig = SIGSEGV, .msg = "segmentation fault"},
 	{.sig = SIGSYS, .msg = "bad system call"},
-	{.sig = SIGPIPE, .msg = "broken pipe"},
 	{.sig = SIGALRM, .msg = "alarm clock"},
 	{.sig = SIGTERM, .msg = "terminated"},
 	{.sig = SIGURG, .msg = "SIGURP"},

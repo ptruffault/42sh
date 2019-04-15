@@ -57,15 +57,5 @@ t_jobs			*ft_search_jobs(t_jobs *j, char *s)
 		|| (ft_isdigit(s[0]) && ft_get_jobs_pid(j, ft_atoi(s)))
 		|| (ret = ft_get_jobs_name(j, s))))
 		return (ret);
-	if (!s)
-	{
-		while (j && j->next)
-		{
-			if (j->p->status == RUNNING_FG )
-				j = j->next;
-			j = (j ? j->next : j);
-		}
-		return (j);
-	}
 	return (NULL);
 }

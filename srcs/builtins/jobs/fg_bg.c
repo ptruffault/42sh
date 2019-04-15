@@ -38,14 +38,35 @@ static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 		if (s == RUNNING_FG)
 		{
 			ft_link_process_to_term(j->p, sh);
-			ft_wait(j, sh, FALSE);
 		}
 		if (cont)
 		{
 			j->p->sig = SIGCONT;
 			kill(-j->p->pid, SIGCONT);
 		}
+		ft_wait(j, sh, FALSE);
 	}
+}
+
+static t_jobs *ft_get_last_jobs(t_jobs *j)
+{
+	while (j)
+	{
+		if (j->next)
+		{
+			if (j->next->p->status == RUNNING_FG)
+			{
+				if (j->next->next)
+					j = j->next->next;
+				else
+					return (j);
+			}
+		}
+		else
+			return (j);
+		j = j->next;
+	}
+	return (NULL);
 }
 
 int			ft_bg(t_shell *sh, char **argv)
@@ -56,12 +77,10 @@ int			ft_bg(t_shell *sh, char **argv)
 	i = 0;
 	if (ft_is_jobs_empty(sh->jobs))
 		return (error("no jobs", NULL));
-	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL)) 
-		&& j->p->status != RUNNING_FG)
+	if (!argv[1] && (j = ft_get_last_jobs(sh->jobs)))
 		ft_handle_jobs(j, RUNNING_BG, sh);
 	while (argv[++i])
-		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i]))
-			&& j->p->status != RUNNING_FG)
+		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i])))
 			ft_handle_jobs(j, RUNNING_BG, sh);
 	while (i <= 999999)
 		i++;
@@ -76,7 +95,7 @@ int			ft_fg(t_shell *sh, char **argv)
 	i = 0;
 	if (ft_is_jobs_empty(sh->jobs))
 		return (error("no jobs", NULL));
-	if (!argv[1] && (j = ft_search_jobs(sh->jobs, NULL))
+	if (!argv[1] && (j = ft_get_last_jobs(sh->jobs))
 		&& j->p->status != RUNNING_FG)
 		ft_handle_jobs(j, RUNNING_FG, sh);
 	while (argv[++i])

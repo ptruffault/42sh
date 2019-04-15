@@ -12,10 +12,8 @@
 
 #include "shell42.h"
 
-static void	ft_eval_status(t_jobs *j, t_shell *sh, t_process *p)
+static void	ft_eval_status(t_process *p)
 {
-	if (WIFCONTINUED(p->ret))
-		ft_wait(j, sh, FALSE);
 	if ((WIFSIGNALED(p->ret) || WIFSTOPPED(p->ret))
 	&& p->builtins == FALSE)
 	{
@@ -58,11 +56,11 @@ int			ft_wait(t_jobs *j, t_shell *sh, t_bool bg)
 				&& p->status != KILLED
 				&& (p->status == RUNNING_FG || p->status == RUNNING_BG))
 			|| (bg == FALSE && p->status == RUNNING_FG
-				&& waitpid(p->pid, &p->ret, WUNTRACED | WCONTINUED) > 0)
+				&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)
 			|| (p->status == RUNNING_BG
-				&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG | WCONTINUED) > 0))
+				&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0))
 		{
-			ft_eval_status(j, sh, p);
+			ft_eval_status(p);
 			ret = p->ret;
 			if (!ft_job_stuff(j, sh, p))
 				break ;

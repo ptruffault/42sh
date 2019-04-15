@@ -21,7 +21,7 @@ static int		ft_get_new_id(t_jobs *j)
 	head = j;
 	while (j)
 	{
-		if (j->id == ret)
+		if (j->id == ret && j->p->status != RUNNING_FG)
 		{
 			ret++;
 			j = head;

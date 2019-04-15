@@ -19,16 +19,17 @@ static void	ft_lex_redirect(t_eval *e)
 	j = e->curr;
 	while (j > 0 && ft_isdigit(e->s[j - 1]))
 		e->eval[--j] = 'r';
-	e->eval[e->curr++] = 'r';
-	if (e->s[e->curr] == '&' && e->s[e->curr + 1])
+	while (e->s[e->curr] == '<' || e->s[e->curr] == '>')
+		e->eval[e->curr++] = 'r';
+	if (e->s[e->curr] && e->s[e->curr] == '&')
 	{
 		e->eval[e->curr++] = 'r';
 		if (e->s[e->curr] == '-')
 			e->eval[e->curr++] = 'r';
-		else if (ft_isdigit(e->s[e->curr]))
+		else if (e->s[e->curr] && ft_isdigit(e->s[e->curr]))
 			while (ft_isdigit(e->s[e->curr]))
 				e->eval[e->curr++] = 'r';
-		else
+		else if (e->s[e->curr])
 			while (e->s[e->curr] && !ft_isspace(e->s[e->curr]))
 				e->eval[e->curr++] = 'r';
 	}
@@ -65,17 +66,19 @@ static void	ft_lexword(t_eval *e)
 {
 	while (ft_isspace(e->s[e->curr]))
 		e->eval[e->curr++] = ' ';
-	if (e->s[e->curr] == '"')
+	if (!e->s[e->curr])
+		return ;
+	else if (e->s[e->curr] == '"')
 		ft_lex_dquote(e);
 	else if (e->s[e->curr] == '\'')
 		ft_lex_quote(e);
 	else if (e->s[e->curr] == '\\')
 		ft_lex_backslash(e);
-	else if (ft_strchr("&|;", e->s[e->curr]))
-		ft_lex_operateur(e);
-	else if (ft_strchr("<>", e->s[e->curr]))
+	else if ((ft_strchr("<>", e->s[e->curr])))
 		ft_lex_redirect(e);
-	else if (ft_strchr("({", e->s[e->curr]))
+	else if ((ft_strchr("&|;", e->s[e->curr])))
+		ft_lex_operateur(e);
+	else if ((ft_strchr("({", e->s[e->curr])))
 		ft_lex_parenth(e);
 	else if (e->s[e->curr])
 		e->eval[e->curr++] = 'e';

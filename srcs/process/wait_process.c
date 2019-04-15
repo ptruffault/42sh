@@ -12,8 +12,10 @@
 
 #include "shell42.h"
 
-static void	ft_eval_status(t_process *p)
+static void	ft_eval_status(t_jobs *j, t_shell *sh, t_process *p)
 {
+	if (WIFCONTINUED(p->ret))
+		ft_wait(j, sh);
 	if ((WIFSIGNALED(p->ret) || WIFSTOPPED(p->ret))
 	&& p->builtins == FALSE)
 	{
@@ -33,13 +35,13 @@ static void	ft_eval_status(t_process *p)
 
 static int	ft_job_stuff(t_jobs *j, t_shell *sh, t_process *p)
 {
+	if (j && j->p->background == TRUE && p->pid == j->p->pid)
+		ft_job_prompt(j, 0);
 	if (j && ft_job_is_over(j))
 	{
 		sh->jobs = ft_remove_jobs(p->pid, sh);
 		return (0);
 	}
-	else if (j && j->p->background == TRUE && p->pid == j->p->pid)
-		ft_job_prompt(j, 0);
 	return (1);
 }
 
@@ -60,7 +62,7 @@ int			ft_wait(t_jobs *j, t_shell *sh)
 			|| (p->status == RUNNING_BG
 				&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0))
 		{
-			ft_eval_status(p);
+			ft_eval_status(j, sh, p);
 			ret = p->ret;
 			if (!ft_job_stuff(j, sh, p))
 				break ;
@@ -79,7 +81,7 @@ void		ft_wait_background(t_shell *sh)
 	while (tmp)
 	{
 		s = tmp->next;
-		if (tmp->p->background == TRUE)
+		if (tmp->p->status == RUNNING_BG)
 			ft_wait(tmp, sh);
 		tmp = s;
 	}

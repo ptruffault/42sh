@@ -29,6 +29,7 @@ int			main(int argc, char **argv, char **envv)
 		if ((t = get_tree(sh.txt, &sh)))
 			ft_free_tree(exec_tree(t, &sh));
 		ft_strdel(&sh.txt);
+		ft_wait_background(&sh);
 	}
 	ft_printf("stdin no longer tty\n");
 	return (ft_quit(1, &sh));

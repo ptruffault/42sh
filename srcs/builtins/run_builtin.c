@@ -46,7 +46,7 @@ static int	change_envv(char **argv, t_shell *sh)
 int			run_builtin(t_tree *t, char **argv, t_shell *sh)
 {
 	if (ft_strequ(*argv, "exit"))
-		ft_exit(&argv[1], sh);
+		return (ft_exit(&argv[1], sh));
 	else if (ft_strequ(*argv, "echo"))
 		return (ft_echo(&argv[1]));
 	else if (ft_strequ(*argv, "type"))

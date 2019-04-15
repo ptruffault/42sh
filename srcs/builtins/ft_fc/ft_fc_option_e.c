@@ -54,7 +54,9 @@ static int	add_to_hist(char *line, t_shell *sh, int hist_size)
 		hist->next = sh->hist;
 		sh->hist->prev = hist;
 		hist->nb = sh->hist->nb + 1;
+		ft_strdel(&hist->s);
 		hist->s = line;
+		sh->hist = hist;
 		return (SUCCESS);
 	}
 	if (!(hist = new_hist()))

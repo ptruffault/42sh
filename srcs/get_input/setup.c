@@ -102,9 +102,9 @@ int				ft_get_hist_size(void)
 	char	*line;
 
 	sh = ft_get_set_shell(NULL);
-	if (!(line = get_tenvv_val(sh->env, "HISTSISZE")))
+	if (!(line = get_tenvv_val(sh->env, "HISTSIZE")))
 		return (32767);
-	return (ft_atoi(line) > 100 ? ft_atoi(line) : 32767);
+	return (ft_atoi(line) > 32767 ? ft_atoi(line) : 32767);
 }
 
 int				init_tedit(t_shell *sh)
@@ -135,6 +135,8 @@ int				init_tedit(t_shell *sh)
 		tmp->next = sh->hist;
 		sh->hist->prev = tmp;
 		sh->e.hist = tmp;
+		ft_strdel(&tmp->s);
+		tmp->s = ft_strnew(3);
 		tmp->nb = sh->hist->nb + 1;
 	}
 	else if (!(tmp = new_hist()) || ft_init_input_link(sh, tmp) == FAILURE)

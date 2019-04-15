@@ -52,19 +52,8 @@
 # define KEY_OPTION_C 42947
 # define KEY_OPTION_V 10127586
 
-# define CURSEUR_MOVE "cm"
 # define CURSOR_UP "up"
-# define CURSOR_DO "do"
-# define CURSOR_LE "le"
-# define CURSOR_RI "nd"
 # define CURSOR_MHORIZ "ch"
-# define CURSEUR_MOVE "cm"
-# define SAVE_CURS  "sc"
-# define RESET_CURS "rc"
-# define CLEAR "cl"
-# define UNDERLINE_CURS "uc"
-# define DELETE_LINE "dl"
-# define HOME_POS "ho"
 
 # define PS1 "$[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]"
 # define PS2 "$[RED]%$[RESET] >"

@@ -39,7 +39,7 @@ static t_word	*get_argv(t_tree *t, t_word *w)
 		if (!check_name(w->word))
 			break ;
 		w = maybe_expand(w);
-		t->assign = ft_new_envv_equ(t->assign, w->word, IN);
+		t->assign = ft_new_envv_equ(t->assign, w->word, TMP);
 		w = w->next;
 	}
 	while (w && w->word && (IS_CMD(w->type) || w->type == NUL))
@@ -68,7 +68,7 @@ static t_tree	*built_tree(t_tree *head, t_word *w, t_shell *sh)
 			|| (tmp->type == OPERATEUR && !(tree = add_newttree(tree, tmp)))))
 		{
 			error("syntax error", NULL);
-			sh->env = ft_new_envv_int(sh->env, "?", 2, false);
+			sh->env = ft_new_envv_int(sh->env, "?", 2, IN);
 			return (ft_free_tree(head));
 		}
 		if (tmp)
@@ -93,7 +93,7 @@ int				ft_check_grammar(t_word *w, t_shell *sh)
 				&& ft_strlen(w->word) > 1) || (w && w->type == REDIRECT
 				&& ft_strchr(w->word, '<') && ft_strchr(w->word, '>')))
 		{
-			sh->env = ft_new_envv_int(sh->env, "?", 2, false);
+			sh->env = ft_new_envv_int(sh->env, "?", 2, IN);
 			return (error("syntax error near", w->word));
 		}
 		if (IS_CMD(w->type))
@@ -102,7 +102,7 @@ int				ft_check_grammar(t_word *w, t_shell *sh)
 	}
 	if (!cmd)
 	{
-		sh->env = ft_new_envv_int(sh->env, "?", 1, false);
+		sh->env = ft_new_envv_int(sh->env, "?", 1, IN);
 		return (warning("nothing to do", NULL));
 	}
 	return (1);

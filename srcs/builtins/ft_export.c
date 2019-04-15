@@ -97,12 +97,12 @@ int				check_name(const char *name)
 	i = -1;
 	if (name && ft_isdigit(name[0]))
 	{
-		error("identifier not valid in this context.", name);
+		error("identifier must not begin by digit.", name);
 		return (0);
 	}
 	while (name && name[++i] != '\0' && name[i] != '=')
 	{
-		if (ft_strchr("#@%$&<>?:./[]{}()+*^!~|\\-", name[i]))
+		if (ft_strchr("#@%$&<\'\">?:./[]{}()+*^!~|\\-", name[i]))
 		{
 			error("identifier not valid in this context.", name);
 			return (0);

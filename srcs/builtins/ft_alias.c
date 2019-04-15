@@ -12,26 +12,55 @@
 
 #include "shell42.h"
 
-void	ft_alias(t_shell *sh, char **argv)
+static int		check_name_alias(const char *name)
+{
+	int		i;
+
+	i = -1;
+	while (name && name[++i] != '\0' && name[i] != '=')
+	{
+		if (ft_strchr("/\'\"$", name[i]))
+		{
+			error("alias: invalid alias name.", name);
+			return (0);
+		}
+	}
+	return (1);
+}
+
+static int	put_alias(t_shell *sh, char *str)
+{
+	char	*name;
+	char	*val;
+
+	if ((name = ft_split_equal(str, &val)) && !check_name_alias(name))
+		return (1);
+	sh->alias = ft_new_envv(sh->alias, name, val, EXP);
+	return (0);
+}
+
+int			ft_alias(t_shell *sh, char **argv)
 {
 	int i;
 
 	i = 1;
-	if (argv[1] == NULL)
+	if (!argv[i])
 		ft_puttenvv(sh->alias, EXP);
-	else
+	while (argv[i])
 	{
-		while (argv[i])
+		if (ft_isequal(argv[i]))
 		{
-			if (ft_isequal(argv[i])
-				&& !(ft_strchr(ft_strchr(argv[i], '='), '/')))
-				sh->alias = ft_new_envv_equ(sh->alias, argv[i], EXP);
-			else if (argv[i + 1] && !ft_strchr(argv[i + 1], '/'))
-			{
-				sh->alias = ft_new_envv(sh->alias, argv[i], argv[i + 1], EXP);
-				i++;
-			}
+			if (put_alias(sh, argv[i]))
+				return (1);
+		}
+		else if (argv[i + 1])
+		{
+			if (check_name_alias(argv[i]))
+				return (1);
+			sh->alias = ft_new_envv(sh->alias, argv[i], argv[i + 1], EXP);
 			i++;
 		}
+		i++;
 	}
+	return (0);
 }

@@ -72,6 +72,11 @@ int			ft_echo(char **input)
 
 	i = 0;
 	opts_n = 0;
+	if (!isatty(1))
+	{
+		error("echo: write error: Bad file descriptor", NULL);
+		return (1);
+	}
 	if (*input && ft_strequ(input[i], "-n"))
 		opts_n = 1;
 	while (input && input[i])

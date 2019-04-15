@@ -66,12 +66,12 @@ void				ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t)
 {
 	if (t->assign)
 	{
-		sh->env = ft_remove_tmp(sh->env);
 		if (p->saved_env)
 		{
 			sh->env = ft_push_tenvv(sh->env, p->saved_env, (IN | EXP));
 			p->saved_env = ft_free_tenvv(p->saved_env);
 		}
+		sh->env = ft_remove_tmp(sh->env);
 	}
 }
 

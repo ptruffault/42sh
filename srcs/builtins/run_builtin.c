@@ -37,7 +37,7 @@ static int	change_envv(char **argv, t_shell *sh)
 	else if (ft_strequ(*argv, "set"))
 		ft_puttenvv(sh->env, IN);
 	else if (ft_strequ(*argv, "alias"))
-		ft_alias(sh, argv);
+		return (ft_alias(sh, argv));
 	else if (ft_strequ(*argv, "unalias") && argv[1])
 		sh->alias = ft_unsetenv(sh->alias, &argv[1]);
 	return (0);

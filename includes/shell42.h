@@ -152,7 +152,7 @@ int				check_builtin(char *input);
 /*
 ** builtins/ft_alias.c
 */
-void			ft_alias(t_shell *sh, char **argv);
+int				ft_alias(t_shell *sh, char **argv);
 
 /*
 ** builtins/ft_cd.c

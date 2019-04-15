@@ -45,7 +45,8 @@ void		ft_exit(char **nbr, t_shell *sh)
 	if (nbr && nbr[0] != NULL && nbr[1] != NULL)
 	{
 		error("too many arguments", NULL);
-		ret = 1;
+		sh->env = ft_new_envv_int(sh->env, "?", 1, IN);
+		return ;
 	}
 	else if (nbr && *nbr && (!ft_check_alpha(*nbr)
 		|| (ret = ft_atoi(*nbr)) < 0))

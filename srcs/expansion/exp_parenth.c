@@ -104,6 +104,7 @@ char		*ft_exp_param(char *ret, char *ptr, t_shell *sh)
 	{
 		ft_strdel(&parenth);
 		warning("bad substitution", ret);
+		ft_strdel(&ret);
 		return (NULL);
 	}
 	len = (*parenth == '#' ? 1 : 0);

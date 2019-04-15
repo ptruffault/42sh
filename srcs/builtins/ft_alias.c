@@ -55,7 +55,7 @@ int			ft_alias(t_shell *sh, char **argv)
 		}
 		else if (argv[i + 1])
 		{
-			if (check_name_alias(argv[i]))
+			if (!check_name_alias(argv[i]))
 				return (1);
 			sh->alias = ft_new_envv(sh->alias, argv[i], argv[i + 1], EXP);
 			i++;

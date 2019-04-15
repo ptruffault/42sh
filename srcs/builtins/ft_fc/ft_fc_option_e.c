@@ -114,13 +114,13 @@ void		ft_fc_option_e(t_fc *fc, int pos)
 		return ;
 	ft_fc_write_in_file(fc, fd);
 	close(fd);
+	fc->shell->fc = TRUE;
 	if ((t = get_tree(tmp, ft_get_set_shell(NULL))))
 		ft_free_tree(exec_tree(t, fc->shell));
 	ft_strdel(&tmp);
 	if (fc->shell->txt)
 		ft_printf("\n%s\n", fc->shell->txt);
 	ft_strdel(&fc->shell->txt);
-	fc->shell->fc = TRUE;
 	fc->shell->interactive = FALSE;
 	exec_file("/tmp/fc____42sh", fc->shell);
 	fc->shell->interactive = TRUE;

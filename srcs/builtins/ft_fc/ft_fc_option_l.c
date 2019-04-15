@@ -21,18 +21,18 @@ static void	print_hist_opt_l(t_fc *fc, short way)
 		while (fc->hist_first && fc->hist_first->nb >= fc->hist_last->nb)
 		{
 			if (nb == 0)
-				ft_printf("%-10d%s\n", fc->hist_first->nb, fc->hist_first->s);
+				ft_printf("%d\t%s\n", fc->hist_first->nb, fc->hist_first->s);
 			else
-				ft_printf("%s\n", fc->hist_first->s);
+				ft_printf("\t%s\n", fc->hist_first->s);
 			fc->hist_first = fc->hist_first->next;
 		}
 	else if (way == 1)
 		while (fc->hist_first && fc->hist_first->nb <= fc->hist_last->nb)
 		{
 			if (nb == 0)
-				ft_printf("%-10d%s\n", fc->hist_first->nb, fc->hist_first->s);
+				ft_printf("%d\t%s\n", fc->hist_first->nb, fc->hist_first->s);
 			else
-				ft_printf("%s\n", fc->hist_first->s);
+				ft_printf("\t%s\n", fc->hist_first->s);
 			fc->hist_first = fc->hist_first->prev;
 		}
 }

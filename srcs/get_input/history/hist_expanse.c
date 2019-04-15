@@ -55,7 +55,11 @@ static int		get_word_of_hist(t_edit *e, size_t x)
 		}
 		word = ft_strncpy(word, e->hist->s + x + 1, i - x - 1);
 		if (seek_n_repl_str(e, x, word, i) == FAILURE)
+		{
+			ft_strdel(&word);
 			return (FAILURE);
+		}
+		ft_strdel(&word);
 	}
 	return (SUCCESS);
 }

@@ -18,9 +18,10 @@ static char			*get_equal(char *name, char *value)
 	char	*ret;
 
 	ret = NULL;
-	if (!(tmp = ft_strjoin(name, "=")))
+	if (name && !(tmp = ft_strjoin(name, "=")))
 		return (NULL);
-	ret = ft_strjoin(tmp, value);
+	if (value)
+		ret = ft_strjoin(tmp, value);
 	ft_strdel(&tmp);
 	return (ret);
 }

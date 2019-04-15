@@ -68,17 +68,17 @@ static void	ft_lexword(t_eval *e)
 		e->eval[e->curr++] = ' ';
 	if (!e->s[e->curr])
 		return ;
-	else if (e->s[e->curr] == '"')
+	else if (e->s[e->curr] && e->s[e->curr] == '"')
 		ft_lex_dquote(e);
-	else if (e->s[e->curr] == '\'')
+	else if (e->s[e->curr] && e->s[e->curr] == '\'')
 		ft_lex_quote(e);
-	else if (e->s[e->curr] == '\\')
+	else if (e->s[e->curr] && e->s[e->curr] == '\\')
 		ft_lex_backslash(e);
-	else if ((ft_strchr("<>", e->s[e->curr])))
+	else if (e->s[e->curr] && (ft_strchr("<>", e->s[e->curr])))
 		ft_lex_redirect(e);
-	else if ((ft_strchr("&|;", e->s[e->curr])))
+	else if (e->s[e->curr] && (ft_strchr("&|;", e->s[e->curr])))
 		ft_lex_operateur(e);
-	else if ((ft_strchr("({", e->s[e->curr])))
+	else if (e->s[e->curr] && (ft_strchr("({", e->s[e->curr])))
 		ft_lex_parenth(e);
 	else if (e->s[e->curr])
 		e->eval[e->curr++] = 'e';

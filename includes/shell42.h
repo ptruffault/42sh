@@ -169,7 +169,7 @@ char			*try_cdpath(char *cdpath, char *path, bool *pwd_f, t_opts *opts);
 /*
 ** builtins/ft_echo.c
 */
-int				ft_echo(char **input);
+int				ft_echo(char **input, t_process *p);
 
 /*
 ** builtins/ft_exit.c
@@ -191,7 +191,7 @@ int				ft_type(t_word *w);
 /*
 ** builtins/run_builtin.c
 */
-int				run_builtin(t_tree *t, char **argv, t_shell *sh);
+int				run_builtin(t_tree *t, t_process *p, t_shell *sh);
 
 /*
 ** builtins/type_tools.c

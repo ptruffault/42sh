@@ -14,11 +14,9 @@
 
 static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 {
-	if (j->p->status == SUSPENDED)
-	{
-		j->p->sig = SIGCONT;
-		kill(-j->p->pid, SIGCONT);
-	}
+	int cont;
+
+	cont = j->p->status == SUSPENDED ? 1 : 0;
 	if (j->p->status == s)
 		error("jobs already in background", j->p->cmd);
 	else
@@ -26,7 +24,16 @@ static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 		ft_update_status(j->p, s);
 		ft_job_prompt(j, 0);
 		if (s == RUNNING_FG)
+		{
+			ft_printf("LINKING\n");
 			ft_link_process_to_term(j->p, sh);
+
+		}
+		if (cont)
+		{
+			j->p->sig = SIGCONT;
+			kill(-j->p->pid, SIGCONT);
+		}
 		ft_wait(j, sh);
 	}
 }

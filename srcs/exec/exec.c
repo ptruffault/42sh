@@ -66,7 +66,7 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 		else
 		{
 			p->status = INIT;
-			sh->jobs = ft_remove_jobs(p->pid, sh);	
+			sh->jobs = ft_remove_jobs(p->pid, sh);
 		}
 	}
 	sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);

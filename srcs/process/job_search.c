@@ -16,7 +16,7 @@ static t_jobs	*ft_get_jobs_id(t_jobs *j, int id)
 {
 	while (j)
 	{
-		if (j->id == id)
+		if (j->id == id && j->p->status != RUNNING_FG)
 			return (j);
 		j = j->next;
 	}
@@ -27,8 +27,9 @@ static t_jobs	*ft_get_jobs_name(t_jobs *j, char *name)
 {
 	while (j)
 	{
-		if (ft_strstr(*j->p->argv, name)
+		if ((ft_strstr(*j->p->argv, name)
 		|| ft_strstr(j->p->cmd, name))
+		&& j->p->status != RUNNING_FG)
 			return (j);
 		j = j->next;
 	}
@@ -39,7 +40,7 @@ t_jobs			*ft_get_jobs_pid(t_jobs *j, int pid)
 {
 	while (j)
 	{
-		if (j->p->pid == pid)
+		if (j->p->pid == pid && j->p->status != RUNNING_FG)
 			return (j);
 		j = j->next;
 	}

@@ -70,6 +70,7 @@ SRC		=	\
 	\
 	builtins/jobs/fg_bg.c \
 	builtins/jobs/ft_jobs.c \
+	builtins/jobs/jobs_prompt.c \
 	builtins/jobs/hi.c \
 	\
 	get_input/cursor/curs_move.c		\

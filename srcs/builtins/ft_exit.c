@@ -27,9 +27,6 @@ int			ft_quit(int exit_code, t_shell *sh)
 {
 	if (exit_code == -1)
 		exit_code = ft_atoi(get_tenvv_val(sh->env, "?"));
-	kill_process(sh->process, SIGHUP, SUSPENDED);
-	kill_process(sh->process, SIGHUP, RUNNING_FG);
-	kill_process(sh->process, SIGHUP, RUNNING_BG);
 	ft_deload_hist_in_file(sh);
 	cleaning_htable(NULL, sh);
 	free(sh->htable);

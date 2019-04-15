@@ -71,11 +71,12 @@ static void	ft_lexword(t_eval *e)
 		ft_lex_quote(e);
 	else if (e->s[e->curr] == '\\')
 		ft_lex_backslash(e);
-	else if (e->s[e->curr] == '&'
-		|| e->s[e->curr] == '|' || e->s[e->curr] == ';')
+	else if (ft_strchr("&|;", e->s[e->curr]))
 		ft_lex_operateur(e);
-	else if (e->s[e->curr] == '>' || e->s[e->curr] == '<')
+	else if (ft_strchr("<>", e->s[e->curr]))
 		ft_lex_redirect(e);
+	else if (ft_strchr("({", e->s[e->curr]))
+		ft_lex_parenth(e);
 	else if (e->s[e->curr])
 		e->eval[e->curr++] = 'e';
 }

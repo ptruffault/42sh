@@ -235,7 +235,6 @@ void			lexer(t_eval *e, char *src);
 */
 void			ft_lex_quote(t_eval *e);
 void			ft_lex_dquote(t_eval *e);
-void			ft_lex_var(t_eval *e);
 void			ft_lex_parenth(t_eval *e);
 void			ft_lex_backslash(t_eval *e);
 

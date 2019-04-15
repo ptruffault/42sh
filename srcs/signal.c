@@ -29,7 +29,7 @@ static const t_sig_msg	g_signal_msg[] = {
 	{.sig = SIGTERM, .msg = "terminated"},
 	{.sig = SIGURG, .msg = "SIGURP"},
 	{.sig = SIGSTOP, .msg = "suspended"},
-	{.sig = SIGTSTP, .msg = "suspended"},
+	{.sig = SIGTSTP, .msg = "suspended (tty)"},
 	{.sig = SIGCONT, .msg = "continued"},
 	{.sig = SIGCHLD, .msg = "SIGCHLD"},
 	{.sig = SIGTTIN, .msg = "suspended (tty input)"},

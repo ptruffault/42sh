@@ -37,7 +37,7 @@ static int	ft_job_stuff(t_jobs *j, t_shell *sh, t_process *p)
 {
 	if (j && j->p->background == TRUE && p->pid == j->p->pid)
 		ft_job_prompt(j, 0);
-	if (j && ft_job_is_over(j))
+	if (j && ft_job_is_over(j) && sh->fc == FALSE)
 	{
 		sh->jobs = ft_remove_jobs(p->pid, sh);
 		return (0);

@@ -63,7 +63,7 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 			if (p->background == FALSE && sh->interactive == TRUE && p)
 				ft_tcsetpgrp(sh->std[0], sh->pgid);
 		}
-		else
+		else if (!(sh->fc == TRUE))
 		{
 			p->status = INIT;
 			sh->jobs = ft_remove_jobs(p->pid, sh);

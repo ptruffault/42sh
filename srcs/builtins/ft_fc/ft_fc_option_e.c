@@ -42,6 +42,8 @@ static int	add_to_hist(char *line, t_shell *sh, int hist_size)
 {
 	t_hist *hist;
 
+	if (!line)
+		return (FAILURE);
 	if (sh->hist && hist_size <= sh->hist->nb)
 	{
 		hist = sh->hist;
@@ -56,10 +58,7 @@ static int	add_to_hist(char *line, t_shell *sh, int hist_size)
 		return (SUCCESS);
 	}
 	if (!(hist = new_hist()))
-	{
-		free(hist);
 		return (FAILURE);
-	}
 	if (sh->hist)
 		sh->hist->prev = hist;
 	hist->next = sh->hist ? sh->hist : NULL;
@@ -83,11 +82,12 @@ int			read_from_add_hist(t_shell *sh, char *line, int x)
 			{
 				sh->hist = sh->hist->next;
 				free(sh->hist->prev);
+				sh->hist->prev = NULL;
 			}
 			return (FAILURE);
 		}
 	}
-	else if (x != 0 && add_to_hist(line, sh, nb) == FAILURE)
+	else if (x != 0 && add_to_hist(ft_strdup(line), sh, nb) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -114,13 +114,11 @@ void		ft_fc_option_e(t_fc *fc, int pos)
 		return ;
 	ft_fc_write_in_file(fc, fd);
 	close(fd);
-	if ((t = get_tree(tmp, ft_get_set_shell(NULL))))
+	fc->shell->fc = TRUE;
+	if ((t = get_tree(tmp, fc->shell)))
 		ft_free_tree(exec_tree(t, fc->shell));
 	ft_strdel(&tmp);
-	if (fc->shell->txt)
-		ft_printf("\n%s\n", fc->shell->txt);
 	ft_strdel(&fc->shell->txt);
-	fc->shell->fc = TRUE;
 	fc->shell->interactive = FALSE;
 	exec_file("/tmp/fc____42sh", fc->shell);
 	fc->shell->interactive = TRUE;

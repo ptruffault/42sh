@@ -61,6 +61,8 @@ static char		*heredoc_get_content(char *eof, t_shell *sh)
 			break ;
 		}
 	}
+	sh->txt = ft_stradd_char(sh->txt, '\n');
+	sh->txt = ft_strappend(&sh->txt, ret);
 	return (ret);
 }
 

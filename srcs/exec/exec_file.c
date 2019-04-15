@@ -24,6 +24,7 @@ static char	*join_or_save_txt(char *tmp, t_shell *sh)
 static void	tree_fill(t_shell *sh, int x, char **tmp)
 {
 	t_tree *t;
+
 	if (*sh->txt != '#' && (t = get_tree(sh->txt, sh)))
 		ft_free_tree(exec_tree(t, sh));
 	if (sh->fc == TRUE)

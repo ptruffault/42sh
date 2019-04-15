@@ -96,7 +96,6 @@ void		ft_fc_option_e(t_fc *fc, int pos)
 {
 	char	*editor;
 	int		fd;
-	t_shell *sh;
 	char	*tmp;
 	t_tree	*t;
 

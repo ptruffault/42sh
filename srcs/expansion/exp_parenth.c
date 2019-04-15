@@ -77,6 +77,7 @@ static char	*ft_get_param_value(t_shell *sh, char *parenth)
 	val = NULL;
 	while (parenth && parenth[++i])
 		if (parenth[i] == ':' && ft_strchr("-+?=", parenth[i + 1])
+			&& parenth[i + 1] != '\0'
 			&& (param = ft_get_secondvalue(&parenth[i + 2])))
 		{
 			ft_strdel(&val);

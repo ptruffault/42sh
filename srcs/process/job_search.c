@@ -60,7 +60,10 @@ t_jobs			*ft_search_jobs(t_jobs *j, char *s)
 	if (!s)
 	{
 		while (j && j->next)
+		{
+			if (j->p->status == RUNNING_FG )
 			j = j->next;
+		}
 		return (j);
 	}
 	return (NULL);

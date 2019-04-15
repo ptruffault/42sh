@@ -86,6 +86,10 @@ void			ft_fc_option_s(t_fc *fc, int pos)
 		if (!(hist->s = ft_strdup(fc->hist_first->s)))
 			return ;
 	}
+	fc->shell->fc = TRUE;
+	fc->shell->interactive = FALSE;
 	if ((t = get_tree(hist->s, ft_get_set_shell(NULL))))
 		ft_free_tree(exec_tree(t, fc->shell));
+	fc->shell->fc = FALSE;
+	fc->shell->interactive = TRUE;
 }

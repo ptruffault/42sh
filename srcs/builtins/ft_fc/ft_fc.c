@@ -88,5 +88,6 @@ int				ft_fc(t_shell *shell, char **argv)
 		ft_fc_option_s(&fc, i);
 	if (fc.flags[0] == 'e' || fc.flags[0] == 's')
 		return (ft_atoi(get_tenvv_val(fc.shell->env, "?")));
+	shell->fc = FALSE;
 	return (0);
 }

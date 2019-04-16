@@ -69,6 +69,7 @@ SRC		=	\
 	builtins/ft_fc/ft_fc_option_l.c				\
 	builtins/ft_fc/ft_fc_option_s.c				\
 	builtins/ft_fc/flags_lexer.c				\
+	builtins/ft_fc/fc_free_editor.c				\
 	\
 	builtins/jobs/fg_bg.c \
 	builtins/jobs/ft_jobs.c \

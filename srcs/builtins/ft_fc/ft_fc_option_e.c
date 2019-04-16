@@ -12,11 +12,13 @@
 
 #include "shell42.h"
 
-static void	ft_fc_write_in_file(t_fc *fc, int fd)
+static int	ft_fc_write_in_file(t_fc *fc, int fd)
 {
 	t_hist	*tmp;
 	int		way;
 
+	if (fd < 0)
+		return (1);
 	if (ft_strchr(fc->flags, 'r'))
 	{
 		tmp = fc->hist_first;
@@ -36,6 +38,23 @@ static void	ft_fc_write_in_file(t_fc *fc, int fd)
 			ft_putendl_fd(fc->hist_first->s, fd);
 			fc->hist_first = fc->hist_first->prev;
 		}
+	return (0);
+}
+
+static int	get_from_last(t_hist *hist, char *line, t_shell *sh)
+{
+	hist = sh->hist;
+	while (hist->next)
+		hist = hist->next;
+	hist->prev->next = NULL;
+	hist->prev = NULL;
+	hist->next = sh->hist;
+	sh->hist->prev = hist;
+	hist->nb = sh->hist->nb + 1;
+	ft_strdel(&hist->s);
+	hist->s = line;
+	sh->hist = hist;
+	return (SUCCESS);
 }
 
 static int	add_to_hist(char *line, t_shell *sh, int hist_size)
@@ -44,21 +63,9 @@ static int	add_to_hist(char *line, t_shell *sh, int hist_size)
 
 	if (!line)
 		return (FAILURE);
+	hist = NULL;
 	if (sh->hist && hist_size <= sh->hist->nb)
-	{
-		hist = sh->hist;
-		while (hist->next)
-			hist = hist->next;
-		hist->prev->next = NULL;
-		hist->prev = NULL;
-		hist->next = sh->hist;
-		sh->hist->prev = hist;
-		hist->nb = sh->hist->nb + 1;
-		ft_strdel(&hist->s);
-		hist->s = line;
-		sh->hist = hist;
-		return (SUCCESS);
-	}
+		return (get_from_last(hist, line, sh));
 	if (!(hist = new_hist()))
 		return (FAILURE);
 	if (sh->hist)
@@ -94,36 +101,31 @@ int			read_from_add_hist(t_shell *sh, char *line, int x)
 	return (SUCCESS);
 }
 
-void		ft_fc_option_e(t_fc *fc, int pos)
+int			ft_fc_option_e(t_fc *fc, int pos)
 {
 	char	*editor;
-	int		fd;
-	char	*tmp;
 	t_tree	*t;
 
 	editor = NULL;
+	if (search_in_hist_parser(fc, 3) == FAILURE)
+		return (0);
 	if (fc->av[pos] && !ft_isdigit(fc->av[pos][0]) && fc->av[pos][0] != '-')
 		editor = ft_strdup(fc->av[pos]);
 	else if (!(editor = ft_strdup(get_tenvv_val(fc->shell->env, "FCEDIT")))
 			|| (editor == NULL && !(editor = ft_strdup("ed"))))
-		return ;
-	if (search_in_hist_parser(fc, 3) == FAILURE)
-		return ;
-	if (!(tmp = ft_strjoin(editor, " /tmp/fc____42sh")))
-		return ;
-	ft_strdel(&editor);
-	if ((fd = open("/tmp/fc____42sh", O_CREAT | O_RDWR, 0644)) == -1)
-		return ;
-	ft_fc_write_in_file(fc, fd);
-	close(fd);
+		return (0);
+	if (!(editor = ft_strappend(&editor, " /tmp/fc____42sh")))
+		return (fc_free_editor(editor));
+	if (ft_fc_write_in_file(fc, open("/tmp/fc____42sh"
+		, O_CREAT | O_RDWR, 0644)))
+		return (fc_free_editor(editor));
 	fc->shell->fc = TRUE;
-	if ((t = get_tree(tmp, fc->shell)))
+	if ((t = get_tree(editor, fc->shell)))
 		ft_free_tree(exec_tree(t, fc->shell));
-	ft_strdel(&tmp);
 	ft_strdel(&fc->shell->txt);
 	fc->shell->interactive = FALSE;
 	exec_file("/tmp/fc____42sh", fc->shell);
 	fc->shell->interactive = TRUE;
-	fc->shell->fc = FALSE;
 	unlink("/tmp/fc____42sh");
+	return (fc_free_editor(editor));
 }

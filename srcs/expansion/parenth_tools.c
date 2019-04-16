@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-char	*ft_get_secondvalue(char *src)
+char			*ft_get_secondvalue(char *src)
 {
 	char	*cpy;
 	char	*ret;
@@ -32,7 +32,7 @@ char	*ft_get_secondvalue(char *src)
 	return (ret);
 }
 
-int		get_content_size(char *s)
+int				get_content_size(char *s)
 {
 	int i;
 
@@ -48,7 +48,7 @@ int		get_content_size(char *s)
 	return (i - 2);
 }
 
-char	*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
+char			*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
 {
 	char *param;
 	char *value;
@@ -66,7 +66,7 @@ char	*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
 	return (ft_cut_string(parenth, val, i));
 }
 
-t_word	*ft_paste_loop(t_word *head, t_word *tmp)
+static t_word	*ft_paste_loop(t_word *head, t_word *tmp)
 {
 	t_word *new;
 
@@ -95,7 +95,7 @@ t_word	*ft_paste_loop(t_word *head, t_word *tmp)
 	return (head);
 }
 
-t_tree	*ft_word_paste(t_tree *t)
+t_tree			*ft_word_paste(t_tree *t)
 {
 	t_word *head;
 

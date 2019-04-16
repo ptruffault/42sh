@@ -32,7 +32,6 @@ static char		*heredoc_get_input(char *eoi, t_shell *sh)
 	hist = sh->e.hist;
 	ft_others_prompt(sh, "heredoc");
 	if ((d = get_input(&in)) != 4)
-	{
 		while (!ft_strequ(in, eoi) && sh->heredoc == 1)
 		{
 			if (!(in = ft_stradd(&in, "\n"))
@@ -42,7 +41,6 @@ static char		*heredoc_get_input(char *eoi, t_shell *sh)
 			if ((d = get_input(&in)) == 4)
 				return (ft_heredoc_clear(in, ret));
 		}
-	}
 	ft_strdel(&in);
 	hist->s = ft_stradd_char(hist->s, '\n');
 	hist->s = ft_strappend(&hist->s, ret);

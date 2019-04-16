@@ -25,7 +25,7 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 		}
 		p->ret = run_builtin(t, p, sh);
 		if (sh->pid != getpid())
-			ft_exit_son(sh, p->ret);
+			ft_exit_son(sh, p->ret, p);
 		return (1);
 	}
 	return (0);
@@ -43,7 +43,7 @@ static void		ft_execve(t_process *p, t_shell *sh)
 	set_son_signal();
 	execve(p->cmd, p->argv, p->env);
 	error("execve fucked up", p->cmd);
-	ft_exit_son(sh, 1);
+	ft_exit_son(sh, 1, p);
 }
 
 static void		ft_exec(t_process *p, t_shell *sh, t_tree *t)
@@ -59,7 +59,7 @@ static void		ft_exec(t_process *p, t_shell *sh, t_tree *t)
 			ft_groups_stuff(sh, p);
 	}
 	else
-		p->ret = 126;
+		p->ret = 127;
 }
 
 t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)

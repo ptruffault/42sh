@@ -28,11 +28,11 @@ static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 
 static void			ft_son(t_process *p, t_process *tmp, t_shell *sh, t_tree *t)
 {
-	if ((p && !ft_link_stdin(p->pipe))
-		|| (tmp->grp && !ft_link_stdout(tmp->pipe)))
-		ft_exit_son(sh, -1);
+	if ((p && !ft_link_stdin(p))
+		|| (tmp->grp && !ft_link_stdout(tmp)))
+		ft_exit_son(sh, -1, tmp);
 	ft_exec_process(tmp, sh, t);
-	ft_exit_son(sh, tmp->ret);
+	ft_exit_son(sh, tmp->ret, tmp);
 }
 
 t_jobs				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
@@ -55,6 +55,7 @@ t_jobs				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 		}
 		else
 			prev = ft_stuff(prev, tmp, sh);
+		t->ret = p->valid ? t->ret :127;
 		if ((tmp = tmp->grp))
 		{
 			tmp->pgid = p->pgid;

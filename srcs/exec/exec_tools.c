@@ -27,8 +27,11 @@ int		check_exe(char *bin_path)
 		return (error("not an executable", bin_path));
 }
 
-void	ft_exit_son(t_shell *sh, int exit_code)
+void	ft_exit_son(t_shell *sh, int exit_code, t_process *p)
 {
+	ft_close(p->fd[0]);
+	ft_close(p->fd[1]);
+	ft_close(p->fd[2]);
 	ft_free_tshell(sh);
 	ft_free_tree(ft_get_set_tree(NULL));
 	exit(exit_code);

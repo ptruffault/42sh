@@ -21,10 +21,7 @@ static t_process	*ft_abort(t_process *p, const char *err, t_process *tmp)
 	while (p && p->cmd)
 	{
 		if (p->grp)
-		{
-			ft_close(p->pipe[0]);
-			ft_close(p->pipe[1]);
-		}
+			ft_close_pipe(p->pipe);
 		p = p->grp;
 	}
 	return (ft_free_tprocess(head));

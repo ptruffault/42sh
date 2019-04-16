@@ -81,11 +81,6 @@ int			init_shell(t_shell *sh, char **envv, char **argv)
 			error("abort", "no standart input");
 		return (0);
 	}
-	if (argv[1] && !ft_isempty(argv[1]))
-	{
-		exec_file(argv[1], sh);
-		return (0);
-	}
 	sh->interactive = TRUE;
 	if (!ft_init_groups(sh) || !init_termcaps(sh))
 		return (0);

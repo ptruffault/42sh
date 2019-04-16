@@ -296,15 +296,15 @@ t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t);
 ** exec/pipe_tools.c
 */
 void			ft_groups_stuff(t_shell *sh, t_process *p);
-int				ft_close_pipe(int pipe[2]);
-int				ft_link_stdout(int pipe[2]);
-int				ft_link_stdin(int pipe[2]);
+void			ft_close_pipe(int pipe[2]);
+int				ft_link_stdout(t_process *p);
+int				ft_link_stdin(t_process *p);
 
 /*
 ** exec/exec_tools.c
 */
 int				check_exe(char *bin_path);
-void			ft_exit_son(t_shell *sh, int exit_code);
+void			ft_exit_son(t_shell *sh, int exit_code, t_process *p);
 void			ft_link_process_to_term(t_process *p, t_shell *sh);
 
 /*

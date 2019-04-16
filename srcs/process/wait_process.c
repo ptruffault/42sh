@@ -19,9 +19,11 @@ static void	ft_eval_status(t_process *p)
 	{
 		p->status = (WIFSTOPPED(p->ret) ? SUSPENDED : KILLED);
 		p->sig = (WIFSTOPPED(p->ret) ? SIGTSTP : WTERMSIG(p->ret));
-		if (ft_signal_check(p) && p->background == FALSE
-			&& p->status != SUSPENDED)
-			ft_putchar_fd('\n', 2);
+		if (ft_signal_check(p))
+		{
+			ft_putstr_fd(" : ", 2);
+			ft_putendl_fd(p->cmd, 2);
+		}
 		p->ret = p->sig + 128;
 	}
 	else if (WIFEXITED(p->ret))
@@ -31,9 +33,9 @@ static void	ft_eval_status(t_process *p)
 	}
 }
 
-static int	ft_job_stuff(t_jobs *j, t_shell *sh, t_process *p)
+static int	ft_job_stuff(t_jobs *j, t_shell *sh)
 {
-	if (j && j->p->background == TRUE && p->pid != sh->pid)
+	if (j && j->p->background == TRUE)
 		ft_job_prompt(j, 0);
 	if (j && ft_job_is_over(j) && sh->fc == FALSE)
 	{
@@ -62,7 +64,7 @@ int			ft_wait(t_jobs *j, t_shell *sh, t_bool bg)
 		{
 			ft_eval_status(p);
 			ret = p->ret;
-			if (!ft_job_stuff(j, sh, p))
+			if (!ft_job_stuff(j, sh))
 				break ;
 		}
 		p = p->grp;

@@ -1,1 +1,1 @@
-trace/BPT trap
+trace/BPT trap bin/sig5trap

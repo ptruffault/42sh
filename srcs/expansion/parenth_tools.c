@@ -48,12 +48,12 @@ int				get_content_size(char *s)
 	return (i - 2);
 }
 
-char			*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
+char			*ft_get_cutted_value(char *pa, t_shell *sh, char *val, int *i)
 {
 	char *param;
 	char *value;
 
-	if (!val && parenth && (param = ft_get_secondvalue(parenth)))
+	if (!val && pa && (param = ft_get_secondvalue(pa)))
 	{
 		if ((value = get_tenvv_val(sh->env, param))
 		&& !(val = ft_strdup(value)))
@@ -63,7 +63,7 @@ char			*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
 		}
 		ft_strdel(&param);
 	}
-	return (ft_cut_string(parenth, val, i));
+	return (ft_cut_string(pa, val, i));
 }
 
 static t_word	*ft_paste_loop(t_word *head, t_word *tmp)

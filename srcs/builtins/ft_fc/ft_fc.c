@@ -27,20 +27,11 @@ static void		set_struct_fc(t_fc *fc, t_shell *shell)
 static int		init_fc(t_fc *fc, t_shell *shell, int *i)
 {
 	if ((*i = flags_gestion(fc->flags, fc->av, 0)) == 1)
-	{
-		free(fc);
 		return (2);
-	}
 	if (fc->flags[0] != 'e' && (!shell->hist || !shell->hist->next))
-	{
-		free(fc);
 		return (1);
-	}
 	else if ((!shell->hist || !shell->hist->next))
-	{
-		free(fc);
 		return (0);
-	}
 	return (3);
 }
 

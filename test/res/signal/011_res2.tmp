@@ -1,1 +1,1 @@
-alarm clock bin/sig26alrm
+alarm clock : bin/sig26alrm

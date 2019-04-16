@@ -1,1 +1,1 @@
-killed bin/sig9kill
+killed : bin/sig9kill

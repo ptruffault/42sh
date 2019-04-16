@@ -59,7 +59,7 @@ static void		ft_exec(t_process *p, t_shell *sh, t_tree *t)
 			ft_groups_stuff(sh, p);
 	}
 	else
-		p->ret = 127;
+		p->ret = 126;
 }
 
 t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)

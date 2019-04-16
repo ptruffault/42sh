@@ -44,9 +44,7 @@ int			exec_fd(t_shell *sh, int fd)
 	tmp = NULL;
 	sh->fd = fd;
 	x = 0;
-	while (get_next_line(sh->fd, &sh->txt) == 1 && !ft_isempty(sh->txt)
-		&& !(ft_strequ(get_tenvv_val(sh->env, "?"), "2"))
-		&& !(ft_strequ(get_tenvv_val(sh->env, "?"), "1")))
+	while (get_next_line(sh->fd, &sh->txt) == 1 && !ft_isempty(sh->txt))
 	{
 		tmp = join_or_save_txt(tmp, sh);
 		lexer(&eval, sh->txt);

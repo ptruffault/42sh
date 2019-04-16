@@ -81,7 +81,7 @@ int				read_from_add_hist(t_shell *sh, char *line, int x);
 /*
 ** builtins/ft_fc/fc_free_editor.c
 */
-int			fc_free_editor(char *editor);
+int				fc_free_editor(char *editor);
 
 /*
 ** builtins/ft_fc/fc_fc_option_l.c
@@ -168,8 +168,8 @@ int				ft_cd(char **input, t_shell *sh);
 ** builtins/ft_cdpath.c
 */
 char			*ft_strdup_path(char *src);
-char			*trans_cdpath(char *path, t_shell *sh, bool *pwd_f, t_opts *opts);
-char			*try_cdpath(char *cdpath, char *path, bool *pwd_f, t_opts *opts);
+char			*trans_cdpath(char *p, t_shell *sh, bool *pw, t_opts *o);
+char			*try_cdpath(char *cdp, char *p, bool *pw, t_opts *o);
 
 /*
 ** builtins/ft_echo.c
@@ -206,7 +206,6 @@ int				putbuiltin(t_word *w, int t);
 int				putcmd(t_word *w, t_envv *env, int t);
 int				putfile(t_word *w, t_envv *env, int t);
 int				putword(t_word *w, int t);
-
 
 /*
 ** eval/alias.c
@@ -344,7 +343,7 @@ char			*ft_exp_param(char *ret, char *ptr, t_shell *sh);
 ** expansion/parenth_tools.c
 */
 t_tree			*ft_word_paste(t_tree *t);
-char			*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i);
+char			*ft_get_cutted_value(char *p, t_shell *sh, char *v, int *i);
 int				get_content_size(char *s);
 char			*ft_get_secondvalue(char *src);
 
@@ -539,7 +538,6 @@ t_jobs			*ft_get_lastp_jobs(t_jobs *j);
 void			ft_wait_background(t_shell *sh);
 int				ft_wait(t_jobs *j, t_shell *sh, t_bool bg);
 
-
 /*
 ** setup_exit/free_tools.c
 */
@@ -581,8 +579,8 @@ pid_t			ft_tcgetpgrp(int fd);
 */
 t_envv			*ft_setenv(t_envv *envv, char **t, int mode, short status);
 t_envv			*ft_new_envv_equ(t_envv *envv, char *eq, short status);
-t_envv			*ft_new_envv(t_envv *envv, const char *name, const char *value, short status);
-t_envv			*ft_new_envv_int(t_envv *envv, const char *name, int val, short status);
+t_envv			*ft_new_envv(t_envv *e, const char *n, const char *v, short s);
+t_envv			*ft_new_envv_int(t_envv *e, const char *n, int v, short s);
 char			*ft_split_equal(char *str, char **aft);
 
 /*

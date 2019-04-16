@@ -89,7 +89,6 @@ int			ft_add_char(char buf, t_edit *e)
 	return (SUCCESS);
 }
 
-
 void		delete_left(t_edit *e)
 {
 	size_t	stop;

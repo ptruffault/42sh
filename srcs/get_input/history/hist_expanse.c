@@ -12,7 +12,7 @@
 
 #include "get_input.h"
 
-static int		get_nb_of_hist(t_edit *e, size_t x)
+static int	get_nb_of_hist(t_edit *e, size_t x)
 {
 	int		nb;
 	size_t	size;
@@ -38,7 +38,7 @@ static int		get_nb_of_hist(t_edit *e, size_t x)
 	return (SUCCESS);
 }
 
-static int		get_word_of_hist(t_edit *e, size_t x)
+static int	get_word_of_hist(t_edit *e, size_t x)
 {
 	size_t	i;
 	char	*word;
@@ -64,7 +64,7 @@ static int		get_word_of_hist(t_edit *e, size_t x)
 	return (SUCCESS);
 }
 
-static int		parse_hist_exp(t_edit *e, size_t x)
+static int	parse_hist_exp(t_edit *e, size_t x)
 {
 	if (!e->hist->s[x + 1])
 		return (FAILURE);
@@ -76,7 +76,7 @@ static int		parse_hist_exp(t_edit *e, size_t x)
 	return (SUCCESS);
 }
 
-int		check_for_hist_exp(t_edit *e)
+int			check_for_hist_exp(t_edit *e)
 {
 	size_t	x;
 	char	*tmp;

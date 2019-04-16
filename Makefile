@@ -99,6 +99,7 @@ SRC		=	\
 	get_input/term_settings.c	\
 	get_input/ft_tab.c			\
 	get_input/prompt.c			\
+	get_input/gi_init_tab.c		\
 	\
 	autocompletion/check_line.c			\
 	autocompletion/utility_handler.c	\

@@ -28,7 +28,8 @@ int		seek_n_repl_str(t_edit *e, size_t x, char *word, size_t i)
 	hist = hist->next;
 	if (!(hist = search_by_occurence(hist, word)))
 		return (FAILURE);
-	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + x, (int)(i - x - 1), hist->s)))
+	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + x
+			, (int)(i - x - 1), hist->s)))
 		return (FAILURE);
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;

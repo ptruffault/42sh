@@ -25,7 +25,7 @@ static int	do_tputs(const char *str, int affcnt, int (*putc)(int))
 	return (-1);
 }
 
-char	*get_tgetstr(const char *id, char **area)
+char		*get_tgetstr(const char *id, char **area)
 {
 	char	*rtn;
 	char	*tmp;

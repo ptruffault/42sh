@@ -45,7 +45,8 @@ static int	autocompletion_adding(t_edit *e, char **t)
 	while (e->curr - x > 0
 		&& !(ft_strchr(" /;{$|&", e->hist->s[e->curr - x - 1])))
 		++x;
-	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr - x, (int)(x - 1), t[0])))
+	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr - x
+			, (int)(x - 1), t[0])))
 		return (FAILURE);
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
@@ -66,22 +67,16 @@ int			tab_handle(t_edit *e)
 	if (e->mode == 2)
 		return (SUCCESS);
 	if (sh->heredoc == 1)
-	{
-		ft_add_char('\t', e);
-		return (SUCCESS);
-	}
-	else
-	{
-		if (!(tabl = check_line(&max_len, &total, e)))
-			return (FAILURE);
-		if (total > 1)
-			autocompletion_printing(e, tabl, max_len);
-		else if (total == 1)
-			autocompletion_adding(e, tabl);
-		max_len = 0;
-		while (tabl[max_len])
-			ft_strdel(&tabl[max_len++]);
-		free(tabl);
-	}
+		return (ft_add_char('\t', e));
+	if (!(tabl = check_line(&max_len, &total, e)))
+		return (FAILURE);
+	if (total > 1)
+		autocompletion_printing(e, tabl, max_len);
+	else if (total == 1)
+		autocompletion_adding(e, tabl);
+	max_len = 0;
+	while (tabl[max_len])
+		ft_strdel(&tabl[max_len++]);
+	free(tabl);
 	return (SUCCESS);
 }

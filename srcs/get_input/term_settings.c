@@ -57,8 +57,8 @@ int		init_termcaps(t_shell *sh)
 
 int		ft_setup_edit_term(t_shell *sh)
 {
-	char *term;
-	unsigned long set;
+	char			*term;
+	unsigned long	set;
 
 	term = NULL;
 	if (((term = get_tenvv_val(sh->env, "TERM")) && !tgetent(NULL, term)))

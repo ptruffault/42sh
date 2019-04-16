@@ -38,7 +38,6 @@ static char	*ft_replace_home(char *path, char *home)
 	return (path);
 }
 
-
 static void	ft_print_colors(char *str, int *ptr)
 {
 	int					i;

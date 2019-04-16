@@ -24,7 +24,7 @@ static t_hist	*incr_search_by_occurence(t_hist *first, char *to_search)
 	return (NULL);
 }
 
-static void	ft_print_search(t_edit *e, t_hist *hist)
+static void		ft_print_search(t_edit *e, t_hist *hist)
 {
 	size_t		val;
 
@@ -46,7 +46,7 @@ static void	ft_print_search(t_edit *e, t_hist *hist)
 	}
 }
 
-int		ft_incr_add(t_edit *e)
+int				ft_incr_add(t_edit *e)
 {
 	char	*tmp;
 
@@ -66,7 +66,7 @@ int		ft_incr_add(t_edit *e)
 	return (SUCCESS);
 }
 
-void	ft_incremental_search(t_edit *e)
+void			ft_incremental_search(t_edit *e)
 {
 	t_hist *hist;
 

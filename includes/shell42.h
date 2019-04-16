@@ -463,6 +463,13 @@ int				init_tedit(t_shell *sh);
 int				ft_get_hist_size(void);
 
 /*
+** get_input/gi_init_tab.c
+*/
+void			ft_init_inputs_kval(t_edit *e, int x);
+void			ft_init_inputs_tab(t_edit *e, int x);
+void			ft_init_print_modes(t_edit *e, int x);
+
+/*
 ** get_input/term_settings.c
 */
 int				ft_set_old_term(t_shell *sh, int error);

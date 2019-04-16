@@ -30,7 +30,24 @@ static int	replace_first_link(t_shell *sh)
 	return (SUCCESS);
 }
 
-static int			ft_update_hist(t_shell *sh)
+static void	ft_update_with_heredoc(t_shell *sh)
+{
+	if (sh->e.hist->next)
+	{
+		sh->e.hist = sh->e.hist->next;
+		ft_strdel(&sh->e.hist->prev->s);
+		free(sh->e.hist->prev);
+		sh->e.hist->prev = NULL;
+	}
+	else
+	{
+		ft_strdel(&sh->e.hist->s);
+		free(sh->e.hist);
+		sh->hist = NULL;
+	}
+}
+
+static int	ft_update_hist(t_shell *sh)
 {
 	if (!sh->heredoc && sh->e.hist && sh->e.hist->s && sh->e.hist->s[0] != '\0')
 	{
@@ -53,21 +70,7 @@ static int			ft_update_hist(t_shell *sh)
 		}
 	}
 	else if (sh->heredoc)
-	{
-		if (sh->e.hist->next)
-		{
-			sh->e.hist = sh->e.hist->next;
-			ft_strdel(&sh->e.hist->prev->s);
-			free(sh->e.hist->prev);
-			sh->e.hist->prev = NULL;
-		}
-		else
-		{
-			ft_strdel(&sh->e.hist->s);
-			free(sh->e.hist);
-			sh->hist = NULL;
-		}
-	}
+		ft_update_with_heredoc(sh);
 	return (ft_set_old_term(sh, SUCCESS));
 }
 

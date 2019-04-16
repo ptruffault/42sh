@@ -54,7 +54,22 @@ static char	*ft_cut_end(char *val, char *pat)
 	return (val);
 }
 
-static char	*ft_cut_string(char *parenth, char *val, int *curr)
+static char	*ft_handle_op(char *op, char *val, char *pattern)
+{
+	if (ft_strequ(op, "##"))
+		while (val && ft_str_startwith(val, pattern))
+			val = ft_cut_begin(val, pattern);
+	else if (ft_strequ(op, "%%"))
+		while (val && *val && ft_str_endwith(val, pattern))
+			val = ft_cut_end(val, pattern);
+	else if (*op == '#')
+		val = ft_cut_begin(val, pattern);
+	else if (*op == '%')
+		val = ft_cut_end(val, pattern);
+	return (val);
+}
+
+char		*ft_cut_string(char *parenth, char *val, int *curr)
 {
 	char	*pattern;
 	char	*tmp;
@@ -73,37 +88,10 @@ static char	*ft_cut_string(char *parenth, char *val, int *curr)
 				ft_strdel(&pattern);
 				pattern = ft_strdup(tmp);
 			}
-			if (ft_strequ(op, "##"))
-				while (val && ft_str_startwith(val, pattern))
-					val = ft_cut_begin(val, pattern);
-			else if (ft_strequ(op, "%%"))
-				while (val && *val && ft_str_endwith(val, pattern))
-					val = ft_cut_end(val, pattern);
-			else if (*op == '#')
-				val = ft_cut_begin(val, pattern);
-			else if (*op == '%')
-				val = ft_cut_end(val, pattern);
+			val = ft_handle_op(op, val, pattern);
 			ft_strdel(&pattern);
 		}
 		ft_strdel(&op);
 	}
 	return (val);
-}
-
-char		*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
-{
-	char *param;
-	char *value;
-
-	if (!val && parenth && (param = ft_get_secondvalue(parenth)))
-	{
-		if ((value = get_tenvv_val(sh->env, param))
-		&& !(val = ft_strdup(value)))
-		{
-			ft_strdel(&param);
-			return (NULL);
-		}
-		ft_strdel(&param);
-	}
-	return (ft_cut_string(parenth, val, i));
 }

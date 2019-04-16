@@ -48,20 +48,32 @@ int		get_content_size(char *s)
 	return (i - 2);
 }
 
-t_tree	*ft_word_paste(t_tree *t)
+char	*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i)
 {
-	t_word *head;
-	t_word *new;
-	t_word *tmp;
+	char *param;
+	char *value;
 
-	tmp = t->cmd;
-	head = NULL;
+	if (!val && parenth && (param = ft_get_secondvalue(parenth)))
+	{
+		if ((value = get_tenvv_val(sh->env, param))
+		&& !(val = ft_strdup(value)))
+		{
+			ft_strdel(&param);
+			return (NULL);
+		}
+		ft_strdel(&param);
+	}
+	return (ft_cut_string(parenth, val, i));
+}
+
+t_word	*ft_paste_loop(t_word *head, t_word *tmp)
+{
+	t_word *new;
+
 	while (tmp)
 	{
 		if (tmp->type == NUL && tmp->paste == TRUE)
-		{
 			tmp = tmp->next;
-		}
 		else if (tmp->paste && tmp->next && tmp->next->word)
 		{
 			if ((new = new_tword()))
@@ -77,12 +89,18 @@ t_tree	*ft_word_paste(t_tree *t)
 				ft_free_tword(new);
 			}
 		}
-		else
-		{
-			head = ft_addtword(head, tmp);
+		else if ((head = ft_addtword(head, tmp)))
 			tmp = tmp->next;
-		}
 	}
+	return (head);
+}
+
+t_tree	*ft_word_paste(t_tree *t)
+{
+	t_word *head;
+
+	head = NULL;
+	head = ft_paste_loop(head, t->cmd);
 	t->cmd = ft_free_tword(t->cmd);
 	t->cmd = head;
 	return (t);

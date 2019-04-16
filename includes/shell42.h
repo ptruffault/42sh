@@ -327,7 +327,7 @@ int				fd_dup(int fd1, int fd2, t_process *p);
 /*
 ** expansion/cut_string.c
 */
-char			*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i);
+char			*ft_cut_string(char *parenth, char *val, int *curr);
 
 /*
 ** expansion/exp.c
@@ -344,6 +344,7 @@ char			*ft_exp_param(char *ret, char *ptr, t_shell *sh);
 ** expansion/parenth_tools.c
 */
 t_tree			*ft_word_paste(t_tree *t);
+char			*ft_get_cutted_value(char *parenth, t_shell *sh, char *val, int *i);
 int				get_content_size(char *s);
 char			*ft_get_secondvalue(char *src);
 

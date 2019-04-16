@@ -38,7 +38,7 @@ int			ft_link_stdout(t_process *p)
 	return (1);
 }
 
-void			ft_close_pipe(int pipe[2])
+void		ft_close_pipe(int pipe[2])
 {
 	if (pipe[0] != 0)
 		ft_close(pipe[0]);

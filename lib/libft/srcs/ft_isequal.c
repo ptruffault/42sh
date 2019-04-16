@@ -21,7 +21,6 @@ int	ft_isequal_env(char *s)
 	return (0);
 }
 
-
 int	ft_isequal(char *s)
 {
 	char *ptr;

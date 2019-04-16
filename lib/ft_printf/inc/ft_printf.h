@@ -83,6 +83,11 @@ void				fill_buffer(char c, t_printf *ptab);
 int					check_arg(const char *format, t_printf *ptab, va_list ap);
 
 /*
+** wild_char.c
+*/
+void				get_wild_char(t_printf *ptab, va_list ap);
+
+/*
 ** string.c
 */
 void				check_string(char *value, t_printf *ptab);

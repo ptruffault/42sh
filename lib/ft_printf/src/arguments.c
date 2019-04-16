@@ -99,12 +99,6 @@ static int		arg_flags(t_printf *ptab, const char *format)
 	return (1);
 }
 
-void			get_wild_char(t_printf *ptab, va_list ap)
-{
-	ptab->fmt++;
-	ptab->arg.larg = va_arg(ap, int);
-}
-
 int				check_arg(const char *format, t_printf *ptab, va_list ap)
 {
 	int		mode;

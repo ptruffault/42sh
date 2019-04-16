@@ -33,6 +33,7 @@ SRC=	arguments.c		\
 		octal.c			\
 		ft_putnbrs.c	\
 		utils.c			\
+		wild_char.c		\
 
 SRCDIR	:=	src
 INCDIR	:=	inc

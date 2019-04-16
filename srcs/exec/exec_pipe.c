@@ -12,30 +12,6 @@
 
 #include "shell42.h"
 
-static int			ft_link_stdin(int pipe[2])
-{
-	if (dup2(pipe[0], STDIN_FILENO) < 0)
-		return (-1);
-	ft_close(pipe[0]);
-	return (ft_close(pipe[1]));
-}
-
-static int			ft_link_stdout(int pipe[2])
-{
-	if (dup2(pipe[1], STDOUT_FILENO) < 0)
-		return (-1);
-	ft_close(pipe[1]);
-	return (ft_close(pipe[0]));
-}
-
-static int			ft_close_pipe(int pipe[2])
-{
-	if (!ft_close(pipe[0])
-	|| !ft_close(pipe[1]))
-		return (0);
-	return (1);
-}
-
 static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 {
 	if (prev)
@@ -50,6 +26,15 @@ static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 	return (tmp);
 }
 
+static void			ft_son(t_process *p, t_process *tmp, t_shell *sh, t_tree *t)
+{
+	if ((p && !ft_link_stdin(p->pipe))
+		|| (tmp->grp && !ft_link_stdout(tmp->pipe)))
+		ft_exit_son(sh, -1);
+	ft_exec_process(tmp, sh, t);
+	ft_exit_son(sh, tmp->ret);
+}
+
 t_jobs				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 {
 	t_process	*prev;
@@ -62,13 +47,7 @@ t_jobs				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 	while (tmp)
 	{
 		if ((tmp->pid = fork()) == 0)
-		{
-			if ((prev && !ft_link_stdin(prev->pipe))
-			|| (tmp->grp && !ft_link_stdout(tmp->pipe)))
-				ft_exit_son(sh, -1);
-			ft_exec_process(tmp, sh, t);
-			ft_exit_son(sh, tmp->ret);
-		}
+			ft_son(prev, tmp, sh, t);
 		else if (tmp->pid < 0)
 		{
 			error("fork fucked up", tmp->cmd);

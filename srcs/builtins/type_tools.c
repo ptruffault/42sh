@@ -47,7 +47,7 @@ int	putcmd(t_word *w, t_envv *env, int t)
 {
 	char *value;
 
-	if ((value = search_in_envv(w->word, env)))
+	if ((value = search_in_envv(w->word, env, 0)))
 	{
 		if (t == 1)
 			ft_printf("command\n");

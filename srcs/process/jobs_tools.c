@@ -32,6 +32,22 @@ static int		ft_get_new_id(t_jobs *j)
 	return (ret);
 }
 
+t_jobs			*ft_get_lastp_jobs(t_jobs *j)
+{
+	t_jobs *tmp;
+
+	if ((tmp = ft_get_last_jobs(j, '+')))
+	{
+		while (j && j->next)
+		{
+			if (j->next->id == tmp->id)
+				return (j);
+			j = j->next;
+		}
+	}
+	return (NULL);
+}
+
 int				ft_job_is_over(t_jobs *j)
 {
 	t_process *tmp;

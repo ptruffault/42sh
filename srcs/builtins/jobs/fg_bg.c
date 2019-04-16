@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static int ft_is_jobs_empty(t_jobs *j)
+static int	ft_is_jobs_empty(t_jobs *j)
 {
 	while (j)
 	{
@@ -28,7 +28,6 @@ static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 	int cont;
 
 	cont = j->p->status == SUSPENDED ? 1 : 0;
-	ft_printf("%s\n", j->p->cmd);
 	if (j->p->status == s)
 		error("jobs already in background", j->p->cmd);
 	else
@@ -48,27 +47,6 @@ static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 	}
 }
 
-static t_jobs *ft_get_last_jobs(t_jobs *j)
-{
-	while (j)
-	{
-		if (j->next)
-		{
-			if (j->next->p->status == RUNNING_FG)
-			{
-				if (j->next->next)
-					j = j->next->next;
-				else
-					return (j);
-			}
-		}
-		else
-			return (j);
-		j = j->next;
-	}
-	return (NULL);
-}
-
 int			ft_bg(t_shell *sh, char **argv)
 {
 	t_jobs	*j;
@@ -77,7 +55,7 @@ int			ft_bg(t_shell *sh, char **argv)
 	i = 0;
 	if (ft_is_jobs_empty(sh->jobs))
 		return (error("no jobs", NULL));
-	if (!argv[1] && (j = ft_get_last_jobs(sh->jobs)))
+	if (!argv[1] && (j = ft_get_last_jobs(sh->jobs, '+')))
 		ft_handle_jobs(j, RUNNING_BG, sh);
 	while (argv[++i])
 		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i])))
@@ -95,7 +73,7 @@ int			ft_fg(t_shell *sh, char **argv)
 	i = 0;
 	if (ft_is_jobs_empty(sh->jobs))
 		return (error("no jobs", NULL));
-	if (!argv[1] && (j = ft_get_last_jobs(sh->jobs))
+	if (!argv[1] && (j = ft_get_last_jobs(sh->jobs, '+'))
 		&& j->p->status != RUNNING_FG)
 		ft_handle_jobs(j, RUNNING_FG, sh);
 	while (argv[++i])

@@ -25,7 +25,9 @@ SRC		=	\
 	setup_exit/free_tools.c		\
 	\
 	exec/ft_execve.c			\
+	exec/exec_tools.c 			\
 	exec/exec.c					\
+	exec/pipe_tools.c			\
 	exec/exec_pipe.c			\
 	exec/exec_file.c			\
 	exec/redirection.c			\

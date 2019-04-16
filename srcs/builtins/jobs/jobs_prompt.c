@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static int ft_test_over(t_process *p)
+static int	ft_test_over(t_process *p)
 {
 	unsigned int s;
 
@@ -40,7 +40,7 @@ static void	ft_print_cmd(t_process *p)
 	}
 }
 
-void	ft_prompt(t_process *p, int opts)
+void		ft_prompt(t_process *p, int opts)
 {
 	char	*stat[6];
 
@@ -51,10 +51,10 @@ void	ft_prompt(t_process *p, int opts)
 		&& p->status != RUNNING_BG)
 		ft_signal_check(p);
 	else
-		ft_printf(" %s \x1B[1;39m", stat[p->status]);	
+		ft_printf(" %s \x1B[1;39m", stat[p->status]);
 }
 
-void	ft_prompt_cmd(t_process *p, int opts)
+void		ft_prompt_cmd(t_process *p, int opts)
 {
 	int i;
 

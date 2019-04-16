@@ -28,7 +28,7 @@ static int		check_name_alias(const char *name)
 	return (1);
 }
 
-static int	put_alias(t_shell *sh, char *str)
+static int		put_alias(t_shell *sh, char *str)
 {
 	char	*name;
 	char	*val;
@@ -39,7 +39,7 @@ static int	put_alias(t_shell *sh, char *str)
 	return (0);
 }
 
-int			ft_alias(t_shell *sh, char **argv)
+int				ft_alias(t_shell *sh, char **argv)
 {
 	int i;
 

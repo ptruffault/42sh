@@ -37,6 +37,27 @@ static t_tree	*next_instruction(t_tree *t)
 	return (NULL);
 }
 
+static void		ft_post_exec(t_jobs *j, t_tree *t, t_process *p, t_shell *sh)
+{
+	if (p)
+	{
+		if (j && (t->ret == -1 || (p && p->builtins == TRUE && p->ret == 0)))
+		{
+			ft_link_process_to_term(p, sh);
+			t->ret = ft_wait(j, sh, FALSE);
+			if (p->background == FALSE && sh->interactive == TRUE && p)
+				ft_tcsetpgrp(sh->std[0], sh->pgid);
+		}
+		else if (!(sh->fc == TRUE))
+		{
+			p->status = INIT;
+			sh->jobs = ft_remove_jobs(p->pid, sh);
+		}
+	}
+	sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
+	ft_reset_fd(sh);
+}
+
 static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 {
 	t_process	*p;
@@ -54,32 +75,8 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	else if ((p = init_process(t, sh)))
 		j = ft_exec_process(p, sh, t);
 	t->ret = (p ? p->ret : 1);
-	if (p)
-	{
-		if (j && (t->ret == -1 || (p && p->builtins == TRUE && p->ret == 0)))
-		{	
-			ft_link_process_to_term(p, sh);
-			t->ret = ft_wait(j, sh, FALSE);
-			if (p->background == FALSE && sh->interactive == TRUE && p)
-				ft_tcsetpgrp(sh->std[0], sh->pgid);
-		}
-		else if (!(sh->fc == TRUE))
-		{
-			p->status = INIT;
-			sh->jobs = ft_remove_jobs(p->pid, sh);
-		}
-	}
-	sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
-	ft_reset_fd(sh);
+	ft_post_exec(j, t, p, sh);
 	return (t);
-}
-
-void			ft_link_process_to_term(t_process *p, t_shell *sh)
-{
-	if (sh->interactive == TRUE && p && p->background == FALSE && p->pid != 0)
-		ft_tcsetpgrp(sh->std[0], p->pgid);
-	else if (sh->interactive == TRUE && p && p->background == TRUE)
-		sh->env = ft_new_envv_int(sh->env, "!", p->pid, IN);
 }
 
 t_tree			*exec_tree(t_tree *t, t_shell *sh)
@@ -107,8 +104,6 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 			if ((tmp = exec_instruction(tmp, sh)))
 				tmp = next_instruction(tmp);
 		}
-		else
-			break ;
 	}
 	return (t);
 }

@@ -111,7 +111,7 @@ int				check_name(const char *name)
 	return (1);
 }
 
-int			ft_export(t_shell *sh, char **argv)
+int				ft_export(t_shell *sh, char **argv)
 {
 	int		i;
 	char	*name;

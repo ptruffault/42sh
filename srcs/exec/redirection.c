@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static int			check_fd(t_process *p, int fd)
+static int	check_fd(t_process *p, int fd)
 {
 	if (IS_STD(fd))
 	{
@@ -64,9 +64,11 @@ int			get_destination_fd(t_redirect *r)
 {
 	r->path = ft_exp_var(r->path, ft_get_set_shell(NULL));
 	if ((r->t == R_RIGHT && r->to == -2 && r->path
-			&& (r->to = ft_open(r->path, O_RDWR | O_TRUNC | O_CREAT, 0644)) < 0)
+			&& (r->to = ft_open(r->path
+			, O_RDWR | O_TRUNC | O_CREAT, 0644)) < 0)
 		|| (r->t == R_DRIGHT && r->to == -2 && r->path
-			&& (r->to = ft_open(r->path, O_RDWR | O_APPEND | O_CREAT, 0644)) < 0)
+			&& (r->to = ft_open(r->path
+			, O_RDWR | O_APPEND | O_CREAT, 0644)) < 0)
 		|| (r->t == R_LEFT && r->to == -2 && r->path
 			&& (r->to = ft_open(r->path, O_RDWR, 0644)) < 0))
 		return (0);

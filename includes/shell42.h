@@ -268,14 +268,13 @@ int				ft_check_ascii(char *input);
 ** exec/bin_search.c
 */
 char			*get_bin_path(char *input, t_envv *envv);
-char			*search_in_envv(char *input, t_envv *envv);
+char			*search_in_envv(char *input, t_envv *envv, int i);
 char			*absolute_path(char *input, t_envv *envv);
 
 /*
 ** exec/exec.c
 */
 t_tree			*exec_tree(t_tree *t, t_shell *sh);
-void			ft_link_process_to_term(t_process *p, t_shell *sh);
 
 /*
 ** exec/exec_file.c
@@ -292,7 +291,21 @@ t_jobs			*exec_pipe(t_tree *t, t_process *p, t_shell *sh);
 ** exec/ft_execve.c
 */
 t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t);
+
+/*
+** exec/pipe_tools.c
+*/
+void			ft_groups_stuff(t_shell *sh, t_process *p);
+int				ft_close_pipe(int pipe[2]);
+int				ft_link_stdout(int pipe[2]);
+int				ft_link_stdin(int pipe[2]);
+
+/*
+** exec/exec_tools.c
+*/
+int				check_exe(char *bin_path);
 void			ft_exit_son(t_shell *sh, int exit_code);
+void			ft_link_process_to_term(t_process *p, t_shell *sh);
 
 /*
 ** exec/redirect_builtins.c
@@ -320,14 +333,14 @@ char			*ft_exp_var(char *ret, t_shell *sh);
 /*
 ** expansion/exp_parenth.c
 */
-char				*ft_exp_param(char *ret, char *ptr, t_shell *sh);
+char			*ft_exp_param(char *ret, char *ptr, t_shell *sh);
 
 /*
 ** expansion/parenth_tools.c
 */
-t_tree				*ft_word_paste(t_tree *t);
-int					get_content_size(char *s);
-char				*ft_get_secondvalue(char *src);
+t_tree			*ft_word_paste(t_tree *t);
+int				get_content_size(char *s);
+char			*ft_get_secondvalue(char *src);
 
 /*
 ** get_input/cursor/arrow_move.c
@@ -496,6 +509,7 @@ t_process		*init_process(t_tree *t, t_shell *sh);
 ** process/jobs_search.c
 */
 t_jobs			*ft_search_jobs(t_jobs *j, char *s);
+t_jobs			*ft_get_last_jobs(t_jobs *j, char last);
 t_jobs			*ft_get_jobs_pid(t_jobs *j, int pid);
 
 /*
@@ -504,6 +518,7 @@ t_jobs			*ft_get_jobs_pid(t_jobs *j, int pid);
 t_jobs			*ft_add_jobs(t_process *p, t_shell *sh);
 t_jobs			*ft_remove_jobs(int pid, t_shell *sh);
 int				ft_job_is_over(t_jobs *j);
+t_jobs			*ft_get_lastp_jobs(t_jobs *j);
 
 /*
 ** process/wait_process.c

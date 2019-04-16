@@ -73,10 +73,15 @@ int				flags_gestion(char *flags, char **av, int x);
 int				ft_fc(t_shell *shell, char **argv);
 
 /*
-** builtins/ft_fc/fc_fc_option_e.c
+** builtins/ft_fc/ft_fc_option_e.c
 */
-void			ft_fc_option_e(t_fc *fc, int pos);
+int				ft_fc_option_e(t_fc *fc, int pos);
 int				read_from_add_hist(t_shell *sh, char *line, int x);
+
+/*
+** builtins/ft_fc/fc_free_editor.c
+*/
+int			fc_free_editor(char *editor);
 
 /*
 ** builtins/ft_fc/fc_fc_option_l.c

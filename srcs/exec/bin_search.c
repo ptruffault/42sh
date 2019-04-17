@@ -52,7 +52,7 @@ char		*search_in_envv(char *input, t_envv *envv, int i)
 	char		**path;
 	struct stat	inf;
 
-	if (!(path = ft_strsplit(get_tenvv_val(envv, "PATH"), ':')))
+	if (!(path = ft_strsplit(get_tenvv_val(envv, "PATH"), ':')) || !path[0])
 		return (check_without_path(input));
 	while (path[i])
 	{

@@ -15,6 +15,8 @@
 
 static void	ft_intern_var(t_shell *sh)
 {
+	char	*hostname;
+
 	sh->env = ft_new_envv(sh->env, "HISTSIZE", "500", IN);
 	sh->env = ft_new_envv(sh->env, "!", "0", IN);
 	sh->env = ft_new_envv(sh->env, "?", "0", IN);
@@ -23,6 +25,10 @@ static void	ft_intern_var(t_shell *sh)
 	sh->env = ft_new_envv(sh->env, "FCEDIT", "vim", IN);
 	sh->env = ft_new_envv(sh->env, "PS1", PS1, IN);
 	sh->env = ft_new_envv(sh->env, "PS2", PS2, IN);
+	if (isatty(0) && (hostname = ft_strnew(255)))
+		if (!(gethostname(hostname, 254)))
+			sh->env = ft_new_envv(sh->env, "HOSTNAME", hostname, IN);
+	ft_strdel(&hostname);
 }
 
 void		ft_init_builtins_tab(t_shell *sh)
@@ -109,6 +115,7 @@ int			init_intern(t_shell *sh)
 	{
 		sh->env = ft_new_envv_int(sh->env, "EUID", (int)usr->pw_uid, IN);
 		sh->env = ft_new_envv_int(sh->env, "GROUPS", (int)usr->pw_gid, IN);
+		sh->env = ft_new_envv(sh->env, "HOME", usr->pw_dir, IN);
 		if ((hi_path = ft_strjoin(usr->pw_dir, "/.42history"))
 			&& (sh->env = ft_new_envv(sh->env, "HISTFILE", hi_path, IN)))
 		{
@@ -116,9 +123,5 @@ int			init_intern(t_shell *sh)
 			ft_strdel(&hi_path);
 		}
 	}
-	if (isatty(0) && (hostname = ft_strnew(255)))
-		if (!(gethostname(hostname, 254)))
-			sh->env = ft_new_envv(sh->env, "HOSTNAME", hostname, IN);
-	ft_strdel(&hostname);
 	return (0);
 }

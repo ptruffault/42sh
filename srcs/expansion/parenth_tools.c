@@ -72,9 +72,7 @@ static t_word	*ft_paste_loop(t_word *head, t_word *tmp)
 
 	while (tmp)
 	{
-		if (tmp->type == NUL && tmp->paste == TRUE)
-			tmp = tmp->next;
-		else if (tmp->paste && tmp->next && tmp->next->word)
+		if (tmp->paste && tmp->next && tmp->next->word)
 		{
 			if ((new = new_tword()))
 			{
@@ -84,15 +82,13 @@ static t_word	*ft_paste_loop(t_word *head, t_word *tmp)
 					new->word = ft_strappend(&new->word, tmp->next->word);
 					tmp = tmp->next;
 				}
-				tmp = tmp->next;
 				head = ft_addtword(head, new);
 				ft_free_tword(new);
 			}
 		}
-		else if ((head = ft_addtword(head, tmp)))
-			tmp = tmp->next;
-		else
-			tmp = tmp->next;
+		else if ((tmp->type != NUL && tmp->paste != TRUE))
+			head = ft_addtword(head, tmp);
+		tmp = tmp->next;
 	}
 	return (head);
 }

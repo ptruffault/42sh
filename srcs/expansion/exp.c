@@ -48,23 +48,6 @@ static char		*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 	return (ret);
 }
 
-static int		checktilde(t_word *w)
-{
-	int				i;
-	struct passwd	*usr;
-
-	i = 1;
-	if (w->word[1] == '/' || w->word[1] == '\0')
-		return (1);
-	if ((usr = getpwnam(&w->word[1])) != NULL)
-	{
-		ft_strdel(&w->word);
-		w->word = ft_strdup(usr->pw_dir);
-		return (0);
-	}
-	return (0);
-}
-
 static t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 {
 	char	*tmp;

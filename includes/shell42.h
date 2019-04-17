@@ -335,6 +335,11 @@ t_tree			*ft_expention(t_tree *t);
 char			*ft_exp_var(char *ret, t_shell *sh);
 
 /*
+** expansion/expansion_tools.c
+*/
+int				checktilde(t_word *w);
+
+/*
 ** expansion/exp_parenth.c
 */
 char			*ft_exp_param(char *ret, char *ptr, t_shell *sh);

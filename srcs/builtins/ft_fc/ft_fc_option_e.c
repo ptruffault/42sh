@@ -27,17 +27,18 @@ static int	ft_fc_write_in_file(t_fc *fc, int fd)
 	}
 	way = fc->hist_first->nb < fc->hist_last->nb ? 1 : 0;
 	if (way == 0 && fc->hist_first && fc->hist_last)
-		while (fc->hist_first->nb >= fc->hist_last->nb)
+		while (fc->hist_first && fc->hist_first->nb >= fc->hist_last->nb)
 		{
 			ft_putendl_fd(fc->hist_first->s, fd);
 			fc->hist_first = fc->hist_first->next;
 		}
-	else if (way == 1 && fc->hist_first && fc->hist_last)
-		while (fc->hist_first->nb <= fc->hist_last->nb)
+	if (way == 1 && fc->hist_first && fc->hist_last)
+		while (fc->hist_first && fc->hist_first->nb <= fc->hist_last->nb)
 		{
 			ft_putendl_fd(fc->hist_first->s, fd);
 			fc->hist_first = fc->hist_first->prev;
 		}
+	close(fd);
 	return (0);
 }
 
@@ -123,6 +124,8 @@ int			ft_fc_option_e(t_fc *fc, int pos)
 	if ((t = get_tree(editor, fc->shell)))
 		ft_free_tree(exec_tree(t, fc->shell));
 	ft_strdel(&fc->shell->txt);
+	ft_strdel(&fc->shell->hist->s);
+	fc->shell->hist->s = ft_strnew(3);
 	fc->shell->interactive = FALSE;
 	exec_file("/tmp/fc____42sh", fc->shell);
 	fc->shell->interactive = TRUE;

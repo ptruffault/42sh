@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-static char		*replace_occurances(char *old, char *new, char *str)
+static char		*repl_occ(char *old, char *new, char *str)
 {
 	size_t	x;
 	char	*tmp;
@@ -39,6 +39,23 @@ static char		*replace_occurances(char *old, char *new, char *str)
 	return (str);
 }
 
+static int		ft_fc_fill_pos(t_fc *fc, int pos)
+{
+	if (fc->av[pos + 1])
+	{
+		if (ft_isdigit(fc->av[pos + 1][0]) || fc->av[pos + 1][0] == '-')
+		{
+			fc->first = ft_atoi(fc->av[pos + 1]);
+			fc->first = (fc->first == 0) ? -1 : fc->first;
+		}
+		else
+			fc->first_ = fc->av[pos + 1];
+	}
+	if (search_in_hist_parser(fc, 1) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 static t_hist	*ft_fc_option_s_replace(t_fc *fc, int pos)
 {
 	char	**tabl;
@@ -46,24 +63,24 @@ static t_hist	*ft_fc_option_s_replace(t_fc *fc, int pos)
 	char	*tmp;
 
 	if (!(tabl = ft_strsplit(fc->av[pos], '='))
-			|| (!tabl[0] || (tabl[0] && !tabl[1])))
-		return (NULL);
-	if (fc->av[pos + 1])
+		|| (!tabl[0] || (tabl[0] && !tabl[1])))
 	{
-		if ((fc->av[pos + 1][0] >= '0' && fc->av[pos + 1][0] <= '9')
-			|| fc->av[pos + 1][0] == '-')
-			fc->first = ft_atoi(fc->av[pos + 1]) == 0 ? -1
-				: ft_atoi(fc->av[pos + 1]);
-		else
-			fc->first_ = fc->av[pos + 1];
+		ft_freestrarr(&tabl);
+		return (NULL);
 	}
-	if (search_in_hist_parser(fc, 1) == FAILURE)
+	if (ft_fc_fill_pos(fc, pos) == FAILURE)
+	{
+		ft_freestrarr(&tabl);
 		return (NULL);
+	}
 	hist = fc->shell->hist;
-	if (!(tmp = replace_occurances(tabl[0], tabl[1],
-			ft_strdup(fc->hist_first->s))))
+	if (!(tmp = repl_occ(tabl[0], tabl[1], ft_strdup(fc->hist_first->s))))
+	{
+		ft_freestrarr(&tabl);
 		return (NULL);
+	}
 	ft_strdel(&hist->s);
+	ft_freestrarr(&tabl);
 	hist->s = tmp;
 	return (hist);
 }

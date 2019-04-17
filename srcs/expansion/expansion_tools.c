@@ -14,10 +14,8 @@
 
 int			checktilde(t_word *w)
 {
-	int				i;
 	struct passwd	*usr;
 
-	i = 1;
 	if (w->word[1] == '/' || w->word[1] == '\0')
 		return (1);
 	if ((usr = getpwnam(&w->word[1])) != NULL)

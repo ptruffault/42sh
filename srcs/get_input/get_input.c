@@ -32,14 +32,14 @@ static int	replace_first_link(t_shell *sh)
 
 static void	ft_update_with_heredoc(t_shell *sh)
 {
-	if (sh->e.hist->next)
+	if (sh->e.hist && sh->e.hist->next)
 	{
 		sh->e.hist = sh->e.hist->next;
 		ft_strdel(&sh->e.hist->prev->s);
 		free(sh->e.hist->prev);
 		sh->e.hist->prev = NULL;
 	}
-	else
+	else if (sh->e.hist)
 	{
 		ft_strdel(&sh->e.hist->s);
 		free(sh->e.hist);

@@ -59,8 +59,10 @@ int			flags_gestion(char *flags, char **av, int x)
 					|| av[x][b] == 'n' || av[x][b] == 'r'
 					|| av[x][b] == 's')
 				check_doublons(flags, av[x][b++]);
-			else
+			else if (av[x][b] != '-')
 				return (error_c("fc: illegal option --", av[x][b]) + 1);
+			else
+				b++;
 		++x;
 	}
 	flags_priority(flags);

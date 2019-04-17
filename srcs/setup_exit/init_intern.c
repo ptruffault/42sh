@@ -17,6 +17,7 @@ static void	ft_intern_var(t_shell *sh)
 {
 	char	*hostname;
 
+	hostname = NULL;
 	sh->env = ft_new_envv(sh->env, "HISTSIZE", "500", IN);
 	sh->env = ft_new_envv(sh->env, "!", "0", IN);
 	sh->env = ft_new_envv(sh->env, "?", "0", IN);
@@ -107,9 +108,7 @@ int			init_intern(t_shell *sh)
 {
 	struct passwd	*usr;
 	char			*hi_path;
-	char			*hostname;
 
-	hostname = NULL;
 	ft_intern_var(sh);
 	if (isatty(0) && (usr = getpwnam(getlogin())))
 	{

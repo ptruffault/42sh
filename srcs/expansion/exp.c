@@ -48,6 +48,22 @@ static char		*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 	return (ret);
 }
 
+static int		checktilde(t_word *word)
+{
+	int				i;
+	struct passwd	*usr;
+
+	i = 1;
+	if (w->word[1] == '/' || w->word[1] == '\0')
+		return (1);
+	if (getpwnam(&w->word[1]) != NULL)
+	{
+
+	}
+		return (0);
+	return (0);
+}
+
 static t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 {
 	char	*tmp;
@@ -58,7 +74,7 @@ static t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 	w = head;
 	while (w)
 	{
-		if (w->word && *w->word == '~' && w->word[1] != '~'
+		if (w->word && *w->word == '~' && checktilde(w)
 			&& 0 < w->type && w->type <= 2
 			&& (val = get_tenvv_val(envv, "HOME"))
 			&& (tmp = ft_strpull(w->word, w->word, 0, val)))
@@ -112,7 +128,7 @@ t_tree			*ft_expention(t_tree *t)
 		{
 			if (w && IS_EXP(w->type) && w->word)
 				w->word = ft_exp_var(w->word, sh);
-			w = (w ? w->next : w);
+			w = w->next;
 		}
 		tmp = ft_word_paste(tmp);
 		tmp->cmd = ft_exp_home_var(tmp->cmd, sh->env);

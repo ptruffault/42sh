@@ -39,14 +39,12 @@ static void		fc_init_first_last(t_fc *fc, int pos)
 {
 	if (fc->av[pos])
 	{
-		if ((fc->av[pos][0] >= '0' && fc->av[pos][0] <= '9')
-			|| fc->av[pos][0] == '-')
+		if ((ft_isdigit(fc->av[pos][0])) || fc->av[pos][0] == '-')
 			fc->first = ft_atoi(fc->av[pos]) == 0 ? -1 : ft_atoi(fc->av[pos]);
 		else
 			fc->first_ = fc->av[pos];
 		if (fc->av[pos + 1])
-			if ((fc->av[pos + 1][0] >= '0' && fc->av[pos + 1][0] <= '9')
-			|| fc->av[pos + 1][0] == '-')
+			if (ft_isdigit(fc->av[pos + 1][0]) || fc->av[pos + 1][0] == '-')
 				fc->last = ft_atoi(fc->av[pos + 1]) == 0 ? -1
 				: ft_atoi(fc->av[pos + 1]);
 			else
@@ -72,6 +70,8 @@ int				ft_fc(t_shell *shell, char **argv)
 	fc.av = argv;
 	if ((ret = init_fc(&fc, shell, &i)) <= 2)
 		return (ret);
+	if (!shell->interactive)
+		return (0);
 	set_struct_fc(&fc, shell);
 	if (fc.flags[0] == 'e' && fc.av[i]
 	&& ft_isdigit(fc.av[i][0]) == 0 && fc.av[i][0] != '-')

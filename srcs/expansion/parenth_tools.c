@@ -91,6 +91,8 @@ static t_word	*ft_paste_loop(t_word *head, t_word *tmp)
 		}
 		else if ((head = ft_addtword(head, tmp)))
 			tmp = tmp->next;
+		else
+			tmp = tmp->next;
 	}
 	return (head);
 }

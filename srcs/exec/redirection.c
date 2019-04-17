@@ -47,7 +47,7 @@ int			fd_dup(int fd1, int fd2, t_process *p)
 	if ((fd1 = check_fd(p, fd1)) == -2)
 		return (-1);
 	if (fd1 == -1)
-		fd1 = ft_open("/dev/null", O_RDWR | O_TRUNC | O_CREAT, S_IWUSR);
+		close(fd2);
 	if (fd1 != -1)
 	{
 		if ((ret = dup2(fd1, fd2)) < 0)

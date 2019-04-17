@@ -83,6 +83,8 @@ t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 			p->ret = 127;
 		}
 	}
+	else
+		p->ret = 1;
 	ft_get_envv_back(sh, p, t);
 	return (ret);
 }

@@ -99,7 +99,6 @@ t_word			*eval_line(char *input)
 	if (e.s && e.eval && (head = ft_get_words(&e))
 	&& !(head = ft_check_alias(head, sh, 1, NULL)))
 	{
-		ft_printf("ERROR\n");
 		ft_strdel(&e.eval);
 		ft_strdel(&e.s);
 		return (ft_free_tword(head));

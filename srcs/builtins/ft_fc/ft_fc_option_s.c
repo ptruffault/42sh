@@ -23,6 +23,8 @@ static char		*repl_occ(char *old, char *new, char *str)
 	old_size = ft_strlen(old);
 	tmp = NULL;
 	x = 0;
+	if (!str)
+		return (NULL);
 	while (str[x])
 	{
 		if (ft_str_startwith(str + x, old))

@@ -51,7 +51,7 @@ int			fd_dup(int fd1, int fd2, t_process *p)
 	if (fd1 != -1)
 	{
 		if ((ret = dup2(fd1, fd2)) < 0)
-			error_i("duplicate file descriptor fucked up", fd1);
+			return (error_i("duplicate file descriptor fucked up", fd1) - 1);
 		if (!IS_STD(fd1))
 			ft_close(fd1);
 		if (!IS_STD(fd2))

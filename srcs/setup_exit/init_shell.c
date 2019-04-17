@@ -50,12 +50,9 @@ pid_t		ft_tcgetpgrp(int fd)
 int			ft_tcsetpgrp(int fd, pid_t pgrp)
 {
 	int pgrp_int;
-	int ret;
 
 	pgrp_int = pgrp;
-	if ((ret = ioctl(fd, TIOCSPGRP, &pgrp_int)) < 0)
-		error("can't put process in forground", "tcgetpgrp");
-	return (ret);
+	return (ioctl(fd, TIOCSPGRP, &pgrp_int));
 }
 
 int			ft_init_groups(t_shell *sh)

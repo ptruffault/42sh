@@ -24,8 +24,9 @@ static void		set_struct_fc(t_fc *fc, t_shell *shell)
 	fc->last_ = NULL;
 }
 
-static int		init_fc(t_fc *fc, t_shell *shell, int *i)
+static int		init_fc(t_fc *fc, t_shell *shell, int *i, char **argv)
 {
+	fc->av = argv;
 	if ((*i = flags_gestion(fc->flags, fc->av, 0)) == 1)
 		return (2);
 	if (fc->flags[0] != 'e' && (!shell->hist || !shell->hist->next))
@@ -67,8 +68,7 @@ int				ft_fc(t_shell *shell, char **argv)
 	int		i;
 	int		ret;
 
-	fc.av = argv;
-	if ((ret = init_fc(&fc, shell, &i)) <= 2)
+	if ((ret = init_fc(&fc, shell, &i, argv)) <= 2)
 		return (ret);
 	if (!shell->interactive)
 		return (0);
@@ -88,6 +88,5 @@ int				ft_fc(t_shell *shell, char **argv)
 		ft_fc_option_s(&fc, i);
 	if (fc.flags[0] == 'e' || fc.flags[0] == 's')
 		return (ft_atoi(get_tenvv_val(fc.shell->env, "?")));
-	shell->fc = FALSE;
 	return (0);
 }

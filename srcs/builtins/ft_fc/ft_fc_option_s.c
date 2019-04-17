@@ -107,7 +107,8 @@ void			ft_fc_option_s(t_fc *fc, int pos)
 	}
 	fc->shell->fc = TRUE;
 	fc->shell->interactive = FALSE;
-	if ((t = get_tree(hist->s, ft_get_set_shell(NULL))) && isatty(1) && isatty(0))
+	if ((t = get_tree(hist->s, ft_get_set_shell(NULL)))
+			&& isatty(1) && isatty(0))
 		ft_free_tree(exec_tree(t, fc->shell));
 	fc->shell->fc = FALSE;
 	fc->shell->interactive = TRUE;

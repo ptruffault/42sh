@@ -320,6 +320,7 @@ int				ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh);
 /*
 ** exec/redirection.c
 */
+int				ft_isstd(int i);
 int				get_destination_fd(t_redirect *r);
 int				fd_dup(int fd1, int fd2, t_process *p);
 

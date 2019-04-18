@@ -15,10 +15,6 @@
 # include <stdbool.h>
 # include "tenvv.h"
 
-# define IS_STD(x) (0 <= x && x <= 2)
-# define IS_CMD(x) (1 <= x && x <= 4)
-# define IS_EXP(x) (1 <= x && x <= 3)
-# define IS_RUNNING(x) (x == RUNNING_FG || x == RUNNING_BG)
 # define FCTMP "/tmp/fc____42sh"
 # define FCTMPEXEC " /tmp/fc____42sh"
 # define NUMBER_OF_KEYS 24

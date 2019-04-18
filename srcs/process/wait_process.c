@@ -64,6 +64,7 @@ int			ft_wait(t_jobs *j, t_shell *sh, t_bool bg)
 		{
 			ft_eval_status(p);
 			ret = p->ret;
+			sh->env = ft_new_envv_int(sh->env, "?", p->ret, IN);
 			if (!ft_job_stuff(j, sh))
 				break ;
 		}

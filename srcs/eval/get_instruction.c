@@ -27,7 +27,7 @@ static t_word	*maybe_expand(t_word *w)
 				ft_strdel(&w->word);
 				w->word = tmp;
 			}
-	if (w && IS_EXP(w->type) && w->word)
+	if (w && 1 <= w->type && w->type <= 3 && w->word)
 		w->word = ft_exp_var(w->word, sh);
 	return (w);
 }
@@ -50,7 +50,7 @@ static t_word	*get_argv(t_tree *t, t_word *w)
 			t->assign = ft_new_envv_equ(t->assign, w->word, TMP);
 		w = w->next;
 	}
-	while (w && w->word && (IS_CMD(w->type) || w->type == NUL))
+	while (w && w->word && ((1 <= w->type && w->type <= 4) || w->type == NUL))
 	{
 		t->cmd = ft_addtword(t->cmd, w);
 		w = w->next;
@@ -69,7 +69,7 @@ static t_tree	*built_tree(t_tree *head, t_word *w, t_shell *sh)
 	tree = head;
 	while (tmp && tmp->word)
 	{
-		if (tmp && (IS_CMD(tmp->type) || tmp->type == NUL))
+		if (tmp && ((1 <= w->type && w->type <= 4) || tmp->type == NUL))
 			tmp = get_argv(tree, tmp);
 		if (tmp && ((tmp->type == REDIRECT
 			&& !(tmp = get_redirections(tree, tmp)))
@@ -104,7 +104,7 @@ int				ft_check_grammar(t_word *w, t_shell *sh)
 			sh->env = ft_new_envv_int(sh->env, "?", 2, IN);
 			return (error("syntax error near", w->word));
 		}
-		if (IS_CMD(w->type))
+		if (1 <= w->type && w->type <= 4)
 			cmd++;
 		w = w->next;
 	}

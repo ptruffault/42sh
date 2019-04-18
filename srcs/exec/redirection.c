@@ -26,24 +26,31 @@ static void	ft_heredoc_content(t_redirect *r, t_shell *sh)
 	}
 }
 
+int			ft_isstd(int i)
+{
+	if (0 <= i && i <= 2)
+		return (1);
+	return (0);
+}
+
 int			fd_dup(int fd1, int fd2, t_process *p)
 {
 	int		ret;
 	t_shell	*sh;
 
 	sh = ft_get_set_shell(NULL);
-	if ((IS_STD(fd1) && (p->fd[fd1] == -1)))
+	if ((ft_isstd(fd1) && (p->fd[fd1] == -1)))
 		return (error_i("bad file descriptor", fd1) - 1);
-	else if (!IS_STD(fd1) && IS_STD(fd2) && fd1 == sh->std[fd2])
+	else if (!ft_isstd(fd1) && ft_isstd(fd2) && fd1 == sh->std[fd2])
 		return (error_i("bad file descriptor", fd1) - 1);
 	ret = 0;
 	if (fd1 != -1)
 	{
 		if ((ret = dup2(fd1, fd2)) < 0)
 			return (error_i("duplicate file descriptor fucked up", fd1) - 1);
-		if (!IS_STD(fd1))
+		if (!ft_isstd(fd1))
 			ft_close(fd1);
-		if (!IS_STD(fd2))
+		if (!ft_isstd(fd2))
 			ft_close(fd2);
 	}
 	return (ret);

@@ -21,13 +21,13 @@ int			ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh)
 	{
 		if (!get_destination_fd(r))
 			return (0);
-		if (IS_STD(r->from) && IS_STD(sh->std[r->from]))
+		if (ft_isstd(r->from) && ft_isstd(sh->std[r->from]))
 			sh->std[r->from] = dup(r->from);
-		if (IS_STD(r->to) && IS_STD(sh->std[r->to]))
+		if (ft_isstd(r->to) && ft_isstd(sh->std[r->to]))
 			sh->std[r->to] = dup(r->to);
 		if (fd_dup(r->to, r->from, p) < 0)
 			return (0);
-		if (IS_STD(r->from))
+		if (ft_isstd(r->from))
 			p->fd[r->from] = r->to;
 		r = r->next;
 	}

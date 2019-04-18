@@ -107,7 +107,7 @@ t_tree			*ft_expention(t_tree *t)
 		w = t->cmd;
 		while (w)
 		{
-			if (w && IS_EXP(w->type) && w->word)
+			if (w && 1 <= w->type && w->type <= 3 && w->word)
 				w->word = ft_exp_var(w->word, sh);
 			w = w->next;
 		}

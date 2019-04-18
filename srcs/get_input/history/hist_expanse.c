@@ -79,13 +79,11 @@ static int	parse_hist_exp(t_edit *e, size_t x)
 int			check_for_hist_exp(t_edit *e)
 {
 	size_t	x;
-	char	*tmp;
 	int		block;
 
 	x = 0;
 	block = FALSE;
-	(void)tmp;
-	while (e->hist->s[x])
+	while (e->hist && e->hist->s && e->hist->s[x])
 	{
 		if (e->hist->s[x] == '\\')
 			++x;

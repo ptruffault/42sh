@@ -22,7 +22,8 @@ static int	delete_simple_left(t_edit *e)
 		return (SUCCESS);
 	i = 0;
 	j = 0;
-	if (!(tmp = ft_strnew(ft_strlen(e->hist->s) - 1)))
+	if (!(tmp = ft_strnew(ft_strlen(e->hist->s) - 1)) || !e->hist
+		|| !e->hist->s)
 		return (FAILURE);
 	ft_delete_line(e);
 	while (e->hist->s[j])
@@ -47,7 +48,8 @@ static int	delete_multiple_left(t_edit *e, size_t stop)
 	size_t	size;
 
 	i = (e->curr > e->select_pos ? e->curr : e->select_pos);
-	if (!(tmp = ft_strnew(ft_strlen(e->hist->s) - (i - stop))))
+	if (!(tmp = ft_strnew(ft_strlen(e->hist->s) - (i - stop)))
+		|| !e->hist || !e->hist->s)
 		return (FAILURE);
 	ft_delete_line(e);
 	ft_strncpy(tmp, e->hist->s, stop);
@@ -74,7 +76,7 @@ int			ft_add_char(char buf, t_edit *e)
 	if (e->select != -1)
 		delete_left(e);
 	e->head = ft_get_set_shell(NULL)->e.hist;
-	if ((!ft_isprint(buf) || !e->hist->s) && buf != 9)
+	if ((!e->hist || !ft_isprint(buf) || !e->hist->s) && buf != 9)
 		return (SUCCESS);
 	tmp = e->hist->s;
 	e->hist->s = ft_strsub(tmp, 0, (size_t)e->curr);

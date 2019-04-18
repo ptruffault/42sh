@@ -40,13 +40,16 @@ static int	autocompletion_adding(t_edit *e, char **t)
 {
 	size_t	x;
 	char	*tmp;
+	size_t	size;
 
 	x = 0;
+	if (!e->hist && !e->hist->s)
+		return (FAILURE);
 	while (e->curr - x > 0
 		&& !(ft_strchr(" /;{$|&", e->hist->s[e->curr - x - 1])))
 		++x;
-	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + e->curr - x
-			, (int)(x - 1), t[0])))
+	size = e->curr - x;
+	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + size, (int)(x - 1), t[0])))
 		return (FAILURE);
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
@@ -70,9 +73,9 @@ int			tab_handle(t_edit *e)
 		return (ft_add_char('\t', e));
 	if (!(tabl = check_line(&max_len, &total, e)))
 		return (FAILURE);
-	if (total > 1)
+	if (total > 1 && e->hist)
 		autocompletion_printing(e, tabl, max_len);
-	else if (total == 1)
+	else if (total == 1 && e->hist)
 		autocompletion_adding(e, tabl);
 	max_len = 0;
 	while (tabl[max_len])

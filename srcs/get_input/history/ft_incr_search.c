@@ -70,7 +70,8 @@ void			ft_incremental_search(t_edit *e)
 {
 	t_hist *hist;
 
-	hist = e->hist;
+	if (!(hist = e->hist))
+		return ;
 	while (hist->prev)
 		hist = hist->prev;
 	ft_print_fast(e);

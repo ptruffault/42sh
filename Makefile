@@ -304,6 +304,10 @@ save: fclean clear
 	@git add -A && git commit -m "make save" && git push \
 	&& printf "$(COLOR)save$(NO_COLOR) : $(DONE)\n" || printf"$(OP_COLOR)save : KO\n$(NO_COLOR)"
 
+pull: fclean clear
+	@git add -A & git commit -m "make pull" && git pull \
+	&& printf "$(COLOR)pull$(NO_COLOR) : $(DONE)\n" || printf"$(OP_COLOR)pull : KO\n$(NO_COLOR)"
+
 
 #############################
 #          SETTING          #

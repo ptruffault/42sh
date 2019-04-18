@@ -81,9 +81,8 @@ int			ft_fc_option_e(t_fc *fc, int pos)
 	if (ft_fc_write_in_file(fc, open(FCTMP, O_CREAT | O_RDWR, 0644)))
 		return (fc_free_editor(editor) + 1);
 	fc->shell->fc = TRUE;
-	if ((fc_option_e_stuff(fc, editor)))
-		return (fc_free_editor(editor) + 1);
-	exec_file(FCTMP, fc->shell);
+	if (!(fc_option_e_stuff(fc, editor)))
+		exec_file(FCTMP, fc->shell);
 	fc->shell->interactive = TRUE;
 	fc->shell->fc = FALSE;
 	unlink(FCTMP);

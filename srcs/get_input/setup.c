@@ -39,7 +39,7 @@ int				ft_get_hist_size(void)
 	sh = ft_get_set_shell(NULL);
 	if (!(line = get_tenvv_val(sh->env, "HISTSIZE")))
 		return (32767);
-	return (ft_atoi(line) > 10 ? ft_atoi(line) : 32767);
+	return (ft_atoi(line) > 32767 ? ft_atoi(line) : 32767);
 }
 
 static int		hist_init_for_gi(t_shell *sh)

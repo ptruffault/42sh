@@ -14,6 +14,8 @@
 
 static void	print_background(t_edit *e, size_t pos, size_t size)
 {
+	if (!e->hist->s)
+		return ;
 	ft_putstr(JAUNE);
 	term_actions("mr");
 	if (e->hist->s[pos] == '\n')
@@ -31,6 +33,8 @@ void		ft_delete_line(t_edit *e)
 
 void		ft_print_edited(t_edit *e)
 {
+	if (!e->hist->s)
+		return ;
 	ft_delete_line(e);
 	e->curr = ft_strlen(e->hist->s);
 	ft_putstr("\x1B[33m");
@@ -47,6 +51,8 @@ void		ft_print_fast(t_edit *e)
 	size_t i;
 
 	size = 1;
+	if (!e->hist->s)
+		return ;
 	i = ft_strlen(e->hist->s);
 	term_actions((e->curr == i) ? "ve" : "vi");
 	if (e->select == -1 || e->select_pos == e->curr)

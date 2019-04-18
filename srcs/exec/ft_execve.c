@@ -59,7 +59,7 @@ static void		ft_exec(t_process *p, t_shell *sh, t_tree *t)
 			ft_groups_stuff(sh, p);
 	}
 	else
-		p->ret = 126;
+		sh->env = ft_new_envv_int(sh->env, "?", 126, IN);
 }
 
 t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
@@ -80,7 +80,7 @@ t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 		else
 		{
 			error("command not found", *p->argv);
-			p->ret = 127;
+			sh->env = ft_new_envv_int(sh->env, "?", 127, IN);
 		}
 	}
 	else

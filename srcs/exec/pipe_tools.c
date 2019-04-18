@@ -22,6 +22,14 @@ void		ft_groups_stuff(t_shell *sh, t_process *p)
 	}
 }
 
+void		ft_close_pipe(int pipe[2])
+{
+	if (pipe[0] != 0)
+		ft_close(pipe[0]);
+	if (pipe[1] != 0)
+		ft_close(pipe[1]);
+}
+
 int			ft_link_stdin(t_process *p)
 {
 	if ((p->fd[0] = dup2(p->pipe[0], STDIN_FILENO)) < 0)
@@ -36,12 +44,4 @@ int			ft_link_stdout(t_process *p)
 		return (-1);
 	ft_close_pipe(p->pipe);
 	return (1);
-}
-
-void		ft_close_pipe(int pipe[2])
-{
-	if (pipe[0] != 0)
-		ft_close(pipe[0]);
-	if (pipe[1] != 0)
-		ft_close(pipe[1]);
 }

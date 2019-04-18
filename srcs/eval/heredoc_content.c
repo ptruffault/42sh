@@ -42,8 +42,9 @@ static char		*heredoc_get_input(char *eoi, t_shell *sh)
 				return (ft_heredoc_clear(in, ret));
 		}
 	ft_strdel(&in);
-	hist->s = ft_stradd_char(hist->s, '\n');
-	hist->s = ft_strappend(&hist->s, ret);
+	if ((hist->s = ft_stradd_char(hist->s, '\n')))
+		hist->s = ft_strappend(&hist->s, ret);
+	write(0, "\n", 1);
 	return (ret);
 }
 
@@ -63,8 +64,8 @@ static char		*heredoc_get_content(char *eof, t_shell *sh)
 			break ;
 		}
 	}
-	sh->txt = ft_stradd_char(sh->txt, '\n');
-	sh->txt = ft_strappend(&sh->txt, ret);
+	if ((sh->txt = ft_stradd_char(sh->txt, '\n')))
+		sh->txt = ft_strappend(&sh->txt, ret);
 	return (ret);
 }
 

@@ -23,7 +23,7 @@ static t_word	*maybe_expand(t_word *w)
 		if (tmp[2] == '\0' || tmp[2] == '/')
 			if ((value = get_tenvv_val(sh->env, "HOME")))
 			{
-				tmp = ft_strpull_exp(w->word, tmp, 0, value);
+				tmp = ft_strplexp(w->word, tmp, 0, value);
 				ft_strdel(&w->word);
 				w->word = tmp;
 			}

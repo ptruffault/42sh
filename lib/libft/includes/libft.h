@@ -118,5 +118,5 @@ char	*ft_strappend(char **str, const char *end);
 char	*ft_strappend_fr(char **str, char **end);
 char	*ft_strinsert_char(char **str, char c, char *end);
 char	*ft_strdup_trim(char *value);
-char	*ft_strpull_exp(char *src, char *ptr, int len, char *value);
+char	*ft_strplexp(char *src, char *ptr, int len, char *value);
 #endif

@@ -20,10 +20,14 @@ void	curr_move_right(t_edit *e)
 		{
 			if (e->pos_y > 0)
 			{
-				e->pos_z += (e->pos_y > (int)e->width)
-				? (int)e->width : e->pos_y;
-				e->pos_y -= (e->pos_y > (int)e->width)
-				? (int)e->width : e->pos_y;
+				if (e->pos_y > (int)e->width)
+					e->pos_z += (int)e->width;
+				else
+					e->pos_z += e->pos_y;
+				if (e->pos_y > (int)e->width)
+					e->pos_y -= (int)e->width;
+				else
+					e->pos_y -= e->pos_y;
 			}
 		}
 	}
@@ -39,10 +43,14 @@ void	curr_move_left(t_edit *e)
 		{
 			if (e->pos_z > 0)
 			{
-				e->pos_y += (e->pos_z > (int)e->width)
-				? (int)e->width : e->pos_z;
-				e->pos_z -= (e->pos_z > (int)e->width)
-				? (int)e->width : e->pos_z;
+				if (e->pos_z > (int)e->width)
+					e->pos_y += (int)e->width;
+				else
+					e->pos_y += e->pos_z;
+				if (e->pos_z > (int)e->width)
+					e->pos_z -= (int)e->width;
+				else
+					e->pos_z -= e->pos_z;
 			}
 		}
 	}

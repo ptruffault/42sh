@@ -86,12 +86,12 @@ int				fc_free_editor(char *editor);
 /*
 ** builtins/ft_fc/fc_fc_option_l.c
 */
-void			ft_fc_option_l(t_fc *fc);
+int				ft_fc_option_l(t_fc *fc);
 
 /*
 ** builtins/ft_fc/fc_fc_option_s.c
 */
-void			ft_fc_option_s(t_fc *fc, int pos);
+int				ft_fc_option_s(t_fc *fc, int pos);
 
 /*
 ** builtins/ft_fc/fc_fc_search_hist.c

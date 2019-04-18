@@ -37,13 +37,13 @@ static void	print_hist_opt_l(t_fc *fc, short way)
 		}
 }
 
-void		ft_fc_option_l(t_fc *fc)
+int			ft_fc_option_l(t_fc *fc)
 {
 	short	way;
 	t_hist	*tmp;
 
 	if (search_in_hist_parser(fc, 3) == FAILURE)
-		return ;
+		return (1);
 	tmp = fc->hist_first;
 	fc->hist_first = fc->hist_last;
 	fc->hist_last = tmp;
@@ -55,4 +55,5 @@ void		ft_fc_option_l(t_fc *fc)
 	}
 	way = fc->hist_first->nb < fc->hist_last->nb ? 1 : 0;
 	print_hist_opt_l(fc, way);
+	return (0);
 }

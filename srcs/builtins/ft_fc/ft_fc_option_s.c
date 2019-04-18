@@ -87,7 +87,7 @@ static t_hist	*ft_fc_option_s_replace(t_fc *fc, int pos)
 	return (hist);
 }
 
-void			ft_fc_option_s(t_fc *fc, int pos)
+int				ft_fc_option_s(t_fc *fc, int pos)
 {
 	t_tree	*t;
 	t_hist	*hist;
@@ -95,15 +95,15 @@ void			ft_fc_option_s(t_fc *fc, int pos)
 	hist = NULL;
 	if (fc->av[pos] && ft_strchr(fc->av[pos], '=')
 		&& !(hist = ft_fc_option_s_replace(fc, pos)))
-		return ;
+		return (1);
 	else if (hist == NULL)
 	{
 		if (search_in_hist_parser(fc, 1) == FAILURE)
-			return ;
+			return (1);
 		hist = fc->shell->hist;
 		ft_strdel(&hist->s);
 		if (!(hist->s = ft_strdup(fc->hist_first->s)))
-			return ;
+			return (1);
 	}
 	fc->shell->fc = TRUE;
 	fc->shell->interactive = FALSE;
@@ -112,4 +112,5 @@ void			ft_fc_option_s(t_fc *fc, int pos)
 		ft_free_tree(exec_tree(t, fc->shell));
 	fc->shell->fc = FALSE;
 	fc->shell->interactive = TRUE;
+	return (0);
 }

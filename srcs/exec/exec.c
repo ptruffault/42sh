@@ -48,10 +48,7 @@ static void		ft_post_exec(t_jobs *j, t_tree *t, t_process *p, t_shell *sh)
 			ft_tcsetpgrp(sh->std[0], sh->pgid);
 		if (p->status != SUSPENDED && p->background == FALSE
 			&& !(sh->fc == TRUE))
-		{
-			p->status = INIT;
 			sh->jobs = ft_remove_jobs(p->pid, sh);
-		}
 	}
 	ft_reset_fd(sh);
 }

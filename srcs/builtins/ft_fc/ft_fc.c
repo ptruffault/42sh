@@ -62,6 +62,18 @@ static void		fc_init_first_last(t_fc *fc, int pos)
 	}
 }
 
+int				fc_delete_link(t_fc *fc, int x)
+{
+	if (fc->shell->hist && fc->shell->hist->next)
+	{
+		ft_strdel(&fc->shell->hist->s);
+		fc->shell->hist = fc->shell->hist->next;
+		free(fc->shell->hist->prev);
+		fc->shell->hist->prev = NULL;
+	}
+	return (x);
+}
+
 int				ft_fc(t_shell *shell, char **argv)
 {
 	t_fc	fc;
@@ -83,9 +95,9 @@ int				ft_fc(t_shell *shell, char **argv)
 	if (fc.flags[0] == 'l' && ft_fc_option_l(&fc) == 1)
 		return (1);
 	else if (fc.flags[0] == 'e' && ft_fc_option_e(&fc, i) == 1)
-		return (1);
+		return (fc_delete_link(&fc, 1));
 	else if (fc.flags[0] == 's' && ft_fc_option_s(&fc, i) == 1)
-		return (1);
+		return (fc_delete_link(&fc, 1));
 	if (fc.flags[0] == 'e' || fc.flags[0] == 's')
 		return (ft_atoi(get_tenvv_val(fc.shell->env, "?")));
 	return (0);

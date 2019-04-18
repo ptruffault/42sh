@@ -23,7 +23,7 @@ static t_word	*maybe_expand(t_word *w)
 		if (tmp[2] == '\0' || tmp[2] == '/')
 			if ((value = get_tenvv_val(sh->env, "HOME")))
 			{
-				tmp = ft_strplexp(w->word, tmp, 0, value);
+				tmp = ft_strplexp(w->word, tmp + 1, 0, value);
 				ft_strdel(&w->word);
 				w->word = tmp;
 			}
@@ -38,9 +38,12 @@ static t_word	*get_argv(t_tree *t, t_word *w)
 	{
 		if (!check_name(w->word))
 			break ;
+					ft_printf("%s\n", w->word);
 		w = maybe_expand(w);
+			ft_printf("%s\n", w->word);
 		if (w->paste && w->next)
 		{
+
 			w->next = maybe_expand(w->next);
 			w->word[ft_strlen(w->word) - 1] = '\0';
 			t->assign = ft_new_envv(t->assign, w->word, w->next->word, TMP);

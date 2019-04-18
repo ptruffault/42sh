@@ -39,7 +39,13 @@ static t_word	*get_argv(t_tree *t, t_word *w)
 		if (!check_name(w->word))
 			break ;
 		w = maybe_expand(w);
-		t->assign = ft_new_envv_equ(t->assign, w->word, TMP);
+		if (w->paste && w->next)
+		{
+			t->assign = ft_new_envv(t->assign, w->word, w->next->word, TMP);
+			w = w->next;
+		}
+		else
+			t->assign = ft_new_envv_equ(t->assign, w->word, TMP);
 		w = w->next;
 	}
 	while (w && w->word && (IS_CMD(w->type) || w->type == NUL))

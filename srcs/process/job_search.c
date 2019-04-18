@@ -56,7 +56,7 @@ t_jobs			*ft_get_last_jobs(t_jobs *j, char last)
 			return (j);
 		j = j->next;
 	}
-	return (NULL);
+	return (j);
 }
 
 t_jobs			*ft_get_jobs_pid(t_jobs *j, int pid)

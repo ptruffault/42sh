@@ -1,3 +1,0 @@
-MDR
-LAUL
-EOI

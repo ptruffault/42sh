@@ -41,6 +41,7 @@ static t_word	*get_argv(t_tree *t, t_word *w)
 		w = maybe_expand(w);
 		if (w->paste && w->next)
 		{
+			w->word[ft_strlen(w->word) - 1] = '\0';
 			t->assign = ft_new_envv(t->assign, w->word, w->next->word, TMP);
 			w = w->next;
 		}

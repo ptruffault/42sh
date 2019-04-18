@@ -22,12 +22,12 @@ static char		*ft_get_varname(char *s)
 	if (*ptr == '!' || *ptr == '?' || *ptr == '$')
 		return (ft_strndup(ptr, 1));
 	while (ptr[i] && (ptr[i] == '_' || ft_isalpha(ptr[i])
-	|| ft_isdigit(ptr[i]) || ptr[i] == '~' || ptr[i] == '@'))
+	|| ft_isdigit(ptr[i]) || ptr[i] == '@'))
 		i++;
 	return (ft_strsub(s, (unsigned int)(ptr - s), i));
 }
 
-static char		*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
+static char		*ft_exp_envv_var(char *ret, t_shell *sh, int *i)
 {
 	char	*name;
 	char	*value;
@@ -35,14 +35,15 @@ static char		*ft_exp_envv_var(char *ret, char *ptr, t_shell *sh)
 
 	name = NULL;
 	value = NULL;
-	if (!(name = ft_get_varname(ptr)))
+	if (!(name = ft_get_varname(&ret[*i])))
 		ft_strdel(&ret);
 	else if (!(value = get_tenvv_val(sh->env, name)))
 		value = "";
-	if (name && (tmp = ft_strpull_exp(ret, ptr, (int)ft_strlen(name), value)))
+	if (name && (tmp = ft_strpull_exp(ret, &ret[*i], (int)ft_strlen(name), value)))
 	{
 		ft_strdel(&ret);
 		ret = tmp;
+		*i = *i + (*value ? ft_strlen(value) - 1 : -1);
 	}
 	ft_strdel(&name);
 	return (ret);
@@ -86,12 +87,8 @@ char			*ft_exp_var(char *ret, t_shell *sh)
 					return (NULL);
 				i = -1;
 			}
-			else if (ret[i + 1] != '{')
-			{
-				if (!(ret = ft_exp_envv_var(ret, &ret[i], sh)))
-					return (NULL);
-				i = -1;
-			}
+			else if (!(ret = ft_exp_envv_var(ret, sh, &i)))
+				return (NULL);
 		}
 	}
 	return (ret);

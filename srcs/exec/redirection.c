@@ -12,19 +12,6 @@
 
 #include "shell42.h"
 
-static int	check_fd(t_process *p, int fd)
-{
-	if (IS_STD(fd))
-	{
-		if (p->fd[fd] == -1)
-		{
-			error_i("bad file descriptor", fd);
-			return (-2);
-		}
-	}
-	return (fd);
-}
-
 static void	ft_heredoc_content(t_redirect *r, t_shell *sh)
 {
 	int fd[2];
@@ -42,12 +29,14 @@ static void	ft_heredoc_content(t_redirect *r, t_shell *sh)
 int			fd_dup(int fd1, int fd2, t_process *p)
 {
 	int ret;
+	t_shell *sh;
 
+	sh = ft_get_set_shell(NULL);
+	if ((IS_STD(fd1) && (p->fd[fd1] == -1)))
+		return (error_i("bad file descriptor", fd1) - 1);
+	else if (!IS_STD(fd1) && IS_STD(fd2) && fd1 == sh->std[fd2])
+		return (error_i("bad file descriptor", fd1) - 1);
 	ret = 0;
-	if ((fd1 = check_fd(p, fd1)) == -2)
-		return (-1);
-	if (fd1 == -1)
-		close(fd2);
 	if (fd1 != -1)
 	{
 		if ((ret = dup2(fd1, fd2)) < 0)

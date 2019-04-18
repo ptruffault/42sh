@@ -39,17 +39,14 @@ static t_tree	*next_instruction(t_tree *t)
 
 static void		ft_post_exec(t_jobs *j, t_tree *t, t_process *p, t_shell *sh)
 {
-	if (p && t->ret <= 0)
+	if (p && j)
 	{
-		if (j && (t->ret == -1 || (p && p->builtins == TRUE && p->ret == 0)))
-		{
-			ft_link_process_to_term(p, sh);
-			p->ret = ft_wait(j, sh, FALSE);
-			t->ret = (p->valid ? p->ret : 127);
-			if (p->background == FALSE && sh->interactive == TRUE && p)
-				ft_tcsetpgrp(sh->std[0], sh->pgid);
-		}
-		else if (!(sh->fc == TRUE))
+		ft_link_process_to_term(p, sh);
+		p->ret = ft_wait(j, sh, FALSE);
+		t->ret = (p->valid ? p->ret : 127);
+		if (p->background == FALSE && sh->interactive == TRUE && p)
+			ft_tcsetpgrp(sh->std[0], sh->pgid);
+		if (p->background == FALSE && !(sh->fc == TRUE))
 		{
 			p->status = INIT;
 			sh->jobs = ft_remove_jobs(p->pid, sh);

@@ -38,12 +38,9 @@ static t_word	*get_argv(t_tree *t, t_word *w)
 	{
 		if (!check_name(w->word))
 			break ;
-					ft_printf("%s\n", w->word);
 		w = maybe_expand(w);
-			ft_printf("%s\n", w->word);
 		if (w->paste && w->next)
 		{
-
 			w->next = maybe_expand(w->next);
 			w->word[ft_strlen(w->word) - 1] = '\0';
 			t->assign = ft_new_envv(t->assign, w->word, w->next->word, TMP);

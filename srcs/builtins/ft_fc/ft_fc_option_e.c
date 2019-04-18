@@ -41,18 +41,32 @@ static int	ft_fc_write_in_file(t_fc *fc, int fd)
 	return (close(fd));
 }
 
-static void	fc_option_e_stuff(t_fc *fc)
+static int	fc_option_e_stuff(t_fc *fc, char *editor)
 {
+	t_tree	*t;
+
+	if ((t = get_tree(editor, fc->shell)))
+	{
+		t = exec_tree(t, fc->shell);
+		if (t->ret != 0)
+		{
+			ft_free_tree(t);
+			return (FAILURE);
+		}
+		ft_free_tree(t);
+	}
+	else
+		return (FAILURE);
 	ft_strdel(&fc->shell->txt);
 	ft_strdel(&fc->shell->hist->s);
 	fc->shell->hist->s = ft_strnew(3);
 	fc->shell->interactive = FALSE;
+	return (SUCCESS);
 }
 
 int			ft_fc_option_e(t_fc *fc, int pos)
 {
 	char	*editor;
-	t_tree	*t;
 
 	editor = NULL;
 	if (search_in_hist_parser(fc, 3) == FAILURE)
@@ -68,9 +82,8 @@ int			ft_fc_option_e(t_fc *fc, int pos)
 		, O_CREAT | O_RDWR, 0644)))
 		return (fc_free_editor(editor));
 	fc->shell->fc = TRUE;
-	if ((t = get_tree(editor, fc->shell)))
-		ft_free_tree(exec_tree(t, fc->shell));
-	fc_option_e_stuff(fc);
+	if (!(fc_option_e_stuff(fc, editor)))
+		return (fc_free_editor(editor));
 	exec_file("/tmp/fc____42sh", fc->shell);
 	fc->shell->interactive = TRUE;
 	fc->shell->fc = FALSE;

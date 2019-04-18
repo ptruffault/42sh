@@ -16,8 +16,8 @@ static char	*join_or_save_txt(char *tmp, t_shell *sh)
 {
 	if (tmp == NULL)
 		return (sh->txt);
-	tmp = ft_strjoin_add_if(&tmp, &sh->txt, "\n");
-	sh->txt = tmp;
+	if ((tmp = ft_strjoin_add_if(&tmp, &sh->txt, "\n")))
+		sh->txt = tmp;
 	return (tmp);
 }
 

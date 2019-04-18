@@ -26,7 +26,7 @@ static void	ft_heredoc_content(t_redirect *r, t_shell *sh)
 	}
 }
 
-int ft_isstd(int i)
+int			ft_isstd(int i)
 {
 	if (0 <= i && i <= 2)
 		return (1);

@@ -15,13 +15,17 @@
 int			checktilde(t_word *w)
 {
 	struct passwd	*usr;
+	char			*tmp;
 
 	if (w->word[1] == '/' || w->word[1] == '\0')
 		return (1);
 	if ((usr = getpwnam(&w->word[1])) != NULL)
 	{
-		ft_strdel(&w->word);
-		w->word = ft_strdup(usr->pw_dir);
+		tmp = w->word;
+		if ((w->word = ft_strdup(usr->pw_dir)))
+			ft_strdel(&tmp);
+		else
+			w->word = tmp;
 		return (0);
 	}
 	return (0);

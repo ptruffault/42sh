@@ -76,7 +76,7 @@ int			ft_fc_option_e(t_fc *fc, int pos)
 	else if (!(editor = ft_strdup(get_tenvv_val(fc->shell->env, "FCEDIT")))
 			&& (editor == NULL && !(editor = ft_strdup("ed"))))
 		return (1);
-	if (!(editor = ft_strappend(&editor, FCTMPEXEC)))
+	if (!editor || !(editor = ft_strappend(&editor, FCTMPEXEC)))
 		return (fc_free_editor(editor));
 	if (ft_fc_write_in_file(fc, open(FCTMP, O_CREAT | O_RDWR, 0644)))
 		return (fc_free_editor(editor) + 1);

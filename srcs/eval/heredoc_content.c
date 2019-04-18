@@ -26,7 +26,7 @@ static char		*heredoc_get_input(char *eoi, t_shell *sh)
 	t_hist	*hist;
 	int		d;
 
-	if (!(ret = ft_strnew(0)))
+	if (!eoi || !(ret = ft_strnew(0)))
 		return (NULL);
 	in = NULL;
 	hist = sh->e.hist;
@@ -54,6 +54,8 @@ static char		*heredoc_get_content(char *eof, t_shell *sh)
 	char *line;
 
 	ret = NULL;
+	if (!eof)
+		return (ret);
 	while (get_next_line(sh->fd, &line) == 1)
 	{
 		if (!ft_strequ(line, eof))

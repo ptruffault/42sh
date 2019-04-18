@@ -51,8 +51,8 @@ static int		get_path_cd(char *path, t_shell *sh, t_opts opts)
 	if ((opts & 0x02) && (path[0] == '/' || path[0] == '.'))
 		return (change_dir(path, sh, opts));
 	curpath = trans_cdpath(path, sh, &pwd_f, &opts);
-	while (ft_strstr(curpath, "..") || ft_strstr(curpath, "//")
-			|| ft_strstr(curpath, "./") || ft_strstr(curpath, "/."))
+	while (curpath && (ft_strstr(curpath, "..") || ft_strstr(curpath, "//")
+			|| ft_strstr(curpath, "./") || ft_strstr(curpath, "/.")))
 		trim_path(curpath);
 	if (ft_strlen(curpath) == 0)
 		ft_strcpy(curpath, "/");

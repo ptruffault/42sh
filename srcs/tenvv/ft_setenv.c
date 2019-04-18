@@ -18,6 +18,8 @@ char	*ft_split_equal(char *str, char **aft)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+		return (NULL);
 	while (str[i] != '\0' && str[i] != '=')
 		i++;
 	if (str[i] == '\0')
@@ -102,7 +104,7 @@ t_envv	*ft_setenv(t_envv *envv, char **t, int mode, short status)
 	int		i;
 
 	i = 0;
-	while (t[i])
+	while (t && t[i])
 	{
 		if (ft_isequal_env(t[i]))
 			envv = ft_new_envv_equ(envv, t[i], status);

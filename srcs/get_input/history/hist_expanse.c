@@ -70,10 +70,16 @@ static int	parse_hist_exp(t_edit *e, size_t x)
 		return (FAILURE);
 	if (e->hist->s[x + 1] == '!'
 		|| ft_isdigit(e->hist->s[x + 1]) || e->hist->s[x + 1] == '-')
+	{
 		get_nb_of_hist(e, x);
-	else if (e->hist->s[x + 1] < 9 || e->hist->s[x] > 32)
+		return (SUCCESS);
+	}
+	else if (e->hist->s[x + 1] < 9 || e->hist->s[x + 1] > 32)
+	{
 		get_word_of_hist(e, x);
-	return (SUCCESS);
+		return (SUCCESS);
+	}
+	return (FAILURE);
 }
 
 int			check_for_hist_exp(t_edit *e)

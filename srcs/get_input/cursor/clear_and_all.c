@@ -24,7 +24,9 @@ void	reset_tedit(t_edit *e)
 void	reset_get_input(t_edit *e)
 {
 	ft_strdel(&e->tmp);
-	while (e->hist && e->hist->prev)
+	if (!e->hist)
+		return ;
+	while (e->hist->prev)
 		e->hist = e->hist->prev;
 	ft_strdel(&e->hist->s);
 	if (e->hist->next)

@@ -57,9 +57,12 @@ static int	delete_multiple_left(t_edit *e, size_t stop)
 	tmp[x] = '\0';
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
+	e->select_pos = 0;
+	e->select = -1;
 	e->curr = e->curr > e->select_pos ? e->select_pos : e->curr;
 	if (e->curr > (size = ft_strlen(e->hist->s)))
 		e->curr = size;
+	curr_go_last(e);
 	ft_print_fast(e);
 	return (SUCCESS);
 }

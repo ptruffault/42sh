@@ -53,27 +53,27 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val)
 
 t_word			*ft_check_alias(t_word *head, t_shell *sh, int i, t_word *prev)
 {
-	t_word	*tmp_w;
+	t_word	*w;
 	char	*val;
 
-	tmp_w = head;
-	while (tmp_w)
+	w = head;
+	while (w)
 	{
-		i = tmp_w->type == OPERATEUR ? 0 : i;
-		if (i == 1 && tmp_w && ft_strequ(tmp_w->word, "!")
-			&& IS_CMD(tmp_w->type) && tmp_w->type != QUOTE
-			&& tmp_w->type != DQUOTE)
+		i = w->type == OPERATEUR ? 0 : i;
+		if (i == 1 && w && ft_strequ(w->word, "!")
+			&& 1 <= w->type && w->type <= 4 && w->type != QUOTE
+			&& w->type != DQUOTE)
 		{
-			tmp_w = ft_deltword(prev, tmp_w);
-			head = !prev ? tmp_w : head;
+			w = ft_deltword(prev, w);
+			head = !prev ? w : head;
 		}
-		else if (i == 1 && tmp_w && IS_CMD(tmp_w->type) && tmp_w->type != QUOTE
-			&& (val = get_tenvv_val(sh->alias, tmp_w->word)))
-			tmp_w = ft_alias_to_tword(tmp_w, val);
-		else if (tmp_w)
+		else if (i == 1 && w && 1 <= w->type && w->type <= 4 && w->type != QUOTE
+			&& (val = get_tenvv_val(sh->alias, w->word)))
+			w = ft_alias_to_tword(w, val);
+		else if (w)
 		{
-			tmp_w = tmp_w->next;
-			prev = tmp_w;
+			w = w->next;
+			prev = w;
 		}
 		i++;
 	}

@@ -91,7 +91,7 @@ int				cleaning_htable(char *cmd, t_shell *sh)
 		error("hash: bad option :", &cmd[1]);
 		return (2);
 	}
-	while (++i < HASHTABLE_SIZE)
+	while (sh->htable && ++i < HASHTABLE_SIZE)
 	{
 		value = sh->htable[i];
 		while (value != NULL)

@@ -56,6 +56,8 @@ static char	*ft_cut_end(char *val, char *pat)
 
 static char	*ft_handle_op(char *op, char *val, char *pattern)
 {
+	if (!pattern)
+		return (val);
 	if (ft_strequ(op, "##"))
 		while (val && ft_str_startwith(val, pattern))
 			val = ft_cut_begin(val, pattern);

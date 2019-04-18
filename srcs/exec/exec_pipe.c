@@ -50,8 +50,7 @@ t_jobs				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 			ft_son(prev, tmp, sh, t);
 		else if (tmp->pid < 0)
 			p->ret = error("fork fucked up", tmp->cmd) - 1;
-		else
-			prev = ft_stuff(prev, tmp, sh);
+		prev = ft_stuff(prev, tmp, sh);
 		t->ret = p->valid ? t->ret : 127;
 		if ((tmp = tmp->grp))
 		{

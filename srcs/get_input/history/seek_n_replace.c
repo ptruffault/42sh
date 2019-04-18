@@ -17,7 +17,8 @@ int		seek_n_repl_str(t_edit *e, size_t x, char *word, size_t i)
 	t_hist	*hist;
 	char	*tmp;
 
-	hist = ft_get_set_shell(NULL)->hist;
+	if (!(hist = ft_get_set_shell(NULL)->hist))
+		return (FAILURE);
 	while (hist->prev)
 		hist = hist->prev;
 	if (!hist->next)
@@ -43,7 +44,8 @@ int		seek_n_repl_nb(t_edit *e, size_t x, int nb, size_t size)
 	t_hist	*hist;
 	char	*tmp;
 
-	hist = ft_get_set_shell(NULL)->hist;
+	if (!(hist = ft_get_set_shell(NULL)->hist))
+		return (FAILURE);
 	while (hist->prev)
 		hist = hist->prev;
 	if (!hist->next)

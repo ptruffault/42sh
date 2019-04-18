@@ -24,7 +24,7 @@ char	*ft_strpull(char *src, char *ptr, int len, char *value)
 	return (NULL);
 }
 
-char	*ft_strpull_exp(char *src, char *ptr, int len, char *value)
+char	*ft_strplexp(char *src, char *ptr, int len, char *value)
 {
 	if (src && ptr)
 	{

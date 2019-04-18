@@ -28,8 +28,8 @@ static void	ft_heredoc_content(t_redirect *r, t_shell *sh)
 
 int			fd_dup(int fd1, int fd2, t_process *p)
 {
-	int ret;
-	t_shell *sh;
+	int		ret;
+	t_shell	*sh;
 
 	sh = ft_get_set_shell(NULL);
 	if ((IS_STD(fd1) && (p->fd[fd1] == -1)))

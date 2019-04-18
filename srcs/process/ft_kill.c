@@ -37,8 +37,7 @@ int		kill_process(t_process *p, int sig, unsigned int status)
 			if (p->pid > 0 && p->status != DONE && p->status != KILLED)
 			{
 				p->sig = sig;
-				if (kill(-p->pid, sig) < 0)
-					warning("kill fucked up", p->cmd);
+				kill(-p->pid, sig);
 				i++;
 			}
 		}

@@ -32,12 +32,9 @@ static int		put_alias(t_shell *sh, char *str)
 {
 	char	*name;
 	char	*val;
-	char 	*tmp;
 
 	if ((name = ft_split_equal(str, &val)) && !check_name_alias(name))
 		return (1);
-	if ((tmp = get_tenvv_val(ft_get_set_shell(NULL)->alias, val)))
-		val = tmp;
 	sh->alias = ft_new_envv(sh->alias, name, val, EXP);
 	return (0);
 }
@@ -45,7 +42,6 @@ static int		put_alias(t_shell *sh, char *str)
 int				ft_alias(t_shell *sh, char **argv)
 {
 	int		i;
-	char	*tmp;
 
 	i = 1;
 	if (!argv[i])
@@ -61,11 +57,6 @@ int				ft_alias(t_shell *sh, char **argv)
 		{
 			if (!check_name_alias(argv[i]))
 				return (1);
-			if ((tmp = get_tenvv_val(ft_get_set_shell(NULL)->alias, argv[i + 1])))
-			{
-				ft_strdel(&argv[i + 1]);
-				argv[i + 1] = ft_strdup(tmp);
-			}
 			sh->alias = ft_new_envv(sh->alias, argv[i], argv[i + 1], EXP);
 			i++;
 		}

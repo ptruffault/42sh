@@ -14,8 +14,9 @@
 
 static t_word	*ft_next_alias(t_word *w, t_word *w_alias)
 {
-	t_word	*tmp;
-	char	*save;
+	t_word		*tmp;
+	char		*save;
+	static int	inf;
 
 	save = w->word;
 	if (!(w->word = ft_strdup(w_alias->word)))
@@ -32,6 +33,8 @@ static t_word	*ft_next_alias(t_word *w, t_word *w_alias)
 	}
 	w_alias->next = NULL;
 	ft_free_tword(w_alias);
+	if (inf++ < 100)
+		return (ft_check_alias(w, ft_get_set_shell(NULL), 1, NULL));
 	return (w);
 }
 
@@ -49,6 +52,13 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val)
 	if (w_alias == NULL)
 		return (w);
 	return (ft_next_alias(w, w_alias));
+}
+
+static t_word	*ft_fuck_that_norme(t_word *w, t_word **prev)
+{
+	w = w->next;
+	*prev = w;
+	return (w);
 }
 
 t_word			*ft_check_alias(t_word *head, t_shell *sh, int i, t_word *prev)
@@ -69,12 +79,12 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh, int i, t_word *prev)
 		}
 		else if (i == 1 && w && 1 <= w->type && w->type <= 4 && w->type != QUOTE
 			&& (val = get_tenvv_val(sh->alias, w->word)))
-			w = ft_alias_to_tword(w, val);
-		else if (w)
 		{
-			w = w->next;
-			prev = w;
+			w = ft_alias_to_tword(w, val);
+			w = head;
 		}
+		else if (w)
+			w = ft_fuck_that_norme(w, &prev);
 		i++;
 	}
 	return (head);

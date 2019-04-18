@@ -85,7 +85,7 @@ int			check_for_hist_exp(t_edit *e)
 	x = 0;
 	block = FALSE;
 	(void)tmp;
-	while (e->hist->s[x])
+	while (e->hist->s && e->hist->s[x])
 	{
 		if (e->hist->s[x] == '\\')
 			++x;

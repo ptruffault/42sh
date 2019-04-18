@@ -55,7 +55,7 @@
 # define CURSOR_UP "up"
 # define CURSOR_MHORIZ "ch"
 
-# define PS1 "$[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]"
+# define PS1 "$[BLUE][$[RESET]${?}$[BLUE]] $[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]"
 # define PS2 "$[RED]%$[RESET] >"
 
 typedef enum	e_colors

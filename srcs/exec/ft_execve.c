@@ -21,7 +21,7 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 			p->pid = getpid();
 			p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
 			if (setpgid(p->pid, p->pgid) < 0)
-				error("can't set group", p->cmd);
+				error("group creation fucked up", p->cmd);
 		}
 		p->ret = run_builtin(t, p, sh);
 		if (sh->pid != getpid())
@@ -38,7 +38,7 @@ static void		ft_execve(t_process *p, t_shell *sh)
 		p->pid = getpid();
 		p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
 		if (setpgid(p->pid, p->pgid) < 0)
-			error("can't set groupmake", p->cmd);
+			error("group creation fucked up", p->cmd);
 	}
 	set_son_signal();
 	execve(p->cmd, p->argv, p->env);

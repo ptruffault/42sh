@@ -20,7 +20,7 @@ static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 		tmp->pgid = tmp->pid;
 	if (sh->interactive == TRUE && setpgid(tmp->pid, tmp->pgid) < 0)
 	{
-		error("can't set group", tmp->cmd);
+		error("group creation fucked up", tmp->cmd);
 		tmp->ret = 1;
 	}
 	return (tmp);

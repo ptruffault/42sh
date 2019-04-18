@@ -17,7 +17,7 @@ int		seek_n_repl_str(t_edit *e, size_t x, char *word, size_t i)
 	t_hist	*hist;
 	char	*tmp;
 
-	hist = e->hist;
+	hist = ft_get_set_shell(NULL)->hist;
 	while (hist->prev)
 		hist = hist->prev;
 	if (!hist->next)
@@ -43,7 +43,7 @@ int		seek_n_repl_nb(t_edit *e, size_t x, int nb, size_t size)
 	t_hist	*hist;
 	char	*tmp;
 
-	hist = e->hist;
+	hist = ft_get_set_shell(NULL)->hist;
 	while (hist->prev)
 		hist = hist->prev;
 	if (!hist->next)
@@ -56,7 +56,7 @@ int		seek_n_repl_nb(t_edit *e, size_t x, int nb, size_t size)
 	if (!hist)
 		return (FAILURE);
 	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + x, (int)size, hist->s)))
-		return (error("Memory allocation failed", NULL));
+		return (FAILURE);
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
 	curr_go_last(e);

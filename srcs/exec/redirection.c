@@ -37,8 +37,6 @@ int			fd_dup(int fd1, int fd2, t_process *p)
 	else if (!IS_STD(fd1) && IS_STD(fd2) && fd1 == sh->std[fd2])
 		return (error_i("bad file descriptor", fd1) - 1);
 	ret = 0;
-	if (fd1 == -1)
-		close(fd2);
 	if (fd1 != -1)
 	{
 		if ((ret = dup2(fd1, fd2)) < 0)

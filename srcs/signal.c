@@ -81,9 +81,11 @@ void		set_son_signal(void)
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTTOU, SIG_DFL);
-	signal(SIGCHLD, SIG_DFL);
+	//signal(SIGCHLD, SIG_DFL);
 	signal(SIGWINCH, SIG_DFL);
 	signal(SIGIO, SIG_DFL);
+	signal(SIGUSR1, SIG_DFL);
+	signal(SIGUSR2, SIG_DFL);
 }
 
 void		set_signals(void)
@@ -96,4 +98,6 @@ void		set_signals(void)
 	signal(SIGIO, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
+	signal(SIGUSR1, SIG_IGN);
+	signal(SIGUSR2, SIG_IGN);
 }

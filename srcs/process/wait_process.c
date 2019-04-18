@@ -54,12 +54,12 @@ int			ft_wait(t_jobs *j, t_shell *sh, t_bool bg)
 	p = (j ? j->p : NULL);
 	while (p)
 	{
-		if ((p->pid == 0 && p->status != SUSPENDED && p->status != DONE
+		if ((p->pid == 0 && p->status != DONE
 				&& p->status != KILLED
 				&& (p->status == RUNNING_FG || p->status == RUNNING_BG))
 			|| (bg == FALSE && p->status == RUNNING_FG
 				&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)
-			|| (p->status == RUNNING_BG
+			|| ((p->status == RUNNING_BG || p->status == SUSPENDED)
 				&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0))
 		{
 			ft_eval_status(p);

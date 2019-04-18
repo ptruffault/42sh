@@ -79,6 +79,7 @@ int				init_tedit(t_shell *sh)
 	sh->e.mode = 0;
 	sh->e.hist = NULL;
 	sh->e.incr_search = NULL;
+	sh->e.head = NULL;
 	if (sh->hist && sh->e.hist_size <= sh->hist->nb)
 	{
 		if (hist_init_for_gi(sh) == FAILURE)

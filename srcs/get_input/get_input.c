@@ -84,6 +84,7 @@ int			get_input(char **line)
 		|| !ft_setup_edit_term(sh))
 		return (FAILURE);
 	buf = 0;
+	sh->e.head = sh->e.hist;
 	while (sh->e.edited == FALSE && read(0, &buf, 8) > 0)
 	{
 		buf = (unsigned int)handle_input(buf, &sh->e);

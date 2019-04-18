@@ -117,6 +117,7 @@ typedef struct			s_edit
 	void				(*ft_tab[NUMBER_OF_KEYS])(struct s_edit *e);
 	void				(*print_modes[NUMBER_OF_PRINT_MODES])(struct s_edit *e);
 	t_hist				*hist;
+	t_hist				*head;
 }						t_edit;
 
 typedef struct			s_eval

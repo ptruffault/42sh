@@ -31,6 +31,13 @@ int			ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh)
 			p->fd[r->from] = r->to;
 		r = r->next;
 	}
+	r = t->r;
+	while (r)
+	{
+		if (r->to == -1)
+			ft_close(r->from);
+		r = r->next;
+	}
 	return (1);
 }
 

@@ -46,10 +46,14 @@ t_envv	*ft_new_envv_int(t_envv *envv, const char *name, int val, short status)
 		return (envv);
 	}
 	if (!name || !value || !(ret = new_tenvv(status)))
+	{
+		ft_strdel(&value);
 		return (envv);
+	}
 	if (!(ret->name = ft_strdup(name)))
 	{
 		del_tenvv(ret);
+		ft_strdel(&value);
 		return (envv);
 	}
 	ret->value = value;

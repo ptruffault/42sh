@@ -39,7 +39,7 @@ int				ft_get_hist_size(void)
 	sh = ft_get_set_shell(NULL);
 	if (!(line = get_tenvv_val(sh->env, "HISTSIZE")))
 		return (32767);
-	return (ft_atoi(line) > 32767 ? ft_atoi(line) : 32767);
+	return (ft_atoi(line) > 10 ? ft_atoi(line) : 32767);
 }
 
 static int		hist_init_for_gi(t_shell *sh)
@@ -52,11 +52,14 @@ static int		hist_init_for_gi(t_shell *sh)
 	tmp->prev->next = NULL;
 	tmp->prev = NULL;
 	tmp->next = sh->hist;
-	sh->hist->prev = tmp;
-	sh->e.hist = tmp;
 	ft_strdel(&tmp->s);
 	if (!(tmp->s = ft_strnew(3)))
+	{
+		free(tmp);
 		return (FAILURE);
+	}
+	sh->hist->prev = tmp;
+	sh->e.hist = tmp;
 	tmp->nb = sh->hist->nb + 1;
 	return (SUCCESS);
 }

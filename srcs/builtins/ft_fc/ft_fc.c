@@ -30,9 +30,25 @@ static int		init_fc(t_fc *fc, t_shell *shell, int *i, char **argv)
 	if ((*i = flags_gestion(fc->flags, fc->av, 0)) == 1)
 		return (2);
 	if (fc->flags[0] != 'e' && (!shell->hist || !shell->hist->next))
+	{
+		if (shell->hist)
+		{
+			ft_strdel(&shell->hist->s);
+			free(shell->hist);
+			shell->hist = NULL;
+		}
 		return (1);
+	}
 	else if ((!shell->hist || !shell->hist->next))
+	{
+		if (shell->hist)
+		{
+			ft_strdel(&shell->hist->s);
+			free(shell->hist);
+			shell->hist = NULL;
+		}
 		return (0);
+	}
 	return (3);
 }
 

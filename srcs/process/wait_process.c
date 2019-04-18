@@ -52,7 +52,7 @@ int			ft_wait(t_jobs *j, t_shell *sh, t_bool bg)
 
 	ret = 0;
 	p = (j ? j->p : NULL);
-	while (p )
+	while (p)
 	{
 		if (p->cmd != NULL && ((p->pid == 0 && p->status != DONE
 				&& p->status != KILLED)

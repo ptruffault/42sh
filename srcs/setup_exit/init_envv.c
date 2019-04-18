@@ -71,13 +71,8 @@ static char	*ft_update_pwd(t_shell *sh)
 
 static void	ft_setup_environ(t_shell *sh, char *shell_fold)
 {
-	struct passwd	*usr;
-	char			*rc_path;
+	char		*rc_path;
 
-	if (!isatty(0) || !(usr = getpwnam(getlogin())))
-		return ;
-	sh->env = ft_new_envv(sh->env, "LOGNAME", usr->pw_name, EXP);
-	sh->env = ft_new_envv(sh->env, "HOME", usr->pw_dir, EXP);
 	ft_update_shelvl(sh);
 	sh->env = ft_new_envv(sh->env, "SHELL_FOLD", shell_fold, IN);
 	if (isatty(0) && isatty(1)

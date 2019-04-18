@@ -38,6 +38,10 @@ t_envv		*ft_push_tenvv(t_envv *dest, const t_envv *src, short status)
 	while (src)
 	{
 		dest = ft_new_envv(dest, src->name, src->value, status);
+		if (dest && status > 0)
+			dest->status = status;
+		else if (dest)
+			dest->status = src->status;
 		src = src->next;
 	}
 	return (dest);

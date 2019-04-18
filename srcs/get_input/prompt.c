@@ -133,5 +133,5 @@ void		ft_disp(t_shell *sh)
 		ft_strdel(&prompt);
 	}
 	else
-		ft_putstr("&>");
+		ft_putendl("&>");
 }

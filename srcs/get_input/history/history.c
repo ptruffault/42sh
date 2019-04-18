@@ -17,7 +17,7 @@ static void	bottom_start_hist(t_edit *e, char *input)
 	t_hist *hist;
 
 	hist = ft_get_set_shell(NULL)->hist;
-	while (hist)
+	while (input && hist)
 	{
 		if (ft_str_startwith(hist->s, input) != 0)
 		{
@@ -45,7 +45,8 @@ void		hist_move_up(t_edit *e)
 		if (e->hist->s == NULL)
 			e->hist->s = ft_strnew(3);
 	}
-	e->curr = ft_strlen(e->hist->s);
+	if (e->hist->s)
+		e->curr = ft_strlen(e->hist->s);
 	e->pos_y = 0;
 	if (e->curr > e->max_char)
 		e->pos_z = (int)(e->curr - e->width + 2);
@@ -63,11 +64,12 @@ void		hist_move_do(t_edit *e)
 	if (e->head->prev != NULL)
 		e->head = e->head->prev;
 	ft_strdel(&e->hist->s);
-	if (e->head == e->hist)
+	if (e->head == e->hist || e->head->s == NULL)
 		e->hist->s = ft_strnew(3);
 	else
 		e->hist->s = ft_strdup(e->head->s);
-	e->curr = ft_strlen(e->hist->s);
+	if (e->hist->s)
+		e->curr = ft_strlen(e->hist->s);
 	e->pos_y = 0;
 	if (e->curr > e->max_char)
 		e->pos_z = (int)(e->curr - e->width + 2);

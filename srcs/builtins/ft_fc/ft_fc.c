@@ -80,12 +80,12 @@ int				ft_fc(t_shell *shell, char **argv)
 		fc_init_first_last(&fc, i + 1);
 	else
 		fc_init_first_last(&fc, i);
-	if (fc.flags[0] == 'l')
-		ft_fc_option_l(&fc);
-	else if (fc.flags[0] == 'e')
-		ft_fc_option_e(&fc, i);
-	else if (fc.flags[0] == 's')
-		ft_fc_option_s(&fc, i);
+	if (fc.flags[0] == 'l' && ft_fc_option_l(&fc) == 1)
+		return (1);
+	else if (fc.flags[0] == 'e' && ft_fc_option_e(&fc, i) == 1)
+		return (1);
+	else if (fc.flags[0] == 's' && ft_fc_option_s(&fc, i) == 1)
+		return (1);
 	if (fc.flags[0] == 'e' || fc.flags[0] == 's')
 		return (ft_atoi(get_tenvv_val(fc.shell->env, "?")));
 	return (0);

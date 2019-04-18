@@ -1,1 +1,7 @@
 
+export HOME="/Users/ptruffau"
+export LOGNAME="ptruffau"
+export PATH="/Users/ptruffau/.brew/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Applications/VMware Fusion.app/Contents/Public:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/munki"
+export PWD="/Users/ptruffau/42sh/test"
+export USER="ptruffau"
+export ZSH="/Users/ptruffau/.oh-my-zsh"

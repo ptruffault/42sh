@@ -12,32 +12,31 @@
 
 #include "shell42.h"
 
-static char		*repl_occ(char *old, char *new, char *str)
+static char		*repl_occ(char *old, char *ret, char *str)
 {
 	size_t	x;
 	char	*tmp;
 	size_t	old_size;
 	size_t	new_size;
 
-	new_size = ft_strlen(new);
+	new_size = ft_strlen(ret);
 	old_size = ft_strlen(old);
 	tmp = NULL;
 	x = 0;
 	if (!str)
 		return (NULL);
 	while (str[x])
-	{
 		if (ft_str_startwith(str + x, old))
 		{
-			if (!(tmp = ft_strpull(str, str + x, (int)old_size - 1, new)))
-				return (NULL);
+			tmp = ft_strpull(str, str + x, (int)old_size - 1, ret);
 			ft_strdel(&str);
+			if (!tmp)
+				return (NULL);
 			str = tmp;
 			x += new_size;
 		}
 		else
 			++x;
-	}
 	return (str);
 }
 

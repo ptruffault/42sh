@@ -74,19 +74,18 @@ int			ft_fc_option_e(t_fc *fc, int pos)
 	if (fc->av[pos] && !ft_isdigit(fc->av[pos][0]) && fc->av[pos][0] != '-')
 		editor = ft_strdup(fc->av[pos]);
 	else if (!(editor = ft_strdup(get_tenvv_val(fc->shell->env, "FCEDIT")))
-			|| (editor == NULL && !(editor = ft_strdup("ed"))))
+			&& (editor == NULL && !(editor = ft_strdup("ed"))))
 		return (1);
-	if (!(editor = ft_strappend(&editor, " /tmp/fc____42sh")))
+	if (!(editor = ft_strappend(&editor, FCTMPEXEC)))
 		return (fc_free_editor(editor));
-	if (ft_fc_write_in_file(fc, open("/tmp/fc____42sh"
-		, O_CREAT | O_RDWR, 0644)))
+	if (ft_fc_write_in_file(fc, open(FCTMP, O_CREAT | O_RDWR, 0644)))
 		return (fc_free_editor(editor) + 1);
 	fc->shell->fc = TRUE;
 	if ((fc_option_e_stuff(fc, editor)))
 		return (fc_free_editor(editor) + 1);
-	exec_file("/tmp/fc____42sh", fc->shell);
+	exec_file(FCTMP, fc->shell);
 	fc->shell->interactive = TRUE;
 	fc->shell->fc = FALSE;
-	unlink("/tmp/fc____42sh");
+	unlink(FCTMP);
 	return (fc_free_editor(editor));
 }

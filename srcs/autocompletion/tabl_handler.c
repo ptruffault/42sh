@@ -26,7 +26,7 @@ int			check_exec(char *file, char *path)
 	char		*tmp;
 	struct stat	file_stat;
 
-	if (!(tmp = ft_strjoin(path, "/")))
+	if (!path || !(tmp = ft_strjoin(path, "/")))
 		return (0);
 	if (!(tmp = ft_stradd(&tmp, file)))
 		return (0);
@@ -91,6 +91,7 @@ int			add_to_tabl(char ***tabl, char *value, int j)
 	if (!(retabl[0] = ft_strdup(value)))
 	{
 		free(retabl);
+		retabl = NULL;
 		return (1);
 	}
 	j = 0;

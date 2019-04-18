@@ -46,8 +46,10 @@ static void		fc_init_first_last(t_fc *fc, int pos)
 			fc->first_ = fc->av[pos];
 		if (fc->av[pos + 1])
 			if (ft_isdigit(fc->av[pos + 1][0]) || fc->av[pos + 1][0] == '-')
-				fc->last = ft_atoi(fc->av[pos + 1]) == 0 ? -1
-				: ft_atoi(fc->av[pos + 1]);
+			{
+				fc->last = ft_atoi(fc->av[pos + 1]);
+				fc->last = (fc->last == 0) ? -1 : fc->last;
+			}
 			else
 				fc->last_ = fc->av[pos + 1];
 		else
@@ -86,7 +88,7 @@ int				ft_fc(t_shell *shell, char **argv)
 		return (0);
 	set_struct_fc(&fc, shell);
 	if (fc.flags[0] == 'e' && fc.av[i]
-	&& ft_isdigit(fc.av[i][0]) == 0 && fc.av[i][0] != '-')
+		&& ft_isdigit(fc.av[i][0]) == 0 && fc.av[i][0] != '-')
 		fc_init_first_last(&fc, i + 1);
 	else if (fc.flags[0] == 's' && fc.av[i] && ft_strchr(fc.av[i], '='))
 		fc_init_first_last(&fc, i + 1);

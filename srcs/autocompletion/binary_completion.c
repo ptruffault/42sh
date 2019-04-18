@@ -17,6 +17,7 @@ static int	fill_tabl_binary(int *j, char ***tabl, char *value, char *path)
 {
 	DIR				*fd;
 	struct dirent	*dir;
+	int				ret;
 
 	fd = opendir(path);
 	while (fd && (dir = readdir(fd)))
@@ -28,8 +29,8 @@ static int	fill_tabl_binary(int *j, char ***tabl, char *value, char *path)
 				&& check_exec(dir->d_name, path) && !check_builtin(dir->d_name))
 			{
 				*j += 1;
-				if (add_to_tabl(tabl, dir->d_name, *j) && !closedir(fd))
-					return (-1);
+				if ((ret = add_to_tabl(tabl, dir->d_name, *j)) == 1)
+					return (closedir(fd) - 1);
 			}
 		}
 	}
@@ -42,8 +43,10 @@ static int	fill_tabl_all_bin(int *j, char ***tabl, char *path)
 {
 	DIR				*fd;
 	struct dirent	*dir;
+	int				ret;
 
 	fd = opendir(path);
+	ret = 0;
 	while (fd && (dir = readdir(fd)))
 	{
 		if (!(ft_strequ(dir->d_name, "."))
@@ -52,8 +55,8 @@ static int	fill_tabl_all_bin(int *j, char ***tabl, char *path)
 			if (check_exec(dir->d_name, path) && !check_builtin(dir->d_name))
 			{
 				*j += 1;
-				if (add_to_tabl(tabl, dir->d_name, *j) && !closedir(fd))
-					return (-1);
+				if ((ret = add_to_tabl(tabl, dir->d_name, *j)) == 1)
+					return (closedir(fd) - 1);
 			}
 		}
 	}
@@ -98,11 +101,10 @@ char		**get_binary(t_shell *sh, char *value, bool all, int *total)
 	j = 0;
 	if (!(tabl = (char**)malloc(sizeof(char*) * 2)))
 		return (NULL);
-	tabl[0] = NULL;
+	set_null_tabl(tabl, 2);
 	if (!(path = ft_strsplit(get_tenvv_val(sh->env, "PATH"), ':')))
 		return (tabl);
-	set_null_tabl(tabl, 2);
-	while (path[++i])
+	while (path[++i] && tabl && j != -1)
 	{
 		if (!all)
 			j = fill_tabl_binary(&j, &tabl, value, path[i]);

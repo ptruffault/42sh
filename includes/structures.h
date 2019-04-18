@@ -19,6 +19,8 @@
 # define IS_CMD(x) (1 <= x && x <= 4)
 # define IS_EXP(x) (1 <= x && x <= 3)
 # define IS_RUNNING(x) (x == RUNNING_FG || x == RUNNING_BG)
+# define FCTMP "/tmp/fc____42sh"
+# define FCTMPEXEC " /tmp/fc____42sh"
 # define NUMBER_OF_KEYS 24
 # define NUMBER_OF_PRINT_MODES 3
 # define HASHTABLE_SIZE 150

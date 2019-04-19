@@ -53,9 +53,7 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, int boucl)
 	return (ft_next_alias(w, w_alias, boucl));
 }
 
-
-//to add (protect '!')
-t_word 			*ft_simple_check(t_word *head)
+static t_word 			*ft_simple_check(t_word *head)
 {
 	t_word *w;
 	t_word *prev;

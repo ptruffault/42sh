@@ -32,7 +32,7 @@ static t_word	*maybe_expand(t_word *w)
 	return (w);
 }
 
-static t_word	*get_argv(t_tree *t, t_word *w)
+static t_word	*get_argv(t_tree **t, t_word *w)
 {
 	while (w && w->word && ft_isequal_env(w->word))
 	{
@@ -43,34 +43,35 @@ static t_word	*get_argv(t_tree *t, t_word *w)
 		{
 			w->next = maybe_expand(w->next);
 			w->word[ft_strlen(w->word) - 1] = '\0';
-			t->assign = ft_new_envv(t->assign, w->word, w->next->word, TMP);
+			t[0]->assign = ft_new_envv(t[0]->assign, w->word, w->next->word, TMP);
 			w = w->next;
 		}
 		else
-			t->assign = ft_new_envv_equ(t->assign, w->word, TMP);
+			t[0]->assign = ft_new_envv_equ(t[0]->assign, w->word, TMP);
 		w = w->next;
 	}
 	while (w && w->word && ((1 <= w->type && w->type <= 4) || w->type == NUL))
 	{
-		t->cmd = ft_addtword(t->cmd, w);
+		t[0]->cmd = ft_addtword(t[0]->cmd, w);
 		w = w->next;
 	}
 	return (w);
 }
 
-static t_tree	*built_tree(t_tree *head, t_word *w, t_shell *sh)
+static t_tree	*built_tree(t_word *w, t_shell *sh)
 {
 	t_word	*tmp;
 	t_tree	*tree;
+	t_tree	*head;
 
 	tmp = w;
-	if (!head)
+	if (!(head = new_tree()))
 		return (NULL);
 	tree = head;
 	while (tmp && tmp->word)
 	{
-		if (tmp && ((1 <= w->type && w->type <= 4) || tmp->type == NUL))
-			tmp = get_argv(tree, tmp);
+		if (tmp && ((1 <= tmp->type && tmp->type <= 4) || tmp->type == NUL))
+			tmp = get_argv(&tree, tmp);
 		if (tmp && ((tmp->type == REDIRECT
 			&& !(tmp = get_redirections(tree, tmp)))
 			|| (tmp->type == OPERATEUR && !(tree = add_newttree(tree, tmp)))))
@@ -122,7 +123,7 @@ t_tree			*get_tree(char *input, t_shell *sh)
 		|| !(w = eval_line(input)))
 		return (NULL);
 	if (!ft_check_grammar(w, sh) ||
-	!(head = built_tree(new_tree(), w, sh)))
+	!(head = built_tree(w, sh)))
 	{
 		w = ft_free_tword(w);
 		return (NULL);

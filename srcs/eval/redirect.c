@@ -96,8 +96,6 @@ t_word				*get_redirections(t_tree *t, t_word *w)
 	ret = NULL;
 	if ((ret = get_redirection(w)))
 	{
-		if (ret->path)
-			w = ft_deltword(w, w->next);
 		if (t->r)
 		{
 			tmp = t->r;
@@ -107,6 +105,8 @@ t_word				*get_redirections(t_tree *t, t_word *w)
 		}
 		else
 			t->r = ret;
+		if (ret->path)
+			w = ft_deltword(w, w->next);
 		return (w);
 	}
 	return (NULL);

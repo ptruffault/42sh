@@ -5,3 +5,4 @@ alias gitall "git add -A && git commit -m 'gitall' && git push"
 cat $SHELL_FOLD/sys/header
 cat $SHELL_FOLD/auteur
 PS1='$[BLUE][$[RESET]${?}$[BLUE]] $[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]'
+alias l='ls ' o='-l ' f='/var'

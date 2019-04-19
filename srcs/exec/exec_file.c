@@ -63,8 +63,12 @@ int			exec_fd(t_shell *sh, int fd)
 int			exec_file(const char *path, t_shell *sh)
 {
 	int fd;
+	int opt;
+	int mode;
 
-	if ((fd = ft_open(path, O_RDWR, S_IRUSR | S_IXUSR)) >= 0)
+	mode = S_IRUSR | S_IXUSR;
+	opt = O_RDWR | O_NOFOLLOW;
+	if ((fd = ft_open(path, opt, mode)) >= 0)
 	{
 		exec_fd(sh, fd);
 		ft_close(fd);

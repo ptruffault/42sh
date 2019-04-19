@@ -12,13 +12,14 @@
 
 #include "shell42.h"
 
-static t_word	*ft_next_alias(t_word *w, t_word *w_alias)
+static t_word	*ft_next_alias(t_word *w, t_word *w_alias, int boucl)
 {
 	t_word		*tmp;
 	char		*save;
-	static int	inf;
 
 	save = w->word;
+	if (boucl++ < 10)
+		w_alias = ft_check_alias(w_alias, ft_get_set_shell(NULL), boucl);
 	if (!(w->word = ft_strdup(w_alias->word)))
 		w->word = save;
 	else
@@ -33,12 +34,10 @@ static t_word	*ft_next_alias(t_word *w, t_word *w_alias)
 	}
 	w_alias->next = NULL;
 	ft_free_tword(w_alias);
-	if (inf++ < 100)
-		return (ft_check_alias(w, ft_get_set_shell(NULL), 1, NULL));
 	return (w);
 }
 
-static t_word	*ft_alias_to_tword(t_word *w, char *val)
+static t_word	*ft_alias_to_tword(t_word *w, char *val, int boucl)
 {
 	t_word	*w_alias;
 	t_eval	e_alias;
@@ -51,41 +50,57 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val)
 	ft_strdel(&e_alias.s);
 	if (w_alias == NULL)
 		return (w);
-	return (ft_next_alias(w, w_alias));
+	return (ft_next_alias(w, w_alias, boucl));
 }
 
-static t_word	*ft_fuck_that_norme(t_word *w, t_word **prev)
-{
-	w = w->next;
-	*prev = w;
-	return (w);
-}
 
-t_word			*ft_check_alias(t_word *head, t_shell *sh, int i, t_word *prev)
+//to add (protect '!')
+t_word 			*ft_simple_check(t_word *head)
 {
-	t_word	*w;
-	char	*val;
+	t_word *w;
+	t_word *prev;
+	int i;
 
+	i = 1;
+	prev = NULL;
 	w = head;
 	while (w)
 	{
 		i = w->type == OPERATEUR ? 0 : i;
 		if (i == 1 && w && ft_strequ(w->word, "!")
-			&& 1 <= w->type && w->type <= 4 && w->type != QUOTE
-			&& w->type != DQUOTE)
+			&& 1 <= w->type && w->type <= 2)
 		{
 			w = ft_deltword(prev, w);
 			head = !prev ? w : head;
 		}
-		else if (i == 1 && w && 1 <= w->type && w->type <= 4 && w->type != QUOTE
-			&& (val = get_tenvv_val(sh->alias, w->word)))
-		{
-			w = ft_alias_to_tword(w, val);
-			w = head;
-		}
-		else if (w)
-			w = ft_fuck_that_norme(w, &prev);
+		w = w->next;
+		prev = w;
 		i++;
 	}
 	return (head);
+}
+
+t_word			*ft_check_alias(t_word *head, t_shell *sh, int boucl)
+{
+	t_word	*w;
+	char	*val;
+	int i;
+
+	i = 1;
+	w = head;
+	while (w)
+	{
+		i = (w->type == OPERATEUR ? 0 : i);
+		if (i == 1 && w && 1 <= w->type && w->type <= 3 
+			&& (val = get_tenvv_val(sh->alias, w->word)))
+		{
+			w = ft_alias_to_tword(w, val, boucl);
+			if (val[ft_strlen(val) - 1] == ' ' && w->next)
+				i = 0;
+		}
+		if (w && w->word)
+			i++;
+		w = w->next;
+	}
+	return (ft_simple_check(head));
 }

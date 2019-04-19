@@ -210,7 +210,7 @@ int				putword(t_word *w, int t);
 /*
 ** eval/alias.c
 */
-t_word			*ft_check_alias(t_word *head, t_shell *sh, int i, t_word *prev);
+t_word			*ft_check_alias(t_word *head, t_shell *sh, int boucl);
 
 /*
 ** eval/eval_tools.c

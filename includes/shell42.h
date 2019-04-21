@@ -194,6 +194,12 @@ int				check_name(const char *name);
 int				ft_type(t_word *w);
 
 /*
+** builtins/print_utility.c
+*/
+void				print_for_export(t_envv	*node, const char *opt);
+void    print_for_alias(t_envv	*node);
+
+/*
 ** builtins/run_builtin.c
 */
 int				run_builtin(t_tree *t, t_process *p, t_shell *sh);
@@ -607,7 +613,7 @@ char			**tenvv_to_tab(t_envv *envv);
 /*
 ** tenvv/tenvv_tools.c
 */
-int				ft_puttenvv(t_envv *t, short status);
+int				ft_puttenvv(t_envv *t, short status, int mode);
 char			*get_tenvv_val(t_envv *envv, const char *name);
 t_envv			*get_tenvv(t_envv *envv, const char *name);
 t_envv			*new_tenvv(short status);
@@ -618,6 +624,8 @@ t_envv			*new_tenvv(short status);
 t_envv			*ft_save_tenvv(t_envv *envv, t_envv *tmp);
 t_envv			*ft_push_tenvv(t_envv *dest, const t_envv *src, short status);
 t_envv			*ft_remove_tmp(t_envv *src);
+t_envv			*ft_restore_tenvv(t_envv *dest, const t_envv *src);
+t_envv			*ft_push_tmp_env(t_envv *dest, const t_envv *src, short status);
 
 /*
 ** ft_get_set.c

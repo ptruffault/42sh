@@ -41,7 +41,7 @@ static t_envv	*handler_env(t_shell *sh, char *name, char *val, bool equal)
 
 	if (sh->env && (tmp = get_tenvv(sh->env, name)))
 	{
-		if ((!equal && tmp->status != TMP) || equal)
+		if ((!equal && tmp->status != NF) || equal)
 			tmp->status = EXP;
 		if (val)
 		{
@@ -56,7 +56,7 @@ static t_envv	*handler_env(t_shell *sh, char *name, char *val, bool equal)
 		if (equal)
 			sh->env = ft_new_envv(sh->env, name, val, EXP);
 		else
-			sh->env = ft_new_envv(sh->env, name, val, TMP);
+			sh->env = ft_new_envv(sh->env, name, val, NF);
 	}
 	return (sh->env);
 }
@@ -71,7 +71,7 @@ static int		export_option_p(t_shell *sh, char **argv, int i)
 	val = NULL;
 	equal = false;
 	if (argv[i] == 0)
-		ft_puttenvv(sh->env, (EXP | TMP));
+		ft_puttenvv(sh->env, (EXP | NF), 2);
 	while (argv[i])
 	{
 		name = argv[i];
@@ -82,7 +82,10 @@ static int		export_option_p(t_shell *sh, char **argv, int i)
 				return (1);
 		}
 		if ((t = get_tenvv(sh->env, name)))
-			ft_printf("\033[1;32m\033[04m%s\033[00m=%s\n", t->name, t->value);
+		{
+			t->status = EXP;
+			print_for_export(t, "export -p ");
+		}
 		else if (check_name(name))
 			sh->env = handler_env(sh, name, val, equal);
 		i++;
@@ -118,7 +121,7 @@ int				ft_export(t_shell *sh, char **argv)
 	char	*val;
 
 	if (!*argv)
-		ft_puttenvv(sh->env, (EXP | TMP));
+		ft_puttenvv(sh->env, (EXP | NF), 1);
 	if ((i = check_options(argv)) == -2)
 		return (2);
 	else if (i >= 0)

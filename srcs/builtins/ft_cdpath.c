@@ -81,15 +81,15 @@ char		*try_cdpath(char *cdpath, char *path, bool *pwd_f, t_opts *opts)
 		{
 			tpath[i] = ft_stradd(&tpath[i], "/");
 			tpath[i] = ft_stradd(&tpath[i], path);
-			if (!(lstat(tpath[i], &dir)))
-				if (S_ISDIR(dir.st_mode))
-				{
-					res = ft_strdup(tpath[i]);
-					ft_freestrarr(&tpath);
-					*opts = (*opts | 0x04);
-					*pwd_f = true;
-					return (res);
-				}
+			if (((lstat(tpath[i], &dir)) == 0  && S_ISDIR(dir.st_mode))
+				|| ((stat(tpath[i], &dir)) == 0  && S_ISDIR(dir.st_mode)) )
+			{
+				res = ft_strdup(tpath[i]);
+				ft_freestrarr(&tpath);
+				*opts = (*opts | 0x04);
+				*pwd_f = true;
+				return (res);
+			}
 		}
 		ft_freestrarr(&tpath);
 	}

@@ -70,7 +70,7 @@ void				ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t)
 	{
 		if (p->saved_env)
 		{
-			sh->env = ft_push_tenvv(sh->env, p->saved_env, 0);
+			sh->env = ft_restore_tenvv(sh->env, p->saved_env);
 			p->saved_env = ft_free_tenvv(p->saved_env);
 		}
 		sh->env = ft_remove_tmp(sh->env);
@@ -83,6 +83,6 @@ void				ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t)
 	{
 		if (sh->env)
 			p->saved_env = ft_save_tenvv(sh->env, t->assign);
-		sh->env = ft_push_tenvv(sh->env, t->assign, (EXP | TMP));
+		sh->env = ft_push_tmp_env(sh->env, t->assign, (EXP | TMP));
 	}
 }

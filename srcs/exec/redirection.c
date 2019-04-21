@@ -60,17 +60,17 @@ int			get_destination_fd(t_redirect *r)
 {
 	int opt;
 
-	opt = 0;
+	opt = -1;
 	r->path = ft_exp_var(r->path, ft_get_set_shell(NULL));
 	if ((r->t == R_RIGHT && r->to == -2 && r->path))
-		opt = O_RDWR | O_TRUNC | O_CREAT;
+		opt = O_WRONLY | O_TRUNC | O_CREAT;
 	else if (r->t == R_DRIGHT && r->to == -2 && r->path)
-		opt = O_RDWR | O_APPEND | O_CREAT;
+		opt = O_WRONLY | O_APPEND | O_CREAT;
 	else if (r->t == R_LEFT && r->to == -2 && r->path)
-		opt = O_RDWR;
+		opt = O_RDONLY;
 	else if (r->t == R_DLEFT)
 		ft_heredoc_content(r, ft_get_set_shell(NULL));
-	if (opt != 0 && (r->to = ft_open(r->path, opt, 0644)) < 0)
+	if (opt >= 0 && (r->to = ft_open(r->path, opt, 0666)) < 0)
 		return (0);
 	if (r->to != -2 && r->from != -2)
 		return (1);

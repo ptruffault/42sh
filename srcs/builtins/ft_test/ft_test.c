@@ -43,7 +43,7 @@ static int		check_arg_files(char **argv)
 		return (return_fnc("test: too many arguments\n", 2));
 	else if (argv[0][1] != '\0' && argv[0][2] != '\0')
 		return (return_fnc("test: unknown condition:\n", 2));
-	if (ft_strchr("bcdefgLprSsuwx", argv[0][1]) == NULL)
+	if (ft_strchr("bcdefghLprSsuwx", argv[0][1]) == NULL)
 		return (return_fnc("test: unary operator expected\n", 2));
 	if ((lstat(argv[1], &file)) < 0)
 		return (1);

@@ -45,7 +45,7 @@ int				ft_alias(t_shell *sh, char **argv)
 
 	i = 1;
 	if (!argv[i])
-		ft_puttenvv(sh->alias, EXP);
+		ft_puttenvv(sh->alias, EXP, 3);
 	while (argv[i])
 	{
 		if (ft_isequal(argv[i]))

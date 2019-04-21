@@ -33,15 +33,48 @@ t_envv		*ft_save_tenvv(t_envv *envv, t_envv *tmp)
 	return (save);
 }
 
+t_envv		*ft_restore_tenvv(t_envv *dest, const t_envv *src)
+{
+	t_envv	*tmp;
+
+	while (src)
+	{
+		if ((tmp = get_tenvv(dest, src->name)))
+		{
+			if ((tmp->status & TMP))
+			{
+				ft_strdel(&tmp->value);
+				tmp->value = ft_strdup(src->value);
+				if (tmp->status & IN || tmp->status & NF)
+					tmp->status = tmp->status & ~(EXP | TMP);
+				else
+					tmp->status = tmp->status & ~(TMP);
+			}
+		}
+		src = src->next;
+	}
+	return (dest);
+}
+
+t_envv		*ft_push_tmp_env(t_envv *dest, const t_envv *src, short status)
+{
+	t_envv	*tmp;
+
+	while (src)
+	{
+		dest = ft_new_envv(dest, src->name, src->value, status);
+		if ((tmp = get_tenvv(dest, src->name)))
+			tmp->status = tmp->status | status;
+		src = src->next;
+	}
+	return (dest);
+}
+
 t_envv		*ft_push_tenvv(t_envv *dest, const t_envv *src, short status)
 {
 	while (src)
 	{
 		dest = ft_new_envv(dest, src->name, src->value, status);
-		if (dest && status > 0)
-			dest->status = status;
-		else if (dest)
-			dest->status = src->status;
 		src = src->next;
 	}
 	return (dest);

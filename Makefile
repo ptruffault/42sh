@@ -13,9 +13,19 @@
 NAME		=		42sh
 GIT 		=		https://github.com/ptruffault/42sh.git
 
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+SIG         =       signal_unix.c
+endif
+
+ifeq ($(UNAME), Darwin)
+SIG         =       signal.c
+endif
+
 SRC		=	\
 	main.c				\
-	signal.c			\
+	$(SIG)              \
 	ft_get_set.c 		\
 	\
 	setup_exit/free_tools_shell.c \
@@ -53,6 +63,7 @@ SRC		=	\
 	builtins/ft_type.c					\
 	builtins/ft_exit.c					\
 	builtins/type_tools.c				\
+	builtins/print_utility.c			\
 	builtins/ft_alias.c					\
 	builtins/check_builtins.c			\
 	\

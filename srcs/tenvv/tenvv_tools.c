@@ -47,7 +47,7 @@ char	*get_tenvv_val(t_envv *envv, const char *name)
 	return (NULL);
 }
 
-int		ft_puttenvv(t_envv *t, short status)
+int		ft_puttenvv(t_envv *t, short status, int mode)
 {
 	int i;
 
@@ -57,7 +57,14 @@ int		ft_puttenvv(t_envv *t, short status)
 		if ((t->status & status))
 		{
 			i = 0;
-			ft_printf("\033[1;32m\033[04m%s\033[00m=%s\n", t->name, t->value);
+			if (mode == 0)
+			    ft_printf("\033[1;32m\033[04m%s\033[00m=%s\n", t->name, t->value);
+			else if (mode == 1)
+                print_for_export(t, "");
+            else if (mode == 2)
+                print_for_export(t, "export ");
+			else if (mode == 3)
+			    print_for_alias(t);
 		}
 		t = t->next;
 	}

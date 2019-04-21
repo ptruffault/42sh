@@ -43,7 +43,7 @@ static char		*ft_exp_envv_var(char *ret, t_shell *sh, int *i)
 	{
 		ft_strdel(&ret);
 		ret = tmp;
-		*i = *i + (*value ? ft_strlen(value) - 1 : -1);
+		*i = *i + (*value ? (int)ft_strlen(value) - 1 : -1);
 	}
 	ft_strdel(&name);
 	return (ret);

@@ -14,7 +14,7 @@
 
 static int		more_check_file(char **argv, struct stat *file)
 {
-	if (argv[0][1] == 'L' || argv[0][1] == 'h')
+	if ((argv[0][1] == 'L' || argv[0][1] == 'h') && !(lstat(argv[1], file)))
 		return (S_ISLNK(file->st_mode) ? 0 : 1);
 	if (argv[0][1] == 'p')
 		return (S_ISFIFO(file->st_mode) ? 0 : 1);
@@ -45,7 +45,7 @@ static int		check_arg_files(char **argv)
 		return (return_fnc("test: unknown condition:\n", 2));
 	if (ft_strchr("bcdefghLprSsuwx", argv[0][1]) == NULL)
 		return (return_fnc("test: unary operator expected\n", 2));
-	if ((lstat(argv[1], &file)) < 0)
+	if ((stat(argv[1], &file)) < 0)
 		return (1);
 	if (argv[0][1] == 'b')
 		return (S_ISBLK(file.st_mode) ? 0 : 1);

@@ -44,7 +44,7 @@ static const t_sig_msg	g_signal_msg[] = {
 	{.msg = NULL}
 };
 
-static void	sig_handler(int sig)
+void		sig_handler(int sig)
 {
 	t_shell		*sh;
 
@@ -128,6 +128,7 @@ void		set_signals(void)
 {
 	signal(SIGCHLD, sig_handler);
 	signal(SIGWINCH, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);

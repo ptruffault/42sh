@@ -76,6 +76,7 @@ t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 		sh->process = p;
 		ret = ft_add_jobs(p, sh);
 	}
+	signal(SIGINT, sig_handler);
 	if (!t->r || ft_redirect_builtin(t, p, sh))
 	{
 		if (p->cmd && !ft_isempty(p->cmd))

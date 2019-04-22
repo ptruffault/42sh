@@ -10,6 +10,7 @@
 # Debug files
 .gdb_history
 *.dSYM/
+*_files/
 
 # Sys dir
 sys/.42history

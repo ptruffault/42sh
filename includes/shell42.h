@@ -638,6 +638,7 @@ t_tree			*ft_get_set_tree(t_tree *new_t);
 */
 void			set_signals(void);
 void			set_son_signal(void);
+void			sig_handler(int sig);
 int				ft_signal_check(t_process *p);
 
 #endif

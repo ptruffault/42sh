@@ -26,7 +26,7 @@ int	ft_open(const char *path, int flag, mode_t mode)
 		error("permission denied", path);
 	else if (!(flag & O_CREAT) && S_ISLNK(inf.st_mode))
 		error("ft_open do not follow symbolic link", path);
-	else if ((fd = open(path, flag, mode)) < 0)
+	else if(((fd = open(path, flag, mode)) < 0) && (S_ISFIFO(inf.st_mode)))
 		error("can't open this file", path);
 	return (fd);
 }

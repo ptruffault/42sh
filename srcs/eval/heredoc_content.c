@@ -75,6 +75,7 @@ static t_word 	*ft_heredoc_eof(t_word *w)
 {
 	t_word	*ret;
 	char 	*str;
+	char	*tmp;
 
 	if(!(ret = new_tword()))
 		return (NULL);
@@ -86,7 +87,12 @@ static t_word 	*ft_heredoc_eof(t_word *w)
 			ret->type = QUOTE;
 		while (w->next && w->paste)
 		{
-			str = ft_strappend(&str, w->next->word);
+			if (!(tmp = ft_strappend(&str, w->next->word)))
+			{
+				ft_strdel(&str);
+				return (ft_free_tword(ret));
+			}
+			tmp = str;
 			if (w->type == QUOTE)
 				ret->type = QUOTE;
 			w = w->next;
@@ -111,7 +117,6 @@ t_redirect		*parse_heredoc(t_redirect *ret, t_word *w)
 	{
 		if (!(ret->eof = ft_heredoc_eof(w->next)))
 			return (ft_free_redirection(ret));
-		ft_printf("EOF {%s}\n", ret->eof->word);
 		sh->heredoc = 1;
 		if (sh->interactive == TRUE)
 			ret->heredoc = heredoc_get_input(ret->eof->word, sh);

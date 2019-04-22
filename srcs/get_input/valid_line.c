@@ -75,7 +75,7 @@ void		entry_key(t_edit *e)
 	{
 		e->tmp = NULL;
 		e->edited = TRUE;
-		if (check_for_hist_exp(e) == SUCCESS)
+		if (sh->heredoc == 0 && check_for_hist_exp(e) == SUCCESS)
 			e->edited = FALSE;
 	}
 	ft_strdel(&eval.eval);

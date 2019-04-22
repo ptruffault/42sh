@@ -95,7 +95,8 @@ int			check_for_hist_exp(t_edit *e)
 			++x;
 		else if (e->hist->s[x] == '\'')
 			block = block == TRUE ? 0 : TRUE;
-		else if (block == FALSE && e->hist->s[x] == '!')
+		else if (block == FALSE && e->hist->s[x] == '!'
+			&& e->hist->s[x + 1] != '=')
 		{
 			if (parse_hist_exp(e, x) == SUCCESS)
 				return (SUCCESS);

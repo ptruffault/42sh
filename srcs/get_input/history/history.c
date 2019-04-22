@@ -31,9 +31,9 @@ static void	bottom_start_hist(t_edit *e, char *input)
 
 void		hist_move_up(t_edit *e)
 {
-	ft_delete_line(e);
-	if (!e->head)
+	if (!e->head || ft_get_set_shell(NULL)->heredoc == 1)
 		return ;
+	ft_delete_line(e);
 	if (e->head == e->hist && e->hist->s[0] != '\0')
 		bottom_start_hist(e, e->hist->s);
 	else if (e->head)
@@ -58,9 +58,9 @@ void		hist_move_up(t_edit *e)
 
 void		hist_move_do(t_edit *e)
 {
-	ft_delete_line(e);
-	if (!e->head)
+	if (!e->head || ft_get_set_shell(NULL)->heredoc == 1)
 		return ;
+	ft_delete_line(e);
 	if (e->head->prev != NULL)
 		e->head = e->head->prev;
 	ft_strdel(&e->hist->s);

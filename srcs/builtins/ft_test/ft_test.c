@@ -19,7 +19,7 @@ static int		more_check_file(char **argv, struct stat *file)
 	if (argv[0][1] == 'p')
 		return (S_ISFIFO(file->st_mode) ? 0 : 1);
 	if (argv[0][1] == 'r')
-		return ((file->st_mode & S_IRUSR) ? 0 : 1);
+		return (access(argv[1], R_OK) == 0 ? 0 : 1);
 	if (argv[0][1] == 'S')
 		return (S_ISSOCK(file->st_mode) ? 0 : 1);
 	if (argv[0][1] == 's')
@@ -27,9 +27,9 @@ static int		more_check_file(char **argv, struct stat *file)
 	if (argv[0][1] == 'u')
 		return ((file->st_mode & S_ISUID) ? 0 : 1);
 	if (argv[0][1] == 'w')
-		return ((file->st_mode & S_IWUSR) ? 0 : 1);
+		return (access(argv[1], W_OK) == 0 ? 0 : 1);
 	if (argv[0][1] == 'x')
-		return ((file->st_mode & S_IXUSR) ? 0 : 1);
+		return (access(argv[1], X_OK) == 0 ? 0 : 1);
 	return (2);
 }
 
@@ -81,7 +81,7 @@ static int		compare_argv(char **argv)
 	else if (!(ft_strcmp(argv[1], "-le")))
 		return ((ft_atoi(argv[0]) <= ft_atoi(argv[2]) ? 0 : 1));
 	else
-		return (return_fnc("test: unknown condition:\n", 2));
+		return (return_fnc("test: unknown condition\n", 2));
 }
 
 static int		test_builtin(char **argv)
@@ -96,7 +96,16 @@ static int		test_builtin(char **argv)
 	else
 	{
 		if (*argv && argv[1] != 0 && argv[2] != 0)
-			return (compare_argv(argv));
+		{
+			if (argv[1][0] == '-')
+				return (compare_argv(argv));
+			else if (!(ft_strcmp(argv[1], "==")))
+				return (ft_strcmp(argv[0], argv[2]) == 0 ? 0 : 1);
+			else if (!(ft_strcmp(argv[1], "!=")))
+				return (ft_strcmp(argv[0], argv[2]) != 0 ? 0 : 1);
+			else
+				return (return_fnc("test: unknown condition\n", 2));
+		}
 		else if (*argv && argv[1] != 0)
 			return (return_fnc("test: parse error: condition expected.\n", 2));
 	}

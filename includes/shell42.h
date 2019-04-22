@@ -339,7 +339,7 @@ char			*ft_cut_string(char *parenth, char *val, int *curr);
 ** expansion/exp.c
 */
 t_tree			*ft_expention(t_tree *t);
-char			*ft_exp_var(char *ret, t_shell *sh);
+char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting);
 
 /*
 ** expansion/expansion_tools.c

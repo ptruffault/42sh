@@ -45,20 +45,27 @@ static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *param)
 
 	val = NULL;
 	val2 = NULL;
-	if (parenth && (val1 = ft_strndup(parenth, (int)(ptr - parenth - 1))))
+	if (parenth && (val1 = ft_strndup(parenth, (int)(ptr - parenth - 1)))
+	 && (val2 = ft_strdup(param)))
 	{
-		if ((val2 = ft_strdup(param))
-			&& ((*ptr == '-' && !(get_tenvv(sh->env, val1)))
-				|| (*ptr == '+' && get_tenvv(sh->env, val1))))
+		if ((*ptr == '-' && !(get_tenvv(sh->env, val1)))
+			|| (*ptr == '+' && get_tenvv(sh->env, val1)))
 			val = ft_strdup(val2);
-		else if (val2 && *ptr == '=' && !(get_tenvv(sh->env, val1)))
+		else if (val2 && *ptr == '=')
+		{
+			if (!(get_tenvv(sh->env, val1)))
+			{
+				val2 = ft_exp_var(val2, sh, FALSE);
+				val = ft_strdup(val2);
+				sh->env = ft_new_envv(sh->env, val1, val2, IN);
+			}
+		}
+		else if (val2 && *ptr == '?' && !(get_tenvv(sh->env, val1)))
 		{
 			val2 = ft_exp_var(val2, sh, FALSE);
-			val = ft_strdup(val2);
-			sh->env = ft_new_envv(sh->env, val1, val2, IN);
+			error(val1, val2);
 		}
-		else if (!(val2 && *ptr == '?' &&
-			!(get_tenvv(sh->env, val1)) && error(val1, val2)))
+		if (!val)
 			val = ft_strdup(get_tenvv_val(sh->env, val1));
 		ft_strdel(&val1);
 		ft_strdel(&val2);

@@ -28,7 +28,7 @@ static t_word	*maybe_expand(t_word *w)
 				w->word = tmp;
 			}
 	if (w && 1 <= w->type && w->type <= 3 && w->word)
-		w->word = ft_exp_var(w->word, sh);
+		w->word = ft_exp_var(w->word, sh, FALSE);
 	return (w);
 }
 

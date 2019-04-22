@@ -72,14 +72,16 @@ static t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 	return (head);
 }
 
-char			*ft_exp_var(char *ret, t_shell *sh)
+char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting)
 {
 	int i;
 
 	i = -1;
 	while (ret && *ret && ret[++i])
 	{
-		if (ret[i] == '$' && ret[i + 1])
+		if (quoting && ret[i] == '\\')
+			break ;
+		else if (ret[i] == '$' && ret[i + 1])
 		{
 			if (ret[i + 1] == '{')
 			{
@@ -108,7 +110,7 @@ t_tree			*ft_expention(t_tree *t)
 		while (w)
 		{
 			if (w && 1 <= w->type && w->type <= 3 && w->word)
-				w->word = ft_exp_var(w->word, sh);
+				w->word = ft_exp_var(w->word, sh, FALSE);
 			w = w->next;
 		}
 		tmp = ft_word_paste(tmp);

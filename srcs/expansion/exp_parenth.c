@@ -55,14 +55,14 @@ static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *param)
 		{
 			if (!(get_tenvv(sh->env, val1)))
 			{
-				val2 = ft_exp_var(val2, sh, FALSE);
+				val2 = ft_exp_var(val2, sh, TRUE);
 				val = ft_strdup(val2);
 				sh->env = ft_new_envv(sh->env, val1, val2, IN);
 			}
 		}
 		else if (val2 && *ptr == '?' && !(get_tenvv(sh->env, val1)))
 		{
-			val2 = ft_exp_var(val2, sh, FALSE);
+			val2 = ft_exp_var(val2, sh, TRUE);
 			error(val1, val2);
 		}
 		if (!val)
@@ -107,7 +107,8 @@ char		*ft_exp_param(char *ret, char *ptr, t_shell *sh)
 	value = NULL;
 	parenth = ft_strsub(ret, (unsigned int)(ptr - ret + 2),
 	(size_t)get_content_size(ptr));
-	if (!parenth || *parenth == '$' || ft_isempty(parenth))
+	if (!parenth || *parenth == '$' || ft_isempty(parenth)
+	|| *parenth == '"' || *parenth == '\'')
 	{
 		ft_strdel(&parenth);
 		warning("bad substitution", ret);

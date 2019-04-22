@@ -20,10 +20,10 @@ char			*ft_get_secondvalue(char *src)
 
 	i = 0;
 	ret = NULL;
-	if (src && (cpy = ft_strdup(src)))
+	if (src && *src && (cpy = ft_strdup(src)))
 	{
-		while (cpy && cpy[i] && cpy[i] != '#' && cpy[i] != '%' &&
-		(i == 0 || cpy[i - 1] != '}'))
+		while (cpy && cpy[i] && cpy[i] != '#' && cpy[i] != '%'
+			&& (i == 0 || cpy[i - 1] != '}'))
 		{
 			if (cpy[i] == '$' && cpy[i + 1] == '{' && cpy[i + 2] == '#')
 				i = i + 2;

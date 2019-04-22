@@ -360,6 +360,11 @@ int				get_content_size(char *s);
 char			*ft_get_secondvalue(char *src);
 
 /*
+** expansion/exp_tools.c
+*/
+char			*ft_clear_quote(char *str);
+
+/*
 ** get_input/cursor/arrow_move.c
 */
 void			ft_home_key(t_edit *e);

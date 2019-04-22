@@ -121,6 +121,7 @@ SRC		=	\
 	\
 	expansion/exp.c				\
 	expansion/expansion_tools.c	\
+	expansion/exp_tools.c 		\
 	expansion/exp_parenth.c		\
 	expansion/cut_string.c		\
 	expansion/parenth_tools.c	\

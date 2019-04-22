@@ -71,20 +71,39 @@ static char		*heredoc_get_content(char *eof, t_shell *sh)
 	return (ret);
 }
 
+static char 	*ft_heredoc_eof(t_word *w)
+{
+	char *ret;
+
+	ret = NULL;
+	if ((ret = ft_strdup(w->word)) && w->paste)
+	{
+		while (w->next && w->paste)
+		{
+			ret = ft_strappend(&ret, w->next->word);
+			w = w->next;
+		}
+	}
+	return (ft_strdup_trim(ret));
+}
+
 t_redirect		*parse_heredoc(t_redirect *ret, t_word *w)
 {
 	t_shell *sh;
 
 	sh = ft_get_set_shell(NULL);
+	ret->from = STDIN_FILENO;
 	if (w->next && w->next->word)
 	{
-		if (!(ret->path = ft_strdup_trim(w->next->word)))
+		if (!(ret->path = ft_heredoc_eof(w->next)))
 			return (ft_free_redirection(ret));
 		sh->heredoc = 1;
 		if (sh->interactive == TRUE)
 			ret->heredoc = heredoc_get_input(ret->path, sh);
 		else
 			ret->heredoc = heredoc_get_content(ret->path, sh);
+		if (w->next->type != QUOTE)
+			ret->heredoc = ft_exp_var(ret->heredoc, sh);
 		sh->heredoc = 0;
 		return (ret);
 	}

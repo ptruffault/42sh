@@ -88,6 +88,25 @@ static t_redirect	*get_redirection(t_word *w)
 	return (ret);
 }
 
+t_word				*ft_delete_redir_stuff(t_word *w)
+{
+	t_bool paste;
+
+	if (w->next && w->next->paste)
+	{
+		w = w->next;
+		paste = w->paste;
+		while (w->next && paste)
+		{
+			paste = w->next->paste;
+			w = ft_deltword(w, w->next);
+		}
+	}
+	else 	
+		w = ft_deltword(w, w->next);
+	return (w);
+}
+
 t_word				*get_redirections(t_tree *t, t_word *w)
 {
 	t_redirect	*tmp;
@@ -106,7 +125,8 @@ t_word				*get_redirections(t_tree *t, t_word *w)
 		else
 			t->r = ret;
 		if (ret->path)
-			w = ft_deltword(w, w->next);
+			return (ft_delete_redir_stuff(w));
+		ft_printf("here ia m\n");
 		return (w);
 	}
 	return (NULL);

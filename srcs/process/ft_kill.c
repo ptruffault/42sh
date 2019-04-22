@@ -20,7 +20,8 @@ void	ft_update_status(t_process *p, unsigned int status)
 			p->background = TRUE;
 		else if (status == RUNNING_FG)
 			p->background = FALSE;
-		p->status = status;
+		if (p->status != DONE && p->status != KILLED)
+			p->status = status;
 		p = p->grp;
 	}
 }

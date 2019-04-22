@@ -71,20 +71,34 @@ static char		*heredoc_get_content(char *eof, t_shell *sh)
 	return (ret);
 }
 
-static char 	*ft_heredoc_eof(t_word *w)
+static t_word 	*ft_heredoc_eof(t_word *w)
 {
-	char *ret;
+	t_word	*ret;
+	char 	*str;
 
-	ret = NULL;
-	if ((ret = ft_strdup(w->word)) && w->paste)
+	if(!(ret = new_tword()))
+		return (NULL);
+	if (!(str = ft_strdup(w->word)))
+		return (ft_free_tword(ret));
+	if (w->paste)
 	{
+		if (w->type == QUOTE)
+			ret->type = QUOTE;
 		while (w->next && w->paste)
 		{
-			ret = ft_strappend(&ret, w->next->word);
+			str = ft_strappend(&str, w->next->word);
+			if (w->type == QUOTE)
+				ret->type = QUOTE;
 			w = w->next;
 		}
+	}	
+	if (!(ret->word = ft_strdup_trim(str)))
+	{
+		ft_strdel(&str);
+		return (ft_free_tword(ret));
 	}
-	return (ft_strdup_trim(ret));
+	ft_strdel(&str);
+	return (ret);
 }
 
 t_redirect		*parse_heredoc(t_redirect *ret, t_word *w)
@@ -95,14 +109,15 @@ t_redirect		*parse_heredoc(t_redirect *ret, t_word *w)
 	ret->from = STDIN_FILENO;
 	if (w->next && w->next->word)
 	{
-		if (!(ret->path = ft_heredoc_eof(w->next)))
+		if (!(ret->eof = ft_heredoc_eof(w->next)))
 			return (ft_free_redirection(ret));
+		ft_printf("EOF {%s}\n", ret->eof->word);
 		sh->heredoc = 1;
 		if (sh->interactive == TRUE)
-			ret->heredoc = heredoc_get_input(ret->path, sh);
+			ret->heredoc = heredoc_get_input(ret->eof->word, sh);
 		else
-			ret->heredoc = heredoc_get_content(ret->path, sh);
-		if (w->next->type != QUOTE)
+			ret->heredoc = heredoc_get_content(ret->eof->word, sh);
+		if (ret->eof->type != QUOTE)
 			ret->heredoc = ft_exp_var(ret->heredoc, sh);
 		sh->heredoc = 0;
 		return (ret);

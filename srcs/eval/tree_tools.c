@@ -63,6 +63,7 @@ t_redirect			*new_redirection(void)
 		return (NULL);
 	ret->t = 0;
 	ret->to = -2;
+	ret->eof = NULL;
 	ret->from = -2;
 	ret->path = NULL;
 	ret->heredoc = NULL;

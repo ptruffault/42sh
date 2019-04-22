@@ -36,6 +36,7 @@ t_redirect	*ft_free_redirection(t_redirect *r)
 		tmp = r->next;
 		ft_strdel(&r->heredoc);
 		ft_strdel(&r->path);
+		ft_free_tword(r->eof);
 		free(r);
 		r = NULL;
 		r = tmp;

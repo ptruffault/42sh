@@ -140,6 +140,7 @@ typedef struct			s_redirect
 {
 	enum e_rtype		t;
 	char				*path;
+	t_word				*eof;
 	int					from;
 	int					to;
 	char				*heredoc;

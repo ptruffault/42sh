@@ -42,8 +42,6 @@ static char		*heredoc_get_input(char *eoi, t_shell *sh)
 				return (ft_heredoc_clear(in, ret));
 		}
 	ft_strdel(&in);
-	if ((hist->s = ft_stradd_char(hist->s, '\n')))
-		hist->s = ft_strappend(&hist->s, ret);
 	write(0, "\n", 1);
 	return (ret);
 }
@@ -97,7 +95,7 @@ static t_word 	*ft_heredoc_eof(t_word *w)
 				ret->type = QUOTE;
 			w = w->next;
 		}
-	}	
+	}
 	if (!(ret->word = ft_strdup_trim(str)))
 	{
 		ft_strdel(&str);

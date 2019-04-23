@@ -61,7 +61,7 @@ static t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 	{
 		if (w->word && *w->word == '~' && checktilde(w)
 			&& 0 < w->type && w->type <= 2
-			&& (val = get_tenvv_val(envv, "HOME"))
+			&& (val = retrieve_home(NULL, envv))
 			&& (tmp = ft_strpull(w->word, w->word, 0, val)))
 		{
 			ft_strdel(&w->word);

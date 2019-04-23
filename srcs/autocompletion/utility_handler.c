@@ -23,7 +23,7 @@ char	*check_tilde(char *value)
 	sh = ft_get_set_shell(NULL);
 	if ((tmp = ft_strchr(value, '~')))
 	{
-		if (!(home = get_tenvv_val(sh->env, "HOME")))
+		if (!(home = retrieve_home(NULL, sh->env)))
 			return (value);
 		if (!(value = ft_strpull(value, tmp, 0, home)))
 		{

@@ -79,20 +79,24 @@ void		retrieve_path(t_shell *sh)
 	}
 }
 
-char		*retrieve_home(struct passwd **usr)
+char		*retrieve_home(struct passwd **usr, t_envv *envv)
 {
 	struct passwd	*tmp;
 	char			*login;
 
+	if (usr == NULL && (get_tenvv_val(envv, "HOME")) != NULL)
+		return (get_tenvv_val(envv, "HOME"));
 	login = getlogin();
 	if (login != NULL && (tmp = getpwnam(login)))
 	{
-		*usr = tmp;
+		if (usr != NULL)
+			*usr = tmp;
 		return (tmp->pw_dir);
 	}
 	else if ((tmp = getpwuid(getuid())))
 	{
-		*usr = tmp;
+		if (usr != NULL)
+			*usr = tmp;
 		return (tmp->pw_dir);
 	}
 	return (NULL);
@@ -106,13 +110,12 @@ int			init_intern(t_shell *sh)
 	ft_intern_var(sh);
 	hi_path = NULL;
 	usr = NULL;
-	if ((retrieve_home(&usr) != NULL))
+	if ((retrieve_home(&usr, sh->env) != NULL))
 	{
 		sh->env = ft_new_envv(sh->env, "LOGNAME", usr->pw_name, EXP);
 		sh->env = ft_new_envv(sh->env, "HOME", usr->pw_dir, EXP);
 		sh->env = ft_new_envv_int(sh->env, "EUID", (int)usr->pw_uid, IN);
 		sh->env = ft_new_envv_int(sh->env, "GROUPS", (int)usr->pw_gid, IN);
-		sh->env = ft_new_envv(sh->env, "HOME", usr->pw_dir, IN);
 		if (isatty(0) && (hi_path = ft_strjoin(usr->pw_dir, "/.42history"))
 			&& (sh->env = ft_new_envv(sh->env, "HISTFILE", hi_path, IN)))
 			sh->hist = init_hist(hi_path);

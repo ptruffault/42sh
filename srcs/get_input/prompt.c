@@ -78,7 +78,7 @@ static void	ft_print_var(t_shell *sh, char *str, int *ptr)
 	if ((val = ft_strdup(get_tenvv_val(sh->env, str + 2))))
 	{
 		if (ft_strequ("PWD", str + 2))
-			val = ft_replace_home(val, get_tenvv_val(sh->env, "HOME"));
+			val = ft_replace_home(val, retrieve_home(NULL, sh->env));
 		ft_putstr(val);
 	}
 	else if ((val = ft_strdup(get_tenvv_val(sh->env, str + 2))))

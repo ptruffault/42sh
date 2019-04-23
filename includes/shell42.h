@@ -363,6 +363,7 @@ char			*ft_get_secondvalue(char *src);
 ** expansion/exp_tools.c
 */
 char			*ft_clear_quote(char *str);
+char			*ft_clear_glob(char *str);
 
 /*
 ** get_input/cursor/arrow_move.c

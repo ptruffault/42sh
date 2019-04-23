@@ -22,6 +22,29 @@ static char	*ft_get_op(char *s, int *i)
 	return (ft_strsub(s, start, (size_t)*i - start));
 }
 
+static char *ft_cut_glob(char *val, char *pat, char *op)
+{
+	char *tmp;
+	char *new;
+
+	if ((tmp = ft_strstr(val, ft_clear_glob(pat))))
+	{
+		if (*op == '#')
+		{
+			new = ft_strndup(val, tmp - val);
+			ft_strdel(&val);
+			return (new);
+		}
+		else if (*op == '%')
+		{
+			new = ft_strndup(val, tmp - val);
+			ft_strdel(&val);
+			return (new);
+		}
+	}
+	return (val);
+}
+
 static char	*ft_cut_begin(char *val, char *pat)
 {
 	char	*new;
@@ -43,7 +66,7 @@ static char	*ft_cut_end(char *val, char *pat)
 {
 	char	*new;
 	size_t	len;
-
+	
 	if (val && pat && ft_str_endwith(val, pat))
 	{
 		len = ft_strlen(val) - ft_strlen(pat);
@@ -58,6 +81,8 @@ static char	*ft_handle_op(char *op, char *val, char *pattern)
 {
 	if (!pattern)
 		return (val);
+	if (ft_strchr(pattern, '*'))
+		return (ft_cut_glob(val, pattern, op));
 	if (ft_strequ(op, "##"))
 		while (val && ft_str_startwith(val, pattern))
 			val = ft_cut_begin(val, pattern);
@@ -74,7 +99,6 @@ static char	*ft_handle_op(char *op, char *val, char *pattern)
 char		*ft_cut_string(char *parenth, char *val, int *curr)
 {
 	char	*pattern;
-	char	*tmp;
 	char	*op;
 	t_shell	*sh;
 
@@ -84,12 +108,9 @@ char		*ft_cut_string(char *parenth, char *val, int *curr)
 		if (parenth[*curr] && parenth[*curr] != '}'
 		&& (pattern = ft_get_secondvalue(&parenth[*curr])))
 		{
+			// to change for '*' 
 			*curr = *curr + (int)ft_strlen(pattern) - 1;
-			if (*pattern == '$' && (tmp = get_tenvv_val(sh->env, pattern + 1)))
-			{
-				ft_strdel(&pattern);
-				pattern = ft_strdup(tmp);
-			}
+			pattern = ft_exp_var(pattern, sh, TRUE);
 			val = ft_handle_op(op, val, pattern);
 			ft_strdel(&pattern);
 		}

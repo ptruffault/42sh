@@ -170,6 +170,7 @@ int				ft_cd(char **input, t_shell *sh);
 char			*ft_strdup_path(char *src);
 char			*trans_cdpath(char *p, t_shell *sh, bool *pw, t_opts *o);
 char			*try_cdpath(char *cdp, char *p, bool *pw, t_opts *o);
+char			*trim_path(char *path);
 
 /*
 ** builtins/ft_echo.c
@@ -580,9 +581,9 @@ int				init_env(t_shell *sh, char **argv, char **envv);
 ** setup_exit/init_intern.c
 */
 void			ft_init_builtins_tab(t_shell *sh);
-char			*trim_path(char *path);
 void			retrieve_path(t_shell *sh);
 int				init_intern(t_shell *sh);
+char			*retrieve_home(struct passwd **usr, t_envv *envv);
 
 /*
 ** setup_exit/init_shell.c

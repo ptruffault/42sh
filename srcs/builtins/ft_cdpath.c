@@ -52,6 +52,31 @@ char		*ft_strdup_path(char *src)
 	return (res);
 }
 
+char		*trim_path(char *path)
+{
+	int		i;
+	int		save;
+
+	i = -1;
+	save = 0;
+	while (path[++i] != '\0')
+	{
+		if (path[i] == '.' && path[i + 1] == '\0')
+			path[i] = '\0';
+		if (path[i] == '.' && path[i + 1] == '.')
+			if (save >= 0)
+				return (ft_strcpy(path + save, path + i + 2));
+		if (path[i] == '.' && path[i + 1] == '/')
+			if (save >= 0)
+				return (ft_strcpy(path + i, path + i + 1));
+		if (path[i] == '/' && path[i + 1] == '/')
+			return (ft_strcpy(path + i, path + i + 1));
+		if (path[i] == '/' && path[i + 1] != '.')
+			save = i;
+	}
+	return (path);
+}
+
 char		*trans_cdpath(char *path, t_shell *sh, bool *pwd_f, t_opts *opts)
 {
 	char	*cdpath;
@@ -81,8 +106,7 @@ char		*try_cdpath(char *cdpath, char *path, bool *pwd_f, t_opts *opts)
 		{
 			tpath[i] = ft_stradd(&tpath[i], "/");
 			tpath[i] = ft_stradd(&tpath[i], path);
-			if (((lstat(tpath[i], &dir)) == 0  && S_ISDIR(dir.st_mode))
-				|| ((stat(tpath[i], &dir)) == 0  && S_ISDIR(dir.st_mode)) )
+			if (tpath[i] && (stat(tpath[i], &dir)) == 0  && S_ISDIR(dir.st_mode))
 			{
 				res = ft_strdup(tpath[i]);
 				ft_freestrarr(&tpath);

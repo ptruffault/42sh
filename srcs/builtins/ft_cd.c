@@ -102,7 +102,7 @@ int				ft_cd(char **input, t_shell *sh)
 		error("cd: invalid option", input[tabl - 1]);
 	else if (!(input[1]))
 	{
-		if ((val = get_tenvv_val(sh->env, "HOME")))
+		if ((val = retrieve_home(NULL, sh->env)))
 			return (get_path_cd(val, sh, opts));
 		else
 			error("UNSET VAR", "HOME");

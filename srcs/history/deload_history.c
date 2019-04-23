@@ -26,7 +26,7 @@ void	ft_deload_hist_in_file(t_shell *sh)
 		if (!(path = get_tenvv_val(sh->env, "HISTFILE")))
 			return ;
 		unlink(path);
-		if ((fd = ft_open(path, O_RDWR | O_CREAT | O_NOFOLLOW, 0644)) < 0)
+		if ((fd = ft_open(path, O_RDWR | O_CREAT | O_NOFOLLOW | O_NONBLOCK, 0644)) < 0)
 			return ;
 		while (hist)
 		{

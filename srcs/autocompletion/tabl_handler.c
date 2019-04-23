@@ -30,7 +30,7 @@ int			check_exec(char *file, char *path)
 		return (0);
 	if (!(tmp = ft_stradd(&tmp, file)))
 		return (0);
-	if (lstat(tmp, &file_stat) < 0)
+	if ((stat(tmp, &file_stat)) < 0)
 	{
 		ft_strdel(&tmp);
 		return (0);

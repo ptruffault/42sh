@@ -21,7 +21,7 @@ static t_word	*maybe_expand(t_word *w)
 	sh = ft_get_set_shell(NULL);
 	if (w && (tmp = ft_strchr(w->word, '=')) && tmp[1] == '~')
 		if (tmp[2] == '\0' || tmp[2] == '/')
-			if ((value = get_tenvv_val(sh->env, "HOME")))
+			if ((value = retrieve_home(NULL, sh->env)))
 			{
 				tmp = ft_strplexp(w->word, tmp + 1, 0, value);
 				ft_strdel(&w->word);

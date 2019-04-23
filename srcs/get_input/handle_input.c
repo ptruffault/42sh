@@ -12,12 +12,24 @@
 
 #include <get_input.h>
 
-void	ft_incr_search(t_edit *e)
+static int	handle_paste(unsigned long buf, t_edit *e)
+{
+	int		i;
+
+	i = -1;
+	u_str.buff = buf;
+	while (u_str.str[++i] != 0)
+		if (!(ft_add_char(u_str.str[i], e)))
+			return (FAILURE);
+	return (SUCCESS);
+}
+
+void		ft_incr_search(t_edit *e)
 {
 	e->mode = 2;
 }
 
-int		handle_input(unsigned long buf, t_edit *e)
+int			handle_input(unsigned long buf, t_edit *e)
 {
 	int				x;
 
@@ -39,8 +51,8 @@ int		handle_input(unsigned long buf, t_edit *e)
 	}
 	if (x == NUMBER_OF_KEYS && buf == 9 && e->hist)
 		return (tab_handle(e));
-	if (x == NUMBER_OF_KEYS && ft_isascii((int)buf) && e->hist)
-		if (!(ft_add_char((char)buf, e)))
+	if (x == NUMBER_OF_KEYS && e->hist)
+		if (!(handle_paste(buf, e)))
 			return (9);
 	return (x);
 }

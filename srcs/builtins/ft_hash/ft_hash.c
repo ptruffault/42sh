@@ -79,18 +79,13 @@ int				add_in_htable(const char *str, const char *path, t_shell *sh)
 	return (0);
 }
 
-int				cleaning_htable(char *cmd, t_shell *sh)
+int				cleaning_htable(t_shell *sh)
 {
 	int			i;
 	t_hash		*value;
 	t_hash		*next;
 
 	i = -1;
-	if (cmd != NULL && !(ft_strequ(cmd, "-r")))
-	{
-		error("hash: bad option :", &cmd[1]);
-		return (2);
-	}
 	while (sh->htable && ++i < HASHTABLE_SIZE)
 	{
 		value = sh->htable[i];
@@ -111,17 +106,19 @@ int				builtin_htable(char **cmd, t_shell *sh)
 {
 	char			*path;
 	t_hash			*value;
+	int				ret;
 
 	value = NULL;
+	ret = 0;
 	if (!*cmd)
 		return (print_htable(sh));
 	else if (ft_str_startwith(*cmd, "-"))
-		return (cleaning_htable(*cmd, sh));
+		cmd = check_options_hash(cmd, sh, &ret);
 	path = NULL;
-	while (*cmd)
+	while (*cmd && ret != 2)
 	{
 		if (!(path = get_bin_path(*cmd, sh->env)))
-			error("hash: no such command:", *cmd);
+			ret = error("hash: no such command:", *cmd) + 1;
 		else if (!check_builtin(*cmd))
 		{
 			if (!(value = search_in_htable(*cmd, sh)))
@@ -130,5 +127,5 @@ int				builtin_htable(char **cmd, t_shell *sh)
 		ft_strdel(&path);
 		++cmd;
 	}
-	return (0);
+	return (ret);
 }

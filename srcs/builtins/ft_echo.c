@@ -71,19 +71,20 @@ int			ft_echo(char **input, t_process *p)
 	int opts_n;
 
 	opts_n = 0;
+	i = 0;
 	if (p->fd[1] == -1)
 	{
 		error("echo: write error: Bad file descriptor", NULL);
 		return (1);
 	}
-	if (*input && ft_strequ(input[0], "-n"))
-		opts_n = 1;
-	i = opts_n;
+	while (*input && input[i] && ft_strequ(input[i], "-n"))
+		i++;
+	opts_n = (i > 0) ? 1 : 0;
 	while (input && input[i])
 	{
-		if (i > opts_n)
-			ft_putchar(' ');
 		ft_putstr_echo(input[i++]);
+		if (input[i] != 0)
+			ft_putchar(' ');
 	}
 	if (opts_n == 0)
 		ft_putchar('\n');

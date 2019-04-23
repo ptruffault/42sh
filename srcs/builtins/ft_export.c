@@ -23,6 +23,8 @@ static int		check_options(char **argv)
 	while (argv[++i] && argv[i][0] == '-')
 	{
 		j = 0;
+		if (argv[i][1] == '-')
+			break ;
 		while (argv[i][++j] != '\0')
 		{
 			if (argv[i][j] != 'p')
@@ -32,6 +34,8 @@ static int		check_options(char **argv)
 			}
 		}
 	}
+	if (argv[i] && argv[i][1] == '-')
+		++i;
 	return (i);
 }
 
@@ -84,7 +88,7 @@ static int		export_option_p(t_shell *sh, char **argv, int i)
 		if ((t = get_tenvv(sh->env, name)))
 		{
 			t->status = EXP;
-			print_for_export(t, "export -p ");
+			print_for_export(t, "export ");
 		}
 		else if (check_name(name))
 			sh->env = handler_env(sh, name, val, equal);

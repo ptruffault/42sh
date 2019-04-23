@@ -80,7 +80,7 @@ int			ft_echo(char **input, t_process *p)
 	while (*input && input[i] && ft_strequ(input[i], "-n"))
 		i++;
 	opts_n = (i > 0) ? 1 : 0;
-	while (input && input[i])
+	while (*input && input[i])
 	{
 		ft_putstr_echo(input[i++]);
 		if (input[i] != 0)

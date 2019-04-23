@@ -16,15 +16,12 @@ static t_word	*init_opts(char opts[4], t_word *w)
 {
 	int i;
 
-	opts[0] = 0;
-	opts[1] = 0;
-	opts[2] = 0;
-	opts[3] = 0;
 	while (w && w->word && *w->word == '-')
 	{
-		i = 1;
-		while (w->word[i])
-		{
+		i = 0;
+		if (w->word[1] == '-')
+			break ;
+		while (w->word[++i])
 			if (ft_strchr("atpP", w->word[i]))
 			{
 				opts[0] = (w->word[i] == 'a' ? 1 : opts[0]);
@@ -33,11 +30,14 @@ static t_word	*init_opts(char opts[4], t_word *w)
 				opts[3] = (w->word[i] == 'P' ? 1 : opts[3]);
 			}
 			else
+			{
 				warning_c("bad option", w->word[i]);
-			i++;
-		}
+				return (NULL);
+			}
 		w = w->next;
 	}
+	if (w && w->word && w->word[1] == '-')
+		w = w->next;
 	return (w);
 }
 
@@ -72,6 +72,7 @@ int				ft_type(t_word *w)
 	int		ret;
 	char	opts[4];
 
+	ft_memset(opts, 0, 4);
 	if (!w || !w->word || !(w = init_opts(opts, w)))
 		return (1);
 	ret = 0;

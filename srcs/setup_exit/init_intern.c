@@ -87,7 +87,7 @@ char		*retrieve_home(struct passwd **usr, t_envv *envv)
 	if (usr == NULL && (get_tenvv_val(envv, "HOME")) != NULL)
 		return (get_tenvv_val(envv, "HOME"));
 	login = getlogin();
-	if (login != NULL && (tmp = getpwnam(login)))
+	if (login != NULL && (tmp = getpwnam(login)) && access(tmp->pw_dir, W_OK))
 	{
 		if (usr != NULL)
 			*usr = tmp;

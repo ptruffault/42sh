@@ -88,7 +88,7 @@ static t_opts	get_options_cd(char **input, size_t *tabl)
 				opts = (opts | 0x10) & ~(0x01) & ~(0x02);
 		}
 	}
-	*tabl = (input[i][1] == '-') ? ++i : i;
+	*tabl = (input[i] != 0 && input[i][1] == '-') ? ++i : i;
 	if (input[i] && input[i + 1])
 		return (opts | 0x20);
 	return (opts);

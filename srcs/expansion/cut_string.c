@@ -41,7 +41,7 @@ static char *ft_cut_glob(char *val, char *pat, char *op)
 	else if (*op == '%')
 	{
 		b_op = (op[1] == *op ? TRUE : FALSE);
-		if ((len = ft_match_begin(val, pat, b_op)) > 0)
+		if ((len = ft_match_end(val, pat, b_op)) > 0)
 		{
 			new = ft_strndup(val, len);
 			ft_strdel(&val);

@@ -35,7 +35,7 @@ int		ft_match_end(const char *s, const char *p, t_bool end)
 	int i;
 	int j;
 
-	i = (int)ft_strlen(s) - 1;
+	i = 0;
 	j = (int)ft_strlen(p) - 1;
 	while (s && i >= 0 && p && j >= 0 && (s[i] == p[j] 
 		|| (p[j] == '*' && (end || j > 0))))

@@ -24,23 +24,31 @@ static char	*ft_get_op(char *s, int *i)
 
 static char *ft_cut_glob(char *val, char *pat, char *op)
 {
-	char *tmp;
-	char *new;
+	char	*new;
+	int		len;
+	t_bool	b_op;
 
-	if ((tmp = ft_strstr(val, ft_clear_glob(pat))))
+	if (*op == '#')
 	{
-		if (*op == '#')
+		b_op = (op[1] == *op ? TRUE : FALSE);
+		if ((len = ft_match_begin(val, pat, b_op)) > 0)
 		{
-			new = ft_strndup(val, tmp - val);
+			new = ft_strdup(val + len);
 			ft_strdel(&val);
 			return (new);
 		}
-		else if (*op == '%')
+	}
+	else if (*op == '%')
+	{
+		b_op = (op[1] == *op ? TRUE : FALSE);
+		if ((len = ft_match_end(val, pat, b_op)) > 0)
 		{
-			new = ft_strndup(val, tmp - val);
+			new = ft_strndup(val, len);
 			ft_strdel(&val);
 			return (new);
 		}
+		else if (len == 0)
+			return (ft_strdell(&val));
 	}
 	return (val);
 }
@@ -108,7 +116,6 @@ char		*ft_cut_string(char *parenth, char *val, int *curr)
 		if (parenth[*curr] && parenth[*curr] != '}'
 		&& (pattern = ft_get_secondvalue(&parenth[*curr])))
 		{
-			// to change for '*' 
 			*curr = *curr + (int)ft_strlen(pattern) - 1;
 			pattern = ft_exp_var(pattern, sh, TRUE);
 			val = ft_handle_op(op, val, pattern);

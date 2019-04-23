@@ -109,7 +109,7 @@ int				search_in_hist_parser(t_fc *fc, short i);
 ** builtins/ft_hash/ft_hash.c
 */
 int				builtin_htable(char **cmd, t_shell *sh);
-int				cleaning_htable(char *cmd, t_shell *sh);
+int				cleaning_htable(t_shell *sh);
 int				add_in_htable(const char *str, const char *path, t_shell *sh);
 t_hash			*search_in_htable(const char *str, t_shell *sh);
 
@@ -118,6 +118,7 @@ t_hash			*search_in_htable(const char *str, t_shell *sh);
 */
 t_hash			**init_htable(void);
 unsigned int	ft_hash(const char *str);
+char			**check_options_hash(char **cmd, t_shell *sh, int *ret);
 
 /*
 ** builtins/ft_test/ft_test.c

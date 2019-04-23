@@ -53,7 +53,7 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, int boucl)
 	return (ft_next_alias(w, w_alias, boucl));
 }
 
-static t_word 			*ft_simple_check(t_word *head)
+/*static t_word 			*ft_simple_check(t_word *head)
 {
 	t_word *w;
 	t_word *prev;
@@ -76,7 +76,7 @@ static t_word 			*ft_simple_check(t_word *head)
 		i++;
 	}
 	return (head);
-}
+}*/
 
 t_word			*ft_check_alias(t_word *head, t_shell *sh, int boucl)
 {
@@ -100,5 +100,5 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh, int boucl)
 			i++;
 		w = w->next;
 	}
-	return (ft_simple_check(head));
+	return (head);
 }

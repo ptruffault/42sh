@@ -71,6 +71,12 @@ enum	e_error
 	P_MISS = 8,
 };
 
+union
+{
+	unsigned long		buff;
+	unsigned char		str[9];
+}						u_str;
+
 typedef unsigned int	t_opts;
 
 typedef struct			s_sig_msg

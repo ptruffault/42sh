@@ -30,7 +30,7 @@ int			ft_quit(int exit_code, t_shell *sh)
 	if (isatty(0) && isatty(1))
 		kill_process(sh->process, SIGKILL, RUNNING_FG);
 	ft_deload_hist_in_file(sh);
-	cleaning_htable(NULL, sh);
+	cleaning_htable(sh);
 	free(sh->htable);
 	ft_free_tshell(sh);
 	return (exit_code);

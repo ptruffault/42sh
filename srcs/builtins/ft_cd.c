@@ -76,6 +76,8 @@ static t_opts	get_options_cd(char **input, size_t *tabl)
 	while (input[++i] && input[i][0] == '-' && input[i][1] != '\0')
 	{
 		j = 0;
+		if (input[i][1] == '-')
+			break ;
 		while (input[i][++j] != '\0')
 		{
 			if (input[i][j] == 'L')
@@ -86,7 +88,9 @@ static t_opts	get_options_cd(char **input, size_t *tabl)
 				opts = (opts | 0x10) & ~(0x01) & ~(0x02);
 		}
 	}
-	*tabl = i;
+	*tabl = (input[i][1] == '-') ? ++i : i;
+	if (input[i] && input[i + 1])
+		return (opts | 0x20);
 	return (opts);
 }
 
@@ -96,18 +100,19 @@ int				ft_cd(char **input, t_shell *sh)
 	t_opts			opts;
 	size_t			tabl;
 
-	tabl = 1;
 	opts = get_options_cd(input, &tabl);
-	if (opts & 0x10)
-		error("cd: invalid option", input[tabl - 1]);
-	else if (!(input[1]))
+	if (opts & 0x20)
+		return (error("cd: too many arguments", NULL) + 1);
+	else if (opts & 0x10)
+		return (error("cd: invalid option", input[tabl - 1]) + 2);
+	else if (!(input[tabl]))
 	{
 		if ((val = retrieve_home(NULL, sh->env)))
 			return (get_path_cd(val, sh, opts));
 		else
 			error("UNSET VAR", "HOME");
 	}
-	else if (input[1][0] == '-' && input[1][1] == '\0')
+	else if (input[tabl][0] == '-' && input[tabl][1] == '\0')
 	{
 		if ((val = get_tenvv_val(sh->env, "OLDPWD")))
 			return (get_path_cd(val, sh, (opts | 0x04)));

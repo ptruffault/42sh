@@ -106,7 +106,7 @@ char		*try_cdpath(char *cdpath, char *path, bool *pwd_f, t_opts *opts)
 		{
 			tpath[i] = ft_stradd(&tpath[i], "/");
 			tpath[i] = ft_stradd(&tpath[i], path);
-			if (tpath[i] && (stat(tpath[i], &dir)) == 0  && S_ISDIR(dir.st_mode))
+			if (tpath[i] && !(stat(tpath[i], &dir)) && S_ISDIR(dir.st_mode))
 			{
 				res = ft_strdup(tpath[i]);
 				ft_freestrarr(&tpath);

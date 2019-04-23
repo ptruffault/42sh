@@ -28,3 +28,21 @@ char	*ft_clear_quote(char *str)
 	}
 	return (str);
 }
+
+
+char	*ft_clear_glob(char *str)
+{
+	int i;
+
+	i = -1;
+	while (str && str[++i])
+	{
+		if (str[i] == '*')
+		{
+			while (str[i++])
+				str[i - 1] = str[i];
+			i = -1;
+		}
+	}
+	return (str);
+}

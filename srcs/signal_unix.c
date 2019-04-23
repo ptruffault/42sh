@@ -43,7 +43,7 @@ static const t_sig_msg	g_signal_msg[] = {
 	{.msg = NULL}
 };
 
-static void	sig_handler(int sig)
+void	sig_handler(int sig)
 {
 	t_shell		*sh;
 

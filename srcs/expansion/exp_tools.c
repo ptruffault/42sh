@@ -12,7 +12,7 @@
 
 #include "shell42.h"
 
-int		ft_match_begin(const char *s, const char *p)
+int		ft_match_begin(const char *s, const char *p, t_bool mode)
 {
 	int i;
 	int j;
@@ -22,7 +22,7 @@ int		ft_match_begin(const char *s, const char *p)
 	len = (int)ft_strlen(p);
 	j = 0;
 	while (s && s[i] && p && p[j] && (s[i] == p[j] 
-		|| (p[j] == '*' && p[j + 1])))
+		|| (p[j] == '*' && (mode || p[j + 1]))))
 	{
 		if (p[j + 1] && p[j] == '*' && p[j + 1] == '*')
 			while (p[j + 1] && p[j] == '*' && p[j + 1] == '*')
@@ -39,7 +39,7 @@ int		ft_match_begin(const char *s, const char *p)
 	return (0);
 }
 
-int		ft_match_end(const char *s, const char *p)
+int		ft_match_end(const char *s, const char *p, t_bool mode)
 {
 	int i;
 	int j;
@@ -49,7 +49,7 @@ int		ft_match_end(const char *s, const char *p)
 	i = (int)ft_strlen(s) - 1;
 	j = len - 1;
 	while (s && i >= 0 && p && j >= 0 && (s[i] == p[j] 
-		|| (p[j] == '*' && j > 0)))
+		|| (p[j] == '*' && (mode || j > 0))))
 	{
 		if (j > 0 && p[j] == '*' && p[j - 1] == '*')
 			while (j > 0 && p[j] == '*' && p[j - 1] == '*')
@@ -58,12 +58,11 @@ int		ft_match_end(const char *s, const char *p)
 			j--;
 		else if (p[j] == '*' && (j > 0 && p[j - 1] == s[i]))
 		{
-			j--;
-			j = (j > 0 ? j - 1 : j);
+			j = j - 2;
 		}
 		i--;
 	}
-	if (i >= 0 && (j <= 0 && p[0] == '*'))
+	if (i >= 0)
 		return (i + 1);
 	return (0);
 }

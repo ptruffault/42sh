@@ -6,7 +6,7 @@
 /*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 11:16:01 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/24 16:36:45 by fstadelw         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:33:05 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 
 # include <stddef.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 # define BUFF_SIZE 256
 # define FAILURE 0

@@ -1,1 +1,1 @@
-ls | unknowcmd
+ls | unknowcmd || unknowcmd | ls 

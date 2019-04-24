@@ -25,7 +25,7 @@ int		check_integer_tab(char *argv)
 	i = -1;
 	while (argv[++i])
 	{
-		if (!(ft_isdigit(argv[i])))
+		if (!(ft_isdigit(argv[i])) && argv[i] != '-' && argv[i] != '+')
 			return (1);
 	}
 	return (0);

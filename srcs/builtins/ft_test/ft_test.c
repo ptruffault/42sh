@@ -86,10 +86,10 @@ static int		compare_argv(char **argv)
 
 static int		test_builtin(char **argv)
 {
-	if (*argv && argv[0][0] == '-')
+	if (*argv && argv[1] != 0 && argv[2] == 0)
 	{
 		if (argv[0][1] == 'z')
-			return ((argv[1] && ft_strlen(argv[1]) > 0) ? 0 : 1);
+			return ((argv[1] && argv[1][0] != '\0') ? 1 : 0);
 		else
 			return (check_arg_files(argv));
 	}
@@ -99,7 +99,7 @@ static int		test_builtin(char **argv)
 		{
 			if (argv[1][0] == '-')
 				return (compare_argv(argv));
-			else if (!(ft_strcmp(argv[1], "==")))
+			else if (!(ft_strcmp(argv[1], "=")))
 				return (ft_strcmp(argv[0], argv[2]) == 0 ? 0 : 1);
 			else if (!(ft_strcmp(argv[1], "!=")))
 				return (ft_strcmp(argv[0], argv[2]) != 0 ? 0 : 1);

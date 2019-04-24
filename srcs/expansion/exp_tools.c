@@ -35,7 +35,6 @@ int		ft_match_begin(const char *s, const char *p, t_bool mode)
 	}
 	if (j == len || (j == len - 1 && p[j] == '*'))
 		return (i);
-
 	return (0);
 }
 
@@ -46,9 +45,9 @@ int		ft_match_end(const char *s, const char *p, t_bool mode)
 	int len;
 
 	len = (int)ft_strlen(p);
-	i = (int)ft_strlen(s) - 1;
+	i = (int)ft_strlen(s);
 	j = len - 1;
-	while (s && i >= 0 && p && j >= 0 && (s[i] == p[j] 
+	while (s && --i >= 0 && p && j >= 0 && s[i] && (s[i] == p[j] 
 		|| (p[j] == '*' && (mode || j > 0))))
 	{
 		if (j > 0 && p[j] == '*' && p[j - 1] == '*')
@@ -60,11 +59,12 @@ int		ft_match_end(const char *s, const char *p, t_bool mode)
 		{
 			j = j - 2;
 		}
-		i--;
 	}
-	if (i >= 0)
-		return (i + 1);
-	return (0);
+	j = (j == -1) ? 0 : j;
+	i = (i == -1) ? 0 : i;
+	if (j == 0)
+		return (i);
+	return (-1);
 }
 
 char	*ft_clear_glob(char *str)

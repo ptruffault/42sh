@@ -26,7 +26,7 @@ static void	setup_key(char *error[7], t_edit *e)
 	if (e->tmp == NULL)
 		e->tmp = e->hist->s;
 	else
-		e->tmp = ft_strjoin_add_if(&e->tmp, &e->hist->s, "\n");
+		e->tmp = ft_strjoin_fr(e->tmp, e->hist->s);
 	e->hist->s = e->tmp;
 }
 
@@ -71,6 +71,7 @@ void		entry_key(t_edit *e)
 	{
 		reset_tedit(e);
 		eval.err = (eval.err >= 2) ? eval.err - 2 : eval.err;
+		e->tmp = ft_strjoin_add_edit(&e->tmp, "\n", eval.err);
 		ft_others_prompt(ft_get_set_shell(NULL), error[eval.err]);
 	}
 	else

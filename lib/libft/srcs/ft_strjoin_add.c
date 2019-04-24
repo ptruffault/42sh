@@ -12,6 +12,21 @@
 
 #include "libft.h"
 
+char	*ft_strjoin_add_edit(char **s1, const char *add, int err)
+{
+	char	*tmp;
+
+	tmp = *s1;
+	if ((err <= 3 || err >= 5) && tmp)
+	{
+		if (!(*s1 = ft_stradd(s1, add)))
+			return (NULL);
+	}
+	else if (tmp)
+		tmp[ft_strlen(tmp) - 1] = '\0';
+	return (*s1);
+}
+
 char	*ft_strjoin_add_if(char **s1, char **s2, const char *add)
 {
 	char	*ret;

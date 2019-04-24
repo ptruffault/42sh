@@ -1,0 +1,1 @@
+alias hello='echo "hello, world"';hello|cat -e;alias hello;alias hello=;hello;alias hello

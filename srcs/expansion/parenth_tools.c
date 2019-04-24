@@ -25,8 +25,8 @@ char			*ft_get_secondvalue(char *src)
 		while (cpy && cpy[i] && cpy[i] != '#' && cpy[i] != '%'
 			&& (i == 0 || cpy[i - 1] != '}'))
 		{
-			if (cpy[i] == '$' && cpy[i + 1] == '{' && cpy[i + 2] == '#')
-				i = i + 2;
+			if (cpy[i] == '$' && cpy[i + 1] == '{')
+				i = i + get_content_size(&cpy[i]);
 			i++;
 		}
 		if (cpy && !(ret = ft_strndup(cpy, i)))

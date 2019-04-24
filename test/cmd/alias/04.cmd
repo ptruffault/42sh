@@ -1,0 +1,1 @@
+alias aa='echo hello' bb='echo world'; aa; bb

@@ -1,0 +1,1 @@
+alias t='echo abc|' ; t cat -e 

@@ -66,6 +66,17 @@ static void	ft_putstr_echo(char *s)
 	}
 }
 
+static int	only_n(char *str)
+{
+	int		i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] != 'n')
+			return (0);
+	return (1);
+}
+
 int			ft_echo(char **input, t_process *p)
 {
 	int i;
@@ -78,7 +89,7 @@ int			ft_echo(char **input, t_process *p)
 		error("echo: write error: Bad file descriptor", NULL);
 		return (1);
 	}
-	while (*input && input[i] && ft_strequ(input[i], "-n"))
+	while (input[i] && input[i][0] == '-' && only_n(&input[i][1]))
 		i++;
 	opts_n = (i > 0) ? 1 : 0;
 	while (*input && input[i])

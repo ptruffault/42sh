@@ -6,7 +6,7 @@
 /*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 16:02:36 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/24 17:24:51 by fstadelw         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:35:04 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,8 +189,8 @@ int				ft_type(t_word *w);
 /*
 ** builtins/print_utility.c
 */
-void				print_for_export(t_envv	*node, const char *opt);
-void				print_for_alias(t_envv	*node);
+void			print_for_export(t_envv	*node, const char *opt);
+void			print_for_alias(t_envv	*node);
 
 /*
 ** builtins/run_builtin.c

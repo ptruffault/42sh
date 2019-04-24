@@ -6,7 +6,7 @@
 /*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 15:28:15 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/24 16:40:18 by fstadelw         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:33:46 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_open(const char *path, int flag, mode_t mode)
 		error("permission denied", path);
 	else if (!(flag & O_CREAT) && S_ISLNK(inf.st_mode))
 		error("ft_open do not follow symbolic link", path);
-	else if(((fd = open(path, flag, mode)) < 0) && (S_ISFIFO(inf.st_mode)))
+	else if (((fd = open(path, flag, mode)) < 0) && (S_ISFIFO(inf.st_mode)))
 		error("can't open this file", path);
 	return (fd);
 }

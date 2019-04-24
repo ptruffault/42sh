@@ -16,16 +16,16 @@ static int	ft_check_alpha(char *input)
 {
 	int i;
 
-	i = 0;
-	while (input && input[i])
-		if (!ft_isdigit(input[i++]))
+	i = -1;
+	while (input && input[++i])
+		if (input[i] != '-' && !ft_isdigit(input[i]))
 			return (0);
 	return (1);
 }
 
 int			ft_quit(int exit_code, t_shell *sh)
 {
-	if (exit_code == -1)
+	if (exit_code == 226)
 		exit_code = ft_atoi(get_tenvv_val(sh->env, "?"));
 	if (isatty(0) && isatty(1))
 		kill_process(sh->process, SIGKILL, RUNNING_FG);
@@ -40,14 +40,19 @@ int			ft_exit(char **nbr, t_shell *sh)
 {
 	int ret;
 
-	ret = -1;
+	ret = 226;
 	if (nbr && nbr[0] != NULL && nbr[1] != NULL)
 	{
 		error("too many arguments", NULL);
+		sh->env = ft_new_envv_int(sh->env, "?", 1, IN);
+		return (1);
+	}
+	else if (nbr && *nbr && (!ft_check_alpha(*nbr)))
+	{
+		error("numeric argument required", NULL);
 		ret = 2;
 	}
-	else if (nbr && *nbr && (!ft_check_alpha(*nbr)
-		|| (ret = ft_atoi(*nbr)) < 0))
+	else if (nbr && *nbr && (ret = ft_atoi(*nbr)) < 0 && *nbr[0] != '-')
 	{
 		error("numeric argument required", NULL);
 		ret = 2;

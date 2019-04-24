@@ -19,13 +19,13 @@ int			main(int argc, char **argv, char **envv)
 
 	(void)argc;
 	if (!init_shell(&sh, envv, argv))
-		return (ft_quit(-1, &sh));
+		return (ft_quit(226, &sh));
 	while (isatty(STDIN_FILENO))
 	{
 		sh.err = 0;
 		ft_disp(&sh);
 		if (!(get_input(&sh.txt)))
-			return (ft_quit(-1, &sh));
+			return (ft_quit(226, &sh));
 		if ((t = get_tree(sh.txt, &sh)))
 			ft_free_tree(exec_tree(t, &sh));
 		ft_strdel(&sh.txt);

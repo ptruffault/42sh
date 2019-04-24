@@ -23,6 +23,10 @@ void	reset_tedit(t_edit *e)
 
 void	reset_get_input(t_edit *e)
 {
+	t_shell		*sh;
+
+	sh = ft_get_set_shell(NULL);
+	sh->env = ft_new_envv_int(sh->env, "?", 130, IN);
 	ft_strdel(&e->tmp);
 	if (!e->hist)
 		return ;

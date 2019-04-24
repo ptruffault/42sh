@@ -102,7 +102,7 @@ int				ft_cd(char **input, t_shell *sh)
 
 	opts = get_options_cd(input, &tabl);
 	if (opts & 0x20)
-		return (error("cd: too many arguments", NULL) + 1);
+		return (error("cd: too many arguments", NULL));
 	else if (opts & 0x10)
 		return (error("cd: invalid option", input[tabl - 1]) + 2);
 	else if (!(input[tabl]))

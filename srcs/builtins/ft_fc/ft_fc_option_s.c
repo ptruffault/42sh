@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fc_option_s.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <adi-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 16:07:49 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/04/01 16:07:50 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:03:18 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "shell42.h"
 
 static char		*repl_occ(char *old, char *ret, char *str)

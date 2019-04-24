@@ -6,10 +6,11 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 13:33:17 by stdenis           #+#    #+#             */
-/*   Updated: 2019/03/07 15:58:09 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:24:06 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "ft_printf.h"
 
 void	fill_buffer(char c, t_printf *ptab)

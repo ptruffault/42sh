@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   signal_unix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 12:57:50 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:18:36 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:25:29 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static const t_sig_msg	g_signal_msg[] = {
 	{.msg = NULL}
 };
 
-void	sig_handler(int sig)
+void		sig_handler(int sig)
 {
 	t_shell		*sh;
 

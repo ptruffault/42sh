@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_envv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 12:38:45 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:46:55 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "shell42.h"
 
 static char	*get_shell_path(char *path)

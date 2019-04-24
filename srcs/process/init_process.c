@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 15:17:06 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:10:32 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "shell42.h"
 
 static t_process	*ft_process_null(t_process *ret)

@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_instrction.c                                   :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:20:35 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:57:25 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "shell42.h"
 
 t_word				*ft_delete_redir_stuff(t_word *w)
@@ -26,7 +27,7 @@ t_word				*ft_delete_redir_stuff(t_word *w)
 			w = ft_deltword(w, w->next);
 		}
 	}
-	else 	
+	else
 		w = ft_deltword(w, w->next);
 	return (w);
 }

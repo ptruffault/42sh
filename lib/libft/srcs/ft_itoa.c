@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 13:10:44 by ptruffau          #+#    #+#             */
-/*   Updated: 2017/11/16 13:11:55 by ptruffau         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:39:17 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <stdlib.h>
+#include "libft.h"
 
 static int	ft_length_nbr(int nb)
 {

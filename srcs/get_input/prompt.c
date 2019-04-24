@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stdenis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 15:33:46 by stdenis           #+#    #+#             */
-/*   Updated: 2019/03/26 17:18:36 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:32:58 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "shell42.h"
 
 static const char	*g_colors[] = {

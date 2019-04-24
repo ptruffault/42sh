@@ -6,10 +6,11 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 13:32:02 by stdenis           #+#    #+#             */
-/*   Updated: 2019/03/09 14:50:44 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:24:26 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "ft_printf.h"
 
 void	set_struct(t_printf *ptab)

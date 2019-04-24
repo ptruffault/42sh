@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <adi-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 14:47:53 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/29 14:47:54 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:02:51 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "shell42.h"
 
 static void		set_struct_fc(t_fc *fc, t_shell *shell)

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:23:52 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:05:55 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <get_input.h>
+#include <stdlib.h>
+#include "shell42.h"
+#include "get_input.h"
 
 static int		ft_init_input_link(t_shell *sh, t_hist *tmp)
 {

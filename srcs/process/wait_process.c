@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wait_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:36:33 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/04 12:36:35 by ptruffau         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:10:08 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/wait.h>
 #include "shell42.h"
 
 static void	ft_eval_status(t_process *p)

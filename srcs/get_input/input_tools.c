@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   input_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 13:21:10 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:18:41 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <get_input.h>
+#include "shell42.h"
+#include "get_input.h"
 
 static int	delete_simple_left(t_edit *e)
 {

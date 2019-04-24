@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   binary_completion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stdenis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 15:33:46 by stdenis           #+#    #+#             */
-/*   Updated: 2019/03/26 17:18:36 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:08:11 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h>
+#include <stdlib.h>
 #include "shell42.h"
 
 static int	fill_tabl_binary(int *j, char ***tabl, char *value, char *path)

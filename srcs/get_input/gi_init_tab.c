@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gi_init_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <adi-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 14:36:42 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/04/16 14:36:43 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:18:21 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <get_input.h>
+#include "shell42.h"
+#include "get_input.h"
 
 void	ft_init_inputs_kval(t_edit *e, int x)
 {

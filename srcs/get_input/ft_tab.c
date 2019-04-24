@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tab.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <adi-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 14:52:47 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/04/05 14:52:48 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:06:32 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include "ft_printf.h"
+#include "shell42.h"
 #include "get_input.h"
 
 static void	autocompletion_printing(t_edit *e, char **tabl, int max_len)

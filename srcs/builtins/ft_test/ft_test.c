@@ -6,10 +6,12 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 13:38:24 by stdenis           #+#    #+#             */
-/*   Updated: 2019/03/17 18:34:45 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:02:34 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/stat.h>
+#include <unistd.h>
 #include "shell42.h"
 
 static int		more_check_file(char **argv, struct stat *file)

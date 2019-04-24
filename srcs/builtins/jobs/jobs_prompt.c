@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   jobs_prompt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 11:32:47 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/15 11:32:49 by ptruffau         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:30:10 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "shell42.h"
 
 static int	ft_test_over(t_process *p)

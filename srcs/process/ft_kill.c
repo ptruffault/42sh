@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_kill.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 16:54:17 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/08 16:54:18 by ptruffau         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:10:00 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
 #include "shell42.h"
 
 void	ft_update_status(t_process *p, unsigned int status)

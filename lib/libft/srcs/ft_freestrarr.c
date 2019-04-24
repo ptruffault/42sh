@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_freestrarr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 10:57:04 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/19 18:39:15 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:39:00 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <stdlib.h>
+#include "libft.h"
 
 void	ft_freestrarr(char ***arr)
 {

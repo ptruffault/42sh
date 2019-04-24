@@ -3,30 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 16:02:36 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 16:47:28 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:24:51 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL42_H
 # define SHELL42_H
 
-# include <sys/stat.h>
-# include <sys/wait.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <sys/ioctl.h>
-# include <dirent.h>
+# include <stdbool.h>
+# include <stddef.h>
 # include <pwd.h>
-# include <term.h>
-# include <limits.h>
-# include "structures.h"
 # include "libft.h"
-# include "tenvv.h"
-# include "ft_printf.h"
+# include "structures.h"
 
 /*
 ** autocompletion/binary_completion.c
@@ -199,7 +190,7 @@ int				ft_type(t_word *w);
 ** builtins/print_utility.c
 */
 void				print_for_export(t_envv	*node, const char *opt);
-void    print_for_alias(t_envv	*node);
+void				print_for_alias(t_envv	*node);
 
 /*
 ** builtins/run_builtin.c

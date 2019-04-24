@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   jobs_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:38:02 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/04 12:38:03 by ptruffau         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:10:21 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "shell42.h"
 
 static int		ft_get_new_id(t_jobs *j)

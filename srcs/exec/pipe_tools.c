@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 11:05:14 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/16 11:05:15 by ptruffau         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:52:54 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "shell42.h"
 
 void		ft_groups_stuff(t_shell *sh, t_process *p)

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_incr_search.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <adi-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 13:50:12 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/04/11 13:50:12 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:32:03 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <get_input.h>
+#include "ft_printf.h"
+#include "shell42.h"
+#include "get_input.h"
 
 static t_hist	*incr_search_by_occurence(t_hist *first, char *to_search)
 {

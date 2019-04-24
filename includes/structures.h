@@ -6,13 +6,13 @@
 /*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 16:16:37 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/24 15:42:16 by fstadelw         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:08:08 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
-# include <stdbool.h>
+# include <term.h>
 # include "tenvv.h"
 
 # define FCTMP "/tmp/fc____42sh"

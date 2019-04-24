@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hist_expanse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <adi-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 11:46:55 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/04/10 11:46:56 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:20:21 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "get_input.h"
 
 static int	get_nb_of_hist(t_edit *e, size_t x)

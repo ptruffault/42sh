@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   alias.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 16:41:00 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:57:38 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "shell42.h"
 
 static t_word	*ft_next_alias(t_word *w, t_word *w_alias, int boucl)
@@ -89,7 +90,7 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh, int boucl)
 	while (w)
 	{
 		i = (w->type == OPERATEUR ? 0 : i);
-		if (i == 1 && w && 1 <= w->type && w->type <= 3 
+		if (i == 1 && w && 1 <= w->type && w->type <= 3
 			&& (val = get_tenvv_val(sh->alias, w->word)))
 		{
 			w = ft_alias_to_tword(w, val, boucl);

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 15:43:08 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 16:47:28 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:45:01 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "libft.h"
 
 static char		*ft_strsub_gnl(char const *s, unsigned int start, size_t len)
 {

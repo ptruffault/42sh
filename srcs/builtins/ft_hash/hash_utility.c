@@ -6,10 +6,11 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 13:38:24 by stdenis           #+#    #+#             */
-/*   Updated: 2019/03/17 18:34:45 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:01:46 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "shell42.h"
 
 char			**check_options_hash(char **cmd, t_shell *sh, int *ret)

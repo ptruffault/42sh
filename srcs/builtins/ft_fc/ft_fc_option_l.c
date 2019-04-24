@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fc_option_l.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <adi-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 16:07:34 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/04/01 16:07:35 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:03:10 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include "ft_printf.h"
 #include "shell42.h"
 
 static void	print_hist_opt_l(t_fc *fc, short way)

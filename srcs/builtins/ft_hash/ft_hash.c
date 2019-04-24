@@ -6,10 +6,12 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 13:38:24 by stdenis           #+#    #+#             */
-/*   Updated: 2019/03/17 18:34:45 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:01:29 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include "ft_printf.h"
 #include "shell42.h"
 
 static int		print_htable(t_shell *sh)

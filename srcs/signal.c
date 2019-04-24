@@ -6,10 +6,12 @@
 /*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 12:57:50 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/24 15:44:09 by fstadelw         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:46:04 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <signal.h>
 #include "shell42.h"
 
 static const t_sig_msg	g_signal_msg[] = {

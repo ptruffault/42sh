@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 16:20:02 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/08 16:20:03 by ptruffau         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:10:56 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "shell42.h"
 
 static t_process	*ft_abort(t_process *p, const char *err, t_process *tmp)

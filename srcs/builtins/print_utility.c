@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   print_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stdenis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 12:33:14 by stdenis           #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:21:51 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include "ft_printf.h"
 #include "shell42.h"
 
-void	print_for_alias(t_envv	*node)
+void	print_for_alias(t_envv *node)
 {
 	if (isatty(1))
 		ft_printf("alias \033[1;32m\033[04m%s\033[00m=\'%s\'\n", node->name, node->value);
@@ -20,7 +22,7 @@ void	print_for_alias(t_envv	*node)
 		ft_printf("alias %s=\'%s\'\n", node->name, node->value);
 }
 
-void	print_for_export(t_envv	*node, const char *opt)
+void	print_for_export(t_envv *node, const char *opt)
 {
 	if (isatty(1))
 	{

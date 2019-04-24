@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cdpath.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stdenis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 14:10:52 by stdenis           #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:59:55 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/stat.h>
 #include "shell42.h"
 
 static char	*concat_pwd(t_shell *sh, char *path, bool *pwd_f)

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 12:48:14 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 16:47:28 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:38:33 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <unistd.h>
+#include "libft.h"
 
 int	error(const char *descript, const char *opts)
 {

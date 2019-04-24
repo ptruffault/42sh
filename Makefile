@@ -6,7 +6,7 @@
 #    By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 11:16:13 by ptruffau          #+#    #+#              #
-#    Updated: 2019/04/24 15:41:29 by fstadelw         ###   ########.fr        #
+#    Updated: 2019/04/24 15:58:37 by fstadelw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -208,15 +208,15 @@ KO			= 		$(NO_COLOR)[\033[00;31mKO$(NO_COLOR)]
 all: $(NAME)
 
 $(NAME):	$(OBJ)| $(LIBFT_PATH)/$(LIBFT) $(LIBFT_PRTF_PATH)/$(LIBFT_PRTF)
-	@echo "$(OP_COLOR) building $(NAME)$(NO_COLOR)"
-	@$(LD) -o $(NAME) $(OBJ) $(LDFLAG)
-	@printf "$(DONE)$(OP_COLOR)$(NAME)$(NO_COLOR)  \n"
+	@ echo "$(OP_COLOR) building $(NAME)$(NO_COLOR)"
+	@ $(LD) -o $(NAME) $(OBJ) $(LDFLAG)
+	@ printf "$(DONE)$(OP_COLOR)$(NAME)$(NO_COLOR)\n"
 
 
 $(OBJDIR)/%.o:	$(SRCDIR)/%.c | $(OBJDIR) $(DEPDIR)
-	@touch $<
-	@$(CC) -c $< $(CFLAGS) -o  $@ && printf "$(DONE)	:  $(COLOR)$<$(NO_COLOR)\n" \
-			|| printf "$(KO)	<-  $(COLOR)$<$(NO_COLOR)\n"
+	@ $(CC) -c $< $(CFLAGS) -o $@ \
+		&& printf "$(DONE)	: $(COLOR)$<$(NO_COLOR)\n" \
+		|| (printf "$(KO)	<-  $(COLOR)$<$(NO_COLOR)\n" ; false)
 	@ $(DEPGEN) -c $< $(DEPFLAG) -MQ $@ \
 			> $(subst $(SRCDIR), $(DEPDIR), $(<:.c=.d))
 
@@ -280,13 +280,13 @@ sclean:
 lclean:
 	@ rm -r $(BUILDDIR) 1> /dev/null 2> /dev/null \
 		&& printf "$(OP_COLOR)[CLR]$(NO_COLOR)	: obj\n" \
-        		; (exit 0)
+		; (exit 0)
 
 lfclean: lclean
 	@ rm -Rf *.dSYM 1> /dev/null 2> /dev/null
 	@ rm $(NAME) 1> /dev/null 2> /dev/null \
 		&& printf "$(OP_COLOR)[CLR]$(NO_COLOR)	: $(NAME)\n" \
-        		; (exit 0)
+		; (exit 0)
 
 lre: lfclean all
 

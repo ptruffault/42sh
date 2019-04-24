@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fc_option_e.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <adi-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 16:07:42 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/04/01 16:07:42 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:03:02 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "shell42.h"
 
 static int	ft_fc_write_in_file(t_fc *fc, int fd)

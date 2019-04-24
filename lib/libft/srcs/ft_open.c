@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 15:28:15 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 16:47:28 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:40:18 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <sys/stat.h>
+#include "libft.h"
 
 int	ft_open(const char *path, int flag, mode_t mode)
 {

@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   seek_n_replace.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <adi-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:54:40 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/04/10 14:54:41 by adi-rosa         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:20:25 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "get_input.h"
 
 int		seek_n_repl_str(t_edit *e, size_t x, char *word, size_t i)

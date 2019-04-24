@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 13:28:58 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/25 11:24:05 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 16:44:36 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <stdlib.h>
+#include "libft.h"
 
 static void		ft_free_tab(char **tab, int w)
 {

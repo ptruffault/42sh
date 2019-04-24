@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tenvv_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 14:11:41 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 16:47:28 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:11:16 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "shell42.h"
 #include "tenvv.h"
 #include "ft_printf.h"

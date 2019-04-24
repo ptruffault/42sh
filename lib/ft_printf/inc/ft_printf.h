@@ -6,14 +6,14 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 18:07:09 by stdenis           #+#    #+#             */
-/*   Updated: 2019/03/08 19:19:28 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:14:44 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
 # include <stdarg.h>
-# include <unistd.h>
 # include <stdbool.h>
 # include <stdint.h>
 # include <wchar.h>

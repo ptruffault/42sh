@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 11:10:18 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/16 11:10:20 by ptruffau         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:52:30 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/stat.h>
 #include "shell42.h"
 
 int		check_exe(char *bin_path)

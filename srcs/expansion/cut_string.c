@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   cut_string.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-rosa <adi-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 14:05:53 by adi-rosa          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 17:27:45 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*ft_get_op(char *s, int *i)
 	return (ft_strsub(s, start, (size_t)*i - start));
 }
 
-static char *ft_cut_glob_begin(char *val, char *pat, char *op)
+static char	*ft_cut_glob_begin(char *val, char *pat, char *op)
 {
 	char	*new;
 	int		len;
@@ -36,7 +36,7 @@ static char *ft_cut_glob_begin(char *val, char *pat, char *op)
 	return (val);
 }
 
-static char *ft_cut_glob_end(char *val, char *pat, char *op)
+static char	*ft_cut_glob_end(char *val, char *pat, char *op)
 {
 	char	*new;
 	int		len;
@@ -50,7 +50,7 @@ static char *ft_cut_glob_end(char *val, char *pat, char *op)
 	return (val);
 }
 
-static char *ft_cut_glob(char *val, char *pattern, char *op)
+static char	*ft_cut_glob(char *val, char *pattern, char *op)
 {
 	if (*op == '#')
 		return (ft_cut_glob_begin(val, pattern, op));
@@ -86,7 +86,7 @@ static char	*ft_cut_end(char *val, char *pat)
 {
 	char	*new;
 	size_t	len;
-	
+
 	if (val && pat && ft_str_endwith(val, pat))
 	{
 		len = ft_strlen(val) - ft_strlen(pat);

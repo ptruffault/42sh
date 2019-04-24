@@ -68,7 +68,7 @@ int			exec_file(const char *path, t_shell *sh)
 
 	mode = S_IRUSR | S_IXUSR;
 	opt = O_RDWR | O_NOFOLLOW | O_NONBLOCK;
-	if ((fd = ft_open(path, opt, 0666)) >= 0)
+	if ((fd = ft_open(path, opt, mode)) >= 0)
 	{
 		exec_fd(sh, fd);
 		ft_close(fd);

@@ -59,10 +59,8 @@ int			fd_dup(int fd1, int fd2, t_process *p)
 int			get_destination_fd(t_redirect *r)
 {
 	int opt;
-	t_shell *sh;
 
 	opt = -1;
-	sh = ft_get_set_shell(NULL);
 	r->path = ft_exp_var(r->path, ft_get_set_shell(NULL), FALSE);
 	if ((r->t == R_RIGHT && r->to == -2 && r->path))
 		opt = O_WRONLY | O_TRUNC | O_CREAT;

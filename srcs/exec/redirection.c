@@ -59,10 +59,8 @@ int			fd_dup(int fd1, int fd2, t_process *p)
 int			get_destination_fd(t_redirect *r)
 {
 	int opt;
-	t_shell *sh;
 
 	opt = -1;
-	sh = ft_get_set_shell(NULL);
 	r->path = ft_exp_var(r->path, ft_get_set_shell(NULL), FALSE);
 	if ((r->t == R_RIGHT && r->to == -2 && r->path))
 		opt = O_WRONLY | O_TRUNC | O_CREAT;
@@ -72,9 +70,8 @@ int			get_destination_fd(t_redirect *r)
 		opt = O_RDONLY;
 	else if (r->t == R_DLEFT)
 		ft_heredoc_content(r, ft_get_set_shell(NULL));
-	if (opt >= 0 && (sh->fd = ft_open(r->path, opt, 0666)) < 0)
+	if (opt >= 0 && (r->to = ft_open(r->path, opt, 0666)) < 0)
 		return (0);
-	r->to = sh->fd;
 	if (r->to != -2 && r->from != -2)
 		return (1);
 	return (0);

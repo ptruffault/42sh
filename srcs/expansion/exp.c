@@ -112,7 +112,7 @@ t_tree			*ft_expention(t_tree *t)
 		while (w)
 		{
 			if (w && 1 <= w->type && w->type <= 3 && w->word)
-				w->word = ft_exp_var(w->word, sh, TRUE);
+				w->word = ft_exp_var(w->word, sh, FALSE);
 			w = w->next;
 		}
 		tmp = ft_word_paste(tmp);

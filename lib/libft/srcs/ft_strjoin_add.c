@@ -17,12 +17,13 @@ char	*ft_strjoin_add_edit(char **s1, const char *add, int err)
 	char	*tmp;
 
 	tmp = *s1;
-	if ((err <= 3 || err >= 5) && tmp)
+	if (tmp && ((err <= 3 || err > 5)
+		|| (err == 4 && tmp[ft_strlen(tmp) - 1] != '\\')))
 	{
 		if (!(*s1 = ft_stradd(s1, add)))
 			return (NULL);
 	}
-	else if (tmp)
+	else if (tmp && tmp[ft_strlen(tmp) - 1] == '\\')
 		tmp[ft_strlen(tmp) - 1] = '\0';
 	return (*s1);
 }

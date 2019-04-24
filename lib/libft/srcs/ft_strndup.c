@@ -17,7 +17,7 @@ char	*ft_strndup(char *src, int len)
 	char	*new;
 	int		i;
 
-	if (!(new = malloc(sizeof(char *) * len + 1)))
+	if (len < 0 || !(new = malloc(sizeof(char *) * len + 1)))
 		return (NULL);
 	i = 0;
 	while (i < len && src[i] != '\0')

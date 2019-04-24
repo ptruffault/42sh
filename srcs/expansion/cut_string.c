@@ -52,15 +52,16 @@ static char *ft_cut_glob_end(char *val, char *pat, char *op)
 
 static char *ft_cut_glob(char *val, char *pattern, char *op)
 {
+
 	if (*op == '#')
-		return (ft_cut_glob_begin(val, pattern, op));
+		val = ft_cut_glob_begin(val, pattern, op);
 	else if (*op == '%')
-		return (ft_cut_glob_end(val, pattern, op));
-	else if (ft_strequ(op, "##"))
-		while (ft_match_begin(val, pattern, TRUE))
+		val = ft_cut_glob_end(val, pattern, op);
+	if (ft_strequ(op, "##"))
+		while (ft_match_begin(val, pattern, TRUE) > 0)
 			val = ft_cut_glob_begin(val, pattern, op);
 	else if (ft_strequ(op, "%%"))
-		while (ft_match_end(val, pattern, TRUE))
+		while (ft_match_end(val, pattern, TRUE) > 0)
 			val = ft_cut_glob_end(val, pattern, op);
 	return (val);
 }

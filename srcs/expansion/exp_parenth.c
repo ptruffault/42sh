@@ -19,8 +19,8 @@ static char	*ft_exp_end(char *ret, char *ptr, char *value, char *parenth)
 	tmp = NULL;
 	if (value && ft_isempty(value))
 		ft_strdel(&value);
-	if ((tmp = ft_strpull(ret, ptr, get_content_size(ptr) + 2, value))
-	&& ft_isempty(tmp))
+	if (value && ret && ptr && (tmp = ft_strpull(ret, ptr, get_content_size(ptr) + 2, value))
+		&& ft_isempty(tmp))
 		ft_strdel(&tmp);
 	ft_strdel(&ret);
 	ft_strdel(&value);

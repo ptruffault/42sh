@@ -1,60 +1,39 @@
-### C ###
-# Libraries
-*.a
+### Program ###
+/42sh
 
-# Shared objects (inc. Windows DLLs)
-*.so
-*.so.*
-*.dylib
+### Test ###
+/test/bin/*
+!/test/bin/*.c
+!/test/bin/Makefile
 
-# Debug files
+### Build ###
+# Temporary build files
+/bin/
+
+### Debug files ###
 .gdb_history
 *.dSYM/
 *_files/
 
-# Sys dir
-sys/.42history
-sys/.42shrc
-
-# Program
-42sh
-
-# Callgraph
-callgraph.ps
-
-### Test ###
-test/bin/sig10bus
-test/bin/sig11segv
-test/bin/sig12sys
-test/bin/sig13pipe
-test/bin/sig14alarm
-test/bin/sig15term
-test/bin/sig16urg
-test/bin/sig1hup
-test/bin/sig24xcpu
-test/bin/sig25xfsz
-test/bin/sig26alrm
-test/bin/sig27prof
-test/bin/sig2int
-test/bin/sig30usr1
-test/bin/sig31usr2
-test/bin/sig3quit
-test/bin/sig4ill
-test/bin/sig5trap
-test/bin/sig6abrt
-test/bin/sig8fpe
-test/bin/sig9kill
-
-### Build ###
-# Temporary build files
-bin/
-
-# Temporary
-*~
-\#*\#
-*.old
-
 ### macOS ###
 # General
 .DS_Store
-debug
+
+### Code ###
+.vscode/
+
+### Vim ###
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+### CLion ###
+.idea/
+
+### Emacs ###
+*~
+\#*\#
+.\#*

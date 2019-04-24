@@ -13,6 +13,19 @@
 #include <signal.h>
 #include "shell42.h"
 
+static int	error_options_fg_bg(int which, int ret, const char opts)
+{
+	if (which == 1)
+	{
+		error_c("fg: invalid option :", opts);
+		ft_putendl_fd("usage: fg [jobspec]", 2);
+		return (ret);
+	}
+	error_c("bg: invalid option :", opts);
+	ft_putendl_fd("usage: bg [jobspec]", 2);
+	return (ret);
+}
+
 static int	ft_is_jobs_empty(t_jobs *j)
 {
 	while (j)
@@ -54,6 +67,8 @@ int			ft_bg(t_shell *sh, char **argv)
 	int		i;
 
 	i = 0;
+	if (argv[1] && argv[1][0] == '-')
+		return (error_options_fg_bg(1, 2, argv[1][1]));
 	if (ft_is_jobs_empty(sh->jobs))
 		return (error("no jobs", NULL));
 	if (!argv[1] && (j = ft_get_last_jobs(sh->jobs, '+')))
@@ -72,6 +87,8 @@ int			ft_fg(t_shell *sh, char **argv)
 	int		i;
 
 	i = 0;
+	if (argv[1] && argv[1][0] == '-')
+		return (error_options_fg_bg(1, 2, argv[1][1]));
 	if (ft_is_jobs_empty(sh->jobs))
 		return (error("no jobs", NULL));
 	if (!argv[1] && (j = ft_get_last_jobs(sh->jobs, '+'))

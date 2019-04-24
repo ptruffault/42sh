@@ -15,6 +15,13 @@
 #include "ft_printf.h"
 #include "shell42.h"
 
+static int	error_options_cd(int ret, const char *opts)
+{
+	error("cd: invalid option :", opts);
+	ft_putendl_fd("usage: cd [-L|[-P] [dir]", 2);
+	return (ret);
+}
+
 static int		change_dir(char *path, t_shell *sh, t_opts opts)
 {
 	char	buff[4097];
@@ -107,7 +114,7 @@ int				ft_cd(char **input, t_shell *sh)
 	if (opts & 0x20)
 		return (error("cd: too many arguments", NULL) + 1);
 	else if (opts & 0x10)
-		return (error("cd: invalid option", input[tabl - 1]) + 2);
+		return (error_options_cd(2, input[tabl - 1]));
 	else if (!(input[tabl]))
 	{
 		if ((val = retrieve_home(NULL, sh->env)))

@@ -66,6 +66,17 @@ t_envv		*ft_del_envv(t_envv *envv, char *name)
 	return (envv);
 }
 
+static int	only_a(char *str)
+{
+	int		i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] != 'a')
+			return (0);
+	return (1);
+}
+
 t_envv		*ft_unsetenv(t_envv *envv, char **t)
 {
 	int i;
@@ -73,7 +84,16 @@ t_envv		*ft_unsetenv(t_envv *envv, char **t)
 	i = 0;
 	if (!envv)
 		return (NULL);
-	if (ft_strequ(*t, "-a"))
+	while (t[i] && t[i][0] == '-' && only_a(&t[i][1]))
+		i++;
+	if (!only_a(&t[i][1]))
+	{
+		error("unset or unalias : invalid option :", t[i]);
+		ft_putendl_fd("usage: unset [name ...] or unalias [-a] [name ...]", 2);
+		ft_get_set_shell(NULL)->env = ft_new_envv_int(ft_get_set_shell(NULL)->env, "?", 1, IN);
+		return (envv);
+	}
+	if (i > 0)
 		return (ft_free_tenvv(envv));
 	while (t[i])
 		envv = ft_del_envv(envv, t[i++]);

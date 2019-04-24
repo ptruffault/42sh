@@ -38,6 +38,13 @@ static void	ft_print_coresspond_jobs(t_jobs *j, char *str, int opts)
 		error("no such jobs", str);
 }
 
+static int	error_options_jobs(int ret, const char opts)
+{
+	error_c("jobs: invalid option :", opts);
+	ft_putendl_fd("usage: jobs [-lp] [jobspec ...]", 2);
+	return (ret);
+}
+
 static int	ft_init_opts(int ret, char *str)
 {
 	int i;
@@ -50,7 +57,7 @@ static int	ft_init_opts(int ret, char *str)
 		else if (str[i] == 'p')
 			ret = 1;
 		else
-			warning_c("unknow option", str[i]);
+			error_options_jobs(0, str[i]);
 	}
 	return (ret);
 }

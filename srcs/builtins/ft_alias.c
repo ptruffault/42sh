@@ -21,7 +21,7 @@ static int		check_name_alias(const char *name)
 	{
 		if (ft_strchr("/\'\"$", name[i]))
 		{
-			error("alias: invalid alias name.", name);
+			error("alias: invalid alias name :", name);
 			return (0);
 		}
 	}
@@ -39,28 +39,47 @@ static int		put_alias(t_shell *sh, char *str)
 	return (0);
 }
 
+static int		print_alias(t_shell *sh, char *str)
+{
+	t_envv *alias;
+
+	if (!(alias = get_tenvv(sh->alias, str)))
+	{
+		ft_putstr_fd("alias: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putendl_fd(" not found", 2);
+		return (1);
+	}
+	print_for_alias(alias);
+	return (0);
+}
+
+static int	error_options_alias(int ret, const char *opts)
+{
+	error("alias: invalid option :", opts);
+	ft_putendl_fd("usage: alias [name[=value] ... ]", 2);
+	return (ret);
+}
+
 int				ft_alias(t_shell *sh, char **argv)
 {
 	int		i;
+	int		ret;
 
 	i = 1;
+	ret = 0;
 	if (!argv[i])
 		ft_puttenvv(sh->alias, EXP, 3);
+	else if (argv[i][0] == '-')
+		return (error_options_alias(2, argv[i]));
 	while (argv[i])
 	{
 		if (ft_isequal(argv[i]))
-		{
-			if (put_alias(sh, argv[i]))
-				return (1);
-		}
-		else if (argv[i + 1])
-		{
-			if (!check_name_alias(argv[i]))
-				return (1);
-			sh->alias = ft_new_envv(sh->alias, argv[i], argv[i + 1], EXP);
-			i++;
-		}
+			ret += put_alias(sh, argv[i]);
+		else
+			ret += print_alias(sh, argv[i]);
 		i++;
 	}
-	return (0);
+	ret = (ret > 0) ? 1 : 0;
+	return (ret);
 }

@@ -23,13 +23,11 @@ static char		*heredoc_get_input(char *eoi, t_shell *sh)
 {
 	char	*ret;
 	char	*in;
-	t_hist	*hist;
 	int		d;
 
 	if (!eoi || !(ret = ft_strnew(0)))
 		return (NULL);
 	in = NULL;
-	hist = sh->e.hist;
 	ft_others_prompt(sh, "heredoc");
 	if ((d = get_input(&in)) != 4)
 		while (!ft_strequ(in, eoi) && sh->heredoc == 1)

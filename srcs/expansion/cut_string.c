@@ -22,34 +22,52 @@ static char	*ft_get_op(char *s, int *i)
 	return (ft_strsub(s, start, (size_t)*i - start));
 }
 
-static char *ft_cut_glob(char *val, char *pat, char *op)
+static char *ft_cut_glob_begin(char *val, char *pat, char *op)
 {
+	t_bool	b_op;
 	char	*new;
 	int		len;
-	t_bool	b_op;
 
-	if (*op == '#')
+	b_op = (op[1] == *op ? TRUE : FALSE);
+	if ((len = ft_match_begin(val, pat, b_op)) > 0)
 	{
-		b_op = (op[1] == *op ? TRUE : FALSE);
-		if ((len = ft_match_begin(val, pat, b_op)) > 0)
-		{
-			new = ft_strdup(val + len);
-			ft_strdel(&val);
-			return (new);
-		}
+		new = ft_strdup(val + len);
+		ft_strdel(&val);
+		return (new);
 	}
+	return (val);
+}
+
+static char *ft_cut_glob_end(char *val, char *pat, char *op)
+{
+	t_bool	b_op;
+	char	*new;
+	int		len;
+
+	b_op = (op[1] == *op ? TRUE : FALSE);
+	if ((len = ft_match_end(val, pat, b_op)) > 0)
+	{
+		new = ft_strndup(val, len);
+		ft_strdel(&val);
+		return (new);
+	}
+	else if (len == 0)
+		return (ft_strdell(&val));
+	return (val);
+}
+
+static char *ft_cut_glob(char *val, char *pattern, char *op)
+{
+	if (ft_strequ(op, "##"))
+		while (ft_match_begin(val, pattern, TRUE))
+			val = ft_cut_glob_begin(val, pattern, op);
+	else if (ft_strequ(op, "%%"))
+		while (ft_match_end(val, pattern, TRUE))
+			val = ft_cut_glob_end(val, pattern, op);
+	else if (*op == '#')
+		return (ft_cut_glob_begin(val, pattern, op));
 	else if (*op == '%')
-	{
-		b_op = (op[1] == *op ? TRUE : FALSE);
-		if ((len = ft_match_end(val, pat, b_op)) > 0)
-		{
-			new = ft_strndup(val, len);
-			ft_strdel(&val);
-			return (new);
-		}
-		else if (len == 0)
-			return (ft_strdell(&val));
-	}
+		return (ft_cut_glob_end(val, pattern, op));
 	return (val);
 }
 

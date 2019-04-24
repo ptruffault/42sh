@@ -3,45 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 12:57:50 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:18:36 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/24 15:44:09 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 
 static const t_sig_msg	g_signal_msg[] = {
-	{.sig = SIGHUP, .msg = "hanghup"},
-	{.sig = SIGINT, .msg = "interupted"},
-	{.sig = SIGQUIT, .msg = "quit"},
-	{.sig = SIGILL, .msg = "illegal instruction"},
-	{.sig = SIGTRAP, .msg = "trace/BPT trap"},
-	{.sig = SIGABRT, .msg = "abort"},
-	{.sig = SIGEMT, .msg = "emulate instruction executed"},
-	{.sig = SIGFPE, .msg = "floating exception"},
-	{.sig = SIGKILL, .msg = "killed"},
-	{.sig = SIGBUS, .msg = "bus error"},
-	{.sig = SIGSEGV, .msg = "segmentation fault"},
-	{.sig = SIGSYS, .msg = "bad system call"},
-	{.sig = SIGALRM, .msg = "alarm clock"},
-	{.sig = SIGTERM, .msg = "terminated"},
-	{.sig = SIGURG, .msg = "SIGURP"},
-	{.sig = SIGSTOP, .msg = "suspended"},
-	{.sig = SIGTSTP, .msg = "suspended (tty)"},
-	{.sig = SIGCONT, .msg = "continued"},
-	{.sig = SIGCHLD, .msg = "SIGCHLD"},
-	{.sig = SIGTTIN, .msg = "suspended (tty input)"},
-	{.sig = SIGTTOU, .msg = "suspended (tty output)"},
-	{.sig = SIGIO, .msg = "I/O is possible on a descriptor"},
-	{.sig = SIGXCPU, .msg = "cpu time limit exceeded"},
-	{.sig = SIGXFSZ, .msg = "file size limit exceeded"},
-	{.sig = SIGPROF, .msg = "profiling time alarm"},
-	{.sig = SIGVTALRM, .msg = "virtual time alarm"},
-	{.sig = SIGUSR1, .msg = "user signal 1"},
-	{.sig = SIGUSR2, .msg = "user signal 2"},
-	{.msg = NULL}
+	{SIGHUP, "hanghup"},
+	{SIGINT, "interupted"},
+	{SIGQUIT, "quit"},
+	{SIGILL, "illegal instruction"},
+	{SIGTRAP, "trace/BPT trap"},
+	{SIGABRT, "abort"},
+	{SIGEMT, "emulate instruction executed"},
+	{SIGFPE, "floating exception"},
+	{SIGKILL, "killed"},
+	{SIGBUS, "bus error"},
+	{SIGSEGV, "segmentation fault"},
+	{SIGSYS, "bad system call"},
+	{SIGALRM, "alarm clock"},
+	{SIGTERM, "terminated"},
+	{SIGURG, "SIGURP"},
+	{SIGSTOP, "suspended"},
+	{SIGTSTP, "suspended (tty)"},
+	{SIGCONT, "continued"},
+	{SIGCHLD, "SIGCHLD"},
+	{SIGTTIN, "suspended (tty input)"},
+	{SIGTTOU, "suspended (tty output)"},
+	{SIGIO, "I/O is possible on a descriptor"},
+	{SIGXCPU, "cpu time limit exceeded"},
+	{SIGXFSZ, "file size limit exceeded"},
+	{SIGPROF, "profiling time alarm"},
+	{SIGVTALRM, "virtual time alarm"},
+	{SIGUSR1, "user signal 1"},
+	{SIGUSR2, "user signal 2"},
+	{0, NULL}
 };
 
 void		sig_handler(int sig)

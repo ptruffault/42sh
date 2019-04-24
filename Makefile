@@ -3,27 +3,26 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 11:16:13 by ptruffau          #+#    #+#              #
-#    Updated: 2019/03/26 17:18:28 by stdenis          ###   ########.fr        #
+#    Updated: 2019/04/24 15:41:29 by fstadelw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=		42sh
-GIT 		=		https://github.com/ptruffault/42sh.git
+NAME	= 42sh
 
-UNAME := $(shell uname)
+UNAME	:= $(shell uname)
 
 ifeq ($(UNAME), Linux)
-SIG         =       signal_unix.c
+SIG		:= signal_unix.c
 endif
 
 ifeq ($(UNAME), Darwin)
-SIG         =       signal.c
+SIG		:= signal.c
 endif
 
-SRC		=	\
+SRC		:=	\
 	main.c				\
 	$(SIG)              \
 	ft_get_set.c 		\
@@ -142,9 +141,6 @@ SRC		=	\
 	history/deload_history.c	\
 	history/get_history.c		\
 
-#### COMPILER ####
-CC		?=	cc
-
 SRCDIR	:=	srcs
 INCDIR	:=	includes
 LIBDIR	:=	lib
@@ -162,15 +158,17 @@ LIBFT_PRTF_PATH :=  $(LIBDIR)/ft_printf
 LIB_LINK		:= -L $(LIBFT_PRTF_PATH) -l ftprintf
 LIB_INC			:= -I $(LIBFT_PRTF_PATH)/inc
 
-
 # Libft
 LIBFT		:=	libft.a
 LIBFT_PATH	:= $(LIBDIR)/libft
 LIB_LINK	+= -L $(LIBFT_PATH) -l ft
 LIB_INC		+= -I $(LIBFT_PATH)/includes
 
+#### COMPILER ####
+CC			?=	cc
+
 INCFLAG		:=	-I $(INCDIR) $(LIB_INC)
-STDFLAG		?=	-std=gnu11
+STDFLAG		?=	-ansi
 WFLAGS		?=	-Wall -Wextra -Werror -pedantic -g
 CFLAGS		=	$(WFLAGS) $(INCFLAG) $(STDFLAG)
 
@@ -315,10 +313,6 @@ val: all
 save: fclean clear
 	@git add -A && git commit -m "make save" && git push \
 	&& printf "$(COLOR)save$(NO_COLOR) : $(DONE)\n" || printf"$(OP_COLOR)save : KO\n$(NO_COLOR)"
-
-pull: fclean clear
-	@git add -A & git commit -m "make pull" && git pull \
-	&& printf "$(COLOR)pull$(NO_COLOR) : $(DONE)\n" || printf"$(OP_COLOR)pull : KO\n$(NO_COLOR)"
 
 
 #############################

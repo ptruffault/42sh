@@ -21,7 +21,13 @@ static void	ft_print_coresspond_jobs(t_jobs *j, char *str, int opts)
 	err = 0;
 	tmp = j;
 	jobs = NULL;
-	while ((jobs = ft_search_jobs(tmp, str)))
+	if (*str == '-')
+		if ((jobs = ft_search_jobs(tmp, "")))
+		{
+			ft_job_prompt(jobs, opts);
+			err++;
+		}
+	while ((jobs = ft_search_jobs(tmp, str)) && *str != '-')
 	{
 		err++;
 		ft_job_prompt(jobs, opts);
@@ -42,7 +48,7 @@ static int	ft_init_opts(int ret, char *str)
 		if (str[i] == 'l')
 			ret = 2;
 		else if (str[i] == 'p')
-			ret = (!ret ? 1 : ret);
+			ret = 1;
 		else
 			warning_c("unknow option", str[i]);
 	}
@@ -51,17 +57,21 @@ static int	ft_init_opts(int ret, char *str)
 
 static int	ft_read_opts(char **argv, t_shell *sh)
 {
-	int i;
-	int ret;
-	int n;
+	bool	check_opts;
+	int		i;
+	int		ret;
+	int		n;
 
 	i = 0;
 	n = 0;
 	ret = 0;
+	check_opts = true;
 	while (argv[++i])
 	{
-		if (*argv[i] == '-')
+		if (check_opts && *argv[i] == '-' && argv[i][1] != '-')
 			ret = ft_init_opts(ret, argv[i]);
+		else if (check_opts && *argv[i] == '-' && argv[i][1] == '-')
+			check_opts = false;
 		else if (argv[i])
 		{
 			n = 3;

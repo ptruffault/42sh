@@ -44,14 +44,13 @@ int			ft_exit(char **nbr, t_shell *sh)
 	if (nbr && nbr[0] != NULL && nbr[1] != NULL)
 	{
 		error("too many arguments", NULL);
-		sh->env = ft_new_envv_int(sh->env, "?", 1, IN);
-		return (1);
+		ret = 2;
 	}
 	else if (nbr && *nbr && (!ft_check_alpha(*nbr)
 		|| (ret = ft_atoi(*nbr)) < 0))
 	{
 		error("numeric argument required", NULL);
-		ret = 255;
+		ret = 2;
 	}
 	exit(ft_quit(ret, sh));
 	return (ret);

@@ -82,7 +82,7 @@ void		ft_prompt_cmd(t_process *p, int opts)
 void		ft_job_prompt(t_jobs *j, int opts)
 {
 	if (opts == 1)
-		ft_putnbr(j->p->pid);
+		ft_printf("%d\n", j->p->pid);
 	else
 	{
 		ft_printf("\x1B[00;34m[\x1B[00m%i\x1B[00;34m]\x1B[00m ", j->id);

@@ -16,7 +16,7 @@ int		check_exe(char *bin_path)
 {
 	struct stat inf;
 
-	if (lstat(bin_path, &inf) != -1 && inf.st_mode & S_IFREG)
+	if ((stat(bin_path, &inf)) != -1 && inf.st_mode & S_IFREG)
 	{
 		if (inf.st_mode & S_IXUSR && access(bin_path, X_OK) != -1)
 			return (1);

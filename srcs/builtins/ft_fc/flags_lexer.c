@@ -46,21 +46,24 @@ static void	flags_priority(char *flags)
 int			flags_gestion(char *flags, char **av, int x)
 {
 	int		b;
+	bool	opts;
 
 	x = -1;
 	while (++x < 6)
 		flags[x] = '\0';
 	x = 1;
-	while (av[x] && av[x][0] == '-' && (av[x][1] < '0' || av[x][1] > '9'))
+	opts = true;
+	while (opts && av[x] && av[x][0] == '-' && (av[x][1] < '0' || av[x][1] > '9'))
 	{
 		b = 1;
-		while (av[x][b])
-			if (av[x][b] == 'e' || av[x][b] == 'l'
-					|| av[x][b] == 'n' || av[x][b] == 'r'
-					|| av[x][b] == 's')
+		while (opts && av[x][b])
+			if (av[x][b] == 'e' || av[x][b] == 'l' || av[x][b] == 'n'
+				|| av[x][b] == 'r' || av[x][b] == 's')
 				check_doublons(flags, av[x][b++]);
 			else if (av[x][b] != '-')
 				return (error_c("fc: illegal option --", av[x][b]) + 1);
+			else if (av[x][b] == '-')
+				opts = false;
 			else
 				b++;
 		++x;

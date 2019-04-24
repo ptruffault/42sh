@@ -63,14 +63,8 @@ int		ft_match_end(const char *s, const char *p)
 		}
 		i--;
 	}
-	ft_printf("len %i  i %i    j %i\n",len ,  i , j);
-	if (j == 0)
+	if (i >= 0 && (j <= 0 && p[0] == '*'))
 		return (i + 1);
-	if (i > 0 && (j <= 0 && p[0] == '*'))
-	{
-		ft_printf("~> %i\n", i + 1);
-		return (i + 1);
-	}
 	return (0);
 }
 

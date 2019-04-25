@@ -123,6 +123,7 @@ SRC		:=	\
 	expansion/exp_tools.c 		\
 	expansion/exp_parenth.c		\
 	expansion/cut_string.c		\
+	expansion/cut_glob.c		\
 	expansion/parenth_tools.c	\
 	\
 	process/ft_kill.c			\
@@ -311,8 +312,7 @@ val: all
 	@valgrind --leak-check=full --show-leak-kinds=all -v ./$(NAME)
 
 save: fclean clear
-	@git add -A && git commit -m "make save" && git push \
-	&& printf "$(COLOR)save$(NO_COLOR) : $(DONE)\n" || printf"$(OP_COLOR)save : KO\n$(NO_COLOR)"
+	@git add -A && git commit -m "make save" && git push
 
 
 #############################

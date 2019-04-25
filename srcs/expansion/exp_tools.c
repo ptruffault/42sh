@@ -21,7 +21,7 @@ int		ft_match_begin(const char *s, const char *p, t_bool mode)
 	i = 0;
 	len = (int)ft_strlen(p);
 	j = 0;
-	while (s && s[i] && p && p[j] && (s[i] == p[j] 
+	while (s && s[i] && p && p[j] && (s[i] == p[j]
 		|| (p[j] == '*' && (mode || p[j + 1]))))
 	{
 		if (p[j + 1] && p[j] == '*' && p[j + 1] == '*')
@@ -47,7 +47,7 @@ int		ft_match_end(const char *s, const char *p, t_bool mode)
 	len = (int)ft_strlen(p);
 	i = (int)ft_strlen(s);
 	j = len - 1;
-	while (s && --i >= 0 && p && j >= 0 && s[i] && (s[i] == p[j] 
+	while (s && --i >= 0 && p && j >= 0 && s[i] && (s[i] == p[j]
 		|| (p[j] == '*' && (mode || j > 0))))
 	{
 		if (j > 0 && p[j] == '*' && p[j - 1] == '*')
@@ -83,7 +83,6 @@ char	*ft_clear_glob(char *str)
 	}
 	return (str);
 }
-
 
 char	*ft_clear_quote(char *str)
 {

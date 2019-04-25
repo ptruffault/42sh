@@ -329,6 +329,11 @@ int				fd_dup(int fd1, int fd2, t_process *p);
 char			*ft_cut_string(char *parenth, char *val, int *curr);
 
 /*
+** expansion/cut_glob.c
+*/
+char			*ft_cut_glob(char *val, char *pattern, char *op);
+
+/*
 ** expansion/exp.c
 */
 t_tree			*ft_expention(t_tree *t);

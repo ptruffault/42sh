@@ -66,38 +66,31 @@ static t_envv	*handler_env(t_shell *sh, char *name, char *val, bool equal)
 	return (sh->env);
 }
 
-/*
-** Reduire avec ++i dans le while, et demander si le name est vraiment utile ou si possible de simplifier
-*/
-
-static int		export_option_p(t_shell *sh, char **argv, int i)
+static int		export_option_p(t_shell *sh, char **a, int i)
 {
 	t_envv	*t;
-	char	*name;
 	char	*val;
 	bool	equal;
 
 	val = NULL;
 	equal = false;
-	if (argv[i] == 0)
+	if (a[i--] == 0)
 		ft_puttenvv(sh->env, (EXP | NF), 2);
-	while (argv[i])
+	while (a[++i])
 	{
-		name = argv[i];
-		if (ft_isequal_env(name))
+		if (ft_isequal_env(a[i]))
 		{
 			equal = true;
-			if ((name = ft_split_equal(argv[i], &val)) && !check_name(name))
+			if ((a[i] = ft_split_equal(a[i], &val)) && !check_name(a[i]))
 				return (1);
 		}
-		if ((t = get_tenvv(sh->env, name)))
+		if ((t = get_tenvv(sh->env, a[i])))
 		{
 			t->status = EXP;
 			print_for_export(t, "export ");
 		}
-		else if (check_name(name))
-			sh->env = handler_env(sh, name, val, equal);
-		i++;
+		else if (check_name(a[i]))
+			sh->env = handler_env(sh, a[i], val, equal);
 	}
 	return (0);
 }

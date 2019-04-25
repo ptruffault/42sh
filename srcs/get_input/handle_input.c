@@ -13,14 +13,16 @@
 #include "shell42.h"
 #include "get_input.h"
 
+static union u_str		g_str;
+
 static int	handle_paste(unsigned long buf, t_edit *e)
 {
 	int		i;
 
 	i = -1;
-	u_str.buff = buf;
-	while (u_str.str[++i] != 0)
-		if (!(ft_add_char(u_str.str[i], e)))
+	g_str.buff = buf;
+	while (g_str.str[++i] != 0)
+		if (!(ft_add_char(g_str.str[i], e)))
 			return (FAILURE);
 	return (SUCCESS);
 }

@@ -42,16 +42,16 @@ void			curs_reset(t_edit *e)
 		y = e->pos;
 	else
 	{
-		total = (e->pos - (size_t)e->pos_z - (size_t)e->pos_y);
+		if ((size_t)e->pos_z + (size_t)e->pos_y > e->pos)
+			total = 0;
+		else
+			total = (e->pos - (size_t)e->pos_z - (size_t)e->pos_y);
 		y = (total >= e->width) ? total : e->width;
 	}
-	if (e->width != 0)
+	while (e->width != 0 && y > e->width)
 	{
-		while (y > e->width)
-		{
-			y = y - e->width;
-			term_actions(CURSOR_UP);
-		}
+		y = y - e->width;
+		term_actions(CURSOR_UP);
 	}
 	term_goto(CURSOR_MHORIZ, 0, 0);
 	e->pos = 0;

@@ -59,7 +59,7 @@
 # define EXP_P1 "%s\033[1;32m\033[04m%s\033[00m=\"%s\"\n"
 # define EXP_P2 "%s\033[1;32m\033[04m%s\033[00m=\"\"\n"
 # define EXP_P3 "%s\033[1;32m\033[04m%s\033[00m\n"
-# define ALIAS_1 "alias \033[1;32m\033[04m%s\033[00m=\'%s\'\n"
+# define ALIAS_1 "\033[1;32m\033[04m%s\033[00m=\'%s\'\n"
 
 typedef enum	e_colors
 {

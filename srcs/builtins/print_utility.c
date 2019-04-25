@@ -20,7 +20,7 @@ void	print_for_alias(t_envv *node)
 	if (isatty(1))
 		ft_printf(ALIAS_1, node->name, node->value);
 	else
-		ft_printf("alias %s=\'%s\'\n", node->name, node->value);
+		ft_printf("%s=\'%s\'\n", node->name, node->value);
 }
 
 void	print_for_export(t_envv *node, const char *opt)

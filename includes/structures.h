@@ -72,11 +72,11 @@ enum	e_error
 	P_MISS = 8
 };
 
-union
+union					u_str
 {
 	unsigned long		buff;
 	unsigned char		str[9];
-}						u_str;
+};
 
 typedef unsigned int	t_opts;
 

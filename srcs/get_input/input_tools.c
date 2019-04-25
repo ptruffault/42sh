@@ -79,6 +79,7 @@ int			ft_add_char(char buf, t_edit *e)
 	e->head = ft_get_set_shell(NULL)->e.hist;
 	if (!e->hist || ((!ft_isprint(buf) || !e->hist->s) && buf != 9))
 		return (SUCCESS);
+	ft_delete_line(e);
 	tmp = e->hist->s;
 	e->hist->s = ft_strsub(tmp, 0, (size_t)e->curr);
 	e->hist->s = ft_strinsert_char(&e->hist->s, buf, tmp + e->curr);
@@ -93,6 +94,8 @@ int			ft_add_char(char buf, t_edit *e)
 	}
 	if (e->select != -1)
 		e->select = -1;
+	curr_go_last(e);
+	ft_print_fast(e);
 	return (SUCCESS);
 }
 

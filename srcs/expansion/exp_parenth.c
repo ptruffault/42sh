@@ -38,33 +38,31 @@ static char	*ft_get_len(char *value)
 	return (tmp);
 }
 
-static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *param)
+static char	*handle_modifier(char *parenth, char *o, t_shell *sh, char *param)
 {
 	char *val;
-	char *val1;
-	char *val2;
+	char *v1;
+	char *v2;
 
 	val = NULL;
-	val2 = NULL;
-	if (parenth && (val1 = ft_strndup(parenth, (int)(ptr - parenth - 1)))
-	 && (val2 = ft_strdup(param)))
+	v2 = NULL;
+	if (parenth && (v1 = ft_strndup(parenth, (int)(o - parenth - 1)))
+		&& (v2 = ft_strdup(param)))
 	{
-		if ((*ptr == '-' && !(get_tenvv(sh->env, val1)))
-			|| (*ptr == '+' && get_tenvv(sh->env, val1)))
-			val = ft_strdup(val2);
-		else if (val2 && *ptr == '=' && !(get_tenvv(sh->env, val1)))
+		if ((*o == '-' && !(get_tenvv(sh->env, v1)))
+			|| (*o == '+' && get_tenvv(sh->env, v1)))
+			val = ft_strdup(v2);
+		else if (v2 && *o == '=' && !(get_tenvv(sh->env, v1)))
 		{
-			val2 = ft_exp_var(val2, sh, TRUE);
-			val = ft_strdup(val2);
-			sh->env = ft_new_envv(sh->env, val1, val2, IN);
+			v2 = ft_exp_var(v2, sh, TRUE);
+			val = ft_strdup(v2);
+			sh->env = ft_new_envv(sh->env, v1, v2, IN);
 		}
-		else if (val2 && *ptr == '?' && !(get_tenvv(sh->env, val1))
-			&& error(val1, val2))
-			val2 = ft_exp_var(val2, sh, TRUE);
-		if (!val)
-			val = ft_strdup(get_tenvv_val(sh->env, val1));
-		ft_strdel(&val1);
-		ft_strdel(&val2);
+		else if (v2 && *o == '?' && !(get_tenvv(sh->env, v1)) && error(v1, v2))
+			v2 = ft_exp_var(v2, sh, TRUE);
+		val = val ? val : ft_strdup(get_tenvv_val(sh->env, v1));
+		ft_strdel(&v1);
+		ft_strdel(&v2);
 	}
 	return (val);
 }

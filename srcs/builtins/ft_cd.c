@@ -26,14 +26,15 @@ static int		change_dir(char *path, t_shell *sh, t_opts opts)
 {
 	char	buff[4097];
 	char	*cwd;
+	char	*pwd;
 
 	if (!chdir(path))
 	{
 		cwd = ft_strdup_path(path);
+		pwd = get_tenvv_val(sh->env, "PWD");
 		if (opts & 0x04)
 			ft_printf("%s\n", cwd);
-		sh->env = ft_new_envv(sh->env, "OLDPWD",
-			get_tenvv_val(sh->env, "PWD"), EXP);
+		sh->env = ft_new_envv(sh->env, "OLDPWD", pwd, EXP);
 		if ((opts & 0x02))
 			sh->env = ft_new_envv(sh->env, "PWD", getcwd(buff, 4096), EXP);
 		else

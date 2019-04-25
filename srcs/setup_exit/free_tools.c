@@ -53,7 +53,7 @@ t_tree		*ft_free_tree(t_tree *t)
 	{
 		ft_free_tword(t->cmd);
 		ft_free_redirection(t->r);
-		ft_free_tenvv(t->assign);
+		ft_free_tenvv(t->ass);
 		tmp = t->next;
 		free(t);
 		t = tmp;

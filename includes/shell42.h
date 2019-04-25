@@ -268,7 +268,7 @@ t_word			*ft_get_words(t_eval *e);
 /*
 ** eval/tree_tools.c
 */
-t_tree			*add_newttree(t_tree *tree, t_word *w);
+t_tree			*newttree(t_tree *tree, t_word *w);
 t_redirect		*new_redirection(void);
 t_tree			*new_tree(void);
 int				ft_check_ascii(char *input);
@@ -360,7 +360,7 @@ char			*ft_exp_param(char *ret, char *ptr, t_shell *sh);
 */
 t_tree			*ft_word_paste(t_tree *t);
 char			*ft_get_cutted_value(char *p, t_shell *sh, char *v, int *i);
-int				get_content_size(char *s);
+int				get_cnt_size(char *s);
 char			*ft_get_secondvalue(char *src);
 
 /*

@@ -158,7 +158,7 @@ typedef struct			s_tree
 {
 	t_word				*cmd;
 	t_redirect			*r;
-	t_envv				*assign;
+	t_envv				*ass;
 	int					ret;
 	enum e_otype		o_type;
 	struct s_tree		*next;

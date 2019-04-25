@@ -52,7 +52,7 @@ t_tree				*new_tree(void)
 	n->o_type = 0;
 	n->ret = 0;
 	n->next = NULL;
-	n->assign = NULL;
+	n->ass = NULL;
 	return (n);
 }
 
@@ -72,7 +72,7 @@ t_redirect			*new_redirection(void)
 	return (ret);
 }
 
-t_tree				*add_newttree(t_tree *tree, t_word *w)
+t_tree				*newttree(t_tree *tree, t_word *w)
 {
 	tree->o_type = find_operateur(w->word);
 	if (w->type != 0)

@@ -26,7 +26,7 @@ char			*ft_get_secondvalue(char *src)
 			&& (i == 0 || cpy[i - 1] != '}'))
 		{
 			if (cpy[i] == '$' && cpy[i + 1] == '{')
-				i = i + get_content_size(&cpy[i]);
+				i = i + get_cnt_size(&cpy[i]);
 			i++;
 		}
 		if (cpy && !(ret = ft_strndup(cpy, i)))
@@ -36,7 +36,7 @@ char			*ft_get_secondvalue(char *src)
 	return (ret);
 }
 
-int				get_content_size(char *s)
+int				get_cnt_size(char *s)
 {
 	int i;
 
@@ -46,7 +46,7 @@ int				get_content_size(char *s)
 	while (s[i] && s[i] != '}')
 	{
 		if (s[i] == '$' && s[i + 1] == '{')
-			i = i + get_content_size(&s[i]) + 2;
+			i = i + get_cnt_size(&s[i]) + 2;
 		i++;
 	}
 	return (i - 2);

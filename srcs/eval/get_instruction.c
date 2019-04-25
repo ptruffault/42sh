@@ -39,16 +39,17 @@ static t_word	*get_argv(t_tree **t, t_word *w)
 		if (!check_name(w->word))
 			break ;
 		w = maybe_expand(w);
-		if (w->paste && w->next)
+		if (w && w->paste && w->next)
 		{
 			w->next = maybe_expand(w->next);
 			w->word[ft_strlen(w->word) - 1] = '\0';
-			t[0]->assign = ft_new_envv(t[0]->assign, w->word, w->next->word, TMP);
+			t[0]->ass = ft_new_envv(t[0]->ass, w->word, w->next->word, TMP);
 			w = w->next;
 		}
 		else
-			t[0]->assign = ft_new_envv_equ(t[0]->assign, w->word, TMP);
-		w = w->next;
+			t[0]->ass = ft_new_envv_equ(t[0]->ass, w->word, TMP);
+		if (w)
+			w = w->next;
 	}
 	while (w && w->word && ((1 <= w->type && w->type <= 4) || w->type == NUL))
 	{
@@ -74,7 +75,7 @@ static t_tree	*built_tree(t_word *w, t_shell *sh)
 			tmp = get_argv(&tree, tmp);
 		if (tmp && ((tmp->type == REDIRECT
 					&& !(tmp = get_redirections(tree, tmp)))
-				|| (tmp->type == OPERATEUR && !(tree = add_newttree(tree, tmp)))))
+				|| (tmp->type == OPERATEUR && !(tree = newttree(tree, tmp)))))
 		{
 			error("syntax error", NULL);
 			sh->env = ft_new_envv_int(sh->env, "?", 2, IN);

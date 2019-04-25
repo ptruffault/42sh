@@ -67,7 +67,7 @@ char				**tenvv_to_tab(t_envv *envv)
 
 void				ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t)
 {
-	if (t->assign)
+	if (t->ass)
 	{
 		if (p->saved_env)
 		{
@@ -80,10 +80,10 @@ void				ft_get_envv_back(t_shell *sh, t_process *p, t_tree *t)
 
 void				ft_setup_localenv(t_process *p, t_shell *sh, t_tree *t)
 {
-	if (t->assign)
+	if (t->ass)
 	{
 		if (sh->env)
-			p->saved_env = ft_save_tenvv(sh->env, t->assign);
-		sh->env = ft_push_tmp_env(sh->env, t->assign, (EXP | TMP));
+			p->saved_env = ft_save_tenvv(sh->env, t->ass);
+		sh->env = ft_push_tmp_env(sh->env, t->ass, (EXP | TMP));
 	}
 }

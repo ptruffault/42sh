@@ -13,11 +13,12 @@
 #include <unistd.h>
 #include "ft_printf.h"
 #include "shell42.h"
+#include "get_input.h"
 
 void	print_for_alias(t_envv *node)
 {
 	if (isatty(1))
-		ft_printf("alias \033[1;32m\033[04m%s\033[00m=\'%s\'\n", node->name, node->value);
+		ft_printf(ALIAS_1, node->name, node->value);
 	else
 		ft_printf("alias %s=\'%s\'\n", node->name, node->value);
 }
@@ -27,11 +28,11 @@ void	print_for_export(t_envv *node, const char *opt)
 	if (isatty(1))
 	{
 		if (ft_strlen(node->value) > 0)
-			ft_printf("%s\033[1;32m\033[04m%s\033[00m=\"%s\"\n", opt, node->name, node->value);
+			ft_printf(EXP_P1, opt, node->name, node->value);
 		else if (node->status & EXP)
-			ft_printf("%s\033[1;32m\033[04m%s\033[00m=\"\"\n", opt, node->name);
+			ft_printf(EXP_P2, opt, node->name);
 		else
-			ft_printf("%s\033[1;32m\033[04m%s\033[00m\n", opt, node->name);
+			ft_printf(EXP_P3, opt, node->name);
 	}
 	else
 	{

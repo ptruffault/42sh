@@ -20,6 +20,7 @@
 # define NUMBER_OF_KEYS 24
 # define NUMBER_OF_PRINT_MODES 3
 # define HASHTABLE_SIZE 150
+# define OPEN_OPTION O_NOFOLLOW | O_NONBLOCK
 
 enum	e_rtype{
 	UNDEF = 0,
@@ -193,7 +194,7 @@ typedef struct			s_jobs
 typedef struct			s_shell
 {
 	pid_t				pid;
-	int 				alias_cont;
+	int					alias_cont;
 	int					err;
 	pid_t				pgid;
 	int					std[3];

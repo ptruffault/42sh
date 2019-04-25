@@ -58,27 +58,26 @@ int			check_eval(char *str)
 void		entry_key(t_edit *e)
 {
 	t_eval	eval;
-	t_shell	*sh;
 	char	*error[7];
 
 	if (e->mode == 2 && ft_incr_add(e) == SUCCESS)
 		return ;
-	sh = ft_get_set_shell(NULL);
 	setup_key(error, e);
 	lexer(&eval, e->hist->s);
 	if (eval.eval != NULL && check_eval(eval.eval)
-		&& sh->heredoc == 0 && eval.err > 1)
+		&& ft_get_set_shell(NULL)->heredoc == 0 && eval.err > 1)
 	{
 		reset_tedit(e);
 		eval.err = (eval.err >= 2) ? eval.err - 2 : eval.err;
-		/*e->tmp = ft_strjoin_add_edit(&e->tmp, "\n", eval.err);*/
+		e->tmp = ft_strjoin_add_edit(&e->tmp, "\n", eval.err);
 		ft_others_prompt(ft_get_set_shell(NULL), error[eval.err]);
 	}
 	else
 	{
 		e->tmp = NULL;
 		e->edited = TRUE;
-		if (sh->heredoc == 0 && check_for_hist_exp(e) == SUCCESS)
+		if (ft_get_set_shell(NULL)->heredoc == 0
+				&& check_for_hist_exp(e) == SUCCESS)
 			e->edited = FALSE;
 	}
 	ft_strdel(&eval.eval);

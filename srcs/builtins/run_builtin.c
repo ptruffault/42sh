@@ -30,7 +30,7 @@ static int	job_control(char **argv, t_shell *sh)
 static int	change_envv(char **argv, t_shell *sh)
 {
 	if (ft_strequ(*argv, "unset") && argv[1])
-		sh->env = ft_unsetenv(sh->env, &argv[1]);
+		return (ft_unsetenv(sh, &argv[1]));
 	else if (ft_strequ(*argv, "cd"))
 		return (ft_cd(argv, sh));
 	else if (ft_strequ(*argv, "export"))
@@ -40,7 +40,7 @@ static int	change_envv(char **argv, t_shell *sh)
 	else if (ft_strequ(*argv, "alias"))
 		return (ft_alias(sh, argv));
 	else if (ft_strequ(*argv, "unalias") && argv[1])
-		sh->alias = ft_unsetenv(sh->alias, &argv[1]);
+		return (ft_unsetalias(sh, &argv[1]));
 	return (0);
 }
 

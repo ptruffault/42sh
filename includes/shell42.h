@@ -610,10 +610,11 @@ char			*ft_split_equal(char *str, char **aft);
 /*
 ** tenvv/ft_unsetenv.c
 */
-t_envv			*ft_unsetenv(t_envv *envv, char **t);
+int				ft_unsetenv(t_shell *sh, char **t);
 t_envv			*ft_del_envv(t_envv *envv, char *name);
 t_envv			*ft_free_tenvv(t_envv *envv);
 t_envv			*del_tenvv(t_envv *envv);
+int				ft_unsetalias(t_shell *sh, char **t);
 
 /*
 ** tenvv/tenvv_to_tab.c
@@ -629,6 +630,7 @@ int				ft_puttenvv(t_envv *t, short status, int mode);
 char			*get_tenvv_val(t_envv *envv, const char *name);
 t_envv			*get_tenvv(t_envv *envv, const char *name);
 t_envv			*new_tenvv(short status);
+int				only_a(char *str);
 
 /*
 ** tenvv/tenvv_tools_tmp.c

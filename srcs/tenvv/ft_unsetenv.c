@@ -90,8 +90,7 @@ t_envv		*ft_unsetenv(t_envv *envv, char **t)
 	{
 		error("unset or unalias : invalid option :", t[i]);
 		ft_putendl_fd("usage: unset [name ...] or unalias [-a] [name ...]", 2);
-		ft_get_set_shell(NULL)->env = ft_new_envv_int(ft_get_set_shell(NULL)->env, "?", 1, IN);
-		return (envv);
+		return (ft_new_envv_int(envv, "?", 1, IN));
 	}
 	if (i > 0)
 		return (ft_free_tenvv(envv));

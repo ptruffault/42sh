@@ -20,6 +20,7 @@
 # define NUMBER_OF_KEYS 24
 # define NUMBER_OF_PRINT_MODES 3
 # define HASHTABLE_SIZE 150
+# define OPEN_OPTION O_NOFOLLOW | O_NONBLOCK
 
 enum	e_rtype{
 	UNDEF = 0,

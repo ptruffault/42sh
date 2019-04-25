@@ -47,9 +47,11 @@ static int	get_word_of_hist(t_edit *e, size_t x)
 	if (e->hist->s[x + 1] < 9 || e->hist->s[x] > 32)
 	{
 		i = x + 1;
-		while (e->hist->s[i] && (e->hist->s[i] < 9 || e->hist->s[i] > 32)
-				&& !(i > x + 1 && e->hist->s[i] == '\"'))
+		while (e->hist->s[i] && x + 1 == '\"' && (e->hist->s[i] < 9 || e->hist->s[i] > 32))
 			++i;
+		if (x + 1 != '\"')
+			while (e->hist->s[i] && (e->hist->s[i] < 9 || e->hist->s[i] > 32) && e->hist->s[i] != '\"')
+				++i;
 		if (!(word = ft_strnew(i - x)))
 		{
 			ft_strdel(&e->hist->s);

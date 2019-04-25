@@ -48,6 +48,7 @@ SRC		:=	\
 	eval/lexer_tools.c		\
 	eval/lexer.c			\
 	eval/get_instruction.c	\
+	eval/redirect_tools.c  \
 	eval/heredoc_content.c	\
 	eval/token.c			\
 	eval/redirect.c			\

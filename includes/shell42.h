@@ -247,6 +247,12 @@ void			ft_lex_backslash(t_eval *e);
 t_word			*get_redirections(t_tree *t, t_word *w);
 
 /*
+** eval/redirect_tools.c
+*/
+t_word			*ft_delete_redir_stuff(t_word *w);
+char			*ft_get_redir_path(t_word *w);
+
+/*
 ** eval/t_word_tools.c
 */
 t_word			*ft_addtword(t_word *head, t_word *ret);

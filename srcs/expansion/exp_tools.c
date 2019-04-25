@@ -56,9 +56,7 @@ int		ft_match_end(const char *s, const char *p, t_bool mode)
 		else if (p[j] != '*' && p[j] == s[i])
 			j--;
 		else if (p[j] == '*' && (j > 0 && p[j - 1] == s[i]))
-		{
 			j = j - 2;
-		}
 	}
 	j = (j == -1) ? 0 : j;
 	i = (i == -1) ? 0 : i;

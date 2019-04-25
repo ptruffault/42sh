@@ -20,7 +20,8 @@ static t_word	*ft_next_alias(t_word *w, t_word *w_alias, int boucl)
 	char		*save;
 
 	save = w->word;
-	if (++boucl < 10 && !(w_alias = ft_check_alias(w_alias, ft_get_set_shell(NULL), boucl)))
+	if (++boucl < 10
+		&& !(w_alias = ft_check_alias(w_alias, ft_get_set_shell(NULL), boucl)))
 		return (w);
 	if (!(w->word = ft_strdup(w_alias->word)))
 		w->word = save;
@@ -59,13 +60,11 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, int boucl)
 	return (w);
 }
 
-
-
 t_word			*ft_check_alias(t_word *head, t_shell *sh, int boucl)
 {
 	t_word	*w;
 	char	*val;
-	int i;
+	int		i;
 
 	i = 1;
 	w = head;

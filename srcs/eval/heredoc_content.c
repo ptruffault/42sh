@@ -13,13 +13,6 @@
 #include <unistd.h>
 #include "shell42.h"
 
-static char		*ft_heredoc_clear(char *in, char *ret)
-{
-	ft_strdel(&in);
-	ft_strdel(&ret);
-	return (NULL);
-}
-
 static char		*heredoc_get_input(char *eoi, t_shell *sh)
 {
 	char	*ret;
@@ -38,7 +31,11 @@ static char		*heredoc_get_input(char *eoi, t_shell *sh)
 				break ;
 			ft_others_prompt(sh, "\nheredoc");
 			if ((d = get_input(&in)) == 4)
-				return (ft_heredoc_clear(in, ret));
+			{
+				ft_strdel(&in);
+				ft_strdel(&ret);
+				return (NULL);
+			}
 		}
 	ft_strdel(&in);
 	write(0, "\n", 1);
@@ -68,34 +65,39 @@ static char		*heredoc_get_content(char *eof, t_shell *sh)
 	return (ret);
 }
 
-static t_word 	*ft_heredoc_eof(t_word *w)
+static t_word	*get_eof_pasted(t_word *ret, t_word *w, char **str)
 {
-	t_word	*ret;
-	char 	*str;
 	char	*tmp;
 
-	if(!(ret = new_tword()))
+	if (w->type == QUOTE)
+		ret->type = QUOTE;
+	while (w->next && w->paste)
+	{
+		if (!(tmp = ft_strappend(str, w->next->word)))
+		{
+			ft_strdel(str);
+			return (ft_free_tword(ret));
+		}
+		tmp = *str;
+		if (w->type == QUOTE)
+			ret->type = QUOTE;
+		w = w->next;
+	}
+	return (ret);
+}
+
+static t_word	*ft_heredoc_eof(t_word *w)
+{
+	t_word	*ret;
+	char	*str;
+
+	if (!(ret = new_tword()))
 		return (NULL);
 	if (!(str = ft_strdup(w->word)))
 		return (ft_free_tword(ret));
 	if (w->paste)
-	{
-		if (w->type == QUOTE)
-			ret->type = QUOTE;
-		while (w->next && w->paste)
-		{
-			if (!(tmp = ft_strappend(&str, w->next->word)))
-			{
-				ft_strdel(&str);
-				return (ft_free_tword(ret));
-			}
-			tmp = str;
-			if (w->type == QUOTE)
-				ret->type = QUOTE;
-			w = w->next;
-		}
-	}
-	if (!(ret->word = ft_strdup_trim(str)))
+		ret = get_eof_pasted(ret, w, &str);
+	if (ret && !(ret->word = ft_strdup_trim(str)))
 	{
 		ft_strdel(&str);
 		return (ft_free_tword(ret));

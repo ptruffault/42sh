@@ -102,7 +102,7 @@ char		*ft_exp_param(char *ret, char *ptr, t_shell *sh)
 	parenth = ft_strsub(ret, (unsigned int)(ptr - ret + 2),
 	(size_t)get_content_size(ptr));
 	if (!parenth || *parenth == '$' || ft_isempty(parenth)
-	|| *parenth == '"' || *parenth == '\'')
+		|| *parenth == '"' || *parenth == '\'')
 	{
 		ft_strdel(&parenth);
 		warning("bad substitution", ret);

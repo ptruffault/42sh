@@ -94,7 +94,7 @@ int			get_input(char **line)
 		if (buf == 9)
 			return (ft_set_old_term(sh, 4));
 		else if (buf == 10 && (!sh->e.hist
-			|| !sh->e.hist->s || !*sh->e.hist->s))
+				|| !sh->e.hist->s || !*sh->e.hist->s))
 			return (ft_set_old_term(sh, 0));
 		if (sh->e.hist && sh->e.hist->s)
 			ft_print_line(&sh->e);

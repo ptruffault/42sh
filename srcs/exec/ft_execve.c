@@ -53,7 +53,7 @@ static void		ft_exec(t_process *p, t_shell *sh, t_tree *t)
 	if (p->builtins == TRUE || check_exe(p->cmd))
 	{
 		if (p->valid && !ft_builtins(sh, p, t) && (sh->pid != getpid()
-			|| (p->pid = fork()) == 0))
+				|| (p->pid = fork()) == 0))
 			ft_execve(p, sh);
 		else if (p->pid < 0)
 		{

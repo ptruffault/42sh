@@ -33,7 +33,7 @@ void	ft_lex_parenth(t_eval *e)
 	save = e->curr;
 	c = e->s[save];
 	while (e->s[e->curr] && ((c == '(' && e->s[e->curr] != ')')
-		|| (c == '{' && e->s[e->curr] != '}')))
+			|| (c == '{' && e->s[e->curr] != '}')))
 	{
 		e->eval[e->curr++] = 'e';
 		if (e->s[e->curr] == '(' || e->s[e->curr] == '{')

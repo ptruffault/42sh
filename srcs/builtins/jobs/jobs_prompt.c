@@ -90,7 +90,7 @@ void		ft_job_prompt(t_jobs *j, int opts)
 		if (!j->next || !j->next->p || j->next->p->status == RUNNING_FG)
 			ft_printf(" + ");
 		else if (j && j->next && (!j->next->next || !j->next->next->p
-		|| j->next->next->p->status == RUNNING_FG))
+				|| j->next->next->p->status == RUNNING_FG))
 			ft_printf(" - ");
 		else
 			ft_printf("   ");

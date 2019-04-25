@@ -58,7 +58,7 @@ static void	ft_lex_operateur(t_eval *e)
 			e->err = OA_MISS;
 	}
 	if (e->s[e->curr] != e->c && (e->s[e->curr] == '&'
-		|| e->s[e->curr] == '|' || e->s[e->curr] == ';'))
+			|| e->s[e->curr] == '|' || e->s[e->curr] == ';'))
 		e->err = SYNTAX;
 }
 

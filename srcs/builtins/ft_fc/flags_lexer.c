@@ -56,7 +56,6 @@ int			flags_gestion(char *flags, char **av, int x)
 	int		b;
 	bool	opts;
 
-	x = -1;
 	while (++x < 6)
 		flags[x] = '\0';
 	x = 1;

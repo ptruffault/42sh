@@ -19,7 +19,8 @@ static char	*ft_exp_end(char *ret, char *ptr, char *value, char *parenth)
 	tmp = NULL;
 	if (value && ft_isempty(value))
 		ft_strdel(&value);
-	if (value && ret && ptr && (tmp = ft_strpull(ret, ptr, get_content_size(ptr) + 2, value))
+	if (value && ret && ptr
+		&& (tmp = ft_strpull(ret, ptr, get_content_size(ptr) + 2, value))
 		&& ft_isempty(tmp))
 		ft_strdel(&tmp);
 	ft_strdel(&ret);
@@ -51,20 +52,15 @@ static char	*handle_modifier(char *parenth, char *ptr, t_shell *sh, char *param)
 		if ((*ptr == '-' && !(get_tenvv(sh->env, val1)))
 			|| (*ptr == '+' && get_tenvv(sh->env, val1)))
 			val = ft_strdup(val2);
-		else if (val2 && *ptr == '=')
-		{
-			if (!(get_tenvv(sh->env, val1)))
-			{
-				val2 = ft_exp_var(val2, sh, TRUE);
-				val = ft_strdup(val2);
-				sh->env = ft_new_envv(sh->env, val1, val2, IN);
-			}
-		}
-		else if (val2 && *ptr == '?' && !(get_tenvv(sh->env, val1)))
+		else if (val2 && *ptr == '=' && !(get_tenvv(sh->env, val1)))
 		{
 			val2 = ft_exp_var(val2, sh, TRUE);
-			error(val1, val2);
+			val = ft_strdup(val2);
+			sh->env = ft_new_envv(sh->env, val1, val2, IN);
 		}
+		else if (val2 && *ptr == '?' && !(get_tenvv(sh->env, val1))
+			&& error(val1, val2))
+			val2 = ft_exp_var(val2, sh, TRUE);
 		if (!val)
 			val = ft_strdup(get_tenvv_val(sh->env, val1));
 		ft_strdel(&val1);

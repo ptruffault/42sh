@@ -28,7 +28,7 @@ static void		set_struct_fc(t_fc *fc, t_shell *shell)
 static int		init_fc(t_fc *fc, t_shell *shell, int *i, char **argv)
 {
 	fc->av = argv;
-	if ((*i = flags_gestion(fc->flags, fc->av, 0)) == 1)
+	if ((*i = flags_gestion(fc->flags, fc->av, -1)) == 1)
 		return (2);
 	if (fc->flags[0] != 'e' && (!shell->hist || !shell->hist->next))
 	{

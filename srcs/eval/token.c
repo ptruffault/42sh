@@ -97,7 +97,7 @@ t_word			*eval_line(char *input)
 		return (NULL);
 	lexer(&e, input);
 	if (e.s && e.eval && (head = ft_get_words(&e))
-	&& !(head = ft_check_alias(head, sh, 0)))
+		&& !(head = ft_check_alias(head, sh, 0)))
 	{
 		ft_strdel(&e.eval);
 		ft_strdel(&e.s);

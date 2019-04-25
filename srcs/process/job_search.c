@@ -28,8 +28,8 @@ static t_jobs	*ft_get_jobs_name(t_jobs *j, char *name)
 	while (j)
 	{
 		if ((ft_strstr(*j->p->argv, name)
-		|| ft_strstr(j->p->cmd, name))
-		&& j->p->status != RUNNING_FG)
+				|| ft_strstr(j->p->cmd, name))
+			&& j->p->status != RUNNING_FG)
 			return (j);
 		j = j->next;
 	}

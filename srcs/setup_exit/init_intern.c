@@ -117,9 +117,11 @@ int			init_intern(t_shell *sh)
 		sh->env = ft_new_envv(sh->env, "HOME", usr->pw_dir, EXP);
 		sh->env = ft_new_envv_int(sh->env, "EUID", (int)usr->pw_uid, IN);
 		sh->env = ft_new_envv_int(sh->env, "GROUPS", (int)usr->pw_gid, IN);
-		if (isatty(0) && (hi_path = ft_strjoin(usr->pw_dir, "/.42history"))
-			&& (sh->env = ft_new_envv(sh->env, "HISTFILE", hi_path, IN)))
+		if (isatty(0) && (hi_path = ft_strjoin(usr->pw_dir, "/.42history")))
+		{
+			sh->env = ft_new_envv(sh->env, "HISTFILE", hi_path, IN);
 			sh->hist = init_hist(hi_path);
+		}
 		ft_strdel(&hi_path);
 	}
 	return (0);

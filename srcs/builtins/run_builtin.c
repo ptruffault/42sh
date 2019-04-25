@@ -16,7 +16,7 @@
 static int	job_control(char **argv, t_shell *sh)
 {
 	if (sh->interactive == TRUE && sh->process->background == FALSE
-	&& sh->pid == getpid())
+		&& sh->pid == getpid())
 	{
 		if (ft_strequ(*argv, "fg"))
 			return (ft_fg(sh, argv));

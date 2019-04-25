@@ -61,7 +61,7 @@ int			flags_gestion(char *flags, char **av, int x)
 	x = 1;
 	opts = true;
 	while (opts && av[x] && av[x][0] == '-'
-			&& (av[x][1] < '0' || av[x][1] > '9'))
+		&& (av[x][1] < '0' || av[x][1] > '9'))
 	{
 		b = 1;
 		while (opts && av[x][b])

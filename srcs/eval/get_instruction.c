@@ -73,8 +73,8 @@ static t_tree	*built_tree(t_word *w, t_shell *sh)
 		if (tmp && ((1 <= tmp->type && tmp->type <= 4) || tmp->type == NUL))
 			tmp = get_argv(&tree, tmp);
 		if (tmp && ((tmp->type == REDIRECT
-			&& !(tmp = get_redirections(tree, tmp)))
-			|| (tmp->type == OPERATEUR && !(tree = add_newttree(tree, tmp)))))
+					&& !(tmp = get_redirections(tree, tmp)))
+				|| (tmp->type == OPERATEUR && !(tree = add_newttree(tree, tmp)))))
 		{
 			error("syntax error", NULL);
 			sh->env = ft_new_envv_int(sh->env, "?", 2, IN);
@@ -122,8 +122,8 @@ t_tree			*get_tree(char *input, t_shell *sh)
 	if (!input || ft_isempty(input) || !ft_check_ascii(input)
 		|| !(w = eval_line(input)))
 		return (NULL);
-	if (!ft_check_grammar(w, sh) ||
-	!(head = built_tree(w, sh)))
+	if (!ft_check_grammar(w, sh)
+		|| !(head = built_tree(w, sh)))
 	{
 		w = ft_free_tword(w);
 		return (NULL);

@@ -48,7 +48,7 @@ static int	get_word_of_hist(t_edit *e, size_t x)
 	{
 		i = x + 1;
 		while (e->hist->s[i] && x + 1 == '\"'
-				&& (e->hist->s[i] < 9 || e->hist->s[i] > 32))
+			&& (e->hist->s[i] < 9 || e->hist->s[i] > 32))
 			++i;
 		if (x + 1 != '\"')
 			while (e->hist->s[i] && (e->hist->s[i] < 9 || e->hist->s[i] > 32)

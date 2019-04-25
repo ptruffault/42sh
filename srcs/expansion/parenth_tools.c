@@ -60,7 +60,7 @@ char			*ft_get_cutted_value(char *pa, t_shell *sh, char *val, int *i)
 	if (!val && pa && (param = ft_get_secondvalue(pa)))
 	{
 		if ((value = get_tenvv_val(sh->env, param))
-		&& !(val = ft_strdup(value)))
+			&& !(val = ft_strdup(value)))
 		{
 			ft_strdel(&param);
 			return (NULL);

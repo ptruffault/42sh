@@ -15,9 +15,10 @@
 static char	*join_or_save_txt(char *tmp, t_shell *sh)
 {
 	if (tmp == NULL)
-		return (sh->txt);
-	if ((tmp = ft_strjoin_fr(tmp, sh->txt)))
-		sh->txt = tmp;
+		tmp = sh->txt;
+	else
+		tmp = ft_strjoin_fr(tmp, sh->txt);
+	sh->txt = tmp;
 	return (tmp);
 }
 
@@ -48,9 +49,9 @@ int			exec_fd(t_shell *sh, int fd)
 	{
 		tmp = join_or_save_txt(tmp, sh);
 		lexer(&eval, sh->txt);
-		if (eval.err > 0)
+		if (sh->heredoc == 0 && eval.err > 0)
 			tmp = ft_strjoin_add_edit(&tmp, "\n", eval.err - 2);
-		if ((sh->heredoc == 0 && eval.err == 0)
+		else if ((sh->heredoc == 0 && eval.err == 0)
 			|| (eval.eval != NULL && !check_eval(eval.eval)))
 			tree_fill(sh, x++, &tmp);
 		ft_strdel(&eval.eval);

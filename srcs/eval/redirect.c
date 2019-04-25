@@ -78,9 +78,9 @@ static t_redirect	*get_redirection(t_word *w)
 	{
 		ret->t = ft_find_redirect_type(w->word);
 		if (((ret->t == R_RIGHT || ret->t == R_DRIGHT)
-			&& !(ret = parse_right_redirect(ret, w)))
+				&& !(ret = parse_right_redirect(ret, w)))
 			|| ((ret->t == R_LEFT || ret->t == R_DLEFT)
-			&& !(ret = parse_left_redirect(ret, w))))
+				&& !(ret = parse_left_redirect(ret, w))))
 		{
 			warning("redirections need an argument", w->word);
 			return (NULL);

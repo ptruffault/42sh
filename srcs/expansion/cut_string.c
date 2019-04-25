@@ -31,7 +31,7 @@ static char	*ft_cut_begin(char *val, char *pat)
 	if (val && pat && ft_str_startwith(val, pat))
 	{
 		if ((tmp = val + ft_strlen(pat))
-		&& !(new = ft_strdup(tmp)))
+			&& !(new = ft_strdup(tmp)))
 			return (ft_strdell(&val));
 		ft_strdel(&val);
 		return (new);
@@ -83,7 +83,7 @@ char		*ft_cut_string(char *parenth, char *val, int *curr)
 	if ((op = ft_get_op(parenth, curr)))
 	{
 		if (parenth[*curr] && parenth[*curr] != '}'
-		&& (pattern = ft_get_secondvalue(&parenth[*curr])))
+			&& (pattern = ft_get_secondvalue(&parenth[*curr])))
 		{
 			*curr = *curr + (int)ft_strlen(pattern) - 1;
 			pattern = ft_exp_var(pattern, sh, TRUE);

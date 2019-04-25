@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "shell42.h"
 #include "get_input.h"
-#include "ft_printf.h"
+
 void	reset_tedit(t_edit *e)
 {
 	e->curr = 0;

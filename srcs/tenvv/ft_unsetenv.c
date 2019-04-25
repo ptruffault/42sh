@@ -66,35 +66,47 @@ t_envv		*ft_del_envv(t_envv *envv, char *name)
 	return (envv);
 }
 
-static int	only_a(char *str)
-{
-	int		i;
-
-	i = -1;
-	while (str[++i])
-		if (str[i] != 'a')
-			return (0);
-	return (1);
-}
-
-t_envv		*ft_unsetenv(t_envv *envv, char **t)
+int			ft_unsetenv(t_shell *sh, char **t)
 {
 	int i;
 
 	i = 0;
-	if (!envv)
-		return (NULL);
-	while (t[i] && t[i][0] == '-' && only_a(&t[i][1]))
-		i++;
-	if (!only_a(&t[i][1]))
+	if (t[i] && t[i][0] == '-' && t[i][1] != '-')
 	{
-		error("unset or unalias : invalid option :", t[i]);
-		ft_putendl_fd("usage: unset [name ...] or unalias [-a] [name ...]", 2);
-		return (ft_new_envv_int(envv, "?", 1, IN));
+		error("unset : invalid option :", t[i]);
+		ft_putendl_fd("usage: unset [name ...]", 2);
+		return (2);
 	}
-	if (i > 0)
-		return (ft_free_tenvv(envv));
+	if (t[i] && t[i][0] == '-' && t[i][1] == '-')
+		i++;
+	if (!sh->env)
+		return (0);
 	while (t[i])
-		envv = ft_del_envv(envv, t[i++]);
-	return (envv);
+		sh->env = ft_del_envv(sh->env, t[i++]);
+	return (0);
+}
+
+int			ft_unsetalias(t_shell *sh, char **t)
+{
+	int i;
+
+	i = 0;
+	while (t[i] && t[i][0] == '-' && t[i][1] != '-')
+	{
+		if (only_a(&t[i++][1]))
+			sh->alias = ft_free_tenvv(sh->alias);
+		else
+		{
+			error("unalias : invalid option :", t[i - 1]);
+			ft_putendl_fd("unalias [-a] [name ...]", 2);
+			return (2);
+		}
+	}
+	if (t[i] && t[i][0] == '-' && t[i][1] == '-')
+		i++;
+	if (!sh->alias)
+		return (0);
+	while (t[i])
+		sh->alias = ft_del_envv(sh->alias, t[i++]);
+	return (0);
 }

@@ -48,6 +48,17 @@ char	*get_tenvv_val(t_envv *envv, const char *name)
 	return (NULL);
 }
 
+int		only_a(char *str)
+{
+	int		i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] != 'a')
+			return (0);
+	return (1);
+}
+
 int		ft_puttenvv(t_envv *t, short status, int mode)
 {
 	int i;

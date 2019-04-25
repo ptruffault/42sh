@@ -21,7 +21,7 @@ static int	ft_check_alpha(char *input)
 
 	i = -1;
 	while (input && input[++i])
-		if (input[i] != '-' && input[i] != '+' &&!ft_isdigit(input[i]))
+		if (input[i] != '-' && input[i] != '+' && !ft_isdigit(input[i]))
 			return (0);
 	return (1);
 }

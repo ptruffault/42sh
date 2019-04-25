@@ -66,6 +66,10 @@ static t_envv	*handler_env(t_shell *sh, char *name, char *val, bool equal)
 	return (sh->env);
 }
 
+/*
+** Reduire avec ++i dans le while, et demander si le name est vraiment utile ou si possible de simplifier
+*/
+
 static int		export_option_p(t_shell *sh, char **argv, int i)
 {
 	t_envv	*t;

@@ -54,7 +54,7 @@ static int		print_alias(t_shell *sh, char *str)
 	return (0);
 }
 
-static int	error_options_alias(int ret, const char *opts)
+static int		error_options_alias(int ret, const char *opts)
 {
 	error("alias: invalid option :", opts);
 	ft_putendl_fd("usage: alias [name[=value] ... ]", 2);

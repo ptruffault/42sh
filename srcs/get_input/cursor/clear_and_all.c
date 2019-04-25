@@ -13,13 +13,15 @@
 #include <stdlib.h>
 #include "shell42.h"
 #include "get_input.h"
-
+#include "ft_printf.h"
 void	reset_tedit(t_edit *e)
 {
 	e->curr = 0;
 	e->pos = 0;
 	e->select = -1;
 	e->select_pos = 0;
+	e->pos_y = 0;
+	e->pos_z = 0;
 	e->hist->s = ft_strnew(3);
 }
 

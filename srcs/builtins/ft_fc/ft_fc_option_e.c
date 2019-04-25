@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include "shell42.h"
 
-static int	ft_fc_write_in_file(t_fc *fc, int fd)
+static int	fc_wr_fd(t_fc *fc, int fd)
 {
 	t_hist	*tmp;
 	int		way;
@@ -79,7 +79,7 @@ int			ft_fc_option_e(t_fc *fc, int pos)
 		return (1);
 	if (!editor || !(editor = ft_strappend(&editor, FCTMPEXEC)))
 		return (fc_free_editor(editor));
-	if (ft_fc_write_in_file(fc, open(FCTMP, O_CREAT | O_RDWR | O_NOFOLLOW | O_NONBLOCK, 0644)))
+	if (fc_wr_fd(fc, open(FCTMP, O_CREAT | O_RDWR | O_NOFOLLOW | O_NONBLOCK, 0644)))
 		return (fc_free_editor(editor) + 1);
 	fc->shell->fc = TRUE;
 	if (!(fc_option_e_stuff(fc, editor)))

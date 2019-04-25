@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "shell42.h"
 
-static int	error_options_hash(int ret, const char *opts)
+static int		error_options_hash(int ret, const char *opts)
 {
 	error("hash: invalid option :", opts);
 	ft_putendl_fd("usage: hash [-r] [name ...]", 2);

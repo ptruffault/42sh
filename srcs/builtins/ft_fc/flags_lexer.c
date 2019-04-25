@@ -46,7 +46,8 @@ static void	flags_priority(char *flags)
 static int	error_options_fc(int ret, const char opts)
 {
 	error_c("fc: invalid option :", opts);
-	ft_putendl_fd("usage: fc [-e vim] [-lnr] [f] [l] or fc -s [pat=rep] [cmd]", 2);
+	ft_putstr_fd("usage: -fc [-e editor] [-lnr] [first] [last] or", 2);
+	ft_putendl_fd("fc -s [old=new] [command]", 2);
 	return (ret);
 }
 
@@ -60,7 +61,8 @@ int			flags_gestion(char *flags, char **av, int x)
 		flags[x] = '\0';
 	x = 1;
 	opts = true;
-	while (opts && av[x] && av[x][0] == '-' && (av[x][1] < '0' || av[x][1] > '9'))
+	while (opts && av[x] && av[x][0] == '-'
+			&& (av[x][1] < '0' || av[x][1] > '9'))
 	{
 		b = 1;
 		while (opts && av[x][b])

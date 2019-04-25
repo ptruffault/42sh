@@ -20,7 +20,7 @@ static t_word	*init_opts(char opts[4], t_word *w)
 	{
 		i = 0;
 		if (w->word[1] == '-')
-			break ;
+			return (w->next);
 		while (w->word[++i])
 			if (ft_strchr("atpP", w->word[i]))
 			{
@@ -37,8 +37,6 @@ static t_word	*init_opts(char opts[4], t_word *w)
 			}
 		w = w->next;
 	}
-	if (w && w->word && w->word[1] == '-')
-		w = w->next;
 	return (w);
 }
 

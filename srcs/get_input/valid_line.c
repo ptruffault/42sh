@@ -71,7 +71,7 @@ void		entry_key(t_edit *e)
 	{
 		reset_tedit(e);
 		eval.err = (eval.err >= 2) ? eval.err - 2 : eval.err;
-		e->tmp = ft_strjoin_add_edit(&e->tmp, "\n", eval.err);
+		/*e->tmp = ft_strjoin_add_edit(&e->tmp, "\n", eval.err);*/
 		ft_others_prompt(ft_get_set_shell(NULL), error[eval.err]);
 	}
 	else

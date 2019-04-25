@@ -15,7 +15,7 @@
 #include "ft_printf.h"
 #include "shell42.h"
 
-static int	error_options_cd(int ret, const char *opts)
+static int		error_options_cd(int ret, const char *opts)
 {
 	error("cd: invalid option :", opts);
 	ft_putendl_fd("usage: cd [-L|[-P] [dir]", 2);
@@ -123,12 +123,10 @@ int				ft_cd(char **input, t_shell *sh)
 			error("UNSET VAR", "HOME");
 	}
 	else if (input[tabl][0] == '-' && input[tabl][1] == '\0')
-	{
 		if ((val = get_tenvv_val(sh->env, "OLDPWD")))
 			return (get_path_cd(val, sh, (opts | 0x04)));
 		else
 			error("UNSET VAR", "OLDPWD");
-	}
 	else if (input[tabl])
 		return (get_path_cd(input[tabl], sh, opts));
 	return (1);

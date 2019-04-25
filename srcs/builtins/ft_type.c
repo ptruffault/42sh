@@ -31,7 +31,8 @@ static t_word	*init_opts(char opts[4], t_word *w)
 			}
 			else
 			{
-				warning_c("bad option", w->word[i]);
+				error_c("type: bad option :", w->word[i]);
+				ft_putendl_fd("usage: type [-aptP] name [name ...]", 2);
 				return (NULL);
 			}
 		w = w->next;
@@ -74,7 +75,7 @@ int				ft_type(t_word *w)
 
 	ft_memset(opts, 0, 4);
 	if (!w || !w->word || !(w = init_opts(opts, w)))
-		return (1);
+		return (2);
 	ret = 0;
 	sh = ft_get_set_shell(NULL);
 	while (w)

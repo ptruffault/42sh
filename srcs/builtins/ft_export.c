@@ -29,7 +29,8 @@ static int		check_options(char **argv)
 		{
 			if (argv[i][j] != 'p')
 			{
-				error("export: bad options.", NULL);
+				error_c("export: bad option :", argv[i][j]);
+				ft_putendl_fd("usage: export [-p] [name[=value] ...]", 2);
 				return (-2);
 			}
 		}

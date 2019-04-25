@@ -43,6 +43,13 @@ static void	flags_priority(char *flags)
 		}
 }
 
+static int	error_options_fc(int ret, const char opts)
+{
+	error_c("fc: invalid option :", opts);
+	ft_putendl_fd("usage: fc [-e vim] [-lnr] [f] [l] or fc -s [pat=rep] [cmd]", 2);
+	return (ret);
+}
+
 int			flags_gestion(char *flags, char **av, int x)
 {
 	int		b;
@@ -61,7 +68,7 @@ int			flags_gestion(char *flags, char **av, int x)
 				|| av[x][b] == 'r' || av[x][b] == 's')
 				check_doublons(flags, av[x][b++]);
 			else if (av[x][b] != '-')
-				return (error_c("fc: illegal option --", av[x][b]) + 1);
+				return (error_options_fc(1, av[x][b]));
 			else if (av[x][b] == '-')
 				opts = false;
 			else

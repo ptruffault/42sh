@@ -13,6 +13,13 @@
 #include <stdlib.h>
 #include "shell42.h"
 
+static int	error_options_hash(int ret, const char *opts)
+{
+	error("hash: invalid option :", opts);
+	ft_putendl_fd("usage: hash [-r] [name ...]", 2);
+	return (ret);
+}
+
 char			**check_options_hash(char **cmd, t_shell *sh, int *ret)
 {
 	int			i;
@@ -29,8 +36,7 @@ char			**check_options_hash(char **cmd, t_shell *sh, int *ret)
 		{
 			if (!(ft_strchr("-r", (*cmd)[i])))
 			{
-				error("hash: bad option :", *cmd);
-				*ret = 2;
+				*ret = error_options_hash(2, *cmd);
 				return (cmd);
 			}
 			else

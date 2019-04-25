@@ -313,7 +313,7 @@ val: all
 	@valgrind --leak-check=full --show-leak-kinds=all -v ./$(NAME)
 
 save: fclean clear
-	@git add -A && git commit -m "make save" && git push
+	@git add --all && git commit -m "make save" && git push
 
 
 #############################

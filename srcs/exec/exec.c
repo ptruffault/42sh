@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "shell42.h"
+#include "ft_printf.h"
 
 static t_tree	*next_instruction(t_tree *t)
 {

@@ -1,0 +1,20 @@
+'foobar'$
+baz$
+foobar$
+foo\$
+bar$
+total 72
+-rw-r--r--   1 ptruffau  2017_paris  11267 Apr 25 16:57 42sh_log.tmp
+drwxr-xr-x  45 ptruffau  2017_paris   1530 Apr 25 16:56 bin
+drwxr-xr-x  14 ptruffau  2017_paris    476 Apr 25 16:56 ..
+drwxr-xr-x  14 ptruffau  2017_paris    476 Apr 25 15:26 .
+drwxr-xr-x  21 ptruffau  2017_paris    714 Apr 25 15:26 res
+-rwxr-xr-x   1 ptruffau  2017_paris   3274 Apr 25 15:26 test.sh
+-rw-r--r--   1 ptruffau  2017_paris   1037 Apr 25 15:26 Makefile
+-rwxr-xr-x   1 ptruffau  2017_paris    159 Apr 25 15:26 add_cmd.sh
+drwxr-xr-x  22 ptruffau  2017_paris    748 Apr 25 15:26 cmd
+-rw-r--r--   1 ptruffau  2017_paris     89 Apr 25 15:26 dsfdsf
+-rw-r--r--   1 ptruffau  2017_paris      0 Apr 25 15:26 fdsfsd
+-rw-r--r--   1 ptruffau  2017_paris      0 Apr 25 15:26 fsd
+-rw-r--r--   1 ptruffau  2017_paris    267 Apr 25 15:26 k.tmp
+-rw-r--r--   1 ptruffau  2017_paris   1588 Apr 25 15:26 osxerr.supp

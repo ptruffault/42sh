@@ -1,1 +1,1 @@
-echo cocuo$HOME---
+echo cocuo$HOME--

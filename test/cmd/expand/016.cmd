@@ -1,1 +1,1 @@
-echo "$HOME"
+echo "$HOME" " ~" "\$HOME" "\\$HOME"

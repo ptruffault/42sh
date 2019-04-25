@@ -170,7 +170,13 @@ LIB_INC		+= -I $(LIBFT_PATH)/includes
 CC			?=	cc
 
 INCFLAG		:=	-I $(INCDIR) $(LIB_INC)
+ifeq ($(UNAME), Linux)
+STDFLAG		?=	-std=gnu11
+endif
+
+ifeq ($(UNAME), Darwin)
 STDFLAG		?=	-ansi
+endif
 WFLAGS		?=	-Wall -Wextra -Werror -pedantic -g
 CFLAGS		=	$(WFLAGS) $(INCFLAG) $(STDFLAG)
 

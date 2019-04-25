@@ -94,7 +94,6 @@ int			ft_add_char(char buf, t_edit *e)
 	}
 	if (e->select != -1)
 		e->select = -1;
-	curr_go_last(e);
 	ft_print_fast(e);
 	return (SUCCESS);
 }

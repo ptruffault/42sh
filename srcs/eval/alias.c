@@ -14,12 +14,27 @@
 #include "shell42.h"
 #include "ft_printf.h"
 
+static t_word	*reorder_w(t_word *w, t_word **w_a, t_word **tmp, t_word **jic)
+{
+	*tmp = (*w_a)->next;
+	while ((*tmp)->next && (*tmp)->next->word)
+		*tmp = (*tmp)->next;
+	if ((*tmp)->next != NULL)
+		*jic = (*tmp)->next;
+	(*tmp)->next = w->next;
+	w->next = (*w_a)->next;
+	w = w->next;
+	return (w);
+}
+
 static t_word	*ft_next_alias(t_word *w, t_word *w_alias)
 {
 	t_word		*tmp;
+	t_word		*jic;
 	char		*save;
 
 	save = w->word;
+	jic = NULL;
 	if (!(w->word = ft_strdup(w_alias->word)))
 		w->word = save;
 	else
@@ -28,16 +43,12 @@ static t_word	*ft_next_alias(t_word *w, t_word *w_alias)
 		ft_strdel(&save);
 	}
 	if (w_alias->next && w_alias->next->word)
-	{
-		tmp = w_alias->next;
-		while (tmp->next && tmp->next->word)
-			tmp = tmp->next;
-		tmp->next = w->next;
-		w->next = w_alias->next;
-		w = w->next;
-	}
+		w = reorder_w(w, &w_alias, &tmp, &jic);
+	else if (w_alias->next)
+		jic = w_alias->next;
 	w_alias->next = NULL;
 	ft_free_tword(w_alias);
+	ft_free_tword(jic);
 	return (w);
 }
 
@@ -62,20 +73,20 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 	t_word	*w;
 	char	*val;
 	int		i;
-	int		boucle;
+	int		loop;
 
 	i = 1;
 	w = head;
-	boucle = 0;
-	while (w && boucle++ < 100)
+	loop = 0;
+	while (w && loop++ < 100)
 	{
 		i = (w->type == OPERATEUR ? 0 : i);
-		if (w->word && i == 1 && w && 1 <= w->type && w->type <= 3
+		if (w->word && i == 1 && 1 <= w->type && w->type <= 3
 			&& (get_tenvv(sh->alias, w->word)))
 		{
 			val = get_tenvv_val(sh->alias, w->word);
 			if (val[ft_strlen(val) - 1] == ' ' && w->next
-				&& w->next->word /*&& !ft_strequ(w->word, w->next->word)*/)
+				&& w->next->word)
 				i = 0;
 			w = ft_alias_to_tword(w, val);
 		}

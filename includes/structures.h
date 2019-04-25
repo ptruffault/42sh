@@ -193,6 +193,7 @@ typedef struct			s_jobs
 typedef struct			s_shell
 {
 	pid_t				pid;
+	int 				alias_cont;
 	int					err;
 	pid_t				pgid;
 	int					std[3];

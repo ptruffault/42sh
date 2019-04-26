@@ -67,7 +67,8 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh, int loop)
 		w_alias = ft_get_words(&e_alias);
 	ft_strdel(&e_alias.eval);
 	ft_strdel(&e_alias.s);
-	if (w_alias && (!ft_strequ(ptr, val)))
+	if (w_alias && (!ft_strequ(ptr, val))
+		&& (!ft_strequ(w->word, w_alias->word)))
 	{
 		ptr = w->word;
 		w_alias = ft_check_alias(w_alias, sh, loop);

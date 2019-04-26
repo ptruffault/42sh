@@ -72,6 +72,7 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh, int loop)
 		ptr = w->word;
 		w_alias = ft_check_alias(w_alias, sh, loop);
 	}
+	ptr = NULL;
 	if (w_alias == NULL)
 		return (w);
 	return (ft_next_alias(w, w_alias));

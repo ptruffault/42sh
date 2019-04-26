@@ -25,6 +25,8 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 			if (setpgid(p->pid, p->pgid) < 0)
 				error("group creation fucked up", p->cmd);
 		}
+		signal(SIGINT, sig_handler);
+		ft_redirect_builtin(t, p, sh);
 		p->ret = run_builtin(t, p, sh);
 		if (sh->pid != getpid())
 			ft_exit_son(sh, p->ret, p);

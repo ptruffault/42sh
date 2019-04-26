@@ -1,2 +1,3 @@
-; echo coucou;ls;ls
+echo coucou;ls;ls
 echo -- -n
+; echo 

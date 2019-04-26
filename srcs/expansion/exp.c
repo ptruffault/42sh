@@ -22,7 +22,11 @@ static char		*ft_get_varname(char *s)
 	ptr = s + 1;
 	if (*ptr == '!' || *ptr == '?' || *ptr == '$')
 		return (ft_strndup(ptr, 1));
+<<<<<<< HEAD
 	while (ptr[i] && ((ft_strchr("@_!?:.+-*=()[]", ptr[i]) 
+=======
+	while (ptr[i] && ((ft_strchr("@_{}!?", ptr[i])
+>>>>>>> e9fad4a1316b263384c2b6c248da561bf791cfb7
 			|| ft_isalpha(ptr[i]) || ft_isdigit(ptr[i]))))
 		i++;
 	return (ft_strsub(s, (unsigned int)(ptr - s), i));
@@ -82,7 +86,7 @@ char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting)
 	while (ret && *ret && ret[++i])
 	{
 		if (quoting && (ret[i] == '\\' || ret[i] == '\''))
-			break ;
+			return (ft_clear_quote(ret));
 		if (!quoting && ret[i] == '\\' && !sh->heredoc)
 		{
 			j = i++;
@@ -91,19 +95,15 @@ char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting)
 		}
 		if (ret[i] == '$' && ret[i + 1])
 		{
+			if (ret[i + 1] == '{' && !(ret = ft_exp_param(ret, &ret[i], sh)))
+				return (NULL);
 			if (ret[i + 1] == '{')
-			{
-				if (!(ret = ft_exp_param(ret, &ret[i], sh)))
-					return (NULL);
 				i = -1;
-			}
 			else if (!(ret = ft_exp_envv_var(ret, sh, &i)))
 				return (NULL);
 		}
 	}
-	if (quoting)
-		ret = ft_clear_quote(ret);
-	return (ret);
+	return (quoting ? ft_clear_quote(ret) : ret);
 }
 
 t_tree			*ft_expention(t_tree *t)

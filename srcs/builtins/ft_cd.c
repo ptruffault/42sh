@@ -118,7 +118,7 @@ int				ft_cd(char **input, t_shell *sh)
 		return (error_options_cd(2, input[tabl - 1]));
 	else if (!(input[tabl]))
 	{
-		if ((val = retrieve_home(NULL, sh->env)))
+		if ((val = get_tenvv_val(sh->env, "HOME")))
 			return (get_path_cd(val, sh, opts));
 		else
 			error("UNSET VAR", "HOME");

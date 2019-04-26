@@ -57,8 +57,9 @@ t_word			*ft_next_alias(t_word *w, t_word *w_alias)
 
 static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh, int loop)
 {
-	t_word	*w_alias;
-	t_eval	e_alias;
+	t_word			*w_alias;
+	t_eval			e_alias;
+	static char		*ptr;
 
 	w_alias = NULL;
 	lexer(&e_alias, val);
@@ -66,8 +67,11 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh, int loop)
 		w_alias = ft_get_words(&e_alias);
 	ft_strdel(&e_alias.eval);
 	ft_strdel(&e_alias.s);
-	if (w_alias)
+	if (w_alias && (!ft_strequ(ptr, val)))
+	{
+		ptr = w->word;
 		w_alias = ft_check_alias(w_alias, sh, loop);
+	}
 	if (w_alias == NULL)
 		return (w);
 	return (ft_next_alias(w, w_alias));

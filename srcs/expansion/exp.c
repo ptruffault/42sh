@@ -83,7 +83,7 @@ char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting)
 	{
 		if (quoting && (ret[i] == '\\' || ret[i] == '\''))
 			break ;
-		if (!quoting && ret[i] == '\\')
+		if (!quoting && ret[i] == '\\' && !sh->heredoc)
 		{
 			j = i++;
 			while (ret[j++])

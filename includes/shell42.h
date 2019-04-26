@@ -370,6 +370,7 @@ char			*ft_get_secondvalue(char *src);
 */
 char			*ft_clear_quote(char *str);
 char			*ft_clear_glob(char *str);
+char			*ft_clear_backslash(char *str);
 int				ft_match_end(const char *s, const char *p, t_bool mode);
 int				ft_match_begin(const char *s, const char *p, t_bool mode);
 

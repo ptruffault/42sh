@@ -28,6 +28,8 @@ static int	ft_check_alpha(char *input)
 
 int			ft_quit(int exit_code, t_shell *sh)
 {
+	if (get_tenvv_val(sh->env, "?") == NULL)
+		exit_code = 2;
 	if (exit_code == 226)
 		exit_code = ft_atoi(get_tenvv_val(sh->env, "?"));
 	if (isatty(0) && isatty(1))

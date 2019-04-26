@@ -19,13 +19,13 @@ SIG		:= signal_unix.c
 endif
 
 ifeq ($(UNAME), Darwin)
-SIG		:= signal.c
+SIG		:=	signal.c \
+			signal_handle.c
 endif
 
 SRC		:=	\
 	main.c				\
 	$(SIG)              \
-	signal_handle.c		\
 	ft_get_set.c 		\
 	\
 	setup_exit/free_tools_shell.c \

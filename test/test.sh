@@ -83,11 +83,15 @@ do
 
 	OUTFILE="res/${SHORTFILE}_res1.tmp"
 	OUTFILE2="res/${SHORTFILE}_res2.tmp"
+
+	rm -f tmp/$FTSH_LOG
+
 	# Test what our shell gives
 	if [ ! $NOVALGRIND ]
 	then
 		(cd tmp/ ; valgrind $LOG_OPT \
 			../$NAME <../$FILE 1>../$OUTFILE 2>../$OUTFILE2)
+		grep -Ev '^--[0-9]*-- UNKNOWN ' tmp/$FTSH_LOG > tmp/$FTSH_LOG
 		FTSH_RTN=$?
 	else
 		(cd tmp/ ; ../$NAME <../$FILE 1>../$OUTFILE 2>../$OUTFILE2)
@@ -111,9 +115,9 @@ do
 		printf ${PURPLE}
 			diff $CMPFILE2 $OUTFILE2 | sed -e "s/^/    /g"
 		printf ${CYAN}
-			if [ '!' $TCSH_RTN '=' $FTSH_RTN ]
+			if [ '!' $TESTSH_RTN -eq $FTSH_RTN ]
 			then
-				echo $TEST_SHELL retuned $TCSH_RTN | sed -e "s/^/    /g"
+				echo $TEST_SHELL retuned $TESTSH_RTN | sed -e "s/^/    /g"
 				echo $NAME retured $FTSH_RTN | sed -e "s/^/    /g"
 			fi
 		printf ${BLUE}

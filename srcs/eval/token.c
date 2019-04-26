@@ -22,7 +22,7 @@ static t_word	*find_type(t_word *w, char c, int *pos)
 		w->type = DQUOTE;
 	else if (c == 's' || c == 'B')
 		w->type = QUOTE;
-	else if (c == 'e' || c == '.')
+	else if (c == 'e' || c == '.' || c == 'v')
 	{
 		if (*pos == 0)
 			w->type = CMD;

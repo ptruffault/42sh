@@ -97,7 +97,7 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 			else
 				break ;
 		}
-		else if (((tmp = ft_expention(tmp))))
+		else if ((tmp = ft_expention(tmp))) 
 		{
 			if ((tmp = exec_instruction(tmp, sh)))
 				tmp = next_instruction(tmp);

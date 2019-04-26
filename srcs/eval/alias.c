@@ -31,7 +31,7 @@ static t_word	*reorder_w(t_word *w, t_word **w_a, t_word **tmp, t_word **jic)
 	return (w);
 }
 
-static t_word	*ft_next_alias(t_word *w, t_word *w_alias)
+t_word			*ft_next_alias(t_word *w, t_word *w_alias)
 {
 	t_word		*tmp;
 	t_word		*jic;

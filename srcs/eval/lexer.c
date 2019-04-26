@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "shell42.h"
+#include "ft_printf.h"
 
 static void	ft_lex_redirect(t_eval *e)
 {
@@ -62,6 +63,20 @@ static void	ft_lex_operateur(t_eval *e)
 		e->err = SYNTAX;
 }
 
+void		ft_lex_var(t_eval *e)
+{
+	e->eval[e->curr++] = 'v';
+	while (e->s[e->curr] && !ft_isspace(e->s[e->curr])
+		&& (ft_strchr("@_{}", e->s[e->curr]) 
+			|| ft_isalpha(e->s[e->curr]) || ft_isdigit(e->s[e->curr])))
+	{
+		if (e->eval[e->curr] == '{')
+			ft_lex_parenth(e);
+		else
+			e->eval[e->curr++] = 'v';
+	}
+}
+
 static void	ft_lexword(t_eval *e)
 {
 	while (ft_isspace(e->s[e->curr]))
@@ -78,8 +93,8 @@ static void	ft_lexword(t_eval *e)
 		ft_lex_redirect(e);
 	else if (e->s[e->curr] && (ft_strchr("&|;", e->s[e->curr])))
 		ft_lex_operateur(e);
-	else if (e->s[e->curr] && (ft_strchr("({", e->s[e->curr])))
-		ft_lex_parenth(e);
+	else if (e->s[e->curr] && e->s[e->curr] == '$')
+		ft_lex_var(e);
 	else if (e->s[e->curr])
 		e->eval[e->curr++] = 'e';
 }

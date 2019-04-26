@@ -57,7 +57,7 @@ static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 			j->p->sig = SIGCONT;
 			kill(-j->p->pid, SIGCONT);
 		}
-		ft_wait(j, sh, FALSE);
+		ft_wait(j->p, j, sh, FALSE);
 	}
 }
 

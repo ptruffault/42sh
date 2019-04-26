@@ -14,6 +14,28 @@
 #include "ft_printf.h"
 #include "shell42.h"
 
+static void	print_line(t_fc *fc, int nb)
+{
+	char	**split;
+	int		i;
+
+	i = -1;
+	split = ft_strsplit(fc->hist_first->s, '\n');
+	while (split[++i])
+	{
+		if (nb == 0)
+		{
+			if (i == 0)
+				ft_printf("%d\t%s\n", fc->hist_first->nb, split[i]);
+			else
+				ft_printf("\t%s\n", split[i]);
+		}
+		else
+				ft_printf("\t%s\n", split[i]);
+	}
+	ft_freestrarr(&split);
+}
+
 static void	print_hist_opt_l(t_fc *fc, short way)
 {
 	int	nb;
@@ -22,19 +44,13 @@ static void	print_hist_opt_l(t_fc *fc, short way)
 	if (way == 0)
 		while (fc->hist_first && fc->hist_first->nb >= fc->hist_last->nb)
 		{
-			if (nb == 0)
-				ft_printf("%d\t%s\n", fc->hist_first->nb, fc->hist_first->s);
-			else
-				ft_printf("\t%s\n", fc->hist_first->s);
+			print_line(fc, nb);
 			fc->hist_first = fc->hist_first->next;
 		}
 	else if (way == 1)
 		while (fc->hist_first && fc->hist_first->nb <= fc->hist_last->nb)
 		{
-			if (nb == 0)
-				ft_printf("%d\t%s\n", fc->hist_first->nb, fc->hist_first->s);
-			else
-				ft_printf("\t%s\n", fc->hist_first->s);
+			print_line(fc, nb);
 			fc->hist_first = fc->hist_first->prev;
 		}
 }

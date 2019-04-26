@@ -78,19 +78,19 @@ int			ft_add_char(char buf, t_edit *e)
 		delete_left(e);
 	if (!e->hist || ((!ft_isprint(buf) || !e->hist->s) && buf != 9))
 		return (SUCCESS);
+	if (e->max_char < e->pos + 1)
+	{
+		if (e->curr + 1 > e->max_char)
+			e->pos_z += 1;
+		if (e->curr + 1 < e->max_char)
+			e->pos_y += 1;
+	}
 	ft_delete_line(e);
 	tmp = e->hist->s;
 	e->hist->s = ft_strsub(tmp, 0, (size_t)e->curr);
 	e->hist->s = ft_strinsert_char(&e->hist->s, buf, tmp + e->curr);
 	ft_strdel(&tmp);
 	e->curr++;
-	if (e->max_char < e->pos + 1)
-	{
-		if (e->curr > e->max_char)
-			e->pos_z += 1;
-		if (e->curr < e->max_char)
-			e->pos_y += 1;
-	}
 	if (e->select != -1)
 		e->select = -1;
 	ft_print_fast(e);

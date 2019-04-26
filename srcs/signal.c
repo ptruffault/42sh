@@ -108,6 +108,7 @@ void		set_son_signal(void)
 	signal(SIGWINCH, SIG_DFL);
 	signal(SIGUSR1, SIG_DFL);
 	signal(SIGUSR2, SIG_DFL);
+	signal(SIGHUP, SIG_DFL);
 	signal(SIGIO, SIG_DFL);
 	signal(SIGILL, SIG_DFL);
 	signal(SIGTRAP, SIG_DFL);
@@ -137,6 +138,7 @@ void		set_signals(void)
 	signal(SIGTTOU, SIG_IGN);
 	signal(SIGUSR1, SIG_IGN);
 	signal(SIGUSR2, SIG_IGN);
+	signal(SIGHUP, ft_leave);
 	signal(SIGIO, ft_leave);
 	signal(SIGILL, ft_leave);
 	signal(SIGTRAP, ft_leave);

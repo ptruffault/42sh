@@ -352,6 +352,7 @@ char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting);
 */
 int				delete_char_j(int j, char *ret);
 int				checktilde(t_word *w);
+char			*ft_get_varname(char *s);
 
 /*
 ** expansion/exp_parenth.c

@@ -37,3 +37,18 @@ int			checktilde(t_word *w)
 	}
 	return (0);
 }
+
+char		*ft_get_varname(char *s)
+{
+	char	*ptr;
+	size_t	i;
+
+	i = 0;
+	ptr = s + 1;
+	if (*ptr == '!' || *ptr == '?' || *ptr == '$')
+		return (ft_strndup(ptr, 1));
+	while (ptr[i] && ((ft_strchr("@_!?:.", ptr[i])
+		|| ft_isalpha(ptr[i]) || ft_isdigit(ptr[i]))))
+		i++;
+	return (ft_strsub(s, (unsigned int)(ptr - s), i));
+}

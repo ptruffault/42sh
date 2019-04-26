@@ -52,7 +52,8 @@ static void	ft_update_with_heredoc(t_shell *sh)
 
 static int	ft_update_hist(t_shell *sh)
 {
-	if (!sh->heredoc && sh->e.hist && sh->e.hist->s && !ft_isempty(sh->e.hist->s))
+	if (!sh->heredoc && sh->e.hist
+		&& sh->e.hist->s && !ft_isempty(sh->e.hist->s))
 	{
 		if (!sh->e.hist->prev)
 			sh->hist = sh->e.hist;

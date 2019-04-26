@@ -351,6 +351,7 @@ char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting);
 ** expansion/expansion_tools.c
 */
 int				checktilde(t_word *w);
+char			*ft_get_varname(char *s);
 
 /*
 ** expansion/exp_parenth.c

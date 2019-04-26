@@ -2,3 +2,5 @@ cat $SHELL_FOLD/sys/header
 cat $SHELL_FOLD/auteur
 PS1='$[BLUE][$[RESET]${?}$[BLUE]]$[RESET]$[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]'
 alias ls='ls -G ' ll='ls -l ' la='ls -a '
+alias ..='cd ..' ...='cd ../..'
+alias 42sh="$SHELL_FOLD/42sh"

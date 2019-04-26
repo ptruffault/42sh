@@ -12,7 +12,6 @@
 
 #include <stdlib.h>
 #include "shell42.h"
-#include "ft_printf.h"
 
 static t_word	*reorder_w(t_word *w, t_word **w_a, t_word **tmp, t_word **jic)
 {
@@ -56,7 +55,7 @@ t_word			*ft_next_alias(t_word *w, t_word *w_alias)
 	return (w);
 }
 
-static t_word	*ft_alias_to_tword(t_word *w, char *val)
+static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh)
 {
 	t_word	*w_alias;
 	t_eval	e_alias;
@@ -67,6 +66,8 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val)
 		w_alias = ft_get_words(&e_alias);
 	ft_strdel(&e_alias.eval);
 	ft_strdel(&e_alias.s);
+	if (w_alias)
+		w_alias = ft_check_alias(w_alias, sh);
 	if (w_alias == NULL)
 		return (w);
 	return (ft_next_alias(w, w_alias));
@@ -92,7 +93,7 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 			if (val[ft_strlen(val) - 1] == ' ' && w->next
 				&& w->next->word)
 				i = 0;
-			w = ft_alias_to_tword(w, val);
+			w = ft_alias_to_tword(w, val, sh);
 		}
 		w = w ? w->next : w;
 	}

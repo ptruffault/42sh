@@ -101,7 +101,7 @@ int				ft_fc(t_shell *shell, char **argv)
 
 	if ((ret = init_fc(&fc, shell, &i, argv)) <= 2)
 		return (ret);
-	if (!shell->interactive)
+	if (!shell->interactive || shell->fc == TRUE)
 		return (0);
 	set_struct_fc(&fc, shell);
 	if (fc.flags[0] == 'e' && fc.av[i]

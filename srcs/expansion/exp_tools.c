@@ -33,7 +33,7 @@ int		ft_match_begin(const char *s, const char *p, t_bool mode)
 			j = j + 2;
 		i++;
 	}
-	if (j == len || (j == len - 1 && p[j] == '*'))
+	if (j == len || (len > 0 && j == len - 1 && p[j] == '*'))
 		return (i);
 	return (0);
 }

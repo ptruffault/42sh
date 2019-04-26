@@ -61,7 +61,6 @@ static t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting)
 {
 	int i;
-	int j;
 
 	i = -1;
 	while (ret && *ret && ret[++i])
@@ -69,7 +68,7 @@ char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting)
 		if (quoting && (ret[i] == '\\' || ret[i] == '\''))
 			return (ft_clear_quote(ret));
 		if (!quoting && ret[i] == '\\' && !sh->heredoc)
-			j = delete_char_j(i++, ret);
+			delete_char_j(i++, ret);
 		if (ret[i] == '$' && ret[i + 1])
 		{
 			if (ret[i + 1] == '{')

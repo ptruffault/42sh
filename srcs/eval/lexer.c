@@ -73,7 +73,7 @@ void		ft_lex_var(t_eval *e)
 		while (e->s[e->curr] && !ft_isspace(e->s[e->curr])
 			&& (ft_strchr("@_{}!?:/.+-*/=()[]^%$#", e->s[e->curr])
 			|| ft_isalpha(e->s[e->curr]) || ft_isdigit(e->s[e->curr])))
-				e->eval[e->curr++] = 'v';
+			e->eval[e->curr++] = 'v';
 	}
 }
 

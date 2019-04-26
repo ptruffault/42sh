@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "shell42.h"
 
 int		check_before(char *str, int pos)
@@ -49,4 +50,18 @@ char	*check_tilde(char *value)
 		return (value);
 	}
 	return (ret);
+}
+
+void	ft_arrdel(char ***arr)
+{
+	size_t	i;
+
+	i = 0;
+	while ((*arr)[i] != NULL)
+	{
+		free((*arr)[i]);
+		i++;
+	}
+	free(*arr);
+	*arr = NULL;
 }

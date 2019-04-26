@@ -26,19 +26,40 @@ static t_hist	*incr_search_by_occurence(t_hist *first, char *to_search)
 	return (NULL);
 }
 
+static size_t	how_much_cr2(char *s)
+{
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = 0;
+	while (s[i])
+	{
+		if (s[i] == '\n')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 static void		ft_print_search(t_edit *e, t_hist *hist)
 {
 	size_t		val;
+	size_t		cr;
 
 	val = ft_strlen(e->hist->s);
 	while (val > e->width)
 		val -= e->width;
-	val = e->width - val;
+	if (e->width > val)
+		val = e->width - val;
+	else
+		val = 0;
 	if (hist && hist->nb != e->hist->nb)
 	{
 		e->incr_search = hist->s;
-		e->pos += val + 16 + ft_strlen(hist->s);
-		ft_printf("\n(Incr' search):%s", hist->s);
+		cr = ft_strlen(hist->s) + (how_much_cr2(hist->s) * e->width);
+		e->pos += val + 17 + cr;
+		ft_printf("\n(Incr' search): %s", hist->s);
 	}
 	else
 	{

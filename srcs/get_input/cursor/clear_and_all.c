@@ -44,11 +44,14 @@ void	reset_get_input(t_edit *e)
 
 void	gi_clear(t_edit *e)
 {
-	ft_delete_line(e);
-	term_actions("ho");
-	term_actions("cd");
-	ft_disp(ft_get_set_shell(NULL));
-	ft_print_line(e);
+	if (e->mode == 0 && e->tmp == NULL)
+	{
+		ft_delete_line(e);
+		term_actions("ho");
+		term_actions("cd");
+		ft_disp(ft_get_set_shell(NULL));
+		e->print_modes[e->mode](e);
+	}
 }
 
 void	just_exit(t_edit *e)

@@ -37,7 +37,7 @@ static int	delete_simple_left(t_edit *e)
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
 	curr_move_left(e);
-	ft_print_fast(e);
+	e->print_modes[e->mode](e);
 	return (SUCCESS);
 }
 
@@ -66,7 +66,7 @@ static int	delete_multiple_left(t_edit *e, size_t stop)
 	if (e->curr > (size = ft_strlen(e->hist->s)))
 		e->curr = size;
 	curr_go_last(e);
-	ft_print_fast(e);
+	e->print_modes[e->mode](e);
 	return (SUCCESS);
 }
 
@@ -93,7 +93,7 @@ int			ft_add_char(char buf, t_edit *e)
 	e->curr++;
 	if (e->select != -1)
 		e->select = -1;
-	ft_print_fast(e);
+	e->print_modes[e->mode](e);
 	return (SUCCESS);
 }
 
@@ -135,6 +135,6 @@ void		delete_on(t_edit *e)
 	tmp[i] = '\0';
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;
-	ft_print_fast(e);
+	e->print_modes[e->mode](e);
 	return ;
 }

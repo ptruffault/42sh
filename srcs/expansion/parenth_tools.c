@@ -79,6 +79,7 @@ static t_word	*ft_paste_loop(t_word *head, t_word *tmp)
 			tmp = tmp->next;
 		else if (tmp->paste && tmp->next && tmp->next->word)
 		{
+			
 			if ((new = new_tword()))
 			{
 				new->word = ft_strdup(tmp->word);

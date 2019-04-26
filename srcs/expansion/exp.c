@@ -22,7 +22,7 @@ static char		*ft_get_varname(char *s)
 	ptr = s + 1;
 	if (*ptr == '!' || *ptr == '?' || *ptr == '$')
 		return (ft_strndup(ptr, 1));
-	while (ptr[i] && ((ft_strchr("@_{}", ptr[i]) 
+	while (ptr[i] && ((ft_strchr("@_{}!?", ptr[i]) 
 			|| ft_isalpha(ptr[i]) || ft_isdigit(ptr[i]))))
 		i++;
 	return (ft_strsub(s, (unsigned int)(ptr - s), i));

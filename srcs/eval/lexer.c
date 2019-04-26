@@ -67,10 +67,10 @@ void		ft_lex_var(t_eval *e)
 {
 	e->eval[e->curr++] = 'v';
 	while (e->s[e->curr] && !ft_isspace(e->s[e->curr])
-		&& (ft_strchr("@_{}", e->s[e->curr]) 
+		&& (ft_strchr("@_{}#?$!", e->s[e->curr]) 
 			|| ft_isalpha(e->s[e->curr]) || ft_isdigit(e->s[e->curr])))
 	{
-		if (e->eval[e->curr] == '{')
+		if (e->s[e->curr] == '{')
 			ft_lex_parenth(e);
 		else
 			e->eval[e->curr++] = 'v';
@@ -95,6 +95,8 @@ static void	ft_lexword(t_eval *e)
 		ft_lex_operateur(e);
 	else if (e->s[e->curr] && e->s[e->curr] == '$')
 		ft_lex_var(e);
+	else if (e->s[e->curr] && e->s[e->curr] == '{')
+		ft_lex_parenth(e);
 	else if (e->s[e->curr])
 		e->eval[e->curr++] = 'e';
 }

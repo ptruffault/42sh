@@ -97,9 +97,6 @@ $(NAME): $(OBJ)
 	@ranlib $@
 	@printf "\n$(DONE)$(OP_COLOR)$(NAME)$(NO_COLOR)  \n"
 
-auteur:
-	@echo "ptruffau" > auteur
-
 bin:
 	@mkdir $@
 

@@ -75,14 +75,14 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 	int		i;
 	int		loop;
 
-	i = 1;
+	i = 0;
 	w = head;
 	loop = 0;
-	while (w && loop++ < 100)
+	while (w && ++i && loop < 100)
 	{
 		i = (w->type == OPERATEUR ? 0 : i);
 		if (w->word && i == 1 && 1 <= w->type && w->type <= 3
-			&& (get_tenvv(sh->alias, w->word)))
+			&& (get_tenvv(sh->alias, w->word)) && ++loop < 100)
 		{
 			val = get_tenvv_val(sh->alias, w->word);
 			if (val[ft_strlen(val) - 1] == ' ' && w->next
@@ -90,11 +90,7 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 				i = 0;
 			w = ft_alias_to_tword(w, val);
 		}
-		if (w)
-		{
-			w = w->next;
-			i++;
-		}
+		w = w ? w->next : w;
 	}
 	return (head);
 }

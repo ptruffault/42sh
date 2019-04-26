@@ -86,9 +86,9 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 	{
 		if (!tmp->cmd || !tmp->cmd->word)
 		{
-			if (t->ass)
+			if (tmp->ass)
 			{
-				sh->env = ft_push_tenvv(sh->env, t->ass, IN);
+				sh->env = ft_push_tenvv(sh->env, tmp->ass, IN);
 				tmp = next_instruction(tmp);
 			}
 			else if (tmp->o_type == O_SEP || tmp->o_type == 0

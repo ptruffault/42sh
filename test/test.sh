@@ -28,7 +28,6 @@ else
 	NAME='../42sh'
 fi
 
-VALGRIND=0
 TEST_SHELL='bash --posix'
 
 if [ $2 ]
@@ -39,16 +38,11 @@ else
 TEST_FILES=$(find cmd -name '*.cmd')
 fi
 
-# Temporary files for storing results
-TCSH_OUT="tcsh_out.tmp"
-TCSH_ERR="tcsh_err.tmp"
-FTSH_OUT="42sh_out.tmp"
-FTSH_ERR="42sh_err.tmp"
 FTSH_LOG="42sh_log.tmp"
 
 # Options used for valgrind
 LOG_OPT="--log-file=$FTSH_LOG --quiet --leak-check=full"
-LOG_OPT=$LOG_OPT" --suppressions=./osxerr.supp"
+LOG_OPT=$LOG_OPT" --suppressions=../osxerr.supp"
 
 # Test if the executable exist
 if [ -f $NAME -a -x $NAME ]
@@ -56,7 +50,7 @@ then
 	# if it does run once on valgrind to remove the error valgrind
 	# give to freshly compiled program
 	# "warning: no debug symbols in executable (-arch x86_64)"
-	if [ $VALGRIND ]
+	if [ ! $NOVALGRIND ]
 	then
 		echo 'exit' | valgrind $NAME > /dev/null 2> /dev/null
 	fi
@@ -71,6 +65,7 @@ fi
 
 # Make programs that kill themself
 make -C bin/ 1>/dev/null 2>/dev/null
+mkdir -p tmp/ $(cd cmd ; find . -type d | sed -e 's/\./res/g')
 
 # Loop over each $FILE in cmd
 for FILE in $TEST_FILES
@@ -80,29 +75,30 @@ do
 	SHORTFILE=$(echo $FILE | sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')
 	echo ${YELLOW}[...]${COLRESET}"	: "${SHORTFILE}${MOVELINE}
 
-	CMPFILE="res/"$(echo ${FILE}| sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')"_cmp1.tmp"
-	CMPFILE2="res"/$(echo ${FILE}| sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')"_cmp2.tmp"
+	CMPFILE="res/${SHORTFILE}_cmp1.tmp"
+	CMPFILE2="res/${SHORTFILE}_cmp2.tmp"
 	# Test what result the reference shell gives
-	$TEST_SHELL <$FILE 1>$CMPFILE 2>$CMPFILE2
-	TCSH_RTN=$?
+	(cd tmp/ ; $TEST_SHELL <../$FILE 1>../$CMPFILE 2>../$CMPFILE2)
+	TESTSH_RTN=$?
 
-	OUTFILE="res/"$(echo ${FILE}| sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')"_res1.tmp"
-	OUTFILE2="res"/$(echo ${FILE}| sed -e 's/^cmd\///g' | sed -e 's/\.cmd$//g')"_res2.tmp"
+	OUTFILE="res/${SHORTFILE}_res1.tmp"
+	OUTFILE2="res/${SHORTFILE}_res2.tmp"
 	# Test what our shell gives
-	if [ $VALGRIND ]
+	if [ ! $NOVALGRIND ]
 	then
-		valgrind $LOG_OPT $NAME <$FILE 1>$OUTFILE 2>$OUTFILE2
+		(cd tmp/ ; valgrind $LOG_OPT \
+			../$NAME <../$FILE 1>../$OUTFILE 2>../$OUTFILE2)
 		FTSH_RTN=$?
 	else
-		$NAME <$FILE 1>$OUTFILE 2>$OUTFILE
+		(cd tmp/ ; ../$NAME <../$FILE 1>../$OUTFILE 2>../$OUTFILE2)
 		FTSH_RTN=$?
 	fi
 
 	# If anything is diffrent
 	if diff -q $CMPFILE $OUTFILE > /dev/null \
 			&& test -f $CMPFILE2 && test -f $OUTFILE2 \
-			&& test $TCSH_RTN -eq $FTSH_RTN \
-			&& test ! -s $FTSH_LOG
+			&& test $TESTSH_RTN -eq $FTSH_RTN \
+			&& test ! -s tmp/$FTSH_LOG
 	then
 		echo ${CLEARLINE}${GREEN}[OK]${COLRESET}"	: "${SHORTFILE}
 	else
@@ -115,19 +111,19 @@ do
 		printf ${PURPLE}
 			diff $CMPFILE2 $OUTFILE2 | sed -e "s/^/    /g"
 		printf ${CYAN}
-			if [ $TCSH_RTN != $FTSH_RTN ]
+			if [ '!' $TCSH_RTN '=' $FTSH_RTN ]
 			then
 				echo $TEST_SHELL retuned $TCSH_RTN | sed -e "s/^/    /g"
 				echo $NAME retured $FTSH_RTN | sed -e "s/^/    /g"
 			fi
 		printf ${BLUE}
-			if [ -f $FTSH_LOG ]
+			if [ -f tmp/$FTSH_LOG ]
 			then
-				cat $FTSH_LOG | sed -e "s/^/    /g"
+				cat tmp/$FTSH_LOG | sed -e "s/^/    /g"
 			fi
 		printf ${COLRESET}
 	fi
 done
 
 # Clear files
-rm -f $TCSH_OUT $TCSH_ERR $FTSH_LOG $FTSH_OUT $FTSH_ERR
+rm -rf tmp/

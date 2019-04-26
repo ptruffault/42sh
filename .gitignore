@@ -4,6 +4,7 @@
 ### Test ###
 /test/bin/*.bin
 /test/res
+/test/tmp
 
 ### Build ###
 # Temporary build files

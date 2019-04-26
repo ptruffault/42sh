@@ -6,7 +6,7 @@
 #    By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 11:16:13 by ptruffau          #+#    #+#              #
-#    Updated: 2019/04/24 15:58:37 by fstadelw         ###   ########.fr        #
+#    Updated: 2019/04/26 03:39:12 by fstadelw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -316,11 +316,16 @@ exe: all
 	./$(NAME)
 
 val: all
-	@valgrind --leak-check=full --show-leak-kinds=all -v ./$(NAME)
+	@ valgrind --leak-check=full --show-leak-kinds=all -v ./$(NAME)
 
 save: fclean clear
-	@git add --all && git commit -m "make save" && git push
+	@ git add --all && git commit -m "make save" && git push
 
+test:
+	@ $(MAKE) -C $(TESTDIR) --no-print-directory fast
+
+full-test:
+	@ $(MAKE) -C $(TESTDIR) --no-print-directory
 
 #############################
 #          SETTING          #
@@ -331,6 +336,7 @@ save: fclean clear
 .PHONY: warn
 .PHONY: lclean lfclean lre val exe fre
 .PHONY: clear sclean clean fclean save
+.PHONY: full-test test save val exe fre
 
 #############################
 #         DEPENDENCY        #

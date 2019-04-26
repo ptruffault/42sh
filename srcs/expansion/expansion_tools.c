@@ -12,6 +12,13 @@
 
 #include "shell42.h"
 
+int			delete_char_j(int j, char *ret)
+{
+	while (ret[j++])
+		ret[j - 1] = ret[j];
+	return (j);
+}
+
 int			checktilde(t_word *w)
 {
 	struct passwd	*usr;

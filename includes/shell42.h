@@ -350,6 +350,7 @@ char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting);
 /*
 ** expansion/expansion_tools.c
 */
+int				delete_char_j(int j, char *ret);
 int				checktilde(t_word *w);
 
 /*

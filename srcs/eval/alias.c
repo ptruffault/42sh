@@ -16,14 +16,18 @@
 
 static t_word	*reorder_w(t_word *w, t_word **w_a, t_word **tmp, t_word **jic)
 {
+	int		count;
+
+	count = 1;
 	*tmp = (*w_a)->next;
-	while ((*tmp)->next && (*tmp)->next->word)
+	while ((*tmp)->next && (*tmp)->next->word && count++)
 		*tmp = (*tmp)->next;
 	if ((*tmp)->next != NULL)
 		*jic = (*tmp)->next;
 	(*tmp)->next = w->next;
 	w->next = (*w_a)->next;
-	w = w->next;
+	while (--count >= 0 && w->next)
+		w = w->next;
 	return (w);
 }
 

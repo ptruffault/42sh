@@ -52,7 +52,7 @@ static void	ft_update_with_heredoc(t_shell *sh)
 
 static int	ft_update_hist(t_shell *sh)
 {
-	if (!sh->heredoc && sh->e.hist && sh->e.hist->s && sh->e.hist->s[0] != '\0')
+	if (!sh->heredoc && sh->e.hist && sh->e.hist->s && !ft_isempty(sh->e.hist->s))
 	{
 		if (!sh->e.hist->prev)
 			sh->hist = sh->e.hist;
@@ -60,7 +60,7 @@ static int	ft_update_hist(t_shell *sh)
 			return (FAILURE);
 		ft_print_edited(&sh->e);
 	}
-	else if (!sh->heredoc && sh->e.hist)
+	else if (!sh->heredoc && sh->e.hist && !ft_isempty(sh->e.hist->s))
 	{
 		while (sh->e.hist->prev)
 			sh->e.hist = sh->e.hist->prev;
@@ -72,7 +72,7 @@ static int	ft_update_hist(t_shell *sh)
 			sh->e.hist->prev = NULL;
 		}
 	}
-	else if (sh->heredoc)
+	else if (sh->e.hist && (sh->heredoc || ft_isempty(sh->e.hist->s)))
 		ft_update_with_heredoc(sh);
 	return (ft_set_old_term(sh, SUCCESS));
 }

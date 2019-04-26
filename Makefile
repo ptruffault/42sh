@@ -25,6 +25,7 @@ endif
 SRC		:=	\
 	main.c				\
 	$(SIG)              \
+	signal_handle.c		\
 	ft_get_set.c 		\
 	\
 	setup_exit/free_tools_shell.c \

@@ -52,6 +52,7 @@ void			set_null_tabl(char **tabl, int len_env);
 ** autocompletion/utility_handler.c
 */
 char			*check_tilde(char *value);
+int				check_before(char *str, int pos);
 
 /*
 ** builtins/ft_fc/flags_lexer.c

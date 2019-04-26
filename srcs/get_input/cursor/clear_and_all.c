@@ -44,7 +44,8 @@ void	reset_get_input(t_edit *e)
 
 void	gi_clear(t_edit *e)
 {
-	if (e->mode == 0 && e->tmp == NULL)
+	if (e->mode == 0 && e->tmp == NULL
+		&& ft_get_set_shell(NULL)->heredoc == FALSE)
 	{
 		ft_delete_line(e);
 		term_actions("ho");

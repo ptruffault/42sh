@@ -653,9 +653,15 @@ t_tree			*ft_get_set_tree(t_tree *new_t);
 /*
 ** signal.c
 */
-void			set_signals(void);
-void			set_son_signal(void);
 void			sig_handler(int sig);
 int				ft_signal_check(t_process *p);
+void			ft_leave(int sig);
+/*
+** signal_handle.c
+*/
+void			set_signals(void);
+void			set_son_signal(void);
+void			set_signals_bis(void);
+void			set_son_signal_bis(void);
 
 #endif

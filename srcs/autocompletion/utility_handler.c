@@ -12,6 +12,21 @@
 
 #include "shell42.h"
 
+int		check_before(char *str, int pos)
+{
+	char	*val;
+
+	if (!(val = ft_strndup(str, pos)))
+		return (pos);
+	if (ft_strchr(val, '='))
+	{
+		ft_strdel(&val);
+		return (0);
+	}
+	ft_strdel(&val);
+	return (pos);
+}
+
 char	*check_tilde(char *value)
 {
 	char	*tmp;

@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include "shell42.h"
-
+#include "ft_printf.h"
 static char	*get_word_cursor(char *str, int *pos)
 {
 	char	*ret;
@@ -23,7 +23,8 @@ static char	*get_word_cursor(char *str, int *pos)
 	i = p;
 	if (str[p] == ' ')
 		p--;
-	while (p > 0 && !ft_strchr(" =;|&\"\'", str[p]))
+	while (p > 0 && str[p] != ' ' && str[p] != ';'
+		   && str[p] != '|' && str[p] != '&' && str[p] != '"' && str[p] != '\'')
 		p--;
 	p += (p > 0) ? 1 : 0;
 	i = i - p;
@@ -101,6 +102,7 @@ char		**check_line(int *max_len, int *total, t_edit *e)
 		return (NULL);
 	if (!(value = get_word_cursor(e->hist->s, &pos)))
 		return (NULL);
+	pos = check_before(e->hist->s, pos);
 	if (!(value = check_tilde(value)))
 		return (NULL);
 	if (value[0] != '$')

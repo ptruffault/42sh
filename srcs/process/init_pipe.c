@@ -33,7 +33,6 @@ static void			ft_update_valid(t_process *p)
 	while (p)
 	{
 		p->valid = 0;
-		p->ret = 127;
 		p = p->grp;
 	}
 }

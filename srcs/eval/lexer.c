@@ -66,7 +66,9 @@ static void	ft_lex_operateur(t_eval *e)
 void		ft_lex_var(t_eval *e)
 {
 	e->eval[e->curr++] = 'v';
-	while (e->s[e->curr] && !ft_isspace(e->s[e->curr]))
+	while (e->s[e->curr] && !ft_isspace(e->s[e->curr])
+		&& (ft_strchr("@_{}!?", e->s[e->curr]) 
+		|| ft_isalpha(e->s[e->curr]) || ft_isdigit(e->s[e->curr])))
 	{
 		if (e->s[e->curr] == '{')
 			ft_lex_parenth(e);

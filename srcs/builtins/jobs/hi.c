@@ -46,11 +46,8 @@ static void		ft_hi_prompt(t_process *tmp, int id)
 	grp = tmp->grp;
 	while (grp)
 	{
-		if (grp->cmd)
-		{
-			ft_printf(" \x1B[1;35m|\x1B[00m ");
-			ft_put_process(grp);
-		}
+		ft_printf(" \x1B[1;35m|\x1B[00m ");
+		ft_put_process(grp);
 		grp = grp->grp;
 	}
 }

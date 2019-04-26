@@ -12,6 +12,7 @@
 
 #include <sys/wait.h>
 #include "shell42.h"
+#include "ft_printf.h"
 
 static void	ft_eval_status(t_process *p)
 {
@@ -29,6 +30,8 @@ static void	ft_eval_status(t_process *p)
 	}
 	else
 	{
+		if (p->ret == -1)
+			p->ret = 127;
 		if (WIFEXITED(p->ret))
 			p->ret = WEXITSTATUS(p->ret);
 		p->status = DONE;
@@ -54,19 +57,17 @@ int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool bg)
 	ret = 0;
 	while (p)
 	{
-		if (!p->cmd || ((p->pid == 0 && p->status != DONE
-				&& p->status != KILLED)
+		if ((((p->builtins || !p->cmd) && p->status != DONE && p->status != KILLED)
 				|| (bg == FALSE && p->status == RUNNING_FG
 					&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)
 				|| ((p->status == RUNNING_BG || p->status == SUSPENDED)
 					&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0)))
 		{
 			ft_eval_status(p);
-			ret = p->ret;
-			sh->env = ft_new_envv_int(sh->env, "?", p->ret, IN);
 			if (!ft_job_stuff(j, sh))
 				break ;
 		}
+		ret = p->ret;
 		p = p->grp;
 	}
 	return (ret);

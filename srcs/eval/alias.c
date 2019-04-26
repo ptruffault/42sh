@@ -88,8 +88,8 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh, int loop)
 			&& (get_tenvv(sh->alias, w->word)) && ++loop < 100)
 		{
 			val = get_tenvv_val(sh->alias, w->word);
-			if (val[ft_strlen(val) - 1] == ' ' && w->next
-				&& w->next->word)
+			if (ft_strlen(val) > 0 && val[ft_strlen(val) - 1] == ' '
+				&& w->next && w->next->word)
 				i = 0;
 			w = ft_alias_to_tword(w, val, sh, loop);
 		}

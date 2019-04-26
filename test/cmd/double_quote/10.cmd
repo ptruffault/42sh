@@ -7,4 +7,4 @@ echo 'foo\
 bar' | cat -e
 l\
 s \
--lat
+-at

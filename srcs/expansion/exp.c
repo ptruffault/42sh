@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "shell42.h"
+#include "ft_printf.h"
 
 static char		*ft_get_varname(char *s)
 {
@@ -75,13 +76,20 @@ static t_word	*ft_exp_home_var(t_word *head, t_envv *envv)
 char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting)
 {
 	int i;
+	int j;
 
 	i = -1;
 	while (ret && *ret && ret[++i])
 	{
 		if (quoting && (ret[i] == '\\' || ret[i] == '\''))
 			break ;
-		else if (ret[i] == '$' && ret[i + 1])
+		if (!quoting && ret[i] == '\\')
+		{
+			j = i++;
+			while (ret[j++])
+				ret[j - 1] = ret[j];
+		}
+		if (ret[i] == '$' && ret[i + 1] && (i == 0 || ret[i - 1] == '\\'))
 		{
 			if (ret[i + 1] == '{')
 			{

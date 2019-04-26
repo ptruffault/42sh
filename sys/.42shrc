@@ -1,9 +1,3 @@
-alias cl=/usr/bin/clear
-alias la="ls -aG" ll='/bin/ls -lG'
-alias ..='cd ..' ...='cd ../..' ....='cd ../../..'
-alias gitall="git add -A && git commit -m 'gitall' && git push"
 cat $SHELL_FOLD/sys/header
 cat $SHELL_FOLD/auteur
-PS1='$[BLUE][$[RESET]${?}$[BLUE]] $[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]'
-alias ls='ls ' opt='-l ' ET='&& ' OU='|| ' PIPE='| ' OK='echo OK ' KO='echo KO '
-alias a='b;b;b;b;b;b;b' b='a;a;a;a;a' c=d d=e e=c t='a;b;c;a;b;c;d;a;b;c;d;e'
+PS1='$[BLUE][$[RESET]${?}$[BLUE]]$[RESET]$[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]'

@@ -22,8 +22,8 @@ static char		*ft_get_varname(char *s)
 	ptr = s + 1;
 	if (*ptr == '!' || *ptr == '?' || *ptr == '$')
 		return (ft_strndup(ptr, 1));
-	while (ptr[i] && (ptr[i] == '_' || ft_isalpha(ptr[i])
-			|| ft_isdigit(ptr[i]) || ptr[i] == '@'))
+	while (ptr[i] && ((ft_strchr("@_{}", e->s[e->curr]) 
+			|| ft_isalpha(e->s[e->curr]) || ft_isdigit(e->s[e->curr]))))
 		i++;
 	return (ft_strsub(s, (unsigned int)(ptr - s), i));
 }

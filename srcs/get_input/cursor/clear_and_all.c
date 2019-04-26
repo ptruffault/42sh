@@ -42,6 +42,15 @@ void	reset_get_input(t_edit *e)
 	free(e->hist);
 }
 
+void	gi_clear(t_edit *e)
+{
+	ft_delete_line(e);
+	term_actions("ho");
+	term_actions("cd");
+	ft_disp(ft_get_set_shell(NULL));
+	ft_print_line(e);
+}
+
 void	just_exit(t_edit *e)
 {
 	t_shell *sh;

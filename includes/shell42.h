@@ -386,6 +386,7 @@ void			curr_move_right(t_edit *e);
 void			reset_tedit(t_edit *e);
 void			just_exit(t_edit *e);
 void			reset_get_input(t_edit *e);
+void			gi_clear(t_edit *e);
 
 /*
 ** get_input/cursor/curs_move.c

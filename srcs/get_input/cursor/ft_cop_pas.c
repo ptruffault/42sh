@@ -13,8 +13,6 @@
 #include "shell42.h"
 #include "get_input.h"
 
-
-#include "ft_printf.h"
 void	ft_copy(t_edit *e)
 {
 	t_shell	*sh;

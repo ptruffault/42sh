@@ -106,7 +106,7 @@ char	*ft_clear_backslash(char *str)
 	i = -1;
 	while (str && str[++i])
 	{
-		if (str[i] == '\\')
+		if (str[i] == '\\' && ft_strchr("\\$", str[i + 1]))
 		{
 			while (str[i++])
 				str[i - 1] = str[i];

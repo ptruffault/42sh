@@ -43,7 +43,7 @@ static void		ft_post_exec(t_jobs *j, t_tree *t, t_process *p, t_shell *sh)
 	if (p && j)
 	{
 		ft_link_process_to_term(p, sh);
-		p->ret = ft_wait(j, sh, FALSE);
+		p->ret = ft_wait(p, j, sh, FALSE);
 		t->ret = (p->valid ? p->ret : 127);
 		if (p->background == FALSE && sh->interactive == TRUE && p)
 			ft_tcsetpgrp(sh->std[0], sh->pgid);

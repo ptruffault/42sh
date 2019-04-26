@@ -47,21 +47,19 @@ static int	ft_job_stuff(t_jobs *j, t_shell *sh)
 	return (1);
 }
 
-int			ft_wait(t_jobs *j, t_shell *sh, t_bool bg)
+int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool bg)
 {
 	int			ret;
-	t_process	*p;
 
 	ret = 0;
-	p = (j ? j->p : NULL);
 	while (p)
 	{
 		if (!p->cmd || ((p->pid == 0 && p->status != DONE
 				&& p->status != KILLED)
-			|| (bg == FALSE && p->status == RUNNING_FG
-				&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)
-			|| ((p->status == RUNNING_BG || p->status == SUSPENDED)
-				&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0)))
+				|| (bg == FALSE && p->status == RUNNING_FG
+					&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)
+				|| ((p->status == RUNNING_BG || p->status == SUSPENDED)
+					&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0)))
 		{
 			ft_eval_status(p);
 			ret = p->ret;
@@ -83,7 +81,7 @@ void		ft_wait_background(t_shell *sh)
 	while (tmp)
 	{
 		s = tmp->next;
-		ft_wait(tmp, sh, TRUE);
+		ft_wait(tmp->p, tmp, sh, TRUE);
 		tmp = s;
 	}
 }

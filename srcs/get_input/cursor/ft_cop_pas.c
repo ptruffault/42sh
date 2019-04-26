@@ -13,6 +13,8 @@
 #include "shell42.h"
 #include "get_input.h"
 
+
+#include "ft_printf.h"
 void	ft_copy(t_edit *e)
 {
 	t_shell	*sh;
@@ -27,7 +29,7 @@ void	ft_copy(t_edit *e)
 	if (e->curr > e->select_pos)
 	{
 		pos = e->select_pos;
-		size = e->curr - e->select_pos;
+		size = e->curr - e->select_pos + 1;
 	}
 	else if (e->curr < e->select_pos)
 	{

@@ -1,3 +1,4 @@
 cat $SHELL_FOLD/sys/header
 cat $SHELL_FOLD/auteur
 PS1='$[BLUE][$[RESET]${?}$[BLUE]]$[RESET]$[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]'
+alias ls='ls '

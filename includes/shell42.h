@@ -150,6 +150,7 @@ int				check_builtin(char *input);
 /*
 ** builtins/ft_alias.c
 */
+t_word			*ft_next_alias(t_word *w, t_word *w_alias);
 int				ft_alias(t_shell *sh, char **argv);
 
 /*
@@ -386,6 +387,7 @@ void			curr_move_right(t_edit *e);
 void			reset_tedit(t_edit *e);
 void			just_exit(t_edit *e);
 void			reset_get_input(t_edit *e);
+void			gi_clear(t_edit *e);
 
 /*
 ** get_input/cursor/curs_move.c

@@ -35,7 +35,7 @@ void	ft_lex_parenth(t_eval *e)
 	while (e->s[e->curr] && ((c == '(' && e->s[e->curr] != ')')
 			|| (c == '{' && e->s[e->curr] != '}')))
 	{
-		e->eval[e->curr++] = 'e';
+		e->eval[e->curr++] = 'v';
 		if (e->s[e->curr] == '(' || e->s[e->curr] == '{')
 			ft_lex_parenth(e);
 	}
@@ -45,7 +45,7 @@ void	ft_lex_parenth(t_eval *e)
 		e->c = c;
 	}
 	else
-		e->eval[e->curr++] = 'e';
+		e->eval[e->curr++] = 'v';
 }
 
 void	ft_lex_dquote(t_eval *e)

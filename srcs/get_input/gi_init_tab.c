@@ -39,6 +39,7 @@ void	ft_init_inputs_kval(t_edit *e, int x)
 	e->kval[x++] = KEY_SHIFT_HOME;
 	e->kval[x++] = KEY_SHIFT_END;
 	e->kval[x++] = KEY_CTRL_R;
+	e->kval[x++] = KEY_CTRL_L;
 }
 
 void	ft_init_inputs_tab(t_edit *e, int x)
@@ -67,6 +68,7 @@ void	ft_init_inputs_tab(t_edit *e, int x)
 	e->ft_tab[x++] = ft_select_home;
 	e->ft_tab[x++] = ft_select_end;
 	e->ft_tab[x++] = ft_incr_search;
+	e->ft_tab[x++] = gi_clear;
 }
 
 void	ft_init_print_modes(t_edit *e, int x)

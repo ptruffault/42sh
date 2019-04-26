@@ -1,1 +1,1 @@
-bin/sig12sys
+bin/sig12sys.bin

@@ -1,9 +1,0 @@
-
-VALGRIND_STARTUP_PWD_80251_XYZZY="/Users/ptruffau/42sh/test"
-LOGNAME="ptruffau"
-HOME="/Users/ptruffau"
-PWD="/Users/ptruffau/42sh/test"
-PATH="/Users/ptruffau/.brew/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munki"
-USER="ptruffau"
-ZSH="/Users/ptruffau/.oh-my-zsh"
-SHELL="/Users/ptruffau/42sh/test/../42sh"

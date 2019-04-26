@@ -1,1 +1,1 @@
-bin/sig11segv
+bin/sig11segv.bin

@@ -1,1 +1,1 @@
-sig25xfszbin/sig25xfsz
+sig25xfszbin/sig25xfsz.bin

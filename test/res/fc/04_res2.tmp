@@ -1,2 +1,0 @@
-[04m[00;31mError: [00mfc: invalid option : [1;32m([00mk[1;32m)[00m
-usage: -fc [-e editor] [-lnr] [first] [last] orfc -s [old=new] [command]

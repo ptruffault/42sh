@@ -1,1 +1,1 @@
-bin/sig5trap
+bin/sig5trap.bin

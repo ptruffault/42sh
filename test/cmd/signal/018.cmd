@@ -1,1 +1,1 @@
-bin/sig9kill
+bin/sig9kill.bin

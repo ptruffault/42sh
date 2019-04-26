@@ -1,1 +1,1 @@
-bin/sig26alrm
+bin/sig26alrm.bin

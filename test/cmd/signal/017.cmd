@@ -1,1 +1,1 @@
-bin/sig8fpe
+bin/sig8fpe.bin

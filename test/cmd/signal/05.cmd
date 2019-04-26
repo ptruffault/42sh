@@ -1,1 +1,1 @@
-bin/sig14alarm
+bin/sig14alarm.bin

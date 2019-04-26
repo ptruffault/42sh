@@ -1,1 +1,1 @@
-bin/sig24xcpu
+bin/sig24xcpu.bin

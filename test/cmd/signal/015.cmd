@@ -1,1 +1,1 @@
-bin/sig4ill
+bin/sig4ill.bin

@@ -1,1 +1,1 @@
-bin/sig13pipe
+bin/sig13pipe.bin

@@ -2,9 +2,8 @@
 /42sh
 
 ### Test ###
-/test/bin/*
-!/test/bin/*.c
-!/test/bin/Makefile
+/test/bin/*.bin
+/test/res
 
 ### Build ###
 # Temporary build files

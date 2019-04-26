@@ -1,1 +1,1 @@
-bin/sig31usr2
+bin/sig31usr2.bin

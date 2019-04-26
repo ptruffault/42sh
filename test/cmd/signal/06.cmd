@@ -1,1 +1,1 @@
-bin/sig15term
+bin/sig15term.bin

@@ -101,7 +101,7 @@ do
 	# If anything is diffrent
 	if diff -q $CMPFILE $OUTFILE > /dev/null \
 			&& test -f $CMPFILE2 && test -f $OUTFILE2 \
-			&& test $TCSH_RTN == $FTSH_RTN \
+			&& test $TCSH_RTN -eq $FTSH_RTN \
 			&& test ! -s $FTSH_LOG
 	then
 		echo ${CLEARLINE}${GREEN}[OK]${COLRESET}"	: "${SHORTFILE}

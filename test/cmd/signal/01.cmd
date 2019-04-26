@@ -1,1 +1,1 @@
-bin/sig10bus
+bin/sig10bus.bin

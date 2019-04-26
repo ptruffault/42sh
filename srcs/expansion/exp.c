@@ -89,7 +89,7 @@ char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting)
 			while (ret[j++])
 				ret[j - 1] = ret[j];
 		}
-		if (ret[i] == '$' && ret[i + 1] && (i == 0 || ret[i - 1] == '\\'))
+		if (ret[i] == '$' && ret[i + 1])
 		{
 			if (ret[i + 1] == '{')
 			{

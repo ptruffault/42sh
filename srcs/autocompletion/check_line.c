@@ -89,6 +89,23 @@ void		ft_arrdel(char ***arr)
 	*arr = NULL;
 }
 
+char 		**only_tilde(int *max_len, int *total, char *str)
+{
+	char	**res;
+
+	if (!(res = malloc(sizeof(char*) * 2)))
+		return (NULL);
+	res[1] = NULL;
+	if (!(res[0] = check_tilde(str)))
+	{
+		ft_arrdel(&res);
+		return (NULL);
+	}
+	*total = 1;
+	*max_len = (int)ft_strlen(res[0]);
+	return (res);
+}
+
 char		**check_line(int *max_len, int *total, t_edit *e)
 {
 	char	*value;
@@ -103,6 +120,8 @@ char		**check_line(int *max_len, int *total, t_edit *e)
 	if (!(value = get_word_cursor(e->hist->s, &pos)))
 		return (NULL);
 	pos = check_before(e->hist->s, pos);
+	if (ft_strequ(value, "~"))
+		return (only_tilde(max_len, total, value));
 	if (!(value = check_tilde(value)))
 		return (NULL);
 	if (value[0] != '$')

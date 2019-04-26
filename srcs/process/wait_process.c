@@ -16,7 +16,7 @@
 static void	ft_eval_status(t_process *p)
 {
 	if ((WIFSIGNALED(p->ret) || WIFSTOPPED(p->ret))
-		&& p->builtins == FALSE)
+		&& p->builtins == FALSE && p->cmd)
 	{
 		p->status = (WIFSTOPPED(p->ret) ? SUSPENDED : KILLED);
 		p->sig = (WIFSTOPPED(p->ret) ? SIGTSTP : WTERMSIG(p->ret));
@@ -27,9 +27,10 @@ static void	ft_eval_status(t_process *p)
 		}
 		p->ret = p->sig + 128;
 	}
-	else if (WIFEXITED(p->ret))
+	else
 	{
-		p->ret = WEXITSTATUS(p->ret);
+		if (WIFEXITED(p->ret))
+			p->ret = WEXITSTATUS(p->ret);
 		p->status = DONE;
 	}
 }
@@ -55,7 +56,7 @@ int			ft_wait(t_jobs *j, t_shell *sh, t_bool bg)
 	p = (j ? j->p : NULL);
 	while (p)
 	{
-		if (p->cmd != NULL && ((p->pid == 0 && p->status != DONE
+		if (!p->cmd || ((p->pid == 0 && p->status != DONE
 				&& p->status != KILLED)
 			|| (bg == FALSE && p->status == RUNNING_FG
 				&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)

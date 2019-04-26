@@ -31,7 +31,7 @@ static void	print_line(t_fc *fc, int nb)
 				ft_printf("\t%s\n", split[i]);
 		}
 		else
-				ft_printf("\t%s\n", split[i]);
+			ft_printf("\t%s\n", split[i]);
 	}
 	ft_freestrarr(&split);
 }

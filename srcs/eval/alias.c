@@ -55,7 +55,7 @@ t_word			*ft_next_alias(t_word *w, t_word *w_alias)
 	return (w);
 }
 
-static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh)
+static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh, int loop)
 {
 	t_word	*w_alias;
 	t_eval	e_alias;
@@ -67,22 +67,20 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh)
 	ft_strdel(&e_alias.eval);
 	ft_strdel(&e_alias.s);
 	if (w_alias)
-		w_alias = ft_check_alias(w_alias, sh);
+		w_alias = ft_check_alias(w_alias, sh, loop);
 	if (w_alias == NULL)
 		return (w);
 	return (ft_next_alias(w, w_alias));
 }
 
-t_word			*ft_check_alias(t_word *head, t_shell *sh)
+t_word			*ft_check_alias(t_word *head, t_shell *sh, int loop)
 {
 	t_word	*w;
 	char	*val;
 	int		i;
-	int		loop;
 
 	i = 0;
 	w = head;
-	loop = 0;
 	while (w && ++i && loop < 100)
 	{
 		i = (w->type == OPERATEUR ? 0 : i);
@@ -93,7 +91,7 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 			if (val[ft_strlen(val) - 1] == ' ' && w->next
 				&& w->next->word)
 				i = 0;
-			w = ft_alias_to_tword(w, val, sh);
+			w = ft_alias_to_tword(w, val, sh, loop);
 		}
 		w = w ? w->next : w;
 	}

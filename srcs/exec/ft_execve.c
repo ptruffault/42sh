@@ -33,7 +33,7 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 	return (0);
 }
 
-static void		ft_execve(t_process *p, t_shell *sh)
+static void		ft_execve(t_process *p, t_shell *sh, t_tree *t)
 {
 	if (sh->interactive == TRUE)
 	{
@@ -43,6 +43,7 @@ static void		ft_execve(t_process *p, t_shell *sh)
 			error("group creation fucked up", p->cmd);
 	}
 	set_son_signal();
+	ft_redirect_builtin(t, p, sh);
 	execve(p->cmd, p->argv, p->env);
 	error("execve fucked up", p->cmd);
 	ft_exit_son(sh, 1, p);
@@ -54,7 +55,7 @@ static void		ft_exec(t_process *p, t_shell *sh, t_tree *t)
 	{
 		if (p->valid && !ft_builtins(sh, p, t) && (sh->pid != getpid()
 				|| (p->pid = fork()) == 0))
-			ft_execve(p, sh);
+			ft_execve(p, sh, t);
 		else if (p->pid < 0)
 		{
 			error("fork fucked up", p->cmd);
@@ -78,20 +79,15 @@ t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 		sh->process = p;
 		ret = ft_add_jobs(p, sh);
 	}
-	signal(SIGINT, sig_handler);
-	if (!t->r || ft_redirect_builtin(t, p, sh))
-	{
-		if (p->cmd && !ft_isempty(p->cmd))
-			ft_exec(p, sh, t);
-		else
-		{
-			error("command not found", *p->argv);
-			p->ret = 127;
-			p->valid = 0;
-		}
-	}
+	if (p->cmd && !ft_isempty(p->cmd))
+		ft_exec(p, sh, t);
 	else
-		p->ret = 1;
+	{
+		ft_redirect_builtin(t, p, sh);
+		error("command not found", *p->argv);
+		p->ret = 127;
+		p->valid = 0;
+	}
 	ft_get_envv_back(sh, p, t);
 	return (ret);
 }

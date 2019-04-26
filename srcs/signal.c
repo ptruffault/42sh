@@ -69,7 +69,7 @@ static void	ft_leave(int sig)
 	{
 		if (g_signal_msg[i].sig == sig)
 		{
-			error_i("42sh get killed by signal", i);
+			error_i("42sh get killed by signal", sig);
 			ft_putendl(g_signal_msg[i].msg);
 			break ;
 		}

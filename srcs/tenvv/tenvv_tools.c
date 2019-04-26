@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdlib.h>
 #include "shell42.h"
 #include "tenvv.h"
@@ -69,8 +70,10 @@ int		ft_puttenvv(t_envv *t, short status, int mode)
 		if ((t->status & status))
 		{
 			i = 0;
-			if (mode == 0)
+			if (mode == 0 && isatty(1))
 				ft_printf(VERT"%s\033[00m=%s\n", t->name, t->value);
+			else if (mode == 0)
+				ft_printf("%s=%s\n", t->name, t->value);
 			else if (mode == 1)
 				print_for_export(t, "");
 			else if (mode == 2)

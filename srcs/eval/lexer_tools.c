@@ -27,22 +27,17 @@ void	ft_lex_backslash(t_eval *e)
 
 void	ft_lex_parenth(t_eval *e)
 {
-	char	c;
-	int		save;
-
-	save = e->curr;
-	c = e->s[save];
-	while (e->s[e->curr] && ((c == '(' && e->s[e->curr] != ')')
-			|| (c == '{' && e->s[e->curr] != '}')))
+	while (e->s[e->curr] && e->s[e->curr] != '}')
 	{
 		e->eval[e->curr++] = 'v';
-		if (e->s[e->curr] == '(' || e->s[e->curr] == '{')
+		if (e->s[e->curr] == '{')
 			ft_lex_parenth(e);
 	}
-	if (!e->s[e->curr])
+	if (!e->s[e->curr] || (e->s[e->curr] == '}' && e->s[e->curr - 1] == '\\'
+		&& e->s[e->curr - 2] != '\\'))
 	{
 		e->err = P_MISS;
-		e->c = c;
+		e->c = '{';
 	}
 	else
 		e->eval[e->curr++] = 'v';

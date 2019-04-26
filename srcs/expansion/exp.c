@@ -91,10 +91,12 @@ char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting)
 		}
 		if (ret[i] == '$' && ret[i + 1])
 		{
-			if (ret[i + 1] == '{' && !(ret = ft_exp_param(ret, &ret[i], sh)))
-				return (NULL);
 			if (ret[i + 1] == '{')
+			{
+				if (!(ret = ft_exp_param(ret, &ret[i], sh)))
+					return (NULL);
 				i = -1;
+			}
 			else if (!(ret = ft_exp_envv_var(ret, sh, &i)))
 				return (NULL);
 		}

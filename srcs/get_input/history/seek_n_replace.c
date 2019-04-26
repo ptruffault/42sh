@@ -17,6 +17,7 @@ int		seek_n_repl_str(t_edit *e, size_t x, char *word, size_t i)
 {
 	t_hist	*hist;
 	char	*tmp;
+	int		b;
 
 	if (!(hist = ft_get_set_shell(NULL)->hist))
 		return (FAILURE);
@@ -31,7 +32,8 @@ int		seek_n_repl_str(t_edit *e, size_t x, char *word, size_t i)
 	if (!(hist = search_by_occurence(hist, word)))
 		return (FAILURE);
 	ft_delete_line(e);
-	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + x, (int)(i - x - 1), hist->s)))
+	b = (int)i - x - 1;
+	if (!(tmp = ft_strpull(e->hist->s, e->hist->s + x, b, hist->s)))
 		return (FAILURE);
 	ft_strdel(&e->hist->s);
 	e->hist->s = tmp;

@@ -25,7 +25,7 @@ int			check_builtin(char *input)
 	{
 		if (ft_strequ(sh->builtins[i++], input))
 		{
-			if (!sh->interactive 
+			if (!sh->interactive
 				&& (ft_strequ(input, "alias") || ft_strequ(input, "alias")))
 				return (0);
 			return (1);

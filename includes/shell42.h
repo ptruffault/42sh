@@ -28,7 +28,6 @@ char			**get_binary(t_shell *sh, char *value, bool all, int *total);
 ** autocompletion/check_line.c
 */
 char			**check_line(int *max_len, int *total, t_edit *e);
-void			ft_arrdel(char ***arr);
 
 /*
 ** autocompletion/environ_completion.c
@@ -53,6 +52,7 @@ void			set_null_tabl(char **tabl, int len_env);
 */
 char			*check_tilde(char *value);
 int				check_before(char *str, int pos);
+void			ft_arrdel(char ***arr);
 
 /*
 ** builtins/ft_fc/flags_lexer.c
@@ -656,6 +656,7 @@ t_tree			*ft_get_set_tree(t_tree *new_t);
 void			sig_handler(int sig);
 int				ft_signal_check(t_process *p);
 void			ft_leave(int sig);
+
 /*
 ** signal_handle.c
 */

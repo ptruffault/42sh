@@ -25,7 +25,8 @@ static char	*get_word_cursor(char *str, int *pos)
 	if (str[p] == ' ')
 		p--;
 	while (p > 0 && str[p] != ' ' && str[p] != ';'
-			&& str[p] != '|' && str[p] != '&' && str[p] != '"' && str[p] != '\'')
+			&& str[p] != '|' && str[p] != '&'
+			&& str[p] != '"' && str[p] != '\'')
 		p--;
 	p += (p > 0) ? 1 : 0;
 	i = i - p;
@@ -76,20 +77,6 @@ static char	**get_tabl_expansion(char *value, int *total)
 	return (tabl);
 }
 
-void		ft_arrdel(char ***arr)
-{
-	size_t	i;
-
-	i = 0;
-	while ((*arr)[i] != NULL)
-	{
-		free((*arr)[i]);
-		i++;
-	}
-	free(*arr);
-	*arr = NULL;
-}
-
 char		**only_tilde(int *max_len, int *total, char *str)
 {
 	char	**res;
@@ -116,9 +103,8 @@ char		**check_line(int *max_len, int *total, t_edit *e)
 	value = NULL;
 	pos = (int)e->curr;
 	*total = 0;
-	if (!e->hist || !e->hist->s)
-		return (NULL);
-	if (!(value = get_word_cursor(e->hist->s, &pos)))
+	if (!e->hist || !e->hist->s
+		|| !(value = get_word_cursor(e->hist->s, &pos)))
 		return (NULL);
 	pos = check_before(e->hist->s, pos);
 	if (ft_strequ(value, "~"))

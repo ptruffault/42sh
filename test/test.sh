@@ -91,8 +91,8 @@ do
 	then
 		(cd tmp/ ; valgrind $LOG_OPT \
 			../$NAME <../$FILE 1>../$OUTFILE 2>../$OUTFILE2)
-		grep -Ev '^--[0-9]*-- UNKNOWN ' tmp/$FTSH_LOG > tmp/$FTSH_LOG
 		FTSH_RTN=$?
+		grep -Ev '^--[0-9]*-- UNKNOWN ' tmp/$FTSH_LOG > tmp/$FTSH_LOG
 	else
 		(cd tmp/ ; ../$NAME <../$FILE 1>../$OUTFILE 2>../$OUTFILE2)
 		FTSH_RTN=$?

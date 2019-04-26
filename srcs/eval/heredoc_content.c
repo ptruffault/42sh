@@ -122,7 +122,7 @@ t_redirect		*parse_heredoc(t_redirect *ret, t_word *w)
 		else
 			ret->heredoc = heredoc_get_content(ret->eof->word, sh);
 		if (ret->eof->type != QUOTE)
-			ret->heredoc = ft_exp_var(ret->heredoc, sh, TRUE);
+			ret->heredoc = ft_exp_var(ret->heredoc, sh, FALSE);
 		sh->heredoc = 0;
 		return (ret);
 	}

@@ -38,7 +38,7 @@ static t_tree	*next_instruction(t_tree *t)
 	return (NULL);
 }
 
-static int 		ft_get_last_job_return(t_process *p)
+static int		ft_get_last_job_return(t_process *p)
 {
 	while (p && p->grp)
 		p = p->grp;

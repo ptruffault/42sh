@@ -12,7 +12,6 @@
 
 #include <stdlib.h>
 #include "shell42.h"
-#include "ft_printf.h"
 
 static t_word	*reorder_w(t_word *w, t_word **w_a, t_word **tmp, t_word **jic)
 {

@@ -96,16 +96,19 @@ t_word			*eval_line(char *input)
 	if (!input || !*input || ft_isempty(input))
 		return (NULL);
 	lexer(&e, input);
-	sh->ptr = NULL;
+	ft_reset_tab(sh->ptr);
+	sh->loop = 0;
 	if (e.s && e.eval && (head = ft_get_words(&e))
-		&& !(head = ft_check_alias(head, sh, 0)))
+		&& !(head = ft_check_alias(head, sh)))
 	{
-		sh->ptr = NULL;
+		ft_reset_tab(sh->ptr);
+		sh->loop = 0;
 		ft_strdel(&e.eval);
 		ft_strdel(&e.s);
 		return (ft_free_tword(head));
 	}
-	sh->ptr = NULL;
+	ft_reset_tab(sh->ptr);
+	sh->loop = 0;
 	ft_strdel(&e.eval);
 	ft_strdel(&e.s);
 	return (head);

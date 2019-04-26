@@ -55,7 +55,7 @@ t_word			*ft_next_alias(t_word *w, t_word *w_alias)
 	return (w);
 }
 
-static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh, int *loop)
+static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh)
 {
 	t_word			*w_alias;
 	t_eval			e_alias;
@@ -66,15 +66,16 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh, int *loop)
 		w_alias = ft_get_words(&e_alias);
 	ft_strdel(&e_alias.eval);
 	ft_strdel(&e_alias.s);
-	if (w_alias && (!ft_strequ(sh->ptr, val))
-		&& (!ft_strequ(sh->ptr, w_alias->word))
+	if (w_alias
+		&& (ft_check_in_tab(sh->ptr, w_alias->word))
+		&& (ft_check_in_tab(sh->ptr, val))
 		&& (!ft_strequ(w->word, w_alias->word)))
 	{
-		sh->ptr = w->word;
-		w_alias = ft_check_alias(w_alias, sh, *loop);
+		sh->ptr[sh->loop] = w->word;
+		w_alias = ft_check_alias(w_alias, sh);
 	}
 	else
-		*loop += 1;
+		sh->loop += 1;
 	if (w_alias == NULL)
 		return (w);
 	return (ft_next_alias(w, w_alias));
@@ -92,7 +93,7 @@ static t_word	*ft_alias_empty(t_word *w)
 	return (w);
 }
 
-t_word			*ft_check_alias(t_word *head, t_shell *sh, int loop)
+t_word			*ft_check_alias(t_word *head, t_shell *sh)
 {
 	t_word	*w;
 	char	*val;
@@ -100,18 +101,18 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh, int loop)
 
 	i = 0;
 	w = head;
-	while (w && ++i && loop < 30)
+	while (w && ++i && sh->loop < 80)
 	{
 		i = (w->type == OPERATEUR ? 0 : i);
 		if (w->word && i == 1 && 1 <= w->type && w->type <= 3
-			&& (get_tenvv(sh->alias, w->word)) && loop++ < 30)
+			&& (get_tenvv(sh->alias, w->word)) && sh->loop++ < 80)
 		{
 			val = get_tenvv_val(sh->alias, w->word);
 			if (ft_strlen(val) > 0 && val[ft_strlen(val) - 1] == ' '
 				&& w->next && w->next->word)
 				i = 0;
 			if (!ft_isempty(val))
-				w = ft_alias_to_tword(w, val, sh, &loop);
+				w = ft_alias_to_tword(w, val, sh);
 			else
 				w = ft_alias_empty(w);
 		}

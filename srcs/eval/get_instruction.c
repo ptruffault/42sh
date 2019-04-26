@@ -98,6 +98,7 @@ int				ft_check_grammar(t_word *w, t_shell *sh)
 	{
 		if (head->type == OPERATEUR
 			|| (w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
+			|| (w->type == OPERATEUR && !w->next)
 			|| (w->type == OPERATEUR && ft_strlen(w->word) > 2)
 			|| (w->type == OPERATEUR && *w->word == ';'
 				&& ft_strlen(w->word) > 1) || (w && w->type == REDIRECT

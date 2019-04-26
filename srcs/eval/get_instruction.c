@@ -98,7 +98,8 @@ int				ft_check_grammar(t_word *w, t_shell *sh)
 	{
 		if (head->type == OPERATEUR
 			|| (w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
-			|| (w->type == OPERATEUR && !w->next)
+			|| (w->type == OPERATEUR && !w->next && !ft_strequ("&", w->word)
+				&& !ft_strequ(";", w->word))
 			|| (w->type == OPERATEUR && ft_strlen(w->word) > 2)
 			|| (w->type == OPERATEUR && *w->word == ';'
 				&& ft_strlen(w->word) > 1) || (w && w->type == REDIRECT
@@ -107,8 +108,7 @@ int				ft_check_grammar(t_word *w, t_shell *sh)
 			sh->env = ft_new_envv_int(sh->env, "?", 2, IN);
 			return (error("syntax error near", w->word));
 		}
-		if (1 <= w->type && w->type <= 4)
-			cmd++;
+		cmd = 1 <= w->type && w->type <= 4 ? cmd + 1 : cmd;
 		w = w->next;
 	}
 	if (!cmd)

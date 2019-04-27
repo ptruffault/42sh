@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include "shell42.h"
+#include "ft_printf.h"
 
 static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 {

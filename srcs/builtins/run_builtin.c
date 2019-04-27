@@ -13,18 +13,18 @@
 #include <unistd.h>
 #include "shell42.h"
 
-static int	job_control(char **argv, t_shell *sh)
+static int	job_control(char **argv, t_shell *sh, t_process *p)
 {
 	if (sh->interactive == TRUE && sh->process->background == FALSE
 		&& sh->pid == getpid())
 	{
+		p->ret = 0;
 		if (ft_strequ(*argv, "fg"))
 			return (ft_fg(sh, argv));
 		else if (ft_strequ(*argv, "bg"))
 			return (ft_bg(sh, argv));
 	}
-	error("no job control", NULL);
-	return (1);
+	return (error("no job control", NULL) + 1);
 }
 
 static int	change_envv(char **argv, t_shell *sh)
@@ -64,7 +64,7 @@ int			run_builtin(t_tree *t, t_process *p, t_shell *sh)
 	else if (ft_strequ(*argv, "fc"))
 		return (ft_fc(sh, argv));
 	else if (ft_strequ(*argv, "bg") || ft_strequ(*argv, "fg"))
-		return (job_control(argv, sh));
+		return (job_control(argv, sh, p));
 	else if (ft_strequ(*argv, "hash"))
 		return (builtin_htable(&argv[1], sh));
 	return (change_envv(argv, sh));

@@ -34,7 +34,9 @@ static void	ft_eval_status(t_process *p)
 			p->ret = 127;
 		if (WIFEXITED(p->ret))
 			p->ret = WEXITSTATUS(p->ret);
-		if (p->ret == 127)
+		if (p->ret == 127 && !ft_strequ(p->cmd, "/bin/bash")
+			&& !ft_strequ(p->cmd, "/bin/zsh")
+			&& !ft_strequ(p->cmd, "/bin/tcsh"))
 			error("command not found", *p->argv);
 		p->status = DONE;
 	}

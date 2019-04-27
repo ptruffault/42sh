@@ -32,6 +32,8 @@ int			ft_quit(int exit_code, t_shell *sh)
 		exit_code = 2;
 	if (exit_code == 226)
 		exit_code = ft_atoi(get_tenvv_val(sh->env, "?"));
+	if (sh->interactive == TRUE)
+		ft_set_old_term(sh, 0);
 	if (isatty(0) && isatty(1))
 		kill_process(sh->process, SIGKILL, RUNNING_FG);
 	ft_deload_hist_in_file(sh);

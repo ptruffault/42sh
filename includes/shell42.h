@@ -337,11 +337,6 @@ int				fd_dup(int fd1, int fd2, t_process *p);
 char			*ft_cut_string(char *parenth, char *val, int *curr);
 
 /*
-** expansion/cut_glob.c
-*/
-char			*ft_cut_glob(char *val, char *pattern, char *op);
-
-/*
 ** expansion/exp.c
 */
 t_tree			*ft_expention(t_tree *t);
@@ -371,10 +366,7 @@ char			*ft_get_secondvalue(char *src);
 ** expansion/exp_tools.c
 */
 char			*ft_clear_quote(char *str);
-char			*ft_clear_glob(char *str);
 char			*ft_clear_backslash(char *str);
-int				ft_match_end(const char *s, const char *p, t_bool mode);
-int				ft_match_begin(const char *s, const char *p, t_bool mode);
 
 /*
 ** get_input/cursor/arrow_move.c

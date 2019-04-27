@@ -95,8 +95,6 @@ static void	ft_lexword(t_eval *e)
 		ft_lex_operateur(e);
 	else if (e->s[e->curr] && e->s[e->curr] == '$')
 		ft_lex_var(e);
-	else if (e->s[e->curr] && e->s[e->curr] == '{')
-		ft_lex_parenth(e);
 	else if (e->s[e->curr])
 		e->eval[e->curr++] = 'e';
 }

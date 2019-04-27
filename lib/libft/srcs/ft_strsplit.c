@@ -13,90 +13,69 @@
 #include <stdlib.h>
 #include "libft.h"
 
-static void		ft_free_tab(char **tab, int w)
+static size_t	count_word(char const *s, char c)
 {
-	int i;
+	size_t		i;
+	size_t		rtn;
 
-	i = 0;
-	while (i < w)
+	i = 1;
+	rtn = 0;
+	if (s[0] == '\0')
+		return (0);
+	if (s[0] != c)
+		rtn++;
+	while (s[i] != '\0')
 	{
-		ft_strdel(&tab[w]);
-		w--;
-	}
-	ft_strdel(&*tab);
-}
-
-static void		ft_fill_tab(char *s, char c, char **tab, int l)
-{
-	int t;
-	int i;
-	int j;
-
-	t = 0;
-	i = 0;
-	j = 0;
-	while (t < l)
-	{
-		s = s + i + j;
-		i = 0;
-		j = 0;
-		while (s[j + i] == c)
-			j++;
-		while (s[i + j] != '\0' && s[i + j] != c)
-			i++;
-		tab[t] = ft_strsub(s, j, i);
-		if (tab[t] == NULL)
-		{
-			ft_free_tab(tab, t - 1);
-			break ;
-		}
-		t++;
-	}
-}
-
-static int		ft_count_words_by(char *s, char c)
-{
-	int i;
-	int j;
-	int count;
-
-	i = 0;
-	j = 0;
-	count = 0;
-	while (s[j] == c)
-		j++;
-	while (s[i + j] != '\0')
-	{
-		if (s[i + j] == c)
-		{
-			count += ft_count_words_by(s + i + j, c);
-			break ;
-		}
+		if (s[i - 1] == c && s[i] != c)
+			rtn++;
 		i++;
 	}
-	if (s[i + j] != '\0' || (s[i + j - 1] != c && s[i + j - 1] != 0))
-		count++;
-	return (count);
+	return (rtn);
+}
+
+static char		*get_word(char const *s, size_t *pos, char c)
+{
+	char		*rtn;
+	size_t		beg;
+	size_t		end;
+
+	beg = *pos;
+	while (s[beg] == c)
+		beg++;
+	end = beg;
+	while (s[end] != c && s[end] != '\0')
+		end++;
+	if (beg == end)
+		return (NULL);
+	rtn = ft_strnew(end - beg);
+	if (rtn != (char *)NULL)
+	{
+		ft_strncpy(rtn, &s[beg], end - beg);
+		*pos = end;
+	}
+	return (rtn);
 }
 
 char			**ft_strsplit(char const *s, char c)
 {
-	char		**tab;
-	int			length;
+	char		**rtn;
+	size_t		nb_word;
+	size_t		cur_word;
+	size_t		j;
 
-	tab = 0;
-	if (s == NULL)
-		return (NULL);
-	length = ft_count_words_by((char*)s, c);
-	if (!(tab = (char**)malloc(sizeof(char*) * (length + 1))))
-		return (NULL);
-	if (length == 0)
+	if (s == (char *)NULL)
+		return ((char **)NULL);
+	nb_word = count_word(s, c);
+	rtn = (char **)malloc(sizeof(char *) * (nb_word + 1));
+	if (rtn == (char **)NULL)
+		return ((char **)NULL);
+	rtn[nb_word] = (char *)NULL;
+	cur_word = 0;
+	j = 0;
+	while (cur_word < nb_word)
 	{
-		tab[0] = 0;
-		return (tab);
+		rtn[cur_word] = get_word(s, &j, c);
+		cur_word++;
 	}
-	ft_fill_tab((char*)s, c, tab, length);
-	if (tab != NULL)
-		tab[length] = 0;
-	return (tab);
+	return (rtn);
 }

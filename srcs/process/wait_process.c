@@ -17,7 +17,7 @@
 static void	ft_eval_status(t_process *p)
 {
 	if ((WIFSIGNALED(p->ret) || WIFSTOPPED(p->ret))
-		&& p->builtins == FALSE && p->cmd)
+		&& p->builtins == FALSE && p->cmd && p->valid)
 	{
 		p->status = (WIFSTOPPED(p->ret) ? SUSPENDED : KILLED);
 		p->sig = (WIFSTOPPED(p->ret) ? SIGTSTP : WTERMSIG(p->ret));
@@ -57,7 +57,7 @@ int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool bg)
 	ret = 0;
 	while (p)
 	{
-		if ((((p->builtins || !p->cmd)
+		if ((((!p->cmd || p->pid == 0)
 				&& p->status != DONE && p->status != KILLED)
 				|| (bg == FALSE && p->status == RUNNING_FG
 					&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)
@@ -66,7 +66,10 @@ int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool bg)
 		{
 			ft_eval_status(p);
 			if (!ft_job_stuff(j, sh))
+			{
+				ret = p->ret;
 				break ;
+			}
 		}
 		ret = p->ret;
 		p = p->grp;

@@ -14,7 +14,7 @@
 #include <signal.h>
 #include "shell42.h"
 
-void		set_son_signal_bis(void)
+static void	set_son_signal_bis(void)
 {
 	signal(SIGFPE, SIG_DFL);
 	signal(SIGBUS, SIG_DFL);
@@ -29,7 +29,7 @@ void		set_son_signal_bis(void)
 	signal(SIGVTALRM, SIG_DFL);
 }
 
-void		set_signals_bis(void)
+static void	set_signals_bis(void)
 {
 	signal(SIGFPE, ft_leave);
 	signal(SIGBUS, ft_leave);

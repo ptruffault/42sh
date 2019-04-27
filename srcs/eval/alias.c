@@ -30,7 +30,19 @@ static t_word	*reorder_w(t_word *w, t_word **w_a, t_word **tmp, t_word **jic)
 	return (w);
 }
 
-t_word			*ft_next_alias(t_word *w, t_word *w_alias)
+static t_word	*ft_alias_empty(t_word *w)
+{
+	char	*save;
+
+	save = w->word;
+	if (!(w->word = ft_strnew(0)))
+		w->word = save;
+	else
+		ft_strdel(&save);
+	return (w);
+}
+
+static t_word	*ft_next_alias(t_word *w, t_word *w_alias)
 {
 	t_word		*tmp;
 	t_word		*jic;
@@ -60,6 +72,8 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh)
 	t_word			*w_alias;
 	t_eval			e_alias;
 
+	if (ft_isempty(val))
+		return (ft_alias_empty(w));
 	w_alias = NULL;
 	lexer(&e_alias, val);
 	if (e_alias.s && e_alias.eval)
@@ -75,18 +89,6 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh)
 	if (w_alias == NULL)
 		return (w);
 	return (ft_next_alias(w, w_alias));
-}
-
-static t_word	*ft_alias_empty(t_word *w)
-{
-	char	*save;
-
-	save = w->word;
-	if (!(w->word = ft_strnew(0)))
-		w->word = save;
-	else
-		ft_strdel(&save);
-	return (w);
 }
 
 t_word			*ft_check_alias(t_word *head, t_shell *sh)
@@ -109,12 +111,9 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 			if (ft_strlen(val) > 0 && val[ft_strlen(val) - 1] == ' '
 				&& w->next && w->next->word)
 				i = 0;
-			if (!ft_isempty(val))
-				w = ft_alias_to_tword(w, val, sh);
-			else
-				w = ft_alias_empty(w);
+			w = ft_alias_to_tword(w, val, sh);
 		}
-			w = w ? w->next : w;
+		w = w ? w->next : w;
 	}
 	return (head);
 }

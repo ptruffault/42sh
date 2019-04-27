@@ -665,7 +665,5 @@ void			ft_leave(int sig);
 */
 void			set_signals(void);
 void			set_son_signal(void);
-void			set_signals_bis(void);
-void			set_son_signal_bis(void);
 
 #endif

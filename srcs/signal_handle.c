@@ -14,13 +14,33 @@
 #include <signal.h>
 #include "shell42.h"
 
-void		set_son_signal_bis(void)
+static void	set_son_signal_bis(void)
 {
+	signal(SIGFPE, SIG_DFL);
+	signal(SIGBUS, SIG_DFL);
+	signal(SIGSEGV, SIG_DFL);
+	signal(SIGSYS, SIG_DFL);
+	signal(SIGALRM, SIG_DFL);
+	signal(SIGTERM, SIG_DFL);
+	signal(SIGURG, SIG_DFL);
+	signal(SIGXCPU, SIG_DFL);
+	signal(SIGXFSZ, SIG_DFL);
+	signal(SIGPROF, SIG_DFL);
 	signal(SIGVTALRM, SIG_DFL);
 }
 
-void		set_signals_bis(void)
+static void	set_signals_bis(void)
 {
+	signal(SIGFPE, ft_leave);
+	signal(SIGBUS, ft_leave);
+	signal(SIGSEGV, ft_leave);
+	signal(SIGSYS, ft_leave);
+	signal(SIGALRM, ft_leave);
+	signal(SIGTERM, ft_leave);
+	signal(SIGURG, ft_leave);
+	signal(SIGXCPU, ft_leave);
+	signal(SIGXFSZ, ft_leave);
+	signal(SIGPROF, ft_leave);
 	signal(SIGVTALRM, ft_leave);
 }
 
@@ -41,16 +61,7 @@ void		set_son_signal(void)
 	signal(SIGTRAP, SIG_DFL);
 	signal(SIGABRT, SIG_DFL);
 	signal(SIGEMT, SIG_DFL);
-	signal(SIGFPE, SIG_DFL);
-	signal(SIGBUS, SIG_DFL);
-	signal(SIGSEGV, SIG_DFL);
-	signal(SIGSYS, SIG_DFL);
-	signal(SIGALRM, SIG_DFL);
-	signal(SIGTERM, SIG_DFL);
-	signal(SIGURG, SIG_DFL);
-	signal(SIGXCPU, SIG_DFL);
-	signal(SIGXFSZ, SIG_DFL);
-	signal(SIGPROF, SIG_DFL);
+	set_son_signal_bis();
 }
 
 void		set_signals(void)
@@ -70,14 +81,5 @@ void		set_signals(void)
 	signal(SIGTRAP, ft_leave);
 	signal(SIGABRT, ft_leave);
 	signal(SIGEMT, ft_leave);
-	signal(SIGFPE, ft_leave);
-	signal(SIGBUS, ft_leave);
-	signal(SIGSEGV, ft_leave);
-	signal(SIGSYS, ft_leave);
-	signal(SIGALRM, ft_leave);
-	signal(SIGTERM, ft_leave);
-	signal(SIGURG, ft_leave);
-	signal(SIGXCPU, ft_leave);
-	signal(SIGXFSZ, ft_leave);
-	signal(SIGPROF, ft_leave);
+	set_signals_bis();
 }

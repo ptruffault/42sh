@@ -48,7 +48,7 @@ int		init_termcaps(t_shell *sh)
 	term = NULL;
 	if (!(term = get_tenvv_val(sh->env, "TERM")))
 		return (error("unset var", "TERM"));
-	if (((term = get_tenvv_val(sh->env, "TERM")) && !tgetent(NULL, term)))
+	if ((!(term = get_tenvv_val(sh->env, "TERM")) || !tgetent(NULL, term)))
 		return (error("can't retrieve terminal informations", term));
 	if (!get_tgetstr("ch", NULL) || !get_tgetstr("cd", NULL)
 		|| !get_tgetstr("up", NULL))
@@ -61,15 +61,8 @@ int		init_termcaps(t_shell *sh)
 
 int		ft_setup_edit_term(t_shell *sh)
 {
-	char			*term;
 	unsigned long	set;
 
-	term = NULL;
-	if (((term = get_tenvv_val(sh->env, "TERM")) && !tgetent(NULL, term)))
-		return (error("can't retrieve terminal informations", term));
-	if (!(tgetstr("ch", NULL))
-		|| !(tgetstr("cd", NULL)) || !(tgetstr("up", NULL)))
-		return (error("term doesn't support necassary termcaps", term));
 	ft_memcpy(&sh->term, &sh->saved_term, sizeof(struct termios));
 	set = ICANON | ECHO | ECHOK | ECHOKE | ECHONL | ECHOCTL | ISIG;
 	sh->term.c_lflag &= ~(set);
@@ -84,6 +77,8 @@ int		ft_setup_edit_term(t_shell *sh)
 
 int		ft_set_old_term(t_shell *sh, int error)
 {
+	if (sh->saved_term.c_lflag == 0)
+		return (error);
 	if ((tcsetattr(0, TCSADRAIN, &sh->saved_term)) == -1)
 		warning("can't load old term setting", NULL);
 	term_actions("ve");

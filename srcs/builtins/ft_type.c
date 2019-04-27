@@ -72,7 +72,9 @@ int				ft_type(t_word *w)
 	char	opts[4];
 
 	ft_memset(opts, 0, 4);
-	if (!w || !w->word || !(w = init_opts(opts, w)))
+	if (!w || !w->word)
+		return (0);
+	if (!(w = init_opts(opts, w)))
 		return (2);
 	ret = 0;
 	sh = ft_get_set_shell(NULL);

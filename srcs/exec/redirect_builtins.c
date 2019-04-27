@@ -14,11 +14,11 @@
 #include <signal.h>
 #include "shell42.h"
 
-static void	ft_close_red(t_redirect *r)
+static void	ft_close_red(t_redirect *r, t_process *p)
 {
 	while (r)
 	{
-		if (r->to == -1)
+		if (r->to == -1 && p->fd[r->from] == -1)
 			ft_close(r->from);
 		r = r->next;
 	}
@@ -45,7 +45,7 @@ int			ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh)
 			p->fd[r->from] = r->to;
 		r = r->next;
 	}
-	ft_close_red(t->r);
+	ft_close_red(t->r, p);
 	return (1);
 }
 

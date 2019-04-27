@@ -16,7 +16,7 @@
 
 static void	set_son_signal_bis(void)
 {
-	signal(SIGPIPE, sig_handler);
+	signal(SIGPIPE, SIG_DFL);
 	signal(SIGFPE, SIG_DFL);
 	signal(SIGBUS, SIG_DFL);
 	signal(SIGSEGV, SIG_DFL);

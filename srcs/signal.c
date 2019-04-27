@@ -51,8 +51,6 @@ void		sig_handler(int sig)
 	t_shell		*sh;
 
 	sh = ft_get_set_shell(NULL);
-	if (sig == SIGPIPE)
-		ft_putendl("HERE I AM SIG PIPE");
 	if (sig == SIGCHLD)
 		ft_wait_background(sh);
 	else if (sig == SIGWINCH)

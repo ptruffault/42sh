@@ -46,6 +46,8 @@ static void		ft_execve(t_process *p, t_shell *sh, t_tree *t)
 		p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
 		if (setpgid(p->pid, p->pgid) < 0)
 			error("group creation fucked up", p->cmd);
+		if (p->status == RUNNING_FG)
+			ft_tcsetpgrp(sh->std[0], p->pgid);
 	}
 	set_son_signal();
 	if ((t->r && ft_redirect_builtin(t, p, sh)) || !t->r)

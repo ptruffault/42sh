@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include "shell42.h"
+#include "ft_printf.h"
 
 int		check_exe(char *bin_path)
 {

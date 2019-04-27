@@ -33,6 +33,6 @@ int			main(int argc, char **argv, char **envv)
 		ft_strdel(&sh.txt);
 		ft_wait_background(&sh);
 	}
-	ft_printf("stdin no longer tty\n");
+	error("shell no longer connected to terminal", NULL);
 	return (ft_quit(1, &sh));
 }

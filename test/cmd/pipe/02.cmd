@@ -1,3 +1,1 @@
-ls |
-|
-|
+echo LAUL | echo MDR | echo XPTDR | echo "j'ai"\faim\ putain\ de\"merde\"

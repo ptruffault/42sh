@@ -4,4 +4,6 @@ PS1='$[BLUE][$[RESET]${?}$[BLUE]]$[RESET]$[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLIN
 alias ls='ls -G ' ll='ls -l ' la='ls -a '
 alias ..='cd ..' ...='cd ../..'
 alias 42sh="$SHELL_FOLD/42sh"
-alias ?='type' cl='/usr/bin/clear' 
+alias ?='type' cl='/usr/bin/clear'
+alias ET='&& ' OU='|| ' PIPE='| ' rev='rev '
+alias test='ls ET ls PIPE rev'

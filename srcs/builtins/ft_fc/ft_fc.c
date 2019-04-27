@@ -74,8 +74,8 @@ static void		fc_init_first_last(t_fc *fc, int pos)
 	}
 	else
 	{
-		fc->first = -1;
-		fc->last = fc->flags[0] == 'e' ? -1 : -16;
+		fc->last = -1;
+		fc->first = fc->flags[0] == 'e' || fc->flags[0] == 's' ? -1 : -16;
 		fc->first_ = NULL;
 		fc->last_ = NULL;
 	}

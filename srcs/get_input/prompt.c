@@ -118,8 +118,6 @@ void		ft_disp(t_shell *sh)
 	int		i;
 	char	*prompt;
 
-	term_goto("ch", 0, 0);
-	term_actions("cd");
 	if (!sh->heredoc && (prompt = ft_strdup(get_tenvv_val(sh->env, "PS1"))))
 	{
 		i = 0;

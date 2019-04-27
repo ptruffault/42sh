@@ -1,1 +1,1 @@
-ls | unknowcmd || echo OK
+ls | unknowcmd

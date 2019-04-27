@@ -38,22 +38,12 @@ static t_tree	*next_instruction(t_tree *t)
 	return (NULL);
 }
 
-static int		ft_get_last_job_return(t_process *p)
-{
-	while (p && p->grp)
-		p = p->grp;
-	if (p)
-		return (p->ret);
-	return (0);
-}
-
 static void		ft_post_exec(t_jobs *j, t_tree *t, t_process *p, t_shell *sh)
 {
 	if (p && j)
 	{
 		ft_link_process_to_term(p, sh);
-		ft_wait(p, j, sh, FALSE);
-		t->ret = ft_get_last_job_return(p);
+		t->ret = ft_wait(p, j, sh, FALSE);
 		if (p->background == FALSE)
 			sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
 		if (p->background == FALSE && sh->interactive == TRUE && p)

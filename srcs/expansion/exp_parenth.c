@@ -75,15 +75,15 @@ static char	*ft_get_param_value(t_shell *sh, char *parenth)
 
 	i = -1;
 	val = NULL;
-	while (parenth && parenth[++i])
-		if (parenth[i] == ':' && ft_strchr("-+?=", parenth[i + 1])
-			&& parenth[i + 1] != '\0'
+	while (parenth && (i + 1 < (int)ft_strlen(parenth)) && parenth[++i])
+		if (parenth[i] == ':' && parenth[i + 1] != '\0'
+			&& ft_strchr("-+?=", parenth[i + 1])
 			&& (param = ft_get_secondvalue(&parenth[i + 2])))
 		{
 			ft_strdel(&val);
 			val = handle_modifier(parenth, &parenth[i + 1], sh, param);
-			i = i + (int)ft_strlen(param);
 			ft_strdel(&param);
+			i += (int)ft_strlen(param);
 		}
 		else if (parenth[i] == '#' || parenth[i] == '%')
 			val = ft_get_cutted_value(parenth, sh, val, &i);

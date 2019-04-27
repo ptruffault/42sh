@@ -28,6 +28,8 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 		signal(SIGINT, sig_handler);
 		if ((t->r && ft_redirect_builtin(t, p, sh)) || !t->r)
 			p->ret = run_builtin(t, p, sh);
+		else
+			p->ret = 1;
 		if (sh->pid != getpid())
 			ft_exit_son(sh, p->ret, p);
 		return (1);
@@ -87,11 +89,14 @@ t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 		ft_exec(p, sh, t);
 	else
 	{
-		if (t->r)
-			ft_redirect_builtin(t, p, sh);
-		error("command not found", *p->argv);
-		p->ret = 127;
-		p->valid = 0;
+		if (t->r && !ft_redirect_builtin(t, p, sh))
+			p->ret = 1;
+		else
+		{
+			error("command not found", *p->argv);
+			p->ret = 127;
+			p->valid = 0;
+		}
 	}
 	ft_get_envv_back(sh, p, t);
 	return (ret);

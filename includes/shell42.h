@@ -150,7 +150,6 @@ int				check_builtin(char *input);
 /*
 ** builtins/ft_alias.c
 */
-t_word			*ft_next_alias(t_word *w, t_word *w_alias);
 int				ft_alias(t_shell *sh, char **argv);
 
 /*

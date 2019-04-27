@@ -25,6 +25,8 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 			p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
 			if (setpgid(p->pid, p->pgid) < 0)
 				error("group creation fucked up", p->cmd);
+			if (p->status == RUNNING_FG)
+				ft_tcsetpgrp(sh->std[0], p->pgid);
 		}
 		signal(SIGINT, sig_handler);
 		if ((t->r && ft_redirect_builtin(t, p, sh)) || !t->r)
@@ -70,8 +72,7 @@ static void		ft_exec(t_process *p, t_shell *sh, t_tree *t)
 			error("fork fucked up", p->cmd);
 			p->ret = 1;
 		}
-		else
-			ft_groups_stuff(sh, p);
+		ft_groups_stuff(sh, p);
 	}
 	else
 		p->ret = 126;
@@ -90,15 +91,11 @@ t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 	}
 	if (p->cmd && !ft_isempty(p->cmd))
 		ft_exec(p, sh, t);
-	else
+	else 
 	{
-		if (t->r && !ft_redirect_builtin(t, p, sh))
-			p->ret = 1;
-		else
-		{
-			p->ret = 127;
-			p->valid = 0;
-		}
+		p->ret = 127;
+		if (getpid() == sh->pid && ((t->r && ft_redirect_builtin(t, p, sh)) || !t->ret))
+			error("command not found", *p->argv);
 	}
 	ft_get_envv_back(sh, p, t);
 	return (ret);

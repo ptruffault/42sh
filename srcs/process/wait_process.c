@@ -30,14 +30,8 @@ static void	ft_eval_status(t_process *p)
 	}
 	else
 	{
-		if (p->ret == -1)
-			p->ret = 127;
 		if (WIFEXITED(p->ret))
 			p->ret = WEXITSTATUS(p->ret);
-		if (p->ret == 127 && !ft_strequ(p->cmd, "/bin/bash")
-			&& !ft_strequ(p->cmd, "/bin/zsh")
-			&& !ft_strequ(p->cmd, "/bin/tcsh"))
-			error("command not found", *p->argv);
 		p->status = DONE;
 	}
 }
@@ -73,9 +67,7 @@ int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool fg)
 		{
 			ft_eval_status(p);
 			if (!ft_job_stuff(j, sh))
-			{
 				break ;
-			}
 		}
 		p = p->g_prev;
 	}

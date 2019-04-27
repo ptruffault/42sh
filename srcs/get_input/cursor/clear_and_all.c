@@ -14,7 +14,23 @@
 #include "shell42.h"
 #include "get_input.h"
 
-void	reset_tedit(t_edit *e)
+static void	free_get_input(t_edit *e)
+{
+	t_shell		*sh;
+
+	sh = ft_get_set_shell(NULL);
+	ft_strdel(&e->tmp);
+	if (!e->hist)
+		return ;
+	while (e->hist->prev)
+		e->hist = e->hist->prev;
+	ft_strdel(&e->hist->s);
+	if (e->hist->next)
+		e->hist->next->prev = NULL;
+	free(e->hist);
+}
+
+void		reset_tedit(t_edit *e)
 {
 	e->curr = 0;
 	e->pos = 0;
@@ -25,7 +41,7 @@ void	reset_tedit(t_edit *e)
 	e->hist->s = ft_strnew(3);
 }
 
-void	reset_get_input(t_edit *e)
+void		reset_get_input(t_edit *e)
 {
 	t_shell		*sh;
 
@@ -42,7 +58,7 @@ void	reset_get_input(t_edit *e)
 	free(e->hist);
 }
 
-void	gi_clear(t_edit *e)
+void		gi_clear(t_edit *e)
 {
 	if (e->mode == 0 && e->tmp == NULL
 		&& ft_get_set_shell(NULL)->heredoc == FALSE)
@@ -55,7 +71,7 @@ void	gi_clear(t_edit *e)
 	}
 }
 
-void	just_exit(t_edit *e)
+void		just_exit(t_edit *e)
 {
 	t_shell *sh;
 
@@ -68,7 +84,7 @@ void	just_exit(t_edit *e)
 			sh->e.edited = TRUE;
 		}
 		if (e->hist)
-			reset_get_input(e);
+			free_get_input(e);
 		e->hist = NULL;
 	}
 }

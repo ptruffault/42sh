@@ -70,7 +70,6 @@ FILES = ft_atoi.c			\
 		ft_strstr.c			\
 		ft_strsub.c			\
 		ft_tolower.c		\
-		ft_tab_handler.c	\
 		ft_toupper.c		\
 		get_next_line.c		\
 

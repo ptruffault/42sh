@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptruffau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 12:33:14 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/04/27 18:54:18 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int		export_option_p(t_shell *sh, char **a, int i)
 		if ((t = get_tenvv(sh->env, a[i])))
 		{
 			t->status = EXP;
-			print_for_export(t, "export ");
+			print_for_export_p(t);
 		}
 		else if (check_name(a[i]))
 			sh->env = handler_env(sh, a[i], val, equal);

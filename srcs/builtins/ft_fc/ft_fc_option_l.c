@@ -20,7 +20,8 @@ static void	print_line(t_fc *fc, int nb)
 	int		i;
 
 	i = -1;
-	split = ft_strsplit(fc->hist_first->s, '\n');
+	if (fc->hist_first->s)
+		split = ft_strsplit(fc->hist_first->s, '\n');
 	while (split[++i])
 	{
 		if (nb == 0)

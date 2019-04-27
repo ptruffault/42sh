@@ -61,7 +61,8 @@ void	curr_move_left(t_edit *e)
 
 void	curr_go_last(t_edit *e)
 {
-	e->curr = ft_strlen(e->hist->s);
+	if (e && e->hist && e->hist->s)
+		e->curr = ft_strlen(e->hist->s);
 	e->pos_y = 0;
 	if (e->curr > e->max_char)
 		e->pos_z = (int)e->curr - (int)e->max_char;
@@ -73,8 +74,11 @@ void	ft_home_key(t_edit *e)
 {
 	e->curr = 0;
 	e->pos_z = 0;
-	if (ft_strlen(e->hist->s) > e->max_char)
-		e->pos_y = (int)(ft_strlen(e->hist->s) - e->max_char);
-	else
-		e->pos_y = 0;
+	if (e && e->hist && e->hist->s)
+	{
+		if (ft_strlen(e->hist->s) > e->max_char)
+			e->pos_y = (int)(ft_strlen(e->hist->s) - e->max_char);
+		else
+			e->pos_y = 0;
+	}
 }

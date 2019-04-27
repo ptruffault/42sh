@@ -53,7 +53,7 @@ void		ft_print_fast(t_edit *e)
 	size_t i;
 
 	size = 1;
-	if (!e->hist->s)
+	if (!e || !e->hist || !e->hist->s)
 		return ;
 	i = ft_strlen(e->hist->s);
 	term_actions((e->curr == i) ? "ve" : "vi");

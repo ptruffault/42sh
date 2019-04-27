@@ -12,6 +12,23 @@
 
 #include "shell42.h"
 
+int		ft_check_in_head(t_word *head, char *str)
+{
+	t_word	*node;
+
+	node = head;
+	while (node)
+	{
+		if (node->word && str)
+		{
+			if (ft_strequ(node->word, str))
+				return (0);
+		}
+		node = node->next;
+	}
+	return (1);
+}
+
 void	ft_lex_backslash(t_eval *e)
 {
 	ft_delete_char(e);

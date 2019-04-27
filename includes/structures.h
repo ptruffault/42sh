@@ -202,8 +202,8 @@ typedef struct			s_shell
 	t_bool				fc;
 	char				*txt;
 	char				*builtins[17];
-	char				*ptr[100];
 	int					loop;
+	t_word				*head_al;
 	int					fd;
 	int					heredoc;
 	t_envv				*env;

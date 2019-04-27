@@ -238,6 +238,7 @@ void			lexer(t_eval *e, char *src);
 /*
 ** eval/lexer_tools.c
 */
+int				ft_check_in_head(t_word *head, char *str);
 void			ft_lex_quote(t_eval *e);
 void			ft_lex_dquote(t_eval *e);
 void			ft_lex_parenth(t_eval *e);

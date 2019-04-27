@@ -66,14 +66,10 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh)
 		w_alias = ft_get_words(&e_alias);
 	ft_strdel(&e_alias.eval);
 	ft_strdel(&e_alias.s);
-	if (w_alias
-		&& (ft_check_in_tab(sh->ptr, w_alias->word))
-		&& (ft_check_in_tab(sh->ptr, val))
+	if (w_alias && (ft_check_in_head(sh->head_al, w_alias->word))
+		&& (ft_check_in_head(w_alias, w->word))
 		&& (!ft_strequ(w->word, w_alias->word)))
-	{
-		sh->ptr[sh->loop] = w->word;
 		w_alias = ft_check_alias(w_alias, sh);
-	}
 	else
 		sh->loop += 1;
 	if (w_alias == NULL)
@@ -101,11 +97,13 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 
 	i = 0;
 	w = head;
-	while (w && ++i && sh->loop < 80)
+	if (!sh->head_al)
+		sh->head_al = w;
+	while (w && ++i && sh->loop < 100)
 	{
 		i = (w->type == OPERATEUR ? 0 : i);
 		if (w->word && i == 1 && 1 <= w->type && w->type <= 3
-			&& (get_tenvv(sh->alias, w->word)) && sh->loop++ < 80)
+			&& (get_tenvv(sh->alias, w->word)) && sh->loop++ < 100)
 		{
 			val = get_tenvv_val(sh->alias, w->word);
 			if (ft_strlen(val) > 0 && val[ft_strlen(val) - 1] == ' '
@@ -116,7 +114,7 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 			else
 				w = ft_alias_empty(w);
 		}
-		w = w ? w->next : w;
+			w = w ? w->next : w;
 	}
 	return (head);
 }

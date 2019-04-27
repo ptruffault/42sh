@@ -25,10 +25,12 @@ static t_word	*find_type(t_word *w, char c, int *pos)
 	else if (c == 'e' || c == '.' || c == 'v')
 	{
 		if (*pos == 0 && c != 'v' && !ft_isequal(w->word))
+		{
+			*pos = *pos + 1;
 			w->type = CMD;
+		}
 		else
 			w->type = ARG;
-		*pos = *pos + 1;
 	}
 	else if (c == '*')
 		w->type = NUL;

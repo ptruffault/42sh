@@ -33,7 +33,7 @@ int				check_order_alias(t_word *w, int *doit, int i)
 {
 	if (*doit == 0 && w->word && ft_strchr(w->word, '='))
 		i = 0;
-	if (w->type == 2 && *doit > 0)
+	if (*doit == 0 && w->type == 1)
 		i = 1;
 	if (w->type == OPERATEUR)
 	{

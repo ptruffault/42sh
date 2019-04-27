@@ -33,7 +33,7 @@ static void	print_line(t_fc *fc, int nb)
 		else
 			ft_printf("\t%s\n", split[i]);
 	}
-	ft_freestrarr(&split);
+	ft_arrdel(&split);
 }
 
 static void	print_hist_opt_l(t_fc *fc, short way)

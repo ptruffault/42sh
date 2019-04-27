@@ -13,17 +13,21 @@
 #include <unistd.h>
 #include "shell42.h"
 
-static void	ft_heredoc_content(t_redirect *r, t_shell *sh)
+static void	ft_heredoc_content(t_redirect *r)
 {
 	int fd[2];
 
-	(void)sh;
 	if (pipe(fd) == 0)
 	{
-		ft_putstr_fd(r->heredoc, fd[1]);
-		ft_close(fd[1]);
-		r->to = fd[0];
-		r->from = STDIN_FILENO;
+		if ((int)ft_strlen(r->heredoc) < 16384)
+		{
+			ft_putstr_fd(r->heredoc, fd[1]);
+			ft_close(fd[1]);
+			r->to = fd[0];
+			r->from = STDIN_FILENO;
+		}
+		else
+			error("heredoc contain too much shit", NULL);
 	}
 }
 
@@ -70,7 +74,7 @@ int			get_destination_fd(t_redirect *r)
 	else if (r->t == R_LEFT && r->to == -2 && r->path)
 		opt = O_RDONLY;
 	else if (r->t == R_DLEFT)
-		ft_heredoc_content(r, ft_get_set_shell(NULL));
+		ft_heredoc_content(r);
 	if (opt >= 0 && (r->to = ft_open(r->path, opt, 0666)) < 0)
 		return (0);
 	if (r->to != -2 && r->from != -2)

@@ -181,6 +181,7 @@ typedef struct			s_process
 	int					ret;
 	int					pipe[2];
 	struct s_process	*grp;
+	struct s_process	*g_prev;
 	struct s_process	*next;
 }						t_process;
 

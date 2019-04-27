@@ -47,6 +47,7 @@ static t_process	*ft_init_pi(t_process *tmp, t_tree *t, t_shell *sh, int *v)
 		t = t->next;
 		if (t && (tmp->grp = init_process(t, sh)))
 		{
+			tmp->grp->g_prev = tmp;
 			tmp = tmp->grp;
 			if (tmp->background == TRUE)
 				ft_update_status(head, RUNNING_BG);

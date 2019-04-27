@@ -60,10 +60,12 @@ int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool bg)
 	int			ret;
 
 	ret = 0;
+	while (p->grp)
+		p = p->grp;
 	while (p)
 	{
-		if ((((!p->cmd || p->pid == 0)
-				&& p->status != DONE && p->status != KILLED)
+		if ((((!p->cmd || p->pid == 0) && p->status != DONE
+					&& p->status != KILLED)
 				|| (bg == FALSE && p->status == RUNNING_FG
 					&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)
 				|| ((p->status == RUNNING_BG || p->status == SUSPENDED)
@@ -77,7 +79,7 @@ int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool bg)
 			}
 		}
 		ret = p->ret;
-		p = p->grp;
+		p = p->g_prev;
 	}
 	return (ret);
 }

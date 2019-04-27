@@ -22,6 +22,7 @@ static t_process	*ft_process_null(t_process *ret)
 	ret->argv = NULL;
 	ret->saved_env = NULL;
 	ret->env = NULL;
+	ret->g_prev = NULL;
 	return (ret);
 }
 

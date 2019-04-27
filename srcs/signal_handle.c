@@ -16,6 +16,7 @@
 
 static void	set_son_signal_bis(void)
 {
+	signal(SIGPIPE, sig_handler);
 	signal(SIGFPE, SIG_DFL);
 	signal(SIGBUS, SIG_DFL);
 	signal(SIGSEGV, SIG_DFL);
@@ -31,6 +32,7 @@ static void	set_son_signal_bis(void)
 
 static void	set_signals_bis(void)
 {
+	signal(SIGPIPE, ft_leave);
 	signal(SIGFPE, ft_leave);
 	signal(SIGBUS, ft_leave);
 	signal(SIGSEGV, ft_leave);

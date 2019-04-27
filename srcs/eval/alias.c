@@ -95,23 +95,32 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 {
 	t_word	*w;
 	char	*val;
+	int		doit;
 	int		i;
 
 	i = 0;
+	doit = 0;
 	w = head;
 	if (!sh->head_al)
 		sh->head_al = w;
 	while (w && ++i && sh->loop < 100)
 	{
-		i = (w->type == OPERATEUR ? 0 : i);
+		if (w->type <= 2 && doit == 0)
+			i = 1;
 		if (w->word && i == 1 && 1 <= w->type && w->type <= 3
 			&& (get_tenvv(sh->alias, w->word)) && sh->loop++ < 100)
 		{
+			doit++;
 			val = get_tenvv_val(sh->alias, w->word);
 			if (ft_strlen(val) > 0 && val[ft_strlen(val) - 1] == ' '
 				&& w->next && w->next->word)
 				i = 0;
 			w = ft_alias_to_tword(w, val, sh);
+		}
+		if (w->type == OPERATEUR)
+		{
+			i = 0;
+			sh->head_al = w;
 		}
 		w = w ? w->next : w;
 	}

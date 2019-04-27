@@ -11,13 +11,26 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <signal.h>
 #include "shell42.h"
+
+static void	ft_close_red(t_redirect *r)
+{
+	while (r)
+	{
+		if (r->to == -1)
+			ft_close(r->from);
+		r = r->next;
+	}
+}
 
 int			ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh)
 {
 	t_redirect *r;
 
 	r = t->r;
+	if (!p)
+		signal(SIGINT, sig_handler);
 	while (r)
 	{
 		if (!get_destination_fd(r))
@@ -32,13 +45,7 @@ int			ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh)
 			p->fd[r->from] = r->to;
 		r = r->next;
 	}
-	r = t->r;
-	while (r)
-	{
-		if (r->to == -1)
-			ft_close(r->from);
-		r = r->next;
-	}
+	ft_close_red(t->r);
 	return (1);
 }
 

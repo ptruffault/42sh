@@ -93,7 +93,6 @@ t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 			p->ret = 1;
 		else
 		{
-			error("command not found", *p->argv);
 			p->ret = 127;
 			p->valid = 0;
 		}

@@ -34,6 +34,8 @@ static void	ft_eval_status(t_process *p)
 			p->ret = 127;
 		if (WIFEXITED(p->ret))
 			p->ret = WEXITSTATUS(p->ret);
+		if (p->ret == 127)
+			error("command not found", *p->argv);
 		p->status = DONE;
 	}
 }
@@ -44,6 +46,7 @@ static int	ft_job_stuff(t_jobs *j, t_shell *sh)
 		ft_job_prompt(j, 0);
 	if (sh->fc == FALSE && j && ft_job_is_over(j))
 	{
+		ft_update_status(j->p, DONE);
 		sh->jobs = ft_remove_jobs(j->p->pid, sh);
 		return (0);
 	}

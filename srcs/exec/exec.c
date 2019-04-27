@@ -38,6 +38,19 @@ static t_tree	*next_instruction(t_tree *t)
 	return (NULL);
 }
 
+static int		ft_get_last_job_return(t_process *p)
+{
+	while (p && p->grp)
+	{
+		if (p->ret == 127 || p->ret == 126)
+			return (p->ret);
+		p = p->grp;
+	}
+	if (p)
+		return (p->ret);
+	return (0);
+}
+
 static void		ft_post_exec(t_jobs *j, t_tree *t, t_process *p, t_shell *sh)
 {
 	if (p && j)
@@ -45,7 +58,10 @@ static void		ft_post_exec(t_jobs *j, t_tree *t, t_process *p, t_shell *sh)
 		ft_link_process_to_term(p, sh);
 		t->ret = ft_wait(p, j, sh, FALSE);
 		if (p->background == FALSE)
+		{
+			t->ret = ft_get_last_job_return(p);
 			sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
+		}
 		if (p->background == FALSE && sh->interactive == TRUE && p)
 			ft_tcsetpgrp(sh->std[0], sh->pgid);
 		if (p->status != SUSPENDED && p->background == FALSE

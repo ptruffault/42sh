@@ -18,7 +18,7 @@ static void	ft_close_red(t_redirect *r, t_process *p)
 {
 	while (r)
 	{
-		if (r->to == -1 && p->fd[r->from] == -1)
+		if (r->to == -1 && (!p || p->fd[r->from] == -1))
 			ft_close(r->from);
 		r = r->next;
 	}

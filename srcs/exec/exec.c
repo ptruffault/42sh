@@ -55,8 +55,7 @@ static void		ft_post_exec(t_jobs *j, t_tree *t, t_process *p, t_shell *sh)
 {
 	if (p && j)
 	{
-		ft_link_process_to_term(p, sh);
-		t->ret = ft_wait(p, j, sh, FALSE);
+		t->ret = ft_wait(p, j, sh, TRUE);
 		if (p->background == FALSE)
 		{
 			t->ret = ft_get_last_job_return(p);

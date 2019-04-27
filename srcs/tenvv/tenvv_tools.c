@@ -6,7 +6,7 @@
 /*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 14:11:41 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/24 17:11:16 by fstadelw         ###   ########.fr       */
+/*   Updated: 2019/04/27 18:54:07 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ int		ft_puttenvv(t_envv *t, short status, int mode)
 			else if (mode == 0)
 				ft_printf("%s=%s\n", t->name, t->value);
 			else if (mode == 1)
-				print_for_export(t, "");
+				print_for_export(t);
 			else if (mode == 2)
-				print_for_export(t, "export ");
+				print_for_export_p(t);
 			else if (mode == 3)
 				print_for_alias(t);
 		}

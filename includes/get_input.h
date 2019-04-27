@@ -6,7 +6,7 @@
 /*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 16:50:42 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/24 16:08:28 by fstadelw         ###   ########.fr       */
+/*   Updated: 2019/04/27 19:58:44 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@
 
 # define PS1 "$[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]"
 # define PS2 "$[RED]%$[RESET] >"
-# define EXP_P1 "%s\033[1;32m\033[04m%s\033[00m=\"%s\"\n"
-# define EXP_P2 "%s\033[1;32m\033[04m%s\033[00m=\"\"\n"
-# define EXP_P3 "%s\033[1;32m\033[04m%s\033[00m\n"
 # define ALIAS_1 "\033[1;32m\033[04m%s\033[00m=\'%s\'\n"
 
 typedef enum	e_colors

@@ -30,14 +30,8 @@ static void	ft_eval_status(t_process *p)
 	}
 	else
 	{
-		if (p->ret == -1)
-			p->ret = 127;
 		if (WIFEXITED(p->ret))
 			p->ret = WEXITSTATUS(p->ret);
-		if (p->ret == 127 && !ft_strequ(p->cmd, "/bin/bash")
-			&& !ft_strequ(p->cmd, "/bin/zsh")
-			&& !ft_strequ(p->cmd, "/bin/tcsh"))
-			error("command not found", *p->argv);
 		p->status = DONE;
 	}
 }
@@ -55,31 +49,29 @@ static int	ft_job_stuff(t_jobs *j, t_shell *sh)
 	return (1);
 }
 
-int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool bg)
+int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool fg)
 {
-	int			ret;
+	int			*ret;
 
-	ret = 0;
+	while (p->grp)
+		p = p->grp;
+	ret = &p->ret;
 	while (p)
 	{
-		if ((((!p->cmd || p->pid == 0)
-				&& p->status != DONE && p->status != KILLED)
-				|| (bg == FALSE && p->status == RUNNING_FG
+		if ((((!p->cmd || p->pid == 0) && p->status != DONE
+					&& p->status != KILLED)
+				|| (fg && p->status == RUNNING_FG
 					&& waitpid(p->pid, &p->ret, WUNTRACED) > 0)
-				|| ((p->status == RUNNING_BG || p->status == SUSPENDED)
+				|| (!fg && (p->status == RUNNING_BG || p->status == SUSPENDED)
 					&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0)))
 		{
 			ft_eval_status(p);
 			if (!ft_job_stuff(j, sh))
-			{
-				ret = p->ret;
 				break ;
-			}
 		}
-		ret = p->ret;
-		p = p->grp;
+		p = p->g_prev;
 	}
-	return (ret);
+	return (*ret);
 }
 
 void		ft_wait_background(t_shell *sh)
@@ -91,7 +83,8 @@ void		ft_wait_background(t_shell *sh)
 	while (tmp)
 	{
 		s = tmp->next;
-		ft_wait(tmp->p, tmp, sh, TRUE);
+		if (!ft_job_is_over(tmp))
+			ft_wait(tmp->p, tmp, sh, FALSE);
 		tmp = s;
 	}
 }

@@ -12,6 +12,7 @@
 
 #include <unistd.h>
 #include "shell42.h"
+#include "ft_printf.h"
 
 static char		*heredoc_get_input(char *eoi, t_shell *sh)
 {
@@ -95,6 +96,7 @@ static t_word	*ft_heredoc_eof(t_word *w)
 		return (NULL);
 	if (!(str = ft_strdup(w->word)))
 		return (ft_free_tword(ret));
+	ret->type = w->type;
 	if (w->paste)
 		ret = get_eof_pasted(ret, w, &str);
 	if (ret && !(ret->word = ft_strdup_trim(str)))

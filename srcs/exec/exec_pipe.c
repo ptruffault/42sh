@@ -12,6 +12,7 @@
 
 #include <unistd.h>
 #include "shell42.h"
+#include "ft_printf.h"
 
 static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 {
@@ -26,15 +27,13 @@ static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 
 static void			ft_son(t_process *p, t_process *tmp, t_shell *sh, t_tree *t)
 {
-	t_jobs *j;
-
 	if ((p && !ft_link_stdin(p))
 		|| (tmp->grp && !ft_link_stdout(tmp)))
-		ft_exit_son(sh, -1, tmp);
-	if ((j = ft_exec_process(tmp, sh, t)))
-		ft_exit_son(sh, j->p->ret, j->p);
-	else
-		ft_exit_son(sh, tmp->ret, tmp);
+		ft_exit_son(sh, 1, tmp);
+	ft_exec_process(tmp, sh, t);
+	if (!tmp->valid && !tmp->cmd)
+		error("command not found", *tmp->argv);
+	ft_exit_son(sh, tmp->ret, tmp);
 }
 
 t_jobs				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)

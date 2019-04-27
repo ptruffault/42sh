@@ -57,7 +57,7 @@ static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 			j->p->sig = SIGCONT;
 			kill(-j->p->pid, SIGCONT);
 		}
-		ft_wait(j->p, j, sh, FALSE);
+		ft_wait(j->p, j, sh, TRUE);
 	}
 }
 
@@ -70,7 +70,7 @@ int			ft_bg(t_shell *sh, char **argv)
 	if (argv[1] && argv[1][0] == '-')
 		return (error_options_fg_bg(1, 2, argv[1][1]));
 	if (ft_is_jobs_empty(sh->jobs))
-		return (error("no jobs", NULL));
+		return (error("no jobs", NULL) + 1);
 	if (!argv[1] && (j = ft_get_last_jobs(sh->jobs, '+')))
 		ft_handle_jobs(j, RUNNING_BG, sh);
 	while (argv[++i])
@@ -78,7 +78,7 @@ int			ft_bg(t_shell *sh, char **argv)
 		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i])))
 			ft_handle_jobs(j, RUNNING_BG, sh);
 		else
-			error("no such job", argv[i]);
+			return (error("no such job", argv[i]) + 1);
 	}
 	while (i <= 999999)
 		i++;
@@ -94,7 +94,7 @@ int			ft_fg(t_shell *sh, char **argv)
 	if (argv[1] && argv[1][0] == '-')
 		return (error_options_fg_bg(1, 2, argv[1][1]));
 	if (ft_is_jobs_empty(sh->jobs))
-		return (error("no jobs", NULL));
+		return (error("no jobs", NULL) + 1);
 	if (!argv[1] && (j = ft_get_last_jobs(sh->jobs, '+'))
 		&& j->p->status != RUNNING_FG)
 		ft_handle_jobs(j, RUNNING_FG, sh);
@@ -104,7 +104,7 @@ int			ft_fg(t_shell *sh, char **argv)
 			&& j->p->status != RUNNING_FG)
 			ft_handle_jobs(j, RUNNING_FG, sh);
 		else
-			error("no such job", argv[i]);
+			return (error("no such job", argv[i]) + 1);
 	}
 	return (0);
 }

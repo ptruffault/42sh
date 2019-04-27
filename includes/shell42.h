@@ -6,7 +6,7 @@
 /*   By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 16:02:36 by ptruffau          #+#    #+#             */
-/*   Updated: 2019/04/24 17:35:04 by fstadelw         ###   ########.fr       */
+/*   Updated: 2019/04/27 20:02:55 by fstadelw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,8 +190,9 @@ int				ft_type(t_word *w);
 /*
 ** builtins/print_utility.c
 */
-void			print_for_export(t_envv	*node, const char *opt);
-void			print_for_alias(t_envv	*node);
+void			print_for_export_p(t_envv *node);
+void			print_for_export(t_envv *node);
+void			print_for_alias(t_envv *node);
 
 /*
 ** builtins/run_builtin.c
@@ -340,11 +341,6 @@ int				fd_dup(int fd1, int fd2, t_process *p);
 char			*ft_cut_string(char *parenth, char *val, int *curr);
 
 /*
-** expansion/cut_glob.c
-*/
-char			*ft_cut_glob(char *val, char *pattern, char *op);
-
-/*
 ** expansion/exp.c
 */
 t_tree			*ft_expention(t_tree *t);
@@ -374,10 +370,7 @@ char			*ft_get_secondvalue(char *src);
 ** expansion/exp_tools.c
 */
 char			*ft_clear_quote(char *str);
-char			*ft_clear_glob(char *str);
 char			*ft_clear_backslash(char *str);
-int				ft_match_end(const char *s, const char *p, t_bool mode);
-int				ft_match_begin(const char *s, const char *p, t_bool mode);
 
 /*
 ** get_input/cursor/arrow_move.c
@@ -569,7 +562,7 @@ t_jobs			*ft_get_lastp_jobs(t_jobs *j);
 ** process/wait_process.c
 */
 void			ft_wait_background(t_shell *sh);
-int				ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool bg);
+int				ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool fg);
 
 /*
 ** setup_exit/free_tools.c

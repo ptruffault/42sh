@@ -29,15 +29,25 @@ static size_t	how_much_cr(t_edit *e)
 	return (count);
 }
 
-void			curs_reset(t_edit *e)
+static size_t	how_cursor_up(size_t y, t_edit *e)
 {
-	size_t	y;
-	size_t	total;
 	size_t	count;
 
 	count = how_much_cr(e);
 	while (count-- > 0)
+	{
 		term_actions(CURSOR_UP);
+		if (y > e->width)
+			y = y - e->width;
+	}
+	return (y);
+}
+
+void			curs_reset(t_edit *e)
+{
+	size_t	y;
+	size_t	total;
+
 	if (e->pos_z == 0 && e->pos_y == 0)
 		y = e->pos;
 	else
@@ -48,6 +58,7 @@ void			curs_reset(t_edit *e)
 			total = (e->pos - (size_t)e->pos_z - (size_t)e->pos_y);
 		y = (total >= e->width) ? total : e->width;
 	}
+	y = how_cursor_up(y, e);
 	while (e->width != 0 && y > e->width)
 	{
 		y = y - e->width;

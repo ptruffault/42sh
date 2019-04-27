@@ -19,6 +19,8 @@ static int	handle_paste(unsigned long buf, t_edit *e)
 	static union u_str	w_str;
 
 	i = -1;
+	w_str.buff = 0;
+	ft_memset(w_str.str, 0, 9);
 	w_str.buff = buf;
 	while (w_str.str[++i] != 0)
 	{

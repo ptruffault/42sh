@@ -78,7 +78,7 @@ int			ft_add_char(char buf, t_edit *e)
 		delete_left(e);
 	if (!e->hist || ((!ft_isprint(buf) || !e->hist->s) && buf != 9))
 		return (SUCCESS);
-	if (e->max_char < e->pos + 1)
+	if (e->max_char < e->pos)
 	{
 		if (e->curr + 1 > e->max_char)
 			e->pos_z += 1;

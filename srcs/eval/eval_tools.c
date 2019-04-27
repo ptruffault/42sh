@@ -30,7 +30,7 @@ void			ft_reset_alias(t_envv *alias)
 {
 	while (alias)
 	{
-		alias->status = IN;
+		alias->status = EXP;
 		alias = alias->next;
 	}
 }

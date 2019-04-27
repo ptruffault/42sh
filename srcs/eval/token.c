@@ -97,14 +97,15 @@ t_word			*eval_line(char *input)
 		return (NULL);
 	lexer(&e, input);
 	sh->loop = 0;
-	sh->head_al = NULL;
 	if (e.s && e.eval && (head = ft_get_words(&e))
 		&& !(head = ft_check_alias(head, sh, 0)))
 	{
+		ft_reset_alias(sh->alias);
 		ft_strdel(&e.eval);
 		ft_strdel(&e.s);
 		return (ft_free_tword(head));
 	}
+	ft_reset_alias(sh->alias);
 	ft_strdel(&e.eval);
 	ft_strdel(&e.s);
 	return (head);

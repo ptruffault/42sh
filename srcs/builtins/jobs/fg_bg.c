@@ -79,7 +79,7 @@ int			ft_bg(t_shell *sh, char **argv)
 			ft_handle_jobs(j, RUNNING_BG, sh);
 		else
 			error("no such job", argv[i]);
-	}	
+	}
 	while (i <= 999999)
 		i++;
 	return (0);

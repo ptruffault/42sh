@@ -26,6 +26,28 @@ static size_t	ft_twordlen(t_word *w)
 	return (i);
 }
 
+void			ft_reset_alias(t_envv *alias)
+{
+	while (alias)
+	{
+		alias->status = IN;
+		alias = alias->next;
+	}
+}
+
+char			*get_tenvv_val_alias(t_envv *envv, const char *name)
+{
+	t_envv *tmp;
+
+	if ((tmp = get_tenvv(envv, name)))
+	{
+		if (tmp->status == AL)
+			return (NULL);
+		return (tmp->value);
+	}
+	return (NULL);
+}
+
 void			ft_delete_char(t_eval *e)
 {
 	size_t	i;

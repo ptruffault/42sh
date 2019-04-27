@@ -99,7 +99,7 @@ t_word			*eval_line(char *input)
 	sh->loop = 0;
 	sh->head_al = NULL;
 	if (e.s && e.eval && (head = ft_get_words(&e))
-		&& !(head = ft_check_alias(head, sh)))
+		&& !(head = ft_check_alias(head, sh, 0)))
 	{
 		ft_strdel(&e.eval);
 		ft_strdel(&e.s);

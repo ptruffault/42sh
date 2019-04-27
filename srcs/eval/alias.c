@@ -19,15 +19,13 @@ static t_word	*reorder_w(t_word *w, t_word **w_a, t_word **tmp, t_word **jic)
 
 	count = 1;
 	*tmp = (*w_a)->next;
-	while ((*tmp)->next && (*tmp)->next->word && count++)
+	while ((*tmp)->next && (*tmp)->next->word && ++count)
 		*tmp = (*tmp)->next;
 	if ((*tmp)->next != NULL)
 		*jic = (*tmp)->next;
 	(*tmp)->next = w->next;
 	w->next = (*w_a)->next;
-	while (--count >= 0 && w->next)
-		w = w->next;
-	return (w);
+	return ((*tmp));
 }
 
 static t_word	*ft_alias_empty(t_word *w)
@@ -71,6 +69,7 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh)
 {
 	t_word			*w_alias;
 	t_eval			e_alias;
+	t_envv			*tmp;
 
 	if (ft_isempty(val))
 		return (ft_alias_empty(w));
@@ -80,18 +79,18 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh)
 		w_alias = ft_get_words(&e_alias);
 	ft_strdel(&e_alias.eval);
 	ft_strdel(&e_alias.s);
-	if (w_alias && (ft_check_in_head(sh->head_al, w_alias->word))
-		&& (ft_check_in_head(w_alias, w->word))
-		&& (!ft_strequ(w->word, w_alias->word)))
-		w_alias = ft_check_alias(w_alias, sh);
-	else
-		sh->loop += 1;
+	if ((tmp = get_tenvv(sh->alias, w->word)))
+		tmp->status = AL;
+	if (w_alias && !(ft_strequ(sh->head_al->word, w_alias->word)))
+		w_alias = ft_check_alias(w_alias, sh, sh->loop);
+	sh->head_al = w;
+	ft_reset_alias(sh->alias);
 	if (w_alias == NULL)
 		return (w);
 	return (ft_next_alias(w, w_alias));
 }
 
-t_word			*ft_check_alias(t_word *head, t_shell *sh)
+t_word			*ft_check_alias(t_word *head, t_shell *sh, int k)
 {
 	t_word	*w;
 	char	*val;
@@ -101,28 +100,21 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh)
 	i = 0;
 	doit = 0;
 	w = head;
-	if (!sh->head_al)
+	if (k == 0)
 		sh->head_al = w;
-	while (w && ++i && sh->loop < 100)
+	while (w && ++i && sh->loop++ < 851)
 	{
-		if (w->type <= 2 && doit == 0)
-			i = 1;
+		i = check_order_alias(w, &doit, i);
 		if (w->word && i == 1 && 1 <= w->type && w->type <= 3
-			&& (get_tenvv(sh->alias, w->word)) && sh->loop++ < 100)
+			&& (val = get_tenvv_val_alias(sh->alias, w->word)))
 		{
 			doit++;
-			val = get_tenvv_val(sh->alias, w->word);
 			if (ft_strlen(val) > 0 && val[ft_strlen(val) - 1] == ' '
 				&& w->next && w->next->word)
 				i = 0;
 			w = ft_alias_to_tword(w, val, sh);
 		}
-		if (w->type == OPERATEUR)
-		{
-			i = 0;
-			sh->head_al = w;
-		}
 		w = w ? w->next : w;
 	}
-	return (head);
+	return (sh->head_al = head);
 }

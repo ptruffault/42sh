@@ -210,11 +210,13 @@ int				putword(t_word *w, int t);
 /*
 ** eval/alias.c
 */
-t_word			*ft_check_alias(t_word *head, t_shell *sh);
+t_word			*ft_check_alias(t_word *head, t_shell *sh, int k);
 
 /*
 ** eval/eval_tools.c
 */
+void			ft_reset_alias(t_envv *alias);
+char			*get_tenvv_val_alias(t_envv *envv, const char *name);
 char			**ft_twordto_arr(t_word *w);
 void			ft_delete_char(t_eval *e);
 
@@ -257,6 +259,7 @@ char			*ft_get_redir_path(t_word *w);
 /*
 ** eval/t_word_tools.c
 */
+int				check_order_alias(t_word *w, int *doit, int i);
 t_word			*ft_addtword(t_word *head, t_word *ret);
 t_word			*ft_deltword(t_word *prev, t_word *src);
 t_word			*new_tword(void);

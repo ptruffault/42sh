@@ -29,6 +29,18 @@ static t_word	*ft_cpytword(t_word *src)
 	return (ret);
 }
 
+int				check_order_alias(t_word *w, int *doit, int i)
+{
+	if (w->type <= 2 && *doit == 0)
+		i = 1;
+	if (w->type == OPERATEUR)
+	{
+		i = 0;
+		*doit = 0;
+	}
+	return (i);
+}
+
 t_word			*ft_deltword(t_word *prev, t_word *src)
 {
 	if (src && prev)

@@ -19,7 +19,8 @@ enum {
 	EXP = 0x01,
 	IN = 0x02,
 	TMP = 0x04,
-	NF = 0x08
+	NF = 0x08,
+	AL = 0x10
 };
 
 struct	s_envv

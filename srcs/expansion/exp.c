@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "shell42.h"
-#include "ft_printf.h"
 
 static char		*ft_exp_envv_var(char *ret, t_shell *sh, int *i)
 {

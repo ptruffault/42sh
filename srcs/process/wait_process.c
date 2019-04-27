@@ -12,7 +12,6 @@
 
 #include <sys/wait.h>
 #include "shell42.h"
-#include "ft_printf.h"
 
 static void	ft_eval_status(t_process *p)
 {

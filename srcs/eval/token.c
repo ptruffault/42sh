@@ -24,7 +24,7 @@ static t_word	*find_type(t_word *w, char c, int *pos)
 		w->type = QUOTE;
 	else if (c == 'e' || c == '.' || c == 'v')
 	{
-		if (*pos == 0 && c != 'v')
+		if (*pos == 0 && c != 'v' && !ft_isequal(w->word))
 			w->type = CMD;
 		else
 			w->type = ARG;

@@ -96,11 +96,8 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 	{
 		if (!tmp->cmd || !tmp->cmd->word)
 		{
-			if (tmp->r)
-			{
-				ft_redirect_builtin(tmp, NULL, sh);
+			if (tmp->r && ft_redirect_builtin(tmp, NULL, sh))
 				ft_reset_fd(sh);
-			}
 			if (tmp->ass)
 			{
 				sh->env = ft_push_tenvv(sh->env, tmp->ass, IN);
@@ -112,11 +109,9 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 			else
 				break ;
 		}
-		else if ((tmp = ft_expention(tmp)))
-		{
-			if ((tmp = exec_instruction(tmp, sh)))
-				tmp = next_instruction(tmp);
-		}
+		else if ((tmp = ft_expention(tmp))
+			&& (tmp = exec_instruction(tmp, sh)))
+			tmp = next_instruction(tmp);
 	}
 	return (t);
 }

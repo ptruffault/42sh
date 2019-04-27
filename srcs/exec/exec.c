@@ -54,7 +54,8 @@ static void		ft_post_exec(t_jobs *j, t_tree *t, t_process *p, t_shell *sh)
 		ft_link_process_to_term(p, sh);
 		ft_wait(p, j, sh, FALSE);
 		t->ret = ft_get_last_job_return(p);
-		sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
+		if (p->background == FALSE)
+			sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
 		if (p->background == FALSE && sh->interactive == TRUE && p)
 			ft_tcsetpgrp(sh->std[0], sh->pgid);
 		if (p->status != SUSPENDED && p->background == FALSE

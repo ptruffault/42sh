@@ -6,7 +6,7 @@
 #    By: ptruffau <ptruffau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 11:16:13 by ptruffau          #+#    #+#              #
-#    Updated: 2019/04/26 03:39:12 by fstadelw         ###   ########.fr        #
+#    Updated: 2019/04/27 12:00:31 by fstadelw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -178,7 +178,7 @@ endif
 ifeq ($(UNAME), Darwin)
 STDFLAG		?=	-ansi
 endif
-WFLAGS		?=	-Wall -Wextra -Werror -pedantic -g
+WFLAGS		?=	-Wall -Wextra -Werror -pedantic
 CFLAGS		=	$(WFLAGS) $(INCFLAG) $(STDFLAG)
 
 DEPGEN		:=	$(CC)
@@ -216,7 +216,7 @@ KO			= 		$(NO_COLOR)[\033[00;31mKO$(NO_COLOR)]
 #### COMPILE ####
 all: $(NAME)
 
-$(NAME):	$(OBJ)| $(LIBFT_PATH)/$(LIBFT) $(LIBFT_PRTF_PATH)/$(LIBFT_PRTF)
+$(NAME):	$(OBJ) $(LIBFT_PATH)/$(LIBFT) $(LIBFT_PRTF_PATH)/$(LIBFT_PRTF)
 	@ echo "$(OP_COLOR) building $(NAME)$(NO_COLOR)"
 	@ $(LD) -o $(NAME) $(OBJ) $(LDFLAG)
 	@ printf "$(DONE)$(OP_COLOR)$(NAME)$(NO_COLOR)\n"

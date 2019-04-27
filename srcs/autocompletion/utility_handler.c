@@ -16,10 +16,16 @@
 int		check_before(char *str, int pos)
 {
 	char	*val;
+	char	*tmp;
+	char	*tmp2;
 
 	if (!(val = ft_strndup(str, pos)))
 		return (pos);
-	if (ft_strchr(val, '='))
+	tmp = val;
+	tmp2 = val;
+	if ((tmp2 = ft_strchr_end(tmp2, ';')))
+		tmp = tmp2;
+	if (tmp && ft_strchr(tmp, '='))
 	{
 		ft_strdel(&val);
 		return (0);

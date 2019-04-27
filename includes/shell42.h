@@ -211,7 +211,7 @@ int				putword(t_word *w, int t);
 /*
 ** eval/alias.c
 */
-t_word			*ft_check_alias(t_word *head, t_shell *sh, int loop);
+t_word			*ft_check_alias(t_word *head, t_shell *sh);
 
 /*
 ** eval/eval_tools.c
@@ -350,6 +350,7 @@ char			*ft_exp_var(char *ret, t_shell *sh, t_bool quoting);
 /*
 ** expansion/expansion_tools.c
 */
+int				delete_char_j(int j, char *ret);
 int				checktilde(t_word *w);
 char			*ft_get_varname(char *s);
 

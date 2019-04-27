@@ -56,7 +56,7 @@ void		sig_handler(int sig)
 		ft_update_windows(&sh->e, true);
 }
 
-static void	ft_leave(int sig)
+void		ft_leave(int sig)
 {
 	t_shell *sh;
 	int		i;

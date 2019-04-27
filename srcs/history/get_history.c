@@ -36,17 +36,17 @@ t_hist			*new_hist(void)
 	return (n);
 }
 
-t_hist			*init_hist(char *hist)
+static t_hist	*fill_t_hist(int fd)
 {
 	t_hist	*ret;
 	t_hist	*tmp;
-	int		fd;
 	char	*line;
 
 	tmp = NULL;
 	ret = NULL;
-	if ((fd = ft_open(hist, O_RDWR | O_CREAT | OPEN_OPTION, 511)) >= 0)
-		while (get_next_line(fd, &line) == 1 && line)
+	while (get_next_line(fd, &line) == 1 && line)
+	{
+		if (!ft_isempty(line))
 		{
 			if (!(tmp = new_hist()))
 				return (ft_free_thist(ret));
@@ -59,6 +59,22 @@ t_hist			*init_hist(char *hist)
 			if (tmp->nb >= ft_get_hist_size())
 				break ;
 		}
+		else
+			ft_strdel(&line);
+	}
+	return (tmp);
+}
+
+t_hist			*init_hist(char *hist)
+{
+	t_hist	*ret;
+	t_hist	*tmp;
+	int		fd;
+
+	tmp = NULL;
+	ret = NULL;
+	if ((fd = ft_open(hist, O_RDWR | O_CREAT | OPEN_OPTION, 511)) >= 0)
+		tmp = fill_t_hist(fd);
 	ft_close(fd);
 	return (tmp);
 }

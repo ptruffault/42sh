@@ -20,8 +20,7 @@ static void	print_line(t_fc *fc, int nb)
 	int		i;
 
 	i = -1;
-	if (fc->hist_first->s)
-		split = ft_strsplit(fc->hist_first->s, '\n');
+	split = ft_strsplit(fc->hist_first->s, '\n');
 	while (split[++i])
 	{
 		if (nb == 0)
@@ -34,7 +33,7 @@ static void	print_line(t_fc *fc, int nb)
 		else
 			ft_printf("\t%s\n", split[i]);
 	}
-	ft_freestrarr(&split);
+	ft_arrdel(&split);
 }
 
 static void	print_hist_opt_l(t_fc *fc, short way)

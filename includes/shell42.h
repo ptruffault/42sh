@@ -559,7 +559,7 @@ t_jobs			*ft_get_lastp_jobs(t_jobs *j);
 ** process/wait_process.c
 */
 void			ft_wait_background(t_shell *sh);
-int				ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool bg);
+int				ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool fg);
 
 /*
 ** setup_exit/free_tools.c

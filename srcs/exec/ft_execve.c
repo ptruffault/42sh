@@ -26,9 +26,8 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 				error("group creation fucked up", p->cmd);
 		}
 		signal(SIGINT, sig_handler);
-		if (t->r)
-			ft_redirect_builtin(t, p, sh);
-		p->ret = run_builtin(t, p, sh);
+		if ((t->r && ft_redirect_builtin(t, p, sh)) || !t->r)
+			p->ret = run_builtin(t, p, sh);
 		if (sh->pid != getpid())
 			ft_exit_son(sh, p->ret, p);
 		return (1);
@@ -46,10 +45,11 @@ static void		ft_execve(t_process *p, t_shell *sh, t_tree *t)
 			error("group creation fucked up", p->cmd);
 	}
 	set_son_signal();
-	if (t->r)
-		ft_redirect_builtin(t, p, sh);
-	execve(p->cmd, p->argv, p->env);
-	error("execve fucked up", p->cmd);
+	if ((t->r && ft_redirect_builtin(t, p, sh)) || !t->r)
+	{
+		execve(p->cmd, p->argv, p->env);
+		error("execve fucked up", p->cmd);
+	}
 	ft_exit_son(sh, 1, p);
 }
 

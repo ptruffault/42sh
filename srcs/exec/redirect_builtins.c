@@ -28,7 +28,7 @@ int			ft_redirect_builtin(t_tree *t, t_process *p, t_shell *sh)
 			sh->std[r->to] = dup(r->to);
 		if (fd_dup(r->to, r->from, p) < 0)
 			return (0);
-		if (ft_isstd(r->from))
+		if (p && ft_isstd(r->from))
 			p->fd[r->from] = r->to;
 		r = r->next;
 	}

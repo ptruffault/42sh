@@ -89,10 +89,8 @@ static t_tree	*built_tree(t_word *w, t_shell *sh)
 
 int				ft_check_grammar(t_word *w, t_shell *sh)
 {
-	int		cmd;
 	t_word	*head;
 
-	cmd = 0;
 	head = w;
 	while (w)
 	{
@@ -108,12 +106,9 @@ int				ft_check_grammar(t_word *w, t_shell *sh)
 			sh->env = ft_new_envv_int(sh->env, "?", 2, IN);
 			return (error("syntax error near", w->word));
 		}
-		cmd = 1 <= w->type && w->type <= 4 ? cmd + 1 : cmd;
 		w = w->next;
 	}
-	if (!cmd)
-		sh->env = ft_new_envv_int(sh->env, "?", 1, IN);
-	return (!cmd ? warning("nothing to do", NULL) : 1);
+	return (1);
 }
 
 t_tree			*get_tree(char *input, t_shell *sh)

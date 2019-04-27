@@ -74,8 +74,12 @@ int			ft_bg(t_shell *sh, char **argv)
 	if (!argv[1] && (j = ft_get_last_jobs(sh->jobs, '+')))
 		ft_handle_jobs(j, RUNNING_BG, sh);
 	while (argv[++i])
+	{
 		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i])))
 			ft_handle_jobs(j, RUNNING_BG, sh);
+		else
+			error("no such job", argv[i]);
+	}	
 	while (i <= 999999)
 		i++;
 	return (0);
@@ -95,8 +99,12 @@ int			ft_fg(t_shell *sh, char **argv)
 		&& j->p->status != RUNNING_FG)
 		ft_handle_jobs(j, RUNNING_FG, sh);
 	while (argv[++i])
+	{
 		if (argv[i] && (j = ft_search_jobs(sh->jobs, argv[i]))
 			&& j->p->status != RUNNING_FG)
 			ft_handle_jobs(j, RUNNING_FG, sh);
+		else
+			error("no such job", argv[i]);
+	}
 	return (0);
 }

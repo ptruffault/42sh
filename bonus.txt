@@ -1,0 +1,12 @@
+- Builtin d'information de prosses hi
+- Ctrl + L
+- Selection avec Shift
+- Gestion avance de la taille de la fenettre
+- Copier / coller system
+- Recup du home / path si supr
+- Micro expentions du ~ => /home/me
+- Gestion complette du home : ~Option
+- Full prompt avec ps1 & 2
+- Conpatible linux
+- Mode non interactif
+- 42shrc

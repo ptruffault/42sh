@@ -12,7 +12,6 @@
 
 #include <unistd.h>
 #include "shell42.h"
-#include "ft_printf.h"
 
 static char		*heredoc_get_input(char *eoi, t_shell *sh)
 {

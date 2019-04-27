@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <signal.h>
 #include "shell42.h"
-#include "ft_printf.h"
 
 static void	ft_close_red(t_redirect *r, t_process *p, t_shell *sh)
 {

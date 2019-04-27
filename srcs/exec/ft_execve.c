@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <signal.h>
 #include "shell42.h"
-#include "ft_printf.h"
 
 static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 {
@@ -91,10 +90,11 @@ t_jobs			*ft_exec_process(t_process *p, t_shell *sh, t_tree *t)
 	}
 	if (p->cmd && !ft_isempty(p->cmd))
 		ft_exec(p, sh, t);
-	else 
+	else
 	{
 		p->ret = 127;
-		if (getpid() == sh->pid && ((t->r && ft_redirect_builtin(t, p, sh)) || !t->ret))
+		if (getpid() == sh->pid
+			&& ((t->r && ft_redirect_builtin(t, p, sh)) || !t->ret))
 			error("command not found", *p->argv);
 	}
 	ft_get_envv_back(sh, p, t);

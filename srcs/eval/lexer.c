@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "shell42.h"
-#include "ft_printf.h"
 
 static void	ft_lex_redirect(t_eval *e)
 {

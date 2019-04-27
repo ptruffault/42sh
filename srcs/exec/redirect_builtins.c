@@ -19,9 +19,9 @@ static void	ft_close_red(t_redirect *r, t_process *p, t_shell *sh)
 {
 	while (r)
 	{
-		if ((ft_isstd(sh->std[0]) ||  sh->std[0] != r->from)
+		if ((ft_isstd(sh->std[0]) || sh->std[0] != r->from)
 			&& (ft_isstd(sh->std[1]) || sh->std[1] != r->from)
-			&& (ft_isstd(sh->std[2]) ||  sh->std[2] != r->from)
+			&& (ft_isstd(sh->std[2]) || sh->std[2] != r->from)
 			&& r->to == -1 && (!p || p->fd[r->from] == -1))
 			ft_close(r->from);
 		r = r->next;

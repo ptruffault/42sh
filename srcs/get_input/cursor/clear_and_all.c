@@ -16,9 +16,6 @@
 
 static void	free_get_input(t_edit *e)
 {
-	t_shell		*sh;
-
-	sh = ft_get_set_shell(NULL);
 	ft_strdel(&e->tmp);
 	if (!e->hist)
 		return ;

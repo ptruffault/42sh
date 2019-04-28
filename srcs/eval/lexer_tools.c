@@ -12,19 +12,21 @@
 
 #include "shell42.h"
 
-int		ft_check_in_head(t_word *head, char *str)
+int		ft_check_in_head(char **head, char *str, int loop)
 {
-	t_word	*node;
+	char	*node;
+	int		size;
 
-	node = head;
-	while (node)
+	size = -1;
+	if (!head)
+		return (1);
+	while (++size <= loop)
 	{
-		if (node->word && str)
+		node = head[size];
+		if (ft_strequ(node, str))
 		{
-			if (ft_strequ(node->word, str))
-				return (0);
+			return (0);
 		}
-		node = node->next;
 	}
 	return (1);
 }

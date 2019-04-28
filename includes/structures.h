@@ -204,7 +204,8 @@ typedef struct			s_shell
 	char				*txt;
 	char				*builtins[17];
 	int					loop;
-	t_word				*head_al;
+	char				*head_al[150];
+	t_word				*word;
 	int					fd;
 	int					heredoc;
 	t_envv				*env;

@@ -25,9 +25,9 @@ void		ft_groups_stuff(t_shell *sh, t_process *p)
 
 void		ft_close_pipe(int pipe[2])
 {
-	if (pipe[0] != 0)
+	if (pipe[0] != -1)
 		ft_close(pipe[0]);
-	if (pipe[1] != 0)
+	if (pipe[1] != -1)
 		ft_close(pipe[1]);
 }
 

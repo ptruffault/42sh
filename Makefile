@@ -61,9 +61,7 @@ SRC		:=	\
 	builtins/ft_cdpath.c				\
 	builtins/run_builtin.c				\
 	builtins/ft_export.c				\
-	builtins/ft_type.c					\
 	builtins/ft_exit.c					\
-	builtins/type_tools.c				\
 	builtins/print_utility.c			\
 	builtins/ft_alias.c					\
 	builtins/check_builtins.c			\
@@ -73,6 +71,9 @@ SRC		:=	\
 	\
 	builtins/ft_test/ft_test.c		\
 	builtins/ft_test/test_utility.c	\
+	\
+	builtins/type/ft_type.c					\
+	builtins/type/type_tools.c				\
 	\
 	builtins/ft_fc/ft_fc.c						\
 	builtins/ft_fc/ft_fc_search_hist_parser.c	\

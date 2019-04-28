@@ -59,8 +59,7 @@ t_process			*init_pipe_process(t_tree *t, t_shell *sh)
 		if (!head->cmd)
 			valid_pipe = 0;
 		tmp = head;
-		if (!(tmp = ft_init_pi(tmp, t, sh, &valid_pipe)))
-			return (NULL);
+		tmp = ft_init_pi(tmp, t, sh, &valid_pipe);
 		head->next = sh->process;
 		sh->process = head;
 	}

@@ -17,8 +17,6 @@ static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 {
 	if (prev)
 		ft_close_pipe(prev->pipe);
-	else
-		tmp->pgid = tmp->pid;
 	if (sh->interactive == TRUE && setpgid(tmp->pid, tmp->pgid) < 0)
 		tmp->ret = 1;
 	return (tmp);

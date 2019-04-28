@@ -66,13 +66,9 @@ void			set_head_al(t_shell *sh)
 
 int				check_grammar_alias(t_word *w)
 {
-	t_word	*head;
-
-	head = w;
 	while (w)
 	{
-		if (head->type == OPERATEUR
-			|| (w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
+		if ((w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
 			|| (w->type == OPERATEUR && !w->next && !ft_strequ("&", w->word)
 				&& !ft_strequ(";", w->word)))
 			return (1);

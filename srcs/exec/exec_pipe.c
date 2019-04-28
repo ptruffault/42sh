@@ -12,7 +12,6 @@
 
 #include <unistd.h>
 #include "shell42.h"
-#include "ft_printf.h"
 
 static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 {

@@ -74,14 +74,8 @@ int				check_grammar_alias(t_word *w)
 		if (head->type == OPERATEUR
 			|| (w->type == OPERATEUR && w->next && w->next->type == OPERATEUR)
 			|| (w->type == OPERATEUR && !w->next && !ft_strequ("&", w->word)
-				&& !ft_strequ(";", w->word))
-			|| (w->type == OPERATEUR && ft_strlen(w->word) > 2)
-			|| (w->type == OPERATEUR && *w->word == ';'
-				&& ft_strlen(w->word) > 1) || (w && w->type == REDIRECT
-					&& ft_strchr(w->word, '<') && ft_strchr(w->word, '>')))
-		{
+				&& !ft_strequ(";", w->word)))
 			return (1);
-		}
 		w = w->next;
 	}
 	return (0);

@@ -24,12 +24,15 @@ static char	*get_word_cursor(char *str, int *pos)
 	i = p;
 	if (str[p] == ' ')
 		p--;
-	while (p > 0 && str[p] != ' ' && str[p] != ';'
+	while (p > 0 && ((str[p] != ' ' && str[p] != ';'
 			&& str[p] != '|' && str[p] != '&'
 			&& str[p] != '"' && str[p] != '\'')
+			|| ((str[p] =='"' || str[p] == '\'') && str[p - 1] == '\\')))
 		p--;
 	p += (p > 0) ? 1 : 0;
 	i = i - p;
+	if (p > 0 && str[p] == '\\')
+		p++;
 	ret = ft_strndup(&str[p], i);
 	p -= (p > 0) ? 1 : 0;
 	while (p > 0 && str[p] == ' ')

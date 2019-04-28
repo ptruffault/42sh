@@ -56,6 +56,7 @@ static void		ft_post_exec(t_jobs *j, t_tree *t, t_process *p, t_shell *sh)
 	if (p && j)
 	{
 		t->ret = ft_wait(p, j, sh, TRUE);
+		pre_free_process(p);
 		if (p->background == FALSE)
 		{
 			t->ret = ft_get_last_job_return(p);
@@ -99,7 +100,6 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 
 	tmp = t;
 	while (tmp)
-	{
 		if (!tmp->cmd || !tmp->cmd->word)
 		{
 			if (tmp->r && ft_redirect_builtin(tmp, NULL, sh))
@@ -115,9 +115,9 @@ t_tree			*exec_tree(t_tree *t, t_shell *sh)
 			else
 				break ;
 		}
-		else if ((tmp = ft_expention(tmp))
-			&& (tmp = exec_instruction(tmp, sh)))
+		else if ((tmp = ft_expention(tmp)) && sh->exp_leave == 1)
+			return (t);
+		else if (tmp && (tmp = exec_instruction(tmp, sh)))
 			tmp = next_instruction(tmp);
-	}
 	return (t);
 }

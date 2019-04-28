@@ -50,6 +50,7 @@ SRC		:=	\
 	eval/lexer.c			\
 	eval/get_instruction.c	\
 	eval/redirect_tools.c  \
+	eval/tword_to_string.c	\
 	eval/heredoc_content.c	\
 	eval/token.c			\
 	eval/redirect.c			\
@@ -125,6 +126,7 @@ SRC		:=	\
 	expansion/exp_tools.c 		\
 	expansion/exp_parenth.c		\
 	expansion/cut_string.c		\
+	expansion/cut_glob.c		\
 	expansion/parenth_tools.c	\
 	\
 	process/ft_kill.c			\

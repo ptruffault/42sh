@@ -29,6 +29,7 @@ int			main(int argc, char **argv, char **envv)
 			return (ft_quit(226, &sh));
 		if ((t = get_tree(sh.txt, &sh)))
 			ft_free_tree(exec_tree(t, &sh));
+		sh.exp_leave = 0;
 		ft_strdel(&sh.txt);
 		ft_wait_background(&sh);
 	}

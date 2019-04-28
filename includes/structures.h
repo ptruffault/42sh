@@ -195,7 +195,7 @@ typedef struct			s_jobs
 typedef struct			s_shell
 {
 	pid_t				pid;
-	int					alias_cont;
+	int					exp_leave;
 	int					err;
 	pid_t				pgid;
 	int					std[3];
@@ -205,6 +205,7 @@ typedef struct			s_shell
 	char				*builtins[17];
 	int					loop;
 	char				*head_al[150];
+	t_word				*word;
 	int					fd;
 	int					heredoc;
 	t_envv				*env;

@@ -29,13 +29,13 @@ static char	*ft_exp_end(char *ret, char *ptr, char *value, char *parenth)
 	return (tmp);
 }
 
-static char	*ft_get_len(char *value)
+static char	*ft_error(char *v1, char *v2, t_shell *sh)
 {
-	char *tmp;
-
-	tmp = ft_itoa((int)ft_strlen(value));
-	ft_strdel(&value);
-	return (tmp);
+	v2 = ft_exp_var(v2, sh, TRUE);
+	error(v1, v2);
+	sh->exp_leave = 1;
+	sh->env = ft_new_envv_int(sh->env, "?", 1, IN);
+	return (v2);
 }
 
 static char	*handle_modifier(char *parenth, char *o, t_shell *sh, char *param)
@@ -58,8 +58,8 @@ static char	*handle_modifier(char *parenth, char *o, t_shell *sh, char *param)
 			val = ft_strdup(v2);
 			sh->env = ft_new_envv(sh->env, v1, v2, IN);
 		}
-		else if (v2 && *o == '?' && !(get_tenvv(sh->env, v1)) && error(v1, v2))
-			v2 = ft_exp_var(v2, sh, TRUE);
+		else if (v2 && *o == '?' && !(get_tenvv(sh->env, v1)))
+			v2 = ft_error(v1, v2, sh);
 		val = val ? val : ft_strdup(get_tenvv_val(sh->env, v1));
 		ft_strdel(&v1);
 		ft_strdel(&v2);

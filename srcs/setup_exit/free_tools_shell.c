@@ -26,6 +26,16 @@ t_jobs	*ft_free_tjobs(t_jobs *j)
 	return (NULL);
 }
 
+void	pre_free_process(t_process *p)
+{
+	while (p)
+	{
+		ft_freestrarr(&p->env);
+		p->saved_env = ft_free_tenvv(p->saved_env);
+		p = p->grp;
+	}
+}
+
 void	ft_free_tshell(t_shell *sh)
 {
 	sh->env = ft_free_tenvv(sh->env);

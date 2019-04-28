@@ -125,6 +125,7 @@ SRC		:=	\
 	expansion/exp_tools.c 		\
 	expansion/exp_parenth.c		\
 	expansion/cut_string.c		\
+	expansion/cut_glob.c		\
 	expansion/parenth_tools.c	\
 	\
 	process/ft_kill.c			\

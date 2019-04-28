@@ -30,6 +30,7 @@ static void	ft_null(t_shell *sh)
 	sh->txt = NULL;
 	sh->hist = NULL;
 	sh->process = NULL;
+	sh->exp_leave = 0;
 	sh->std[0] = STDIN_FILENO;
 	sh->std[1] = STDOUT_FILENO;
 	sh->std[2] = STDERR_FILENO;

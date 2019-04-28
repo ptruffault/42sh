@@ -18,7 +18,7 @@ static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 {
 	if (prev)
 		ft_close_pipe(prev->pipe);
-	else 
+	else
 		tmp->pgid = tmp->pid;
 	if (sh->interactive == TRUE && setpgid(tmp->pid, tmp->pgid) < 0)
 		tmp->ret = 1;
@@ -47,10 +47,12 @@ t_jobs				*exec_pipe(t_tree *t, t_process *p, t_shell *sh)
 	ret = ft_add_jobs(p, sh);
 	while (tmp)
 	{
-		if ((tmp->pid = fork()) == 0)
+		if (tmp->grp && pipe(tmp->pipe) < 0)
+			p->ret = error("pipe init fucked up", tmp->cmd) + 1;
+		else if ((tmp->pid = fork()) == 0)
 			ft_son(prev, tmp, sh, t);
 		else if (tmp->pid < 0)
-			p->ret = error("fork fucked up", tmp->cmd) - 1;
+			p->ret = error("fork fucked up", tmp->cmd) + 1;
 		prev = ft_stuff(prev, tmp, sh);
 		t->ret = p->valid ? t->ret : 127;
 		if ((tmp = tmp->grp))

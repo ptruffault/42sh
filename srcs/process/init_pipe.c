@@ -13,21 +13,6 @@
 #include <unistd.h>
 #include "shell42.h"
 
-static t_process	*ft_abort(t_process *p, const char *err, t_process *tmp)
-{
-	t_process *head;
-
-	head = p;
-	error(err, *tmp->argv);
-	while (p && p->cmd)
-	{
-		if (p->grp)
-			ft_close_pipe(p->pipe);
-		p = p->grp;
-	}
-	return (ft_free_tprocess(head));
-}
-
 static void			ft_update_valid(t_process *p)
 {
 	while (p)
@@ -52,13 +37,7 @@ static t_process	*ft_init_pi(t_process *tmp, t_tree *t, t_shell *sh, int *v)
 			tmp = tmp->grp;
 			if (tmp->background == TRUE)
 				ft_update_status(head, RUNNING_BG);
-			if (tmp->cmd)
-			{
-				if (t->o_type == O_PIPE && t->next
-					&& (pipe(tmp->pipe) < 0))
-					return (ft_abort(head, "broken pipe", tmp));
-			}
-			else
+			if (!tmp->cmd)
 				*v = 0;
 			ft_get_envv_back(sh, tmp, t);
 		}
@@ -75,7 +54,7 @@ t_process			*init_pipe_process(t_tree *t, t_shell *sh)
 	head = NULL;
 	tmp = NULL;
 	valid_pipe = 1;
-	if ((head = init_process(t, sh)) && !pipe(head->pipe))
+	if ((head = init_process(t, sh)))
 	{
 		if (!head->cmd)
 			valid_pipe = 0;

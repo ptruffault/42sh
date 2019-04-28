@@ -20,7 +20,7 @@ char		*tword_to_string(t_word *w)
 	while (w)
 	{
 		if (!(str = ft_strappend(&str, w->word))
-			|| !(str =  ft_stradd_char(str, ' ')))
+			|| (w->next && !(str =  ft_stradd_char(str, ' '))))
 			return (NULL);
 		w = w->next;
 	}

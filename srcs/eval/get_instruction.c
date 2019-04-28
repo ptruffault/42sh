@@ -118,7 +118,11 @@ t_tree			*get_tree(char *input, t_shell *sh)
 
 	if (!input || ft_isempty(input) || !ft_check_ascii(input)
 		|| !(w = eval_line(input)))
+	{
+		term_goto("ch", 0, 0);
+		term_actions("cd");
 		return (NULL);
+	}
 	if (!ft_check_grammar(w, sh)
 		|| !(head = built_tree(w, sh)))
 	{

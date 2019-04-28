@@ -43,6 +43,25 @@ static t_word	*ft_alias_empty(t_word *w)
 	return (w);
 }
 
+static t_word	*should_paste_alias(t_word *w, t_word *w_alias)
+{
+	t_word	*jic;
+	char	*tmp;
+
+	jic = NULL;
+	tmp = w->word;
+	if (w_alias->next && w_alias->paste)
+	{
+		if (!(w->word = ft_strappend(&w->word, w_alias->next->word)))
+			w->word = tmp;
+		jic = w_alias->next;
+		w_alias->next = w_alias->next->next;
+		jic->next = NULL;
+		jic = ft_free_tword(jic);
+	}
+	return (w_alias);
+}
+
 static t_word	*ft_next_alias(t_word *w, t_word *w_alias)
 {
 	t_word		*tmp;
@@ -58,14 +77,7 @@ static t_word	*ft_next_alias(t_word *w, t_word *w_alias)
 		w->type = w_alias->type;
 		ft_strdel(&save);
 	}
-	if (w_alias->next && w_alias->paste)
-	{
-		w->word = ft_strappend(&w->word, w_alias->next->word);
-		jic = w_alias->next;
-		w_alias->next = w_alias->next->next;
-		jic->next = NULL;
-		jic = ft_free_tword(jic);
-	}
+	w_alias = should_paste_alias(w, w_alias);
 	if (w_alias->next && w_alias->next->word)
 		w = reorder_w(w, &w_alias, &tmp, &jic);
 	else if (w_alias->next)

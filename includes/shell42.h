@@ -216,8 +216,6 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh, int k);
 /*
 ** eval/eval_tools.c
 */
-void			ft_reset_alias(t_envv *alias);
-char			*get_tenvv_val_alias(t_envv *envv, const char *name);
 char			**ft_twordto_arr(t_word *w);
 void			ft_delete_char(t_eval *e);
 

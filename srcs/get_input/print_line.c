@@ -35,7 +35,7 @@ void		ft_delete_line(t_edit *e)
 
 void		ft_print_edited(t_edit *e)
 {
-	if (!e->hist->s)
+	if (!e->hist->s || ft_isempty(e->hist->s))
 		return ;
 	ft_delete_line(e);
 	e->curr = ft_strlen(e->hist->s);

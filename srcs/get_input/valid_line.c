@@ -87,6 +87,20 @@ int				check_grammar_alias(t_word *w)
 	return (0);
 }
 
+void		check_error_alias(t_edit *e, t_word *head)
+{
+	if (check_grammar_alias(head))
+	{
+		reset_tedit(e);
+		e->tmp = ft_strjoin_add_edit(&e->tmp, "\n", 2);
+		ft_others_prompt(ft_get_set_shell(NULL), "\nop");
+	}
+	else
+	{
+		e->tmp = NULL;
+		e->edited = TRUE;
+	}
+}
 
 void		check_alias(t_edit *e)
 {
@@ -102,28 +116,25 @@ void		check_alias(t_edit *e)
 	lexer(&ev, e->hist->s);
 	sh->loop = 0;
 	set_head_al(sh);
-	if (ev.s && ev.eval && (head = ft_get_words(&ev))
-		&& !(head = ft_check_alias(head, sh, 0)))
+	if (ev.s && ev.eval && (head = ft_get_words(&ev)))
 	{
 		ft_strdel(&ev.eval);
 		ft_strdel(&ev.s);
-		ft_free_tword(head);
-		return ;
-	}
-	ft_strdel(&ev.eval);
-	ft_strdel(&ev.s);
-	if (check_grammar_alias(head))
-	{
-		reset_tedit(e);
-		e->tmp = ft_strjoin_add_edit(&e->tmp, "\n", 2);
-		ft_others_prompt(ft_get_set_shell(NULL), "\n&>");
+		head = ft_check_alias(head, sh, 0);
+		check_error_alias(e, head);
 	}
 	else
-	{
-		e->tmp = NULL;
 		e->edited = TRUE;
-	}
 	ft_free_tword(head);
+}
+
+void		check_hist_and_alias(t_edit *e)
+{
+	if (ft_get_set_shell(NULL)->heredoc == 0
+		&& check_for_hist_exp(e) == SUCCESS)
+		e->edited = FALSE;
+	if (e->edited == TRUE)
+		check_alias(e);
 }
 
 void		entry_key(t_edit *e)
@@ -147,11 +158,7 @@ void		entry_key(t_edit *e)
 	{
 		e->tmp = NULL;
 		e->edited = TRUE;
-		if (ft_get_set_shell(NULL)->heredoc == 0
-			&& check_for_hist_exp(e) == SUCCESS)
-			e->edited = FALSE;
-		if (e->edited == TRUE)
-			check_alias(e);
+		check_hist_and_alias(e);
 	}
 	ft_strdel(&eval.eval);
 	ft_strdel(&eval.s);

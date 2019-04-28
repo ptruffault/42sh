@@ -280,6 +280,11 @@ t_tree			*new_tree(void);
 int				ft_check_ascii(char *input);
 
 /*
+** eval/tword_to_string.c
+*/
+char			*tword_to_string(t_word *w);
+
+/*
 ** exec/bin_search.c
 */
 char			*get_bin_path(char *input, t_envv *envv);

@@ -10,3 +10,4 @@
 - Conpatible linux
 - Mode non interactif
 - 42shrc
+- POSIX !!!!!!!!!!!!!!!

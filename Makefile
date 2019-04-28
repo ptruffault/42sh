@@ -50,7 +50,6 @@ SRC		:=	\
 	eval/lexer.c			\
 	eval/get_instruction.c	\
 	eval/redirect_tools.c  \
-	eval/tword_to_string.c	\
 	eval/heredoc_content.c	\
 	eval/token.c			\
 	eval/redirect.c			\

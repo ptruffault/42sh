@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include "shell42.h"
+#include "ft_printf.h"
 
 static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 {
@@ -21,11 +22,8 @@ static int		ft_builtins(t_shell *sh, t_process *p, t_tree *t)
 		if (sh->pid != getpid() && sh->interactive == TRUE)
 		{
 			p->pid = getpid();
-			p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
 			if (setpgid(p->pid, p->pgid) < 0)
 				error("group creation fucked up", p->cmd);
-			if (p->status == RUNNING_FG)
-				ft_tcsetpgrp(sh->std[0], p->pgid);
 		}
 		signal(SIGINT, sig_handler);
 		if ((t->r && ft_redirect_builtin(t, p, sh)) || !t->r)
@@ -44,11 +42,8 @@ static void		ft_execve(t_process *p, t_shell *sh, t_tree *t)
 	if (sh->interactive == TRUE)
 	{
 		p->pid = getpid();
-		p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
 		if (setpgid(p->pid, p->pgid) < 0)
 			error("group creation fucked up", p->cmd);
-		if (p->status == RUNNING_FG)
-			ft_tcsetpgrp(sh->std[0], p->pgid);
 	}
 	set_son_signal();
 	if ((t->r && ft_redirect_builtin(t, p, sh)) || !t->r)

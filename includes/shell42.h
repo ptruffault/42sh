@@ -545,7 +545,7 @@ int				ft_isparenth(char c);
 ** process/ft_kill.c
 */
 int				kill_process(t_process *p, int sig, unsigned int status);
-void			ft_update_status(t_process *p, unsigned int status);
+void			ft_update_status(t_process *p, unsigned int status, int sig);
 
 /*
 ** process/init_pipe.c

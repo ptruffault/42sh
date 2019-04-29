@@ -12,6 +12,7 @@
 
 #include <sys/wait.h>
 #include "shell42.h"
+#include "ft_printf.h"
 
 static void	ft_eval_status(t_process *p)
 {
@@ -41,19 +42,18 @@ static int	ft_job_stuff(t_jobs *j, t_shell *sh)
 		ft_job_prompt(j, 0);
 	if (sh->fc == FALSE && j && ft_job_is_over(j))
 	{
-		ft_update_status(j->p, DONE);
+		ft_update_status(j->p, DONE, 0);
 		sh->jobs = ft_remove_jobs(j->p->pid, sh);
 		return (0);
 	}
 	return (1);
 }
 
+
 int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool fg)
 {
 	int			*ret;
 
-	while (p->grp)
-		p = p->grp;
 	ret = &p->ret;
 	while (p)
 	{
@@ -68,7 +68,7 @@ int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool fg)
 			if (!ft_job_stuff(j, sh))
 				break ;
 		}
-		p = p->g_prev;
+		p = p->grp;
 	}
 	return (*ret);
 }

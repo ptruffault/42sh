@@ -46,7 +46,7 @@ static void	ft_handle_jobs(t_jobs *j, unsigned int s, t_shell *sh)
 		error("jobs already in background", j->p->cmd);
 	else
 	{
-		ft_update_status(j->p, s);
+		ft_update_status(j->p, s, SIGCONT);
 		ft_job_prompt(j, 0);
 		if (s == RUNNING_FG)
 		{

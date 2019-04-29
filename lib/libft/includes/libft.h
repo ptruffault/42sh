@@ -118,4 +118,6 @@ char	*ft_strinsert_char(char **str, char c, char *end);
 char	*ft_strdup_trim(char *value);
 char	*ft_strplexp(char *src, char *ptr, int len, char *value);
 char	*ft_strjoin_add_edit(char **s1, const char *add, int err);
+char	*ft_strdup_parse(const char *str);
+size_t	count_char_spec(const char *str);
 #endif

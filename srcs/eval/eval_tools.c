@@ -26,6 +26,18 @@ static size_t	ft_twordlen(t_word *w)
 	return (i);
 }
 
+t_word			*ft_alias_empty(t_word *w)
+{
+	char	*save;
+
+	save = w->word;
+	if (!(w->word = ft_strnew(0)))
+		w->word = save;
+	else
+		ft_strdel(&save);
+	return (w);
+}
+
 void			ft_delete_char(t_eval *e)
 {
 	size_t	i;

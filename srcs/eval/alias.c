@@ -31,18 +31,6 @@ static t_word	*reorder_w(t_word *w, t_word **w_a, t_word **tmp, t_word **jic)
 	return ((*tmp));
 }
 
-static t_word	*ft_alias_empty(t_word *w)
-{
-	char	*save;
-
-	save = w->word;
-	if (!(w->word = ft_strnew(0)))
-		w->word = save;
-	else
-		ft_strdel(&save);
-	return (w);
-}
-
 static t_word	*should_paste_alias(t_word *w, t_word *w_alias)
 {
 	t_word	*jic;
@@ -88,11 +76,12 @@ static t_word	*ft_next_alias(t_word *w, t_word *w_alias)
 	return (w);
 }
 
-static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh)
+static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh, int *doit)
 {
 	t_word			*w_alias;
 	t_eval			e_alias;
 
+	*doit += 1;
 	if (ft_isempty(val))
 		return (ft_alias_empty(w));
 	w_alias = NULL;
@@ -111,7 +100,6 @@ static t_word	*ft_alias_to_tword(t_word *w, char *val, t_shell *sh)
 	return (ft_next_alias(w, w_alias));
 }
 
-
 t_word			*ft_check_alias(t_word *head, t_shell *sh, int k)
 {
 	t_word	*w;
@@ -128,13 +116,12 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh, int k)
 		if (w->word && i == 1 && 1 <= w->type && w->type <= 3
 			&& (val = get_tenvv_val(sh->alias, w->word)))
 		{
-			doit++;
 			if (ft_strlen(val) > 0 && val[ft_strlen(val) - 1] == ' ')
 				i = 0;
 			if (sh->head_al[k] != NULL)
 				ft_strdel(&sh->head_al[k]);
-			sh->head_al[k] = ft_strdup(w->word);
-			w = ft_alias_to_tword(w, val, sh);
+			if ((sh->head_al[k] = ft_strdup(w->word)))
+				w = ft_alias_to_tword(w, val, sh, &doit);
 		}
 		w = w ? w->next : w;
 	}

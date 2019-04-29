@@ -51,6 +51,7 @@ FILES = ft_atoi.c			\
 		ft_strcpy.c			\
 		ft_strdel.c			\
 		ft_strdup.c			\
+		ft_strdup_parse.c	\
 		ft_strequ.c			\
 		ft_strinsert_char.c	\
 		ft_strjoin.c		\

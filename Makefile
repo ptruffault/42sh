@@ -113,6 +113,7 @@ SRC		:=	\
 	get_input/ft_tab.c			\
 	get_input/prompt.c			\
 	get_input/gi_init_tab.c		\
+	get_input/valid_tools.c		\
 	\
 	autocompletion/check_line.c			\
 	autocompletion/utility_handler.c	\

@@ -18,7 +18,7 @@
 # include <pwd.h>
 # include "libft.h"
 # include "structures.h"
-void												set_head_al(t_shell *sh);
+
 /*
 ** autocompletion/binary_completion.c
 */
@@ -216,6 +216,7 @@ t_word			*ft_check_alias(t_word *head, t_shell *sh, int k);
 /*
 ** eval/eval_tools.c
 */
+t_word			*ft_alias_empty(t_word *w);
 char			**ft_twordto_arr(t_word *w);
 void			ft_delete_char(t_eval *e);
 
@@ -341,7 +342,7 @@ char			*ft_cut_string(char *parenth, char *val, int *curr);
 /*
 ** expansion/cut_glob.c
 */
-char		*ft_cut_glob(char *val, char *pattern, char *op);
+char			*ft_cut_glob(char *val, char *pattern, char *op);
 
 /*
 ** expansion/exp.c
@@ -520,6 +521,13 @@ char			*get_tgetstr(const char *id, char **area);
 */
 void			entry_key(t_edit *e);
 int				check_eval(char *str);
+void			setup_key(char *error[7], t_edit *e);
+
+/*
+** get_input/valid_tools.c
+*/
+void			check_alias(t_edit *e);
+void			set_head_al(t_shell *sh);
 
 /*
 ** history/deload_history.c

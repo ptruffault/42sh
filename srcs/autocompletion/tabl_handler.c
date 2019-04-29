@@ -80,44 +80,6 @@ void		ft_sort_table(char **tabl, int *max_len)
 	}
 }
 
-size_t		count_char_spec(const char *str)
-{
-	size_t	count;
-	int		i;
-
-	count = 0;
-	i = -1;
-	while (str[++i])
-	{
-		if (ft_strchr(" \\\'\"", str[i]))
-			count++;
-	}
-	return (count);
-}
-
-char		*ft_strdup_parse(const char *str)
-{
-	char	*ret;
-	size_t	len;
-	size_t	count;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = 0;
-	len = ft_strlen(str);
-	count = count_char_spec(str);
-	ret = ft_strnew(len + count);
-	while (str[++i])
-	{
-		if (ft_strchr(" \\'\"", str[i]))
-			ret[j++] = '\\';
-		ret[j] = str[i];
-		j++;
-	}
-	return (ret);
-}
-
 int			add_to_tabl(char ***tabl, char *value, int j)
 {
 	char	**retabl;

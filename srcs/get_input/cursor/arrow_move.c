@@ -63,6 +63,8 @@ void	curr_go_last(t_edit *e)
 {
 	if (e && e->hist && e->hist->s)
 		e->curr = ft_strlen(e->hist->s);
+	else
+		return ;
 	e->pos_y = 0;
 	if (e->curr > e->max_char)
 		e->pos_z = (int)e->curr - (int)e->max_char;

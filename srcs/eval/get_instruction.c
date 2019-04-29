@@ -46,7 +46,7 @@ static t_word	*get_argv(t_tree **t, t_word *w)
 			t[0]->ass = ft_new_envv(t[0]->ass, w->word, w->next->word, TMP);
 			w = w->next;
 		}
-		else
+		else if (w && w->word)
 			t[0]->ass = ft_new_envv_equ(t[0]->ass, w->word, TMP);
 		if (w)
 			w = w->next;

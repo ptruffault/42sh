@@ -78,11 +78,11 @@ int			ft_add_char(char buf, t_edit *e)
 		delete_left(e);
 	if (!e->hist || ((!ft_isprint(buf) || !e->hist->s) && buf != 9))
 		return (SUCCESS);
-	if (e->max_char < e->pos)
+	if (e->max_char < e->pos + 1)
 	{
-		if (e->curr + 1 > e->max_char)
+		if (e->curr + 2 > e->max_char)
 			e->pos_z += 1;
-		if (e->curr + 1 < e->max_char)
+		if (e->curr + 2 < e->max_char)
 			e->pos_y += 1;
 	}
 	ft_delete_line(e);

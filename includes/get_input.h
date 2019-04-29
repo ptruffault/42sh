@@ -56,7 +56,6 @@
 
 # define PS1 "$[GREEN]42sh$[RESET]:[$[BLUE]$[UNDERLINE]${PWD}$[RESET]]"
 # define PS2 "$[RED]%$[RESET] >"
-# define ALIAS_1 "\033[1;32m\033[04m%s\033[00m=\'%s\'\n"
 
 typedef enum	e_colors
 {

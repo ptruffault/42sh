@@ -15,14 +15,6 @@
 #include "shell42.h"
 #include "get_input.h"
 
-void		print_for_alias(t_envv *node)
-{
-	if (isatty(1))
-		ft_printf(ALIAS_1, node->name, node->value);
-	else
-		ft_printf("%s=\'%s\'\n", node->name, node->value);
-}
-
 static void	print_var(const char *val)
 {
 	size_t	i;
@@ -37,6 +29,21 @@ static void	print_var(const char *val)
 		i++;
 	}
 	ft_printf("\"\n");
+}
+
+
+void		print_for_alias(t_envv *node)
+{
+	if (isatty(1))
+	{
+		ft_printf("\033[1;32m\033[04m%s\033[00m=", node->name);
+		print_var(node->value);
+	}
+	else
+	{
+		ft_printf("%s=", node->name);
+		print_var(node->value);
+	}
 }
 
 void		print_for_export_p(t_envv *node)
@@ -74,7 +81,7 @@ void		print_for_export(t_envv *node)
 		if (ft_strlen(node->value) > 0)
 		{
 			ft_printf("\033[1;32m\033[04m%s\033[00m=", node->name);
-			ft_printf("\"%s\"\n", node->value);
+			print_var(node->value);
 		}
 		else if (node->status & EXP)
 			ft_printf("\033[1;32m\033[04m%s\033[00m=\"\"\n", node->name);
@@ -84,7 +91,10 @@ void		print_for_export(t_envv *node)
 	else
 	{
 		if (ft_strlen(node->value) > 0)
-			ft_printf("%s=\"%s\"\n", node->name, node->value);
+		{
+			ft_printf("%s=", node->name);
+			print_var(node->value);
+		}
 		else if (node->status & EXP)
 			ft_printf("%s=\"\"\n", node->name);
 		else

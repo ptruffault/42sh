@@ -20,6 +20,7 @@ void		ft_groups_stuff(t_shell *sh, t_process *p)
 		p->pgid = (p->pgid == 0 ? p->pid : p->pgid);
 		if (setpgid(p->pid, p->pgid) < 0)
 			error("can't set group (parent)", p->cmd);
+		ft_link_process_to_term(p, sh);
 	}
 }
 

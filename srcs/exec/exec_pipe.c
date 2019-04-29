@@ -21,6 +21,8 @@ static t_process	*ft_stuff(t_process *prev, t_process *tmp, t_shell *sh)
 		tmp->pgid = tmp->pid;
 	if (sh->interactive == TRUE && setpgid(tmp->pid, tmp->pgid) < 0)
 		tmp->ret = 1;
+	if (!prev)
+		ft_link_process_to_term(tmp, sh);
 	return (tmp);
 }
 

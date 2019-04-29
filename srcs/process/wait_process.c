@@ -14,13 +14,15 @@
 #include "shell42.h"
 #include "ft_printf.h"
 
-static void	ft_eval_status(t_process *p)
+static void	ft_eval_status(t_process *p, t_jobs *j)
 {
 	if ((WIFSIGNALED(p->ret) || WIFSTOPPED(p->ret))
 		&& p->builtins == FALSE && p->cmd && p->valid)
 	{
 		p->status = (WIFSTOPPED(p->ret) ? SUSPENDED : KILLED);
 		p->sig = (WIFSTOPPED(p->ret) ? SIGTSTP : WTERMSIG(p->ret));
+		if (WIFSTOPPED(p->ret))
+			ft_update_status(j->p, p->status, p->sig);
 		if (ft_signal_check(p))
 		{
 			ft_putstr_fd(" : ", 2);
@@ -49,7 +51,6 @@ static int	ft_job_stuff(t_jobs *j, t_shell *sh)
 	return (1);
 }
 
-
 int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool fg)
 {
 	int			*ret;
@@ -64,7 +65,7 @@ int			ft_wait(t_process *p, t_jobs *j, t_shell *sh, t_bool fg)
 				|| (!fg && (p->status == RUNNING_BG || p->status == SUSPENDED)
 					&& waitpid(p->pid, &p->ret, WUNTRACED | WNOHANG) > 0)))
 		{
-			ft_eval_status(p);
+			ft_eval_status(p, j);
 			if (!ft_job_stuff(j, sh))
 				break ;
 		}

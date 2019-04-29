@@ -31,7 +31,6 @@ static void	print_var(const char *val)
 	ft_printf("\"\n");
 }
 
-
 void		print_for_alias(t_envv *node)
 {
 	if (isatty(1))

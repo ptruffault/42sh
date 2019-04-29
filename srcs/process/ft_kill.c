@@ -13,7 +13,7 @@
 #include <signal.h>
 #include "shell42.h"
 
-void	ft_update_status(t_process *p, unsigned int status)
+void	ft_update_status(t_process *p, unsigned int status, int sig)
 {
 	while (p)
 	{
@@ -23,6 +23,8 @@ void	ft_update_status(t_process *p, unsigned int status)
 			p->background = FALSE;
 		if (p->status != DONE && p->status != KILLED)
 			p->status = status;
+		if (sig != 0 && p->sig == 0)
+			p->sig = sig;
 		p = p->grp;
 	}
 }

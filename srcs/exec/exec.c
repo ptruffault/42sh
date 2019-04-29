@@ -87,6 +87,8 @@ static t_tree	*exec_instruction(t_tree *t, t_shell *sh)
 	}
 	else if ((p = init_process(t, sh)))
 		j = ft_exec_process(p, sh, t);
+	if (p->status == RUNNING_FG)
+		ft_tcsetpgrp(sh->std[0], p->pgid);
 	t->ret = (p ? p->ret : 1);
 	if (t->ret != -1)
 		sh->env = ft_new_envv_int(sh->env, "?", t->ret, IN);
